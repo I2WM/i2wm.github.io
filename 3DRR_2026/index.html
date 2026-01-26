@@ -70,26 +70,7 @@
                                     </a>
                                 </span>
                             </div> -->
-                            <div class="tab-buttons" style="margin-top: 20px;">
-                                <span class="link-block">
-                                    <a onclick="switchTab('tab1')" id="tab1-btn"
-                                        class="tab-button button is-normal is-rounded is-info active">
-                                        <span class="icon">
-                                            <i class="fas fa-file-alt"></i>
-                                        </span>
-                                        <span>Low Light Challenge</span>
-                                    </a>
-                                </span>
-                                <span class="link-block">
-                                    <a onclick="switchTab('tab2')" id="tab2-btn"
-                                        class="tab-button button is-normal is-rounded is-info is-light">
-                                        <span class="icon">
-                                            <i class="fas fa-images"></i>
-                                        </span>
-                                        <span>Smoke Challenge</span>
-                                    </a>
-                                </span>
-                            </div>
+                            
                             <div class="container is-max-widescreen">
                                 <div class="columns is-centered has-text-centered" , style="margin-top: 42px;">
                                     <div class="column is-four-fifths">
@@ -119,27 +100,46 @@
                                                 </li>
                                                 <li>
                                                     <strong>Better Geometry Consistency:</strong>
-                                                    novel designs of multi-view method or 3D representations for in-the-wild 3D reconstruction.
+                                                    novel designs of multi-view learning methods or 3D representations for in-the-wild 3D reconstruction.
                                                 </li>
                                                 </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="tab-buttons" style="margin-top: 50px;">
+                                <span class="link-block">
+                                    <a onclick="switchTab('tab1')" id="tab1-btn"
+                                        class="tab-button button is-normal is-rounded is-info active">
+                                        <span class="icon">
+                                            <i class="fas fa-file-alt"></i>
+                                        </span>
+                                        <span>Track 1: Low-light Enhancement</span>
+                                    </a>
+                                </span>
+                                <span class="link-block">
+                                    <a onclick="switchTab('tab2')" id="tab2-btn"
+                                        class="tab-button button is-normal is-rounded is-info is-light">
+                                        <span class="icon">
+                                            <i class="fas fa-images"></i>
+                                        </span>
+                                        <span>Track 2: Smoke Restoration</span>
+                                    </a>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
     </section>
-    
 
     <!-- Tab 1 Content -->
     <div id="tab1-content" class="tab-content">
         <section class="section">
             <div class="container is-max-widescreen">
-                <div class="columns is-centered has-text-centered" , style="margin-top: 42px;">
+                <div class="columns is-centered has-text-centered">
                     <div class="column is-four-fifths">
-                        <h2 class="title is-3 publication-title">Low Light Challenge</h2>
+                        <h2 class="title is-3 publication-title">Track 1: Low-Light Enhancement Challenge</h2>
                         <div class="content has-text-justified">
                             <p>
                                 We design two common illumination-related
@@ -243,9 +243,9 @@ easily be synthesized from the RAW data.
     <div id="tab2-content" class="tab-content" style="display: none;">
         <section class="section">
             <div class="container is-max-widescreen">
-                <div class="columns is-centered has-text-centered" , style="margin-top: 42px;">
+                <div class="columns is-centered has-text-centered">
                     <div class="column is-four-fifths">
-                        <h2 class="title is-3 publication-title">Abstract</h2>
+                        <h2 class="title is-3 publication-title">Track 2: Smoke Restoration Challenge</h2>
                         <div class="content has-text-justified">
                             <p>
                                 We design two common illumination-related
@@ -385,7 +385,7 @@ easily be synthesized from the RAW data.
                     <img src="./static/images/data_pipline.jpg" 
                          alt="RealX3D Abstract Cover" 
                          style="margin-left: auto; margin-right: auto; max-width: 100%;">
-                    <div class="caption">Data collection pipeline</div>
+                    <div class="caption">Data acquisition and processing pipeline</div>
                          
                 </figure>
                 </div>
