@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="description" content="Generalizable and Animatable Gaussian Head Avatar">
+    <meta name="description" content="RealX3D">
     <meta name="keywords" content="RealX3D">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google-site-verification" content="OEvbAqvdtgsyaHbiWcMG9BLSBuvECYMi_eJpVpjXOKo" />
@@ -38,10 +38,11 @@
                 <div class="columns is-centered">
                     <div class="column has-text-centered">
                         <h1 class="title is-2 publication-title">
-                            RealX3D: A Physically-Degraded 3D Benchmark for Multi-view Visual Restoration and Reconstruction
+                            3D Restoration and Reconstruction<br>
+                            NTIRE 2026 Challenge
                         </h1>
                         <h1 class="is-size-5 publication-authors">
-                            Organized by A, B, C
+                            Organized by The University of Tokyo, Tohoku University, and University of Wurzburg
                         </h1>
                         <!-- <div class="is-size-5 publication-authors">
                             <span class="author-block">
@@ -69,25 +70,6 @@
                                     </a>
                                 </span>
                             </div> -->
-                            <div class="container is-max-widescreen">
-                                <div class="columns is-centered has-text-centered" , style="margin-top: 42px;">
-                                    <div class="column is-four-fifths">
-                                        <h2 class="title is-3 publication-title">Overview of This Challenge</h2>
-                                        <div class="content has-text-justified">
-                                            <p>
-                                                We introduce RealX3D, a real-capture benchmark for multi-view visual restoration and 3D reconstruction under diverse physical degradations. RealX3D groups corruptions into four families, including illumination, scattering, occlusion, and blurring, and captures each at multiple severity levels using a unified acquisition protocol that yields pixel-aligned LQ/GT views. Each scene includes high-resolution capture, RAW images, and dense laser scans, from which we derive world-scale meshes and metric depth. Benchmarking a broad range of optimization-based and feed-forward methods shows substantial degradation in reconstruction quality under physical corruptions, underscoring the fragility of current multi-view pipelines in real-world challenging environments..
-                                            </p>
-                                            <p>
-                                                RealX3D is a real-capture benchmark for 3D reconstruction under real-world degradations. It
-spans four general types across nine levels, including motion and defocus blur, lowlight, varying exposure,
-smoke, dynamic occlusion, and reflection. Each scene provides pixel-aligned low-quality and reference
-views, RAW data, and dense laser-scan geometry for comprehensive evaluation.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Tab Buttons -->
                             <div class="tab-buttons" style="margin-top: 20px;">
                                 <span class="link-block">
                                     <a onclick="switchTab('tab1')" id="tab1-btn"
@@ -108,6 +90,33 @@ views, RAW data, and dense laser-scan geometry for comprehensive evaluation.
                                     </a>
                                 </span>
                             </div>
+                            <div class="container is-max-widescreen">
+                                <div class="columns is-centered has-text-centered" , style="margin-top: 42px;">
+                                    <div class="column is-four-fifths">
+                                        <h2 class="title is-3 publication-title">Overview</h2>
+                                        <div class="content has-text-justified">
+                                            <p>
+                                                Welcome to the <a href="" target="_blank" rel="noopener noreferrer">1st 3D Restoration and Reconstruction Challenge</a> host at <a href="https://cvlai.net/ntire/2026/" target="_blank" rel="noopener noreferrer">New Trends in Image Restoration and Enhancement (NTIRE) Workshop</a>, in conjunction with <a href="https://cvpr.thecvf.com/" target="_blank" rel="noopener noreferrer">CVPR 2026</a>.
+                                            </p>
+                                            <p>
+                                                This challenge aims to advance robust 3D reconstruction under real-world, in-the-wild degradations.
+                                                Specifically, the proposed pipeline should account for realistic visual corruptions, restore degraded training views, and reconstruct clean 3D representations for high-quality novel-view synthesis (NVS).
+                                                </p>
+                                            <p>
+                                                To support this goal, we curate a comprehensive 3D benchmark,
+                                                <a href="https://arxiv.org/abs/2512.23437" target="_blank" rel="noopener noreferrer">RealX3D</a>,
+                                                and introduce two tracks: (1) Low-Light Enhancement and (2) Smoke Restoration.
+                                                Each track provides multiple scenes with multi-view images degraded by low-light or smoke, along with clean novel-view synthesis (NVS) references for evaluation.
+                                                Submissions are assessed by comparing rendered NVS against the corresponding ground-truth captures.
+                                                To simplify the evaluation protocol, both tracks focus on photometric fidelity, and the ground-truth camera poses of the training views are provided.
+                                            <p>
+                                                Participants are encouraged to approach this challenge from two key perspectives.
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -119,18 +128,9 @@ views, RAW data, and dense laser-scan geometry for comprehensive evaluation.
     <div id="tab1-content" class="tab-content">
         <section class="section">
             <div class="container is-max-widescreen">
-                <div class="columns is-centered has-text-centered">
-                    <div class="column is-four-fifths">
-                        <p><b class="is-size-5">
-                                Low Light Challenge.
-                            </b></p>
-                    </div>
-                </div>
-            </div>
-            <div class="container is-max-widescreen">
                 <div class="columns is-centered has-text-centered" , style="margin-top: 42px;">
                     <div class="column is-four-fifths">
-                        <h2 class="title is-3 publication-title">Abstract</h2>
+                        <h2 class="title is-3 publication-title">Low Light Challenge</h2>
                         <div class="content has-text-justified">
                             <p>
                                 We design two common illumination-related
@@ -177,14 +177,53 @@ easily be synthesized from the RAW data.
                     </div>
                 </div>
             </div>
-            
-            <div class="content has-text-justified"></div>
             <div class="container is-max-widescreen">
                 <div class="columns is-centered has-text-centered">
-                    <div class="column is-four-fifths">
+                    <div class="column is-four-fifths"> 
                         <video id="video_1" autoplay muted loop playsinline width="100%">
                             <source src="./static/videos/lowlight_teaser_compressed.mp4" type="video/mp4">
                         </video>
+                    </div>
+                </div>
+            </div>
+            <div class="container is-max-widescreen">
+                <div class="columns is-centered has-text-centered" , style="margin-top: 42px;">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3 publication-title">Data Structure</h2>
+                        <div class="content has-text-justified">
+                            <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+                                <thead>
+                                  <tr>
+                                    <th>Part</th>
+                                    <th>Scenes</th>
+                                    <th>Released Data</th>
+                                    <th>Leaderboard</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>Part I</td>
+                                    <td>1</td>
+                                    <td>Training images + NVS pose + NVS images</td>
+                                    <td>–</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Part II</td>
+                                    <td>4</td>
+                                    <td>Training images + NVS pose</td>
+                                    <td>Development (Immediate after submission)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Part III</td>
+                                    <td>3</td>
+                                    <td>Training images + NVS pose</td>
+                                    <td>Test (After competition DDL)</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -194,15 +233,6 @@ easily be synthesized from the RAW data.
     <!-- Tab 2 Content -->
     <div id="tab2-content" class="tab-content" style="display: none;">
         <section class="section">
-            <div class="container is-max-widescreen">
-                <div class="columns is-centered has-text-centered">
-                    <div class="column is-four-fifths">
-                        <p><b class="is-size-5">
-                                Low Light Challenge.
-                            </b></p>
-                    </div>
-                </div>
-            </div>
             <div class="container is-max-widescreen">
                 <div class="columns is-centered has-text-centered" , style="margin-top: 42px;">
                     <div class="column is-four-fifths">
@@ -274,9 +304,132 @@ easily be synthesized from the RAW data.
                     <h2 class="title is-3 publication-title">Overview of This Challenge</h2>
                     <div class="content has-text-justified">
                         <p>
-                            Using our acquisition protocol and processing
-pipeline, RealX3D provides 2,407 paired low-
-quality and reference images, along with the same
+                             <a href="#acquisition-protocol" style="color: #3273dc; text-decoration: underline;">here</a> 
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content has-text-justified"></div>
+        <div class="container is-max-widescreen">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <video id="video_1" autoplay muted loop playsinline height="100%">
+                        <source src="./static/videos/capture_video_compressed.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+        <div class="container is-max-widescreen">
+            <div class="columns is-centered has-text-centered" , style="margin-top: 42px;">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3 publication-title">Data Structure</h2>
+                    <div class="content has-text-justified">
+                        <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+                            <thead>
+                              <tr>
+                                <th>Part</th>
+                                <th>Scenes</th>
+                                <th>Released Data</th>
+                                <th>Leaderboard</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Part I</td>
+                                <td>1</td>
+                                <td>Training images + NVS pose + NVS images</td>
+                                <td>–</td>
+                              </tr>
+                              <tr>
+                                <td>Part II</td>
+                                <td>4</td>
+                                <td>Training images + NVS pose</td>
+                                <td>Development (Immediate after submission)</td>
+                              </tr>
+                              <tr>
+                                <td>Part III</td>
+                                <td>3</td>
+                                <td>Training images + NVS pose</td>
+                                <td>Test (After competition DDL)</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section">
+        <div class="columns is-centered has-text-centered">
+            <h2 class="title is-3 publication-title">RealX3D</h2>
+        </div>
+
+        <div class="container is-max-widescreen">
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <figure class="image is-centered">
+                    <!-- 
+                        src: 图片路径
+                        alt: 图片描述（建议填写）
+                        style: 确保图片居中且最大宽度为100% 
+                    -->
+                    <img src="./static/images/abstract_cover.jpg" 
+                         alt="RealX3D Abstract Cover" 
+                         style="margin-left: auto; margin-right: auto; max-width: 100%;">
+                </figure>
+                </div>
+            </div>
+        </div>
+
+        <!-- add intro to the data capture -->
+        <div class="container is-max-widescreen">
+            <div class="columns is-centered has-text-centered" , style="margin-top: 42px;">
+                <div class="column is-four-fifths">
+                    
+                    <div class="content has-text-justified">
+                        <p>
+                            RealX3D is a real-capture benchmark for multi-view visual restoration and 3D reconstruction under diverse physical degradations.
+                             Corruptions are grouped into four families—illumination, scattering, occlusion, and blurring—and captured at multiple severity 
+                             levels using a unified acquisition protocol that yields pixel-aligned LQ/GT views. Each scene includes high-resolution capture, RAW images,
+                              and dense laser scans, from which we derive world-scale meshes and metric depth. 
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content has-text-justified"></div>
+        
+        <div class="container is-max-widescreen">
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <figure class="image is-centered">
+                    <!-- 
+                        src: 图片路径
+                        alt: 图片描述（建议填写）
+                        style: 确保图片居中且最大宽度为100% 
+                    -->
+                    <img src="./static/images/data_pipline.jpg" 
+                         alt="RealX3D Abstract Cover" 
+                         style="margin-left: auto; margin-right: auto; max-width: 100%;">
+                    <div class="caption">Data collection pipeline</div>
+                         
+                </figure>
+                </div>
+            </div>
+        </div>
+
+    <div id="acquisition-protocol" class="container is-max-widescreen">
+            <div class="columns is-centered has-text-centered" , style="margin-top: 42px;">
+                <div class="column is-four-fifths">
+                    <h3 class="title is-4">Acquisition protocol</h3>
+                    <div class="content has-text-justified">
+                        <p>
+                            RealX3D provides 2,407 paired low-quality and reference images, along with the same
 number of corresponding RAW captures. The
 dataset is collected across 15 indoor rooms and
 organized into 55 distinct scenes spanning seven
@@ -293,8 +446,7 @@ We further provide laser-scanned point clouds
 with 5 mm point spacing, along with calibrated
 camera intrinsics and extrinsics. Each view is
 paired with a metric depth map stored as a 16-bit
-PNG in millimeters, and each scene includes a col-
-ored mesh reconstructed from the scanned point
+PNG in millimeters, and each scene includes a colored mesh reconstructed from the scanned point
 clouds.
                         </p>
                     </div>
@@ -302,15 +454,99 @@ clouds.
             </div>
         </div>
         <div class="content has-text-justified"></div>
-        <div class="container is-max-widescreen">
-            <div class="columns is-centered has-text-centered">
-                <div class="column is-four-fifths">
-                    <video id="video_1" autoplay muted loop playsinline height="100%">
-                        <source src="./static/videos/capture_video_compressed.mp4" type="video/mp4">
-                    </video>
+        
+    </section>
+
+
+    <section class="section">
+        <div class="columns is-centered has-text-centered">
+            <h2 class="title is-3 publication-title">Organizer</h2>
+        </div>
+        
+        <!-- 开始插入 Organizer 代码 -->
+        <style>
+            .organizers-container {
+                display: flex;
+                justify-content: center;
+                gap: 60px;
+                text-align: center;
+                margin-top: 40px;
+                flex-wrap: wrap;
+            }
+    
+            .profile-card {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 150px;
+            }
+    
+            .image-wrapper {
+                width: 140px;
+                height: 140px;
+                border-radius: 50%;
+                overflow: hidden;
+                margin-bottom: 20px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                background-color: #f0f0f0;
+            }
+    
+            .image-wrapper img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+    
+            .organizer-name {
+                font-size: 18px;
+                color: #4a7a9f;
+                font-weight: 500;
+                line-height: 1.4;
+            }
+    
+            .organizer-name sup {
+                font-size: 0.6em;
+                vertical-align: super;
+            }
+        </style>
+    
+        <div class="container is-max-desktop">
+            <div class="organizers-container">
+                <!-- Person 1: Alexander Clegg -->
+                <div class="profile-card">
+                    <div class="image-wrapper">
+                        <!-- 请替换 src 为你的本地图片路径 -->
+                        <img src="./static/images/avatar/cui.jpg" alt="Alexander Clegg">
+                    </div>
+                    <div class="organizer-name">
+                        Alexander<br>Clegg
+                    </div>
+                </div>
+    
+                <!-- Person 2: John Turner -->
+                <div class="profile-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="John Turner">
+                    </div>
+                    <div class="organizer-name">
+                        John Turner
+                    </div>
+                </div>
+    
+                <!-- Person 3: Vladimír Vondruš -->
+                <div class="profile-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Vladimír Vondruš">
+                    </div>
+                    <div class="organizer-name">
+                        Vladimír<br>Vondruš
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- 结束插入 Organizer 代码 -->
+
     </section>
 
     <section class="section">

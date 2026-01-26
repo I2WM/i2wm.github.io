@@ -14,12 +14,19 @@ function switchTab(tabId) {
   });
   
   // Show selected tab content
-  document.getElementById(tabId + '-content').style.display = 'block';
+  var tabContent = document.getElementById(tabId + '-content');
+  tabContent.style.display = 'block';
   
   // Add active class to selected tab button
   var activeBtn = document.getElementById(tabId + '-btn');
   activeBtn.classList.add('active');
   activeBtn.classList.remove('is-light');
+  
+  // Re-initialize image comparisons in the newly shown tab
+  // Use setTimeout to ensure the tab is fully visible before getting dimensions
+  setTimeout(function() {
+    initComparisons(tabContent, true);
+  }, 100);
 }
 
 // var INTERP_BASE_0 = ;
@@ -109,22 +116,42 @@ $(document).ready(function() {
 
 })
 
-function initComparisons() {
+function initComparisons(scope, forceReinit) {
   var x, i;
-  /* Find all elements with an "overlay" class: */
-  x = document.getElementsByClassName("img-comp-overlay");
+  /* Find all elements with an "overlay" class within the scope (or whole document): */
+  var searchRoot = scope || document;
+  x = searchRoot.getElementsByClassName("img-comp-overlay");
   for (i = 0; i < x.length; i++) {
     /* Once for each "overlay" element:
     pass the "overlay" element as a parameter when executing the compareImages function: */
     compareImages(x[i]);
   }
   function compareImages(overlay) {
-    var slider, clicked = 0, w, h;
+    var slider, w, h;
     /* Get the container element */
     var container = overlay.parentElement;
+    
     /* Get the width and height of the container */
     w = container.offsetWidth;
     h = container.offsetHeight;
+    /* Skip if container is hidden (dimensions are 0) */
+    if (w === 0 || h === 0) {
+      return;
+    }
+    
+    /* Check if already initialized (has a slider) */
+    var existingSlider = container.querySelector(".img-comp-slider");
+    var isAlreadyInitialized = container.dataset.compInitialized === "true";
+    
+    if (existingSlider && !forceReinit) {
+      return;
+    }
+    
+    if (existingSlider && forceReinit) {
+      /* Remove existing slider for re-initialization */
+      existingSlider.remove();
+    }
+    
     /* Fix the overlay image width to container width, so it clips instead of scaling */
     var overlayImg = overlay.querySelector("img");
     if (overlayImg) {
@@ -141,54 +168,57 @@ function initComparisons() {
     /* Position the slider in the middle: */
     slider.style.top = (h / 2) - (slider.offsetHeight / 2) + "px";
     slider.style.left = (w / 2) - (slider.offsetWidth / 2) + "px";
-    /* Hover mode: start tracking when mouse enters container */
-    container.addEventListener("mouseenter", slideReady);
-    container.addEventListener("mouseleave", slideFinish);
-    /* Touch support: still use touch events */
-    slider.addEventListener("touchstart", slideReady);
-    window.addEventListener("touchend", slideFinish);
-    function slideReady(e) {
-      /* Prevent any other actions that may occur when moving over the image: */
-      e.preventDefault();
-      /* The slider is now active and ready to move: */
-      clicked = 1;
-      /* Execute a function when the mouse/touch is moved: */
-      container.addEventListener("mousemove", slideMove);
-      window.addEventListener("touchmove", slideMove);
+    
+    /* Only bind events once */
+    if (!isAlreadyInitialized) {
+      container.dataset.compInitialized = "true";
+      
+      /* Store state on container for event handlers */
+      container._compState = { clicked: 0, w: w, h: h, overlay: overlay, slider: slider };
+      
+      /* Hover mode: start tracking when mouse enters container */
+      container.addEventListener("mouseenter", function(e) {
+        e.preventDefault();
+        container._compState.clicked = 1;
+        container.addEventListener("mousemove", handleSlideMove);
+      });
+      container.addEventListener("mouseleave", function() {
+        container._compState.clicked = 0;
+        container.removeEventListener("mousemove", handleSlideMove);
+      });
+      /* Touch support */
+      slider.addEventListener("touchstart", function(e) {
+        e.preventDefault();
+        container._compState.clicked = 1;
+        window.addEventListener("touchmove", handleSlideMove);
+      });
+      window.addEventListener("touchend", function() {
+        container._compState.clicked = 0;
+      });
+      
+      function handleSlideMove(e) {
+        var state = container._compState;
+        if (state.clicked == 0) return false;
+        var pos = getCursorPos(e, container);
+        if (pos < 0) pos = 0;
+        if (pos > state.w) pos = state.w;
+        state.overlay.style.width = pos + "px";
+        state.slider.style.left = state.overlay.offsetWidth - (state.slider.offsetWidth / 2) + "px";
+      }
+    } else {
+      /* Update state references for the new slider */
+      container._compState.w = w;
+      container._compState.h = h;
+      container._compState.slider = slider;
     }
-    function slideFinish() {
-      /* The slider is no longer active: */
-      clicked = 0;
-      container.removeEventListener("mousemove", slideMove);
-    }
-    function slideMove(e) {
-      var pos;
-      /* If the slider is no longer active, exit this function: */
-      if (clicked == 0) return false;
-      /* Get the cursor's x position: */
-      pos = getCursorPos(e)
-      /* Prevent the slider from being positioned outside the image: */
-      if (pos < 0) pos = 0;
-      if (pos > w) pos = w;
-      /* Execute a function that will resize the overlay image according to the cursor: */
-      slide(pos);
-    }
-    function getCursorPos(e) {
-      var a, x = 0;
-      e = (e.changedTouches) ? e.changedTouches[0] : e;
-      /* Get the x positions of the container (not overlay, since overlay width changes): */
-      a = container.getBoundingClientRect();
-      /* Calculate the cursor's x coordinate, relative to the container: */
-      x = e.pageX - a.left;
-      /* Consider any page scrolling: */
-      x = x - window.pageXOffset;
-      return x;
-    }
-    function slide(x) {
-      /* Resize the overlay (image inside stays fixed width, gets clipped): */
-      overlay.style.width = x + "px";
-      /* Position the slider: */
-      slider.style.left = overlay.offsetWidth - (slider.offsetWidth / 2) + "px";
-    }
+  }
+  
+  function getCursorPos(e, container) {
+    var a, x = 0;
+    e = (e.changedTouches) ? e.changedTouches[0] : e;
+    a = container.getBoundingClientRect();
+    x = e.pageX - a.left;
+    x = x - window.pageXOffset;
+    return x;
   }
 }
