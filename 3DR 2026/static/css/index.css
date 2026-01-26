@@ -199,30 +199,41 @@ body {
 
 .img-comp-container {
   position: relative;
-  height: 200px; /*should be the same height as the images*/
+  width: 100%;
+  /* 使用 aspect-ratio 保持图片比例，根据实际图片比例调整 */
+  aspect-ratio: 3 / 2;
 }
 
 .img-comp-img {
   position: absolute;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
 .img-comp-img img {
   display: block;
   vertical-align: middle;
-  /* 宽度由 JS 动态设置，防止随容器缩放 */
+  /* 覆盖 Bulma 的 max-width，让图片填满容器 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* overlay 内的图片需要固定宽度（由 JS 设置），防止随 overlay 容器缩放 */
+.img-comp-overlay img {
+  width: auto !important;
+  max-width: none !important;
 }
 
 .img-comp-slider {
   position: absolute;
   z-index: 9;
   cursor: ew-resize;
-  /*set the appearance of the slider:*/
-  width: 40px;
-  height: 40px;
-  background-color: #2196F3;
-  opacity: 0.7;
-  border-radius: 50%;
+  /*set the appearance of the slider: a vertical line*/
+  width: 2px;
+  height: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+  top: 0 !important;
 }

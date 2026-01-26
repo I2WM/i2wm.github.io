@@ -154,44 +154,35 @@ easily be synthesized from the RAW data.
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- <div class="container is-max-widescreen">
-                <div class="columns is-centered has-text-centered" , style="margin-top: 42px;">
-                    <div class="column is-four-fifths">
-                        
-                        <h2 class="title is-3 publication-title">Samples</h2>
-                        <div class="content has-text-justified">
-                            <div class="column interpolation-video-column">
-                                <div id="interpolation-image-wrapper-0">
-                                    Loading...
-                                </div>
-                                <input class="slider is-fullwidth is-large is-info" id="interpolation-slider-0" step="1"
-                                    min="0" max="100" value="0" type="range">
+                <div class="columns is-centered" style="margin-top: 42px;">
+                    <div class="column is-two-fifths">
+                        <div class="img-comp-container">
+                            <div class="img-comp-img">
+                              <img src="./static/images/bluehawaii/3.jpg">
+                            </div>
+                            <div class="img-comp-img img-comp-overlay">
+                              <img src="./static/images/bluehawaii/1.jpg">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-two-fifths">
+                        <div class="img-comp-container">
+                            <div class="img-comp-img">
+                              <img src="./static/images/bluehawaii/2.jpg">
+                            </div>
+                            <div class="img-comp-img img-comp-overlay">
+                              <img src="./static/images/bluehawaii/0.jpg">
                             </div>
                         </div>
                     </div>
                 </div>
-            </div> -->
-            <div class="img-comp-container">
-                <div class="img-comp-img">
-                  <img src="./static/images/bluehawaii/3.jpg" width="300" height="200">
-                </div>
-                <div class="img-comp-img img-comp-overlay">
-                  <img src="./static/images/bluehawaii/1.jpg" width="300" height="200">
-                </div>
-              </div>
-              
-        </section>
-
-        <section class="section">
-            <div class="columns is-centered has-text-centered">
-                <h2 class="title is-3 publication-title">Teaser Video</h2>
             </div>
+            
             <div class="content has-text-justified"></div>
-            <div class="container is-max-desktop">
+            <div class="container is-max-widescreen">
                 <div class="columns is-centered has-text-centered">
                     <div class="column is-four-fifths">
-                        <video id="video_1" autoplay muted loop playsinline height="100%">
+                        <video id="video_1" autoplay muted loop playsinline width="100%">
                             <source src="./static/videos/lowlight_teaser_compressed.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -207,7 +198,7 @@ easily be synthesized from the RAW data.
                 <div class="columns is-centered has-text-centered">
                     <div class="column is-four-fifths">
                         <p><b class="is-size-5">
-                                Smoke Challenge.
+                                Low Light Challenge.
                             </b></p>
                     </div>
                 </div>
@@ -218,30 +209,52 @@ easily be synthesized from the RAW data.
                         <h2 class="title is-3 publication-title">Abstract</h2>
                         <div class="content has-text-justified">
                             <p>
-                                To collect real smoke data, we leverage our pre-
-cise camera dolly system. Capture is performed
-in sealed indoor scenes: we first record GT multi-
-view images along the rail, then generate persis-
-tent smoke using a 1200 W smoke machine that
-atomizes liquid into dense aerosol particles. After
-the smoke diffuses uniformly, we recapture the same trajectory to obtain scattering-degraded LQ
-images.
+                                We design two common illumination-related
+degradations: (i) consistent low light and (ii) low
+light with varying exposure. To ensure that GT
+images are not affected by noise or blurring in
+dark conditions, GT is always captured in a well-
+lit environment with a shutter speed of 1/10 s,
+and low-light LQ images are obtained by reducing
+exposure relative to this setting. For the consistent
+low-light condition, we fix the shutter speed at
+1/400 s across all views to achieve extremely dark
+images. For varying low-light scenarios, inter-view
+brightness differences are introduced by captur-
+ing the same viewpoints at shutter speeds of 1/60,
+1/160, 1/250, and 1/400 s, spanning roughly 0
+to +2.7 EV. Beyond these physically captured
+low-light images, additional exposure settings can
+easily be synthesized from the RAW data.
                             </p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <section class="section">
-            <div class="columns is-centered has-text-centered">
-                <h2 class="title is-3 publication-title">Teaser Video</h2>
-            </div>
-            <div class="content has-text-justified"></div>
-            <div class="container is-max-desktop">
+                <div class="columns is-centered" style="margin-top: 42px;">
+                    <div class="column is-two-fifths">
+                        <div class="img-comp-container">
+                            <div class="img-comp-img">
+                              <img src="./static/images/akikaze/3.jpg">
+                            </div>
+                            <div class="img-comp-img img-comp-overlay">
+                              <img src="./static/images/akikaze/1.jpg">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-two-fifths">
+                        <div class="img-comp-container">
+                            <div class="img-comp-img">
+                              <img src="./static/images/akikaze/2.jpg">
+                            </div>
+                            <div class="img-comp-img img-comp-overlay">
+                              <img src="./static/images/akikaze/0.jpg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="columns is-centered has-text-centered">
                     <div class="column is-four-fifths">
-                        <video id="video_1" autoplay muted loop playsinline height="100%">
+                        <video id="video_1" autoplay muted loop playsinline width="100%">
                             <source src="./static/videos/smoke_teaser_compressed.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -289,7 +302,7 @@ clouds.
             </div>
         </div>
         <div class="content has-text-justified"></div>
-        <div class="container is-max-desktop">
+        <div class="container is-max-widescreen">
             <div class="columns is-centered has-text-centered">
                 <div class="column is-four-fifths">
                     <video id="video_1" autoplay muted loop playsinline height="100%">

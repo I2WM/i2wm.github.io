@@ -122,17 +122,15 @@ function initComparisons() {
     var slider, clicked = 0, w, h;
     /* Get the container element */
     var container = overlay.parentElement;
-    /* Get the width and height of the overlay element */
-    w = overlay.offsetWidth;
-    h = overlay.offsetHeight;
-    /* Fix all images width to prevent scaling */
-    var allImgDivs = container.querySelectorAll(".img-comp-img");
-    allImgDivs.forEach(function(imgDiv) {
-      var img = imgDiv.querySelector("img");
-      if (img) {
-        img.style.width = w + "px";
-      }
-    });
+    /* Get the width and height of the container */
+    w = container.offsetWidth;
+    h = container.offsetHeight;
+    /* Fix the overlay image width to container width, so it clips instead of scaling */
+    var overlayImg = overlay.querySelector("img");
+    if (overlayImg) {
+      overlayImg.style.width = w + "px";
+      overlayImg.style.height = h + "px";
+    }
     /* Set the width of the overlay element to 50%: */
     overlay.style.width = (w / 2) + "px";
     /* Create slider: */
@@ -143,30 +141,29 @@ function initComparisons() {
     /* Position the slider in the middle: */
     slider.style.top = (h / 2) - (slider.offsetHeight / 2) + "px";
     slider.style.left = (w / 2) - (slider.offsetWidth / 2) + "px";
-    /* Execute a function when the mouse button is pressed: */
-    slider.addEventListener("mousedown", slideReady);
-    /* And another function when the mouse button is released: */
-    window.addEventListener("mouseup", slideFinish);
-    /* Or touched (for touch screens: */
+    /* Hover mode: start tracking when mouse enters container */
+    container.addEventListener("mouseenter", slideReady);
+    container.addEventListener("mouseleave", slideFinish);
+    /* Touch support: still use touch events */
     slider.addEventListener("touchstart", slideReady);
-     /* And released (for touch screens: */
     window.addEventListener("touchend", slideFinish);
     function slideReady(e) {
       /* Prevent any other actions that may occur when moving over the image: */
       e.preventDefault();
-      /* The slider is now clicked and ready to move: */
+      /* The slider is now active and ready to move: */
       clicked = 1;
-      /* Execute a function when the slider is moved: */
-      window.addEventListener("mousemove", slideMove);
+      /* Execute a function when the mouse/touch is moved: */
+      container.addEventListener("mousemove", slideMove);
       window.addEventListener("touchmove", slideMove);
     }
     function slideFinish() {
-      /* The slider is no longer clicked: */
+      /* The slider is no longer active: */
       clicked = 0;
+      container.removeEventListener("mousemove", slideMove);
     }
     function slideMove(e) {
       var pos;
-      /* If the slider is no longer clicked, exit this function: */
+      /* If the slider is no longer active, exit this function: */
       if (clicked == 0) return false;
       /* Get the cursor's x position: */
       pos = getCursorPos(e)
