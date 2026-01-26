@@ -7,7 +7,7 @@
     <meta name="keywords" content="RealX3D">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google-site-verification" content="OEvbAqvdtgsyaHbiWcMG9BLSBuvECYMi_eJpVpjXOKo" />
-    <title>RealX3D</title>
+    <title>3DRR-26</title>
 
     <link rel="stylesheet" href="./static/css/bulma.min.css">
     <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
@@ -30,6 +30,41 @@
 <body>
 
     <section class="hero">
+
+        <div style="width: 100%; height: 450px; overflow: hidden; position: relative;">
+        <img src="./static/images/web_cover.jpg" 
+             alt="Banner Image" 
+             style="width: 100%; height: 100%; object-fit: cover; object-position: center 55%; display: block;">
+             <div style="position: absolute; top: 20px; right: 20px; z-index: 10; display: flex; align-items: center; gap: 15px;">
+            
+            <!-- CVPR 2026 Logo -->
+            <!-- 建议高度设置在 40px - 60px 之间 -->
+            <!-- <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;"> -->
+    
+    <!-- CVPR Logo -->
+     <div style="display: flex; align-items: center; justify-content: center; gap: 0px;">
+    
+    <!-- 第一张图片 -->
+    <a href="https://cvlai.net/ntire/2026/" target="_blank" style="text-decoration: none;">
+        <img src="./static/images/ntire26.svg" 
+             alt="NTIRE" 
+             style="height: 100px; width: auto; background: rgba(255, 255, 255, 0); padding: 0px; border-radius: 6px; display: block; box-shadow: 0 2px 5px rgba(0,0,0,0.);">
+    </a>
+
+    <!-- 第二张图片 -->
+    <a href="https://cvpr.thecvf.com/" target="_blank" style="text-decoration: none;">
+        <img src="./static/images/cvpr-navbar-logo.svg" 
+             alt="CVPR 2026" 
+             style="height: 100px; width: auto; background: rgba(255, 255, 255, 0); padding: 5px; border-radius: 6px; display: block;">
+    </a>
+
+</div>
+    
+
+<!-- </div> -->
+        </div>
+        </div>
+
         <div class="hero-body" style="padding-bottom: 0px;">
             <div class="container is-max-widescreen">
                 <!-- <div class="columns is-mobile is-centered">
@@ -39,10 +74,12 @@
                     <div class="column has-text-centered">
                         <h1 class="title is-2 publication-title">
                             3D Restoration and Reconstruction<br>
-                            NTIRE 2026 Challenge
+                            &mdash; NTIRE 2026 Challenge &mdash;
                         </h1>
                         <h1 class="is-size-5 publication-authors">
-                            Organized by The University of Tokyo, Tohoku University, and University of Wurzburg
+                            Organized by <a href="https://www.mi.t.u-tokyo.ac.jp/en" target="_blank" rel="noopener noreferrer">Machine Intelligence Lab</a>, University of Tokyo</br>
+                            <a href="https://www.icd.riec.tohoku.ac.jp/en/" target="_blank" rel="noopener noreferrer">Interactive Content Design Lab</a>, Tohoku University</br>
+                            <a href="https://www.informatik.uni-wuerzburg.de/computervision/" target="_blank" rel="noopener noreferrer">Computer Vision Lab</a>, University of Wurzburg
                         </h1>
                             
                             <div class="container is-max-widescreen">
@@ -60,8 +97,8 @@
                                             <p>
                                                 To support this goal, we curate a comprehensive 3D benchmark,
                                                 <a href="https://arxiv.org/abs/2512.23437" target="_blank" rel="noopener noreferrer">RealX3D</a>,
-                                                and introduce two tracks: (1) Low-Light Enhancement and (2) Smoke Restoration.
-                                                Each track provides multiple scenes with multi-view images degraded by low-light or smoke, along with clean novel-view synthesis (NVS) references for evaluation.
+                                                and introduce two tracks: <strong>(1) 3D Low-Light Enhancement</strong> and <strong>(2) 3D Smoke Restoration</strong>.
+                                                Each track provides multiple scenes with multi-view images degraded by low-light or smoke, along with clean NVS references for evaluation.
                                                 Submissions are assessed by comparing rendered NVS against the corresponding ground-truth captures.
                                                 To simplify the evaluation protocol, both tracks focus on photometric fidelity, and the ground-truth camera poses of the training views are provided.
                                             <p>
@@ -76,28 +113,29 @@
                                                     <strong>Better Geometry Consistency:</strong>
                                                     novel designs of multi-view learning methods or 3D representations for in-the-wild 3D reconstruction.
                                                 </li>
-                                                </ul>
-                                        </div>
+                                            </ul>
+                                            <p>
+                                            Top-ranked participants will receive awards and be invited to present their solutions at the NTIRE workshop held in conjunction with CVPR 2026. The challenge results will also be published in the CVPR NTIRE 2026 workshop proceedings.
                                     </div>
                                 </div>
                             </div>
                             <div class="tab-buttons" style="margin-top: 50px;">
                                 <span class="link-block">
                                     <a onclick="switchTab('tab1')" id="tab1-btn"
-                                        class="tab-button button is-normal is-rounded is-info active">
+                                        class="tab-button button is-large is-rounded is-info active">
                                         <span class="icon">
-                                            <i class="fas fa-file-alt"></i>
+                                            <i class="fas fa-lightbulb"></i>
                                         </span>
-                                        <span>Track 1: Low-light Enhancement</span>
+                                        <span>Track 1: 3D Low-light Enhancement</span>
                                     </a>
                                 </span>
                                 <span class="link-block">
                                     <a onclick="switchTab('tab2')" id="tab2-btn"
-                                        class="tab-button button is-normal is-rounded is-info is-light">
+                                        class="tab-button button is-large is-rounded is-info is-light">
                                         <span class="icon">
-                                            <i class="fas fa-images"></i>
+                                            <i class="fas fa-smog"></i>
                                         </span>
-                                        <span>Track 2: Smoke Restoration</span>
+                                        <span>Track 2: 3D Smoke Restoration</span>
                                     </a>
                                 </span>
                             </div>
@@ -113,49 +151,15 @@
             <div class="container is-max-widescreen">
                 <div class="columns is-centered has-text-centered">
                     <div class="column is-four-fifths">
-                        <h2 class="title is-3 publication-title">Track 1: Low-Light Enhancement Challenge</h2>
+                        <h2 class="title is-3 publication-title">Track 1: 3D Low-Light Enhancement Challenge</h2>
                         <div class="content has-text-justified">
                             <p>
-                                We design two common illumination-related
-degradations: (i) consistent low light and (ii) low
-light with varying exposure. To ensure that GT
-images are not affected by noise or blurring in
-dark conditions, GT is always captured in a well-
-lit environment with a shutter speed of 1/10 s,
-and low-light LQ images are obtained by reducing
-exposure relative to this setting. For the consistent
-low-light condition, we fix the shutter speed at
-1/400 s across all views to achieve extremely dark
-images. For varying low-light scenarios, inter-view
-brightness differences are introduced by captur-
-ing the same viewpoints at shutter speeds of 1/60,
-1/160, 1/250, and 1/400 s, spanning roughly 0
-to +2.7 EV. Beyond these physically captured
-low-light images, additional exposure settings can
-easily be synthesized from the RAW data.
+                            Low-light imaging is a long-standing challenge in 2D vision, where limited photons lead to severe noise, color shifts, and loss of fine textures, degrading both visual quality and downstream perception.
+                            While recent 2D low-light enhancement methods can produce visually pleasing results, they are often optimized for single images and may introduce view-dependent artifacts or hallucinated details.
+                            In real applications such as robotics, AR/VR, and autonomous systems, models must operate on multi-view observations and build a coherent 3D representation of the scene.
+                            This makes low-light enhancement fundamentally harder in 3D: the method must improve visibility while preserving cross-view consistency so that geometry and appearance remain stable when rendering novel views.
+                            The 3D Low-Light Enhancement Challenge targets this gap by encouraging approaches that bridge 2D enhancement and 3D multiview geometry, enabling reliable scene understanding and high-quality restoration and rendering under realistic low-light conditions. 
                             </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="columns is-centered" style="margin-top: 42px;">
-                    <div class="column is-two-fifths">
-                        <div class="img-comp-container">
-                            <div class="img-comp-img">
-                              <img src="./static/images/bluehawaii/3.jpg">
-                            </div>
-                            <div class="img-comp-img img-comp-overlay">
-                              <img src="./static/images/bluehawaii/1.jpg">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-two-fifths">
-                        <div class="img-comp-container">
-                            <div class="img-comp-img">
-                              <img src="./static/images/bluehawaii/2.jpg">
-                            </div>
-                            <div class="img-comp-img img-comp-overlay">
-                              <img src="./static/images/bluehawaii/0.jpg">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -174,38 +178,242 @@ easily be synthesized from the RAW data.
                     <div class="column is-four-fifths">
                         <h2 class="title is-3 publication-title">Data Structure</h2>
                         <div class="content has-text-justified">
-                            <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+                            <p>
+                                We provide one fully released scene containing both degraded and clean images for debugging and validation.
+                                The development set includes 4 scenes, and performance is evaluated based on the submitted restored NVS results.
+                                During the testing period, the test set of 3 scenes will be released and evaluated using the same protocol.
+                                All low-light images are captured with a shutter speed of 1/400, and the well-lit reference images are captured at 1/10 under same camera settings.
+                                Participants may use additional training data or pretrained models, provided that all external resources and training details are clearly documented in the final factsheet.
+                            </p>
+                        </div>
+                        <div class="content has-text-justified">
+                            <div class="table-wrap">
+                                <table class="clean-table">
+                                <colgroup>
+                                    <col style="width: 10%;">  <!-- Part -->
+                                    <col style="width: 8%;">   <!-- Scenes -->
+                                    <col style="width: 8%;">   <!-- Train Images -->
+                                    <col style="width: 8%;">   <!-- Train Poses -->
+                                    <col style="width: 8%;">   <!-- Test Images -->
+                                    <col style="width: 8%;">   <!-- Test Poses -->
+                                    <col style="width: 50%;">  <!-- Leaderboard -->
+                                </colgroup>
+
                                 <thead>
-                                  <tr>
+                                    <tr>
                                     <th>Part</th>
                                     <th>Scenes</th>
-                                    <th>Released Data</th>
+                                    <th>Train.<br>Images</th>
+                                    <th>Train.<br>Poses</th>
+                                    <th>Test.<br>Images</th>
+                                    <th>Test.<br>Poses</th>
                                     <th>Leaderboard</th>
-                                  </tr>
+                                    </tr>
                                 </thead>
+
                                 <tbody>
-                                  <tr>
+                                    <tr>
                                     <td>Part I</td>
                                     <td>1</td>
-                                    <td>Training images + NVS pose + NVS images</td>
-                                    <td>–</td>
-                                  </tr>
-                                  <tr>
+
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td class="leaderboard-col">Not evaluated</td>
+                                    </tr>
+
+                                    <tr>
                                     <td>Part II</td>
                                     <td>4</td>
-                                    <td>Training images + NVS pose</td>
-                                    <td>Development (Immediate after submission)</td>
-                                  </tr>
-                                  <tr>
+
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="mark no" aria-label="No">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M6 6l12 12M18 6L6 18"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td class="leaderboard-col">Development (immediate after submission)</td>
+                                    </tr>
+
+                                    <tr>
                                     <td>Part III</td>
                                     <td>3</td>
-                                    <td>Training images + NVS pose</td>
-                                    <td>Test (After competition DDL)</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                              
 
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="mark no" aria-label="No">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M6 6l12 12M18 6L6 18"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td class="leaderboard-col">Test (when testing begins)</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="content has-text-justified">
+                            <p>
+                                For each scene, the dataset is organized as follows:
+                            </p>
+
+                            <div class="box" style="
+                                background: #fafafa;
+                                border: 1px solid #eaeaea;
+                                border-radius: 12px;
+                                padding: 14px 16px;
+                            ">
+                                <pre style="
+                                margin: 0;
+                                background: transparent;
+                                padding: 0;
+                                font-size: 0.95rem;
+                                line-height: 1.6;
+                                overflow-x: auto;
+                                "><code style="
+                                font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+                                            'Liberation Mono', 'Courier New', monospace;
+                                ">scene/
+  train/
+    0001.JPG
+    0002.JPG
+    ...
+  transforms_train.json
+  transforms_test.json</code></pre>
+                        </div>
+
+                        <p style="margin-top: 0.75rem;">
+                            <code>transforms_train.json</code> and <code>transforms_test.json</code> follow the <a href="https://docs.nerf.studio/quickstart/data_conventions.html" target="_blank" rel="noopener noreferrer">Blender dataset format</a> and include
+                            camera intrinsics and extrinsics (poses) for training views and NVS views to be submitted. Examples of degraded and clean image pairs are shown below.
+                        </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container is-max-widescreen">
+                <div class="columns is-centered" style="margin-top: 42px;">
+                    <div class="column is-two-fifths">
+                        <div class="img-comp-container">
+                            <div class="img-comp-img">
+                                <img src="./static/images/bluehawaii/3.jpg">
+                            </div>
+                            <div class="img-comp-img img-comp-overlay">
+                                <img src="./static/images/bluehawaii/1.jpg">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-two-fifths">
+                        <div class="img-comp-container">
+                            <div class="img-comp-img">
+                                <img src="./static/images/bluehawaii/2.jpg">
+                            </div>
+                            <div class="img-comp-img img-comp-overlay">
+                                <img src="./static/images/bluehawaii/0.jpg">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -219,49 +427,16 @@ easily be synthesized from the RAW data.
             <div class="container is-max-widescreen">
                 <div class="columns is-centered has-text-centered">
                     <div class="column is-four-fifths">
-                        <h2 class="title is-3 publication-title">Track 2: Smoke Restoration Challenge</h2>
+                        <h2 class="title is-3 publication-title">Track 2: 3D Smoke Restoration Challenge</h2>
                         <div class="content has-text-justified">
                             <p>
-                                We design two common illumination-related
-degradations: (i) consistent low light and (ii) low
-light with varying exposure. To ensure that GT
-images are not affected by noise or blurring in
-dark conditions, GT is always captured in a well-
-lit environment with a shutter speed of 1/10 s,
-and low-light LQ images are obtained by reducing
-exposure relative to this setting. For the consistent
-low-light condition, we fix the shutter speed at
-1/400 s across all views to achieve extremely dark
-images. For varying low-light scenarios, inter-view
-brightness differences are introduced by captur-
-ing the same viewpoints at shutter speeds of 1/60,
-1/160, 1/250, and 1/400 s, spanning roughly 0
-to +2.7 EV. Beyond these physically captured
-low-light images, additional exposure settings can
-easily be synthesized from the RAW data.
+                                Smoke-filled scenes pose a unique barrier to 3D vision because the degradation is not a simple image corruption but a physical process:
+                                scattering introduces a veil of stray light, reduces contrast non-uniformly with depth, and alters visibility in a view- and path-dependent manner.
+                                In real deployments such as firefighting robots, industrial inspection, search-and-rescue, and autonomous navigation in dust or smoke, perception systems must still localize, map, and recognize objects under severely degraded observations.
+                                The difficulty is amplified in multi-view settings, where the same surface can appear inconsistently across viewpoints due to varying optical thickness, occlusions from dense plumes, and spatially varying attenuation.
+                                The 3D Smoke Restoration Challenge targets robust recovery of scene geometry and appearance under participating media, aiming for methods that not only enhance visibility but also produce stable,
+                                physically plausible 3D reconstructions and coherent novel-view renderings in realistic scattering environments.
                             </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="columns is-centered" style="margin-top: 42px;">
-                    <div class="column is-two-fifths">
-                        <div class="img-comp-container">
-                            <div class="img-comp-img">
-                              <img src="./static/images/akikaze/3.jpg">
-                            </div>
-                            <div class="img-comp-img img-comp-overlay">
-                              <img src="./static/images/akikaze/1.jpg">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-two-fifths">
-                        <div class="img-comp-container">
-                            <div class="img-comp-img">
-                              <img src="./static/images/akikaze/2.jpg">
-                            </div>
-                            <div class="img-comp-img img-comp-overlay">
-                              <img src="./static/images/akikaze/0.jpg">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -273,21 +448,279 @@ easily be synthesized from the RAW data.
                     </div>
                 </div>
             </div>
+            <div class="container is-max-widescreen">
+                <div class="columns is-centered has-text-centered" , style="margin-top: 42px;">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3 publication-title">Data Structure</h2>
+                            <div class="content has-text-justified">
+                            <p>
+                                We provide one fully released scene containing both degraded and clean images for debugging and validation.
+                                The development set includes 4 scenes, and performance is evaluated based on the submitted restored NVS results.
+                                During the testing period, the test set of 3 scenes will be released and evaluated using the same protocol.
+                                In each scene, the degraded smoke views and clean ground-truth views are captured under same illumination and camera settings. Smoke density is controlled to be consistent across all scenes.
+                                Participants may use additional training data or pretrained models, provided that all external resources and training details are clearly documented in the final factsheet.
+                            </p>
+                            </div>
+                        <div class="content has-text-justified">
+                            <div class="table-wrap">
+                                <table class="clean-table">
+                                <colgroup>
+                                    <col style="width: 10%;">  <!-- Part -->
+                                    <col style="width: 8%;">   <!-- Scenes -->
+                                    <col style="width: 8%;">   <!-- Train Images -->
+                                    <col style="width: 8%;">   <!-- Train Poses -->
+                                    <col style="width: 8%;">   <!-- Test Images -->
+                                    <col style="width: 8%;">   <!-- Test Poses -->
+                                    <col style="width: 50%;">  <!-- Leaderboard -->
+                                </colgroup>
+
+                                <thead>
+                                    <tr>
+                                    <th>Part</th>
+                                    <th>Scenes</th>
+                                    <th>Train.<br>Images</th>
+                                    <th>Train.<br>Poses</th>
+                                    <th>Test.<br>Images</th>
+                                    <th>Test.<br>Poses</th>
+                                    <th>Leaderboard</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                    <td>Part I</td>
+                                    <td>1</td>
+
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td class="leaderboard-col">Not evaluated</td>
+                                    </tr>
+
+                                    <tr>
+                                    <td>Part II</td>
+                                    <td>4</td>
+
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="mark no" aria-label="No">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M6 6l12 12M18 6L6 18"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td class="leaderboard-col">Development (immediate after submission)</td>
+                                    </tr>
+
+                                    <tr>
+                                    <td>Part III</td>
+                                    <td>3</td>
+
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="mark no" aria-label="No">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M6 6l12 12M18 6L6 18"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="mark ok" aria-label="Yes">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M20 6L9 17l-5-5"
+                                            stroke="currentColor" stroke-width="3"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        </svg>
+                                        </span>
+                                    </td>
+
+                                    <td class="leaderboard-col">Test (when testing begins)</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="content has-text-justified">
+                            <p>
+                                For each scene, the dataset is organized as follows:
+                            </p>
+
+                            <div class="box" style="
+                                background: #fafafa;
+                                border: 1px solid #eaeaea;
+                                border-radius: 12px;
+                                padding: 14px 16px;
+                            ">
+                                <pre style="
+                                margin: 0;
+                                background: transparent;
+                                padding: 0;
+                                font-size: 0.95rem;
+                                line-height: 1.6;
+                                overflow-x: auto;
+                                "><code style="
+                                font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+                                            'Liberation Mono', 'Courier New', monospace;
+                                ">scene/
+  train/
+    0001.JPG
+    0002.JPG
+    ...
+  transforms_train.json
+  transforms_test.json</code></pre>
+                        </div>
+
+                        <p style="margin-top: 0.75rem;">
+                            <code>transforms_train.json</code> and <code>transforms_test.json</code> follow the <a href="https://docs.nerf.studio/quickstart/data_conventions.html" target="_blank" rel="noopener noreferrer">Blender dataset format</a> and include
+                            camera intrinsics and extrinsics (poses) for training views and NVS views to be submitted. Examples of degraded and clean image pairs are shown below.
+                        </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container is-max-widescreen">
+                <div class="columns is-centered" style="margin-top: 42px;">
+                    <div class="column is-two-fifths">
+                        <div class="img-comp-container">
+                            <div class="img-comp-img">
+                                <img src="./static/images/akikaze/3.jpg">
+                            </div>
+                            <div class="img-comp-img img-comp-overlay">
+                                <img src="./static/images/akikaze/1.jpg">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-two-fifths">
+                        <div class="img-comp-container">
+                            <div class="img-comp-img">
+                                <img src="./static/images/akikaze/2.jpg">
+                            </div>
+                            <div class="img-comp-img img-comp-overlay">
+                                <img src="./static/images/akikaze/0.jpg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
 
     <section class="section">
-        <div class="columns is-centered has-text-centered">
-            <h2 class="title is-3 publication-title">Data Capture</h2>
+        <div class="container is-max-widescreen">
+            <div class="columns is-centered has-text-centered" , style="margin-top: -42px;">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3 publication-title">Evaluation</h2>
+                    <div class="content has-text-justified">
+                        <p>
+                        Participants are supposed to submit the restored NVS images given the testing view poses of each scene. We evaluate the rendered results against the clean ground-truth references using <strong>PSNR</strong>, <strong>SSIM</strong>, and <strong>LPIPS</strong>.
+                        The final ranking is determined by the average per-scene performance across both the Development and Testing sets.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- add intro to the data capture -->
         <div class="container is-max-widescreen">
             <div class="columns is-centered has-text-centered" , style="margin-top: 42px;">
                 <div class="column is-four-fifths">
-                    <h2 class="title is-3 publication-title">Overview of This Challenge</h2>
+                    <h2 class="title is-3 publication-title">Data Capture</h2>
                     <div class="content has-text-justified">
                         <p>
-                             The RealX3D dataset was acquired using the rail-dolly system demonstrated in the video below. A detailed data acquisition protocol is available <a href="#acquisition-protocol" style="color: #3273dc; text-decoration: underline;">here</a> 
+                             Each frame in the RealX3D dataset provides a pair of degraded and clean images. 
+                             To acquire these sequences, we used the mechanical rail-dolly system shown in the video,
+                             where the camera moved at a constant speed along the rails. 
+                             The detailed data acquisition protocol can be found <a href="#acquisition-protocol" style="color: #3273dc; text-decoration: underline;">below</a>. 
                         </p>
                     </div>
                 </div>
@@ -306,8 +739,217 @@ easily be synthesized from the RAW data.
 
     <section class="section">
         <div class="columns is-centered has-text-centered">
-            <h2 class="title is-3 publication-title">RealX3D</h2>
+            <h2 class="title is-3 publication-title">Organizer</h2>
         </div>
+        
+        <!-- 开始插入 Organizer 代码 -->
+        <style>
+            .organizers-container {
+                display: flex;
+                justify-content: center;
+                gap: 60px;
+                text-align: center;
+                margin-top: 40px;
+                flex-wrap: wrap;
+            }
+    
+            .profile-card {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 150px;
+            }
+    
+            .image-wrapper {
+                width: 140px;
+                height: 140px;
+                border-radius: 50%;
+                overflow: hidden;
+                margin-bottom: 20px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                background-color: #f0f0f0;
+            }
+    
+            .image-wrapper img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+    
+            .organizer-name {
+                font-size: 18px;
+                color: #4a7a9f;
+                font-weight: 500;
+                line-height: 1.4;
+            }
+    
+            .organizer-name sup {
+                font-size: 0.6em;
+                vertical-align: super;
+            }
+        </style>
+    
+        <div class="container is-max-desktop">
+            <div class="organizers-container">
+                <div class="profile-card">
+                    <div class="image-wrapper">
+                        <img src="./static/images/avatar/shuhong.png" alt="shuhong_liu">
+                    </div>
+                    <div class="organizer-name">
+                        <a href="https://shuhongll.github.io/" target="_blank" rel="noopener noreferrer">
+                        Shuhong Liu
+                        </a><br>
+                        UTokyo
+                    </div>
+                </div>
+                <div class="profile-card">
+                    <div class="image-wrapper">
+                        <img src="./static/images/avatar/chenyu.jpg" alt="chenyu_bao">
+                    </div>
+                    <div class="organizer-name">
+                        <a href="https://scholar.google.com/citations?user=4mg51BgAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">
+                        Chenyu Bao
+                        </a><br>
+                        UTokyo
+                    </div>
+                </div>
+                <div class="profile-card">
+                    <div class="image-wrapper">
+                        <img src="./static/images/avatar/cui.jpg" alt="ziteng_cui">
+                    </div>
+                    <div class="organizer-name">
+                        <a href="https://cuiziteng.github.io/" target="_blank" rel="noopener noreferrer">
+                        Ziteng Cui
+                        </a><br>
+                        UTokyo
+                    </div>
+                </div>
+                <div class="profile-card">
+                    <div class="image-wrapper">
+                        <img src="./static/images/avatar/lin.jpg" alt="lin_gu">
+                    </div>
+                    <div class="organizer-name">
+                        <a href="https://sites.google.com/view/linguedu/home" target="_blank" rel="noopener noreferrer">
+                        Lin Gu
+                        </a><br>
+                        Tohoku U
+                    </div>
+                </div>
+                <div class="profile-card">
+                    <div class="image-wrapper">
+                        <img src="./static/images/avatar/xuangeng.jpg" alt="xuanggeng_chu">
+                    </div>
+                    <div class="organizer-name">
+                        <a href="https://xg-chu.site/" target="_blank" rel="noopener noreferrer">
+                        Xuangeng Chu
+                        </a><br>
+                        UTokyo
+                    </div>
+                </div>
+                <div class="profile-card">
+                    <div class="image-wrapper">
+                        <img src="./static/images/avatar/marcos.jpg" alt="marcos_conde">
+                    </div>
+                    <div class="organizer-name">
+                        <a href="https://mv-lab.github.io/" target="_blank" rel="noopener noreferrer">
+                        Marcos V. Conde
+                        </a><br>
+                        UWuerzburg
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 结束插入 Organizer 代码 -->
+
+    </section>
+
+    <div class="line"></div>
+    <section class="section">
+        <div class="columns is-centered has-text-centered">
+            <h2 class="title is-3 publication-title">RealX3D: A Physically-Degraded 3D Benchmark for Multi-view </br>
+                Visual Restoration and Reconstruction</h2>
+        </div>
+        </br>
+
+        
+        <!-- ==================== 插入的按钮代码开始 ==================== -->
+        <style>
+            /* 局部样式：仅针对这两个按钮，防止影响页面其他部分 */
+            .button-container-custom {
+                display: flex;
+                gap: 20px;
+                justify-content: center; /* 水平居中 */
+                align-items: center;
+                flex-wrap: wrap; /* 移动端自动换行 */
+                margin-bottom: 24px;
+            }
+            .track-btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 10px 24px;
+                border-radius: 50px; /* 胶囊形状 */
+                text-decoration: none !important; /* 覆盖 Bulma 默认链接样式 */
+                font-size: 16px;
+                font-weight: 600;
+                transition: all 0.2s ease;
+                line-height: 1.5;
+            }
+            .track-btn svg {
+                width: 20px;
+                height: 20px;
+                margin-right: 8px;
+            }
+            /* 蓝色按钮样式 */
+            .btn-primary {
+                background-color: #7658b2;
+                color: white !important;
+                /* border: 1px solid #7658b2; */
+            }
+            .btn-primary:hover {
+                background-color: #beaedb;
+                color: white !important;
+            }
+            /* 浅色按钮样式 */
+            .btn-secondary {
+                background-color: #edddec;
+                color: #3f2a52 !important;
+                /* border: 1px solid #edddec; */
+            }
+            .btn-secondary:hover {
+                background-color: #beaedb;
+                color: #3f2a52 !important;
+            }
+        </style>
+
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-full-width">
+                <div class="button-container-custom">
+                    
+                    <!-- 按钮 1：请将 href="#" 替换为 Track 1 的实际链接 -->
+                    <a href="https://arxiv.org/abs/2512.23437" class="track-btn btn-primary">
+                        <!-- 文档图标 -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                        </svg>
+                        Arxiv
+                    </a>
+
+                    <!-- 按钮 2：请将 href="#" 替换为 Track 2 的实际链接 -->
+                    <a href="#" class="track-btn btn-secondary">
+                        <!-- 图片图标 -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                        </svg>
+                        Data (comming soon)
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <!-- ==================== 插入的按钮代码结束 ==================== -->
+
         <div class="container is-max-widescreen">
         <div class="columns is-centered has-text-centered">
             <div class="column is-four-fifths">
@@ -387,103 +1029,15 @@ clouds.
         </div>
     </section>
 
-    <section class="section">
-        <div class="columns is-centered has-text-centered">
-            <h2 class="title is-3 publication-title">Organizer</h2>
-        </div>
-        
-        <!-- 开始插入 Organizer 代码 -->
-        <style>
-            .organizers-container {
-                display: flex;
-                justify-content: center;
-                gap: 60px;
-                text-align: center;
-                margin-top: 40px;
-                flex-wrap: wrap;
-            }
-    
-            .profile-card {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                width: 150px;
-            }
-    
-            .image-wrapper {
-                width: 140px;
-                height: 140px;
-                border-radius: 50%;
-                overflow: hidden;
-                margin-bottom: 20px;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-                background-color: #f0f0f0;
-            }
-    
-            .image-wrapper img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                display: block;
-            }
-    
-            .organizer-name {
-                font-size: 18px;
-                color: #4a7a9f;
-                font-weight: 500;
-                line-height: 1.4;
-            }
-    
-            .organizer-name sup {
-                font-size: 0.6em;
-                vertical-align: super;
-            }
-        </style>
-    
-        <div class="container is-max-desktop">
-            <div class="organizers-container">
-                <!-- Person 1: Alexander Clegg -->
-                <div class="profile-card">
-                    <div class="image-wrapper">
-                        <!-- 请替换 src 为你的本地图片路径 -->
-                        <img src="./static/images/avatar/cui.jpg" alt="Alexander Clegg">
-                    </div>
-                    <div class="organizer-name">
-                        Alexander<br>Clegg
-                    </div>
-                </div>
-    
-                <!-- Person 2: John Turner -->
-                <div class="profile-card">
-                    <div class="image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="John Turner">
-                    </div>
-                    <div class="organizer-name">
-                        John Turner
-                    </div>
-                </div>
-    
-                <!-- Person 3: Vladimír Vondruš -->
-                <div class="profile-card">
-                    <div class="image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Vladimír Vondruš">
-                    </div>
-                    <div class="organizer-name">
-                        Vladimír<br>Vondruš
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- 结束插入 Organizer 代码 -->
-
-    </section>
 
     <section class="section">
         <div class="container is-max-desktop">
             <h2 class="title is-3" style="text-align: center">BibTeX</h2>
-<pre><code>@inproceedings{
-    realx3d2026,
-    title={RealX3D: A Physically-Degraded 3D Benchmark for Multi-view Visual Restoration and Reconstruction},
+<pre><code>@article{liu2026realx3d,
+  title={RealX3D: A Physically-Degraded 3D Benchmark for Multi-view Visual Restoration and Reconstruction},
+  author={Liu, Shuhong and Bao, Chenyu and Cui, Ziteng and Liu, Yun and Chu, Xuangeng and Gu, Lin and Conde, Marcos V and Umagami, Ryo and Hashimoto, Tomohiro and Hu, Zijian and others},
+  journal={arXiv preprint arXiv:2512.23437},
+  year={2026}
 }</code></pre>
         </div>
     </section>
@@ -501,7 +1055,62 @@ clouds.
                         src="//clustrmaps.com/globe.js?d=wZtdDuhRvTFcUBNGn3wEhvkHUASjvyJr4XBBfbRyl8s"></script>
                 </div>
             </div>
+
+        <div class="columns is-centered" style="margin-top: 30px;">
+    <div class="column is-8">
+        <div class="content has-text-centered">
+            <div class="university-logos-container">
+                <a href="https://www.u-tokyo.ac.jp/en/" target="_blank" class="uni-link">
+                    <img src="./static/images/utokyo-logo.svg" alt="University 1" style="height: 160px;">
+                </a>
+                <a href="https://www.tohoku.ac.jp/en/" target="_blank" class="uni-link">
+                    <img src="./static/images/tohokulogo.svg" alt="University 2" style="height: 100px;">
+                </a>
+                <a href="https://www.uni-wuerzburg.de/en" target="_blank" class="uni-link">
+                    <img src="./static/images/uni-wuerzburg-logo.svg" alt="University 3" style="height: 95px; margin-left: 25px;">
+                </a>
+
+            </div>
         </div>
+    </div>
+</div>
+
+<style>
+    .university-logos-container {
+        display: flex;
+        justify-content: center; /* 水平居中核心代码 */
+        align-items: center;     /* 垂直居中核心代码 */
+        flex-wrap: wrap;         
+        gap: 50px;               /* Logo 之间的间距 */
+    }
+
+    .uni-link img {
+        width: auto;
+        object-fit: contain;
+        /* 
+           已删除 grayscale(100%) 和 opacity: 0.7 
+           现在显示原始颜色 
+        */
+        transition: transform 0.3s ease; /* 只对变换（放大）做动画 */
+    }
+
+    .uni-link:hover img {
+        /* 鼠标悬停时放大 1.05 倍 */
+        transform: scale(1.05);
+    }
+
+    /* === 手机端适配 === */
+    @media screen and (max-width: 768px) {
+        .university-logos-container {
+            gap: 20px; 
+        }
+        
+        .uni-link img {
+            height: 40px !important; 
+        }
+    }
+</style>
+
     </footer>
     <script>
         initComparisons();
