@@ -29,6 +29,56 @@
 
 <body>
 
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button id="lang-en" class="lang-btn active" onclick="switchLanguage('en')">EN</button>
+        <button id="lang-ja" class="lang-btn" onclick="switchLanguage('ja')">日本語</button>
+    </div>
+
+    <style>
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px 12px;
+            border-radius: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        .lang-btn {
+            border: none;
+            background: transparent;
+            padding: 6px 14px;
+            border-radius: 18px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.2s ease;
+        }
+        .lang-btn:hover {
+            background: #f0f0f0;
+        }
+        .lang-btn.active {
+            background: #7658b2;
+            color: white;
+        }
+        @media screen and (max-width: 768px) {
+            .language-switcher {
+                top: 10px;
+                right: 10px;
+                padding: 6px 10px;
+            }
+            .lang-btn {
+                padding: 4px 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+
     <section class="hero">
 
         <div style="width: 100%; height: 450px; overflow: hidden; position: relative;">
@@ -53,11 +103,11 @@
                 </div> -->
                 <div class="columns is-centered">
                     <div class="column has-text-centered">
-                        <h1 class="title is-2 publication-title">
+                        <h1 class="title is-2 publication-title" data-i18n="main-title">
                             3D Restoration and Reconstruction<br>
                             &mdash; NTIRE 2026 Challenge &mdash;
                         </h1>
-                        <h1 class="is-size-5 publication-authors">
+                        <h1 class="is-size-5 publication-authors" data-i18n="organized-by">
                             Organized by <a href="https://www.mi.t.u-tokyo.ac.jp/en" target="_blank" rel="noopener noreferrer">Machine Intelligence Lab</a>, University of Tokyo</br>
                             <a href="https://www.icd.riec.tohoku.ac.jp/en/" target="_blank" rel="noopener noreferrer">Interactive Content Design Lab</a>, Tohoku University</br>
                             <a href="https://www.informatik.uni-wuerzburg.de/computervision/" target="_blank" rel="noopener noreferrer">Computer Vision Lab</a>, University of Würzburg
@@ -66,15 +116,15 @@
                         <!-- Fancy Keyword Block (insert before Overview) -->
                             <div class="columns is-centered has-text-centered" style="margin-top: 26px; margin-bottom: 10px;">
                             <div class="column is-four-fifths">
-                                <h2 class="title is-4 publication-title" style="margin-bottom: 14px; letter-spacing: 0.5px;">
+                                <h2 class="title is-4 publication-title" style="margin-bottom: 14px; letter-spacing: 0.5px;" data-i18n="keywords-title">
                                 ✨ Keywords ✨
                                 </h2>
 
                                 <div class="keyword-wrap">
-                                <span class="keyword-pill">World Modeling</span>
-                                <span class="keyword-pill">3D Reconstruction</span>
-                                <span class="keyword-pill">Multi-view Restoration</span>
-                                <span class="keyword-pill">Physical Robustness</span>
+                                <span class="keyword-pill" data-i18n="kw-1">World Modeling</span>
+                                <span class="keyword-pill" data-i18n="kw-2">3D Reconstruction</span>
+                                <span class="keyword-pill" data-i18n="kw-3">Multi-view Restoration</span>
+                                <span class="keyword-pill" data-i18n="kw-4">Physical Robustness</span>
                                 
                                 </div>
                             </div>
@@ -123,36 +173,36 @@
                             <div class="container is-max-widescreen">
                                 <div class="columns is-centered has-text-centered" , style="margin-top: 42px;">
                                     <div class="column is-four-fifths">
-                                        <h2 class="title is-3 publication-title">Overview</h2>
+                                        <h2 class="title is-3 publication-title" data-i18n="overview-title">Overview</h2>
                                         <div class="content has-text-justified">
-                                            <p>
+                                            <p data-i18n="overview-p1">
                                                 Welcome to the <a href="" target="_blank" rel="noopener noreferrer">1st 3D Restoration and Reconstruction Challenge</a> host at <a href="https://cvlai.net/ntire/2026/" target="_blank" rel="noopener noreferrer">New Trends in Image Restoration and Enhancement (NTIRE) Workshop</a>, in conjunction with <a href="https://cvpr.thecvf.com/" target="_blank" rel="noopener noreferrer">CVPR 2026</a>.
                                             </p>
-                                            <p>
+                                            <p data-i18n="overview-p2">
                                                 This challenge aims to advance robust 3D reconstruction under real-world, in-the-wild degradations.
                                                 Specifically, the proposed pipeline should account for realistic visual corruptions, restore degraded training views, and reconstruct clean 3D representations for high-quality novel-view synthesis (NVS).
                                                 </p>
-                                            <p>
+                                            <p data-i18n="overview-p3">
                                                 To support this goal, we curate a comprehensive 3D benchmark,
                                                 <a href="https://arxiv.org/abs/2512.23437" target="_blank" rel="noopener noreferrer">RealX3D</a>,
                                                 and introduce two tracks: <strong>(1) 3D Low-Light Enhancement</strong> and <strong>(2) 3D Smoke Restoration</strong>.
                                                 Each track provides multiple scenes with multi-view images degraded by low-light or smoke, along with clean NVS references for evaluation.
                                                 Submissions are assessed by comparing rendered NVS against the corresponding ground-truth captures.
                                                 To simplify the evaluation protocol, both tracks focus on photometric fidelity, and the ground-truth camera poses of the training views are provided.
-                                            <p>
+                                            <p data-i18n="overview-p4">
                                                 Participants are encouraged to approach this challenge from two key perspectives.
                                             </p>
                                             <ul>
-                                                <li>
+                                                <li data-i18n="overview-li1">
                                                     <strong>Better Visual Restoration:</strong>
                                                     novel designs or integrations of physical-aware visual restoration techniques for real-world visual corruptions.
                                                 </li>
-                                                <li>
+                                                <li data-i18n="overview-li2">
                                                     <strong>Better Geometry Consistency:</strong>
                                                     novel designs of multi-view learning methods or 3D representations for in-the-wild 3D reconstruction.
                                                 </li>
                                             </ul>
-                                            <p>
+                                            <p data-i18n="overview-p5">
                                             Top-ranked participants will receive awards and be invited to present their solutions at the NTIRE workshop held in conjunction with CVPR 2026. The challenge results will also be published in the CVPR NTIRE 2026 workshop proceedings.
                                     </div>
                                 </div>
@@ -164,7 +214,7 @@
                                         <span class="icon">
                                             <i class="fas fa-lightbulb"></i>
                                         </span>
-                                        <span>Track 1: 3D Low-light Enhancement</span>
+                                        <span data-i18n="tab1-text">Track 1: 3D Low-light Enhancement</span>
                                     </a>
                                 </span>
                                 <span class="link-block">
@@ -173,7 +223,7 @@
                                         <span class="icon">
                                             <i class="fas fa-smog"></i>
                                         </span>
-                                        <span>Track 2: 3D Smoke Restoration</span>
+                                        <span data-i18n="tab2-text">Track 2: 3D Smoke Restoration</span>
                                     </a>
                                 </span>
                             </div>
@@ -189,9 +239,9 @@
             <div class="container is-max-widescreen">
                 <div class="columns is-centered has-text-centered">
                     <div class="column is-four-fifths">
-                        <h2 class="title is-3 publication-title">Track 1: 3D Low-Light Enhancement Challenge</h2>
+                        <h2 class="title is-3 publication-title" data-i18n="track1-title">Track 1: 3D Low-Light Enhancement Challenge</h2>
                         <div class="content has-text-justified">
-                            <p>
+                            <p data-i18n="track1-desc">
                             Low-light imaging is a long-standing challenge in 2D vision, where limited photons lead to severe noise, color shifts, and loss of fine textures, degrading both visual quality and downstream perception.
                             While recent 2D low-light enhancement methods can produce visually pleasing results, they are often optimized for single images and may introduce view-dependent artifacts or hallucinated details.
                             In real applications such as robotics, AR/VR, and autonomous systems, models must operate on multi-view observations and build a coherent 3D representation of the scene.
@@ -214,9 +264,9 @@
             <div class="container is-max-widescreen">
                 <div class="columns is-centered has-text-centered" , style="margin-top: 42px;">
                     <div class="column is-four-fifths">
-                        <h2 class="title is-3 publication-title">Data Structure</h2>
+                        <h2 class="title is-3 publication-title" data-i18n="data-structure-title">Data Structure</h2>
                         <div class="content has-text-justified">
-                            <p>
+                            <p data-i18n="data-desc-1">
                                 We provide one fully released scene containing both degraded and clean images for debugging and validation.
                                 The development set includes 4 scenes, and performance is evaluated based on the submitted restored NVS results.
                                 During the testing period, the test set of 3 scenes will be released and evaluated using the same protocol.
@@ -226,7 +276,7 @@
                         </div>
                         <div class="content has-text-justified">
                             <div class="table-wrap">
-                                <table class="clean-table">
+                                <table class="clean-table" id="table-track1">
                                 <colgroup>
                                     <col style="width: 10%;">  <!-- Part -->
                                     <col style="width: 8%;">   <!-- Scenes -->
@@ -239,13 +289,13 @@
 
                                 <thead>
                                     <tr>
-                                    <th>Part</th>
-                                    <th>Scenes</th>
-                                    <th>Train.<br>Images</th>
-                                    <th>Train.<br>Poses</th>
-                                    <th>Test.<br>Images</th>
-                                    <th>Test.<br>Poses</th>
-                                    <th>Leaderboard</th>
+                                    <th data-i18n="th-part">Part</th>
+                                    <th data-i18n="th-scenes">Scenes</th>
+                                    <th data-i18n="th-train-images">Train.<br>Images</th>
+                                    <th data-i18n="th-train-poses">Train.<br>Poses</th>
+                                    <th data-i18n="th-test-images">Test.<br>Images</th>
+                                    <th data-i18n="th-test-poses">Test.<br>Poses</th>
+                                    <th data-i18n="th-leaderboard">Leaderboard</th>
                                     </tr>
                                 </thead>
 
@@ -294,7 +344,7 @@
                                         </span>
                                     </td>
 
-                                    <td class="leaderboard-col">Not evaluated</td>
+                                    <td class="leaderboard-col" data-i18n="td-not-eval">Not evaluated</td>
                                     </tr>
 
                                     <tr>
@@ -341,7 +391,7 @@
                                         </span>
                                     </td>
 
-                                    <td class="leaderboard-col">Development (immediate after submission)</td>
+                                    <td class="leaderboard-col" data-i18n="td-dev">Development (immediate after submission)</td>
                                     </tr>
 
                                     <tr>
@@ -388,14 +438,14 @@
                                         </span>
                                     </td>
 
-                                    <td class="leaderboard-col">Test (when testing begins)</td>
+                                    <td class="leaderboard-col" data-i18n="td-test">Test (when testing begins)</td>
                                     </tr>
                                 </tbody>
                                 </table>
                             </div>
                         </div>
                         <div class="content has-text-justified">
-                            <p>
+                            <p data-i18n="data-org">
                                 For each scene, the dataset is organized as follows:
                             </p>
 
@@ -424,7 +474,7 @@
   transforms_test.json</code></pre>
                         </div>
 
-                        <p style="margin-top: 0.75rem;">
+                        <p style="margin-top: 0.75rem;" data-i18n="data-format-note">
                             <code>transforms_train.json</code> and <code>transforms_test.json</code> follow the <a href="https://docs.nerf.studio/quickstart/data_conventions.html" target="_blank" rel="noopener noreferrer">Blender dataset format</a> and include
                             camera intrinsics and extrinsics (poses) for training views and NVS views to be submitted. Examples of degraded and clean image pairs are shown below.
                         </p>
@@ -465,9 +515,9 @@
             <div class="container is-max-widescreen">
                 <div class="columns is-centered has-text-centered">
                     <div class="column is-four-fifths">
-                        <h2 class="title is-3 publication-title">Track 2: 3D Smoke Restoration Challenge</h2>
+                        <h2 class="title is-3 publication-title" data-i18n="track2-title">Track 2: 3D Smoke Restoration Challenge</h2>
                         <div class="content has-text-justified">
-                            <p>
+                            <p data-i18n="track2-desc">
                                 Smoke-filled scenes pose a unique barrier to 3D vision because the degradation is not a simple image corruption but a physical process:
                                 scattering introduces a veil of stray light, reduces contrast non-uniformly with depth, and alters visibility in a view- and path-dependent manner.
                                 In real deployments such as firefighting robots, industrial inspection, search-and-rescue, and autonomous navigation in dust or smoke, perception systems must still localize, map, and recognize objects under severely degraded observations.
@@ -489,9 +539,9 @@
             <div class="container is-max-widescreen">
                 <div class="columns is-centered has-text-centered" , style="margin-top: 42px;">
                     <div class="column is-four-fifths">
-                        <h2 class="title is-3 publication-title">Data Structure</h2>
+                        <h2 class="title is-3 publication-title" data-i18n="data-structure-title">Data Structure</h2>
                             <div class="content has-text-justified">
-                            <p>
+                            <p data-i18n="data-desc-2">
                                 We provide one fully released scene containing both degraded and clean images for debugging and validation.
                                 The development set includes 4 scenes, and performance is evaluated based on the submitted restored NVS results.
                                 During the testing period, the test set of 3 scenes will be released and evaluated using the same protocol.
@@ -501,7 +551,7 @@
                             </div>
                         <div class="content has-text-justified">
                             <div class="table-wrap">
-                                <table class="clean-table">
+                                <table class="clean-table" id="table-track2">
                                 <colgroup>
                                     <col style="width: 10%;">  <!-- Part -->
                                     <col style="width: 8%;">   <!-- Scenes -->
@@ -514,13 +564,13 @@
 
                                 <thead>
                                     <tr>
-                                    <th>Part</th>
-                                    <th>Scenes</th>
-                                    <th>Train.<br>Images</th>
-                                    <th>Train.<br>Poses</th>
-                                    <th>Test.<br>Images</th>
-                                    <th>Test.<br>Poses</th>
-                                    <th>Leaderboard</th>
+                                    <th data-i18n="th-part">Part</th>
+                                    <th data-i18n="th-scenes">Scenes</th>
+                                    <th data-i18n="th-train-images">Train.<br>Images</th>
+                                    <th data-i18n="th-train-poses">Train.<br>Poses</th>
+                                    <th data-i18n="th-test-images">Test.<br>Images</th>
+                                    <th data-i18n="th-test-poses">Test.<br>Poses</th>
+                                    <th data-i18n="th-leaderboard">Leaderboard</th>
                                     </tr>
                                 </thead>
 
@@ -569,7 +619,7 @@
                                         </span>
                                     </td>
 
-                                    <td class="leaderboard-col">Not evaluated</td>
+                                    <td class="leaderboard-col" data-i18n="td-not-eval">Not evaluated</td>
                                     </tr>
 
                                     <tr>
@@ -616,7 +666,7 @@
                                         </span>
                                     </td>
 
-                                    <td class="leaderboard-col">Development (immediate after submission)</td>
+                                    <td class="leaderboard-col" data-i18n="td-dev">Development (immediate after submission)</td>
                                     </tr>
 
                                     <tr>
@@ -663,14 +713,14 @@
                                         </span>
                                     </td>
 
-                                    <td class="leaderboard-col">Test (when testing begins)</td>
+                                    <td class="leaderboard-col" data-i18n="td-test">Test (when testing begins)</td>
                                     </tr>
                                 </tbody>
                                 </table>
                             </div>
                         </div>
                         <div class="content has-text-justified">
-                            <p>
+                            <p data-i18n="data-org">
                                 For each scene, the dataset is organized as follows:
                             </p>
 
@@ -699,7 +749,7 @@
   transforms_test.json</code></pre>
                         </div>
 
-                        <p style="margin-top: 0.75rem;">
+                        <p style="margin-top: 0.75rem;" data-i18n="data-format-note">
                             <code>transforms_train.json</code> and <code>transforms_test.json</code> follow the <a href="https://docs.nerf.studio/quickstart/data_conventions.html" target="_blank" rel="noopener noreferrer">Blender dataset format</a> and include
                             camera intrinsics and extrinsics (poses) for training views and NVS views to be submitted. Examples of degraded and clean image pairs are shown below.
                         </p>
@@ -739,9 +789,9 @@
         <div class="container is-max-widescreen">
             <div class="columns is-centered has-text-centered" , style="margin-top: -42px;">
                 <div class="column is-four-fifths">
-                    <h2 class="title is-3 publication-title">Evaluation</h2>
+                    <h2 class="title is-3 publication-title" data-i18n="eval-title">Evaluation</h2>
                     <div class="content has-text-justified">
-                        <p>
+                        <p data-i18n="eval-desc">
                         Participants are supposed to submit the restored NVS images given the testing view poses of each scene. We evaluate the rendered results against the clean ground-truth references using <strong>PSNR</strong>, <strong>SSIM</strong>, and <strong>LPIPS</strong>.
                         The final ranking is determined by the average per-scene performance across both the Development and Testing sets.
                         </p>
@@ -752,9 +802,9 @@
         <div class="container is-max-widescreen">
             <div class="columns is-centered has-text-centered" , style="margin-top: 42px;">
                 <div class="column is-four-fifths">
-                    <h2 class="title is-3 publication-title">Data Capture</h2>
+                    <h2 class="title is-3 publication-title" data-i18n="capture-title">Data Capture</h2>
                     <div class="content has-text-justified">
-                        <p>
+                        <p data-i18n="capture-desc">
                              Each frame in the RealX3D dataset provides a pair of degraded and clean images. 
                              To acquire these sequences, we used the mechanical rail-dolly system shown in the video,
                              where the camera moved at a constant speed along the rails. 
@@ -777,7 +827,7 @@
 
     <section class="section">
         <div class="columns is-centered has-text-centered">
-            <h2 class="title is-3 publication-title">Organizer</h2>
+            <h2 class="title is-3 publication-title" data-i18n="organizer-title">Organizer</h2>
         </div>
         
         <!-- 开始插入 Organizer 代码 -->
@@ -905,7 +955,7 @@
     <div class="line"></div>
     <section class="section">
         <div class="columns is-centered has-text-centered">
-            <h2 class="title is-3 publication-title">RealX3D: A Physically-Degraded 3D Benchmark for Multi-view </br>
+            <h2 class="title is-3 publication-title" data-i18n="realx3d-title">RealX3D: A Physically-Degraded 3D Benchmark for Multi-view </br>
                 Visual Restoration and Reconstruction</h2>
         </div>
         </br>
@@ -969,7 +1019,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                         </svg>
-                        Arxiv
+                        <span data-i18n="btn-arxiv">Arxiv</span>
                     </a>
 
                     <a href="#" class="track-btn btn-secondary">
@@ -977,7 +1027,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                         </svg>
-                        Data (comming soon)
+                        <span data-i18n="btn-data">Data (comming soon)</span>
                     </a>
 
                 </div>
@@ -1002,7 +1052,7 @@
                 <div class="column is-four-fifths">
                     
                     <div class="content has-text-justified">
-                        <p>
+                        <p data-i18n="realx3d-intro">
                             RealX3D is a real-capture benchmark for multi-view visual restoration and 3D reconstruction under diverse physical degradations.
                              Corruptions are grouped into four families—illumination, scattering, occlusion, and blurring—and captured at multiple severity 
                              levels using a unified acquisition protocol that yields pixel-aligned LQ/GT views. Each scene includes high-resolution capture, RAW images,
@@ -1019,7 +1069,7 @@
                     <img src="./static/images/data_pipline.jpg" 
                          alt="RealX3D Abstract Cover" 
                          style="margin-left: auto; margin-right: auto; max-width: 100%;">
-                    <div class="caption">Data acquisition and processing pipeline</div>
+                    <div class="caption" data-i18n="pipeline-caption">Data acquisition and processing pipeline</div>
                          
                 </figure>
                 </div>
@@ -1029,9 +1079,9 @@
     <div id="acquisition-protocol" class="container is-max-widescreen">
             <div class="columns is-centered has-text-centered" , style="margin-top: 42px;">
                 <div class="column is-four-fifths">
-                    <h3 class="title is-4">Acquisition protocol</h3>
+                    <h3 class="title is-4" data-i18n="acquisition-title">Acquisition protocol</h3>
                     <div class="content has-text-justified">
-                        <p>
+                        <p data-i18n="acquisition-desc">
                             RealX3D provides 2,407 paired low-quality and reference images, along with the same
 number of corresponding RAW captures. The
 dataset is collected across 15 indoor rooms and
@@ -1073,11 +1123,11 @@ clouds.
 
     <footer class="footer">
         <div class="container">
-            <div class="columns is-centered">
-                <p>
+            <!-- <div class="columns is-centered">
+                <p data-i18n="footer-credit">
                     This website is based on the <a href="https://nerfies.github.io">Nerfies</a>.
                 </p>
-            </div>
+            </div> -->
             <div class="cell mb-0 is-hidden-mobile is-hidden-desktop">
                 <div class="box is-shadowless">
                     <script type="text/javascript" id="clstr_globe"
@@ -1085,8 +1135,8 @@ clouds.
                 </div>
             </div>
 
-        <div class="columns is-centered" style="margin-top: 30px;">
-    <div class="column is-8">
+        <div class="columns is-centered" style="margin-top: 0px;">
+    <div class="column is-8" >
         <div class="content has-text-centered">
             <div class="university-logos-container">
                 <a href="https://www.u-tokyo.ac.jp/en/" target="_blank" class="uni-link">
@@ -1143,6 +1193,195 @@ clouds.
     </footer>
     <script>
         initComparisons();
+    </script>
+
+    <!-- i18n Translation Script -->
+    <script>
+        const translations = {
+            en: {
+                // Main Title
+                "main-title": "3D Restoration and Reconstruction<br>&mdash; NTIRE 2026 Challenge &mdash;",
+                "organized-by": 'Organized by <a href="https://www.mi.t.u-tokyo.ac.jp/en" target="_blank" rel="noopener noreferrer">Machine Intelligence Lab</a>, University of Tokyo</br><a href="https://www.icd.riec.tohoku.ac.jp/en/" target="_blank" rel="noopener noreferrer">Interactive Content Design Lab</a>, Tohoku University</br><a href="https://www.informatik.uni-wuerzburg.de/computervision/" target="_blank" rel="noopener noreferrer">Computer Vision Lab</a>, University of Würzburg',
+                "keywords-title": "✨ Keywords ✨",
+                "kw-1": "World Modeling",
+                "kw-2": "3D Reconstruction",
+                "kw-3": "Multi-view Restoration",
+                "kw-4": "Physical Robustness",
+                
+                // Overview
+                "overview-title": "Overview",
+                "overview-p1": 'Welcome to the <a href="" target="_blank" rel="noopener noreferrer">1st 3D Restoration and Reconstruction Challenge</a> host at <a href="https://cvlai.net/ntire/2026/" target="_blank" rel="noopener noreferrer">New Trends in Image Restoration and Enhancement (NTIRE) Workshop</a>, in conjunction with <a href="https://cvpr.thecvf.com/" target="_blank" rel="noopener noreferrer">CVPR 2026</a>.',
+                "overview-p2": "This challenge aims to advance robust 3D reconstruction under real-world, in-the-wild degradations. Specifically, the proposed pipeline should account for realistic visual corruptions, restore degraded training views, and reconstruct clean 3D representations for high-quality novel-view synthesis (NVS).",
+                "overview-p3": 'To support this goal, we curate a comprehensive 3D benchmark, <a href="https://arxiv.org/abs/2512.23437" target="_blank" rel="noopener noreferrer">RealX3D</a>, and introduce two tracks: <strong>(1) 3D Low-Light Enhancement</strong> and <strong>(2) 3D Smoke Restoration</strong>. Each track provides multiple scenes with multi-view images degraded by low-light or smoke, along with clean NVS references for evaluation. Submissions are assessed by comparing rendered NVS against the corresponding ground-truth captures. To simplify the evaluation protocol, both tracks focus on photometric fidelity, and the ground-truth camera poses of the training views are provided.',
+                "overview-p4": "Participants are encouraged to approach this challenge from two key perspectives.",
+                "overview-li1": "<strong>Better Visual Restoration:</strong> novel designs or integrations of physical-aware visual restoration techniques for real-world visual corruptions.",
+                "overview-li2": "<strong>Better Geometry Consistency:</strong> novel designs of multi-view learning methods or 3D representations for in-the-wild 3D reconstruction.",
+                "overview-p5": "Top-ranked participants will receive awards and be invited to present their solutions at the NTIRE workshop held in conjunction with CVPR 2026. The challenge results will also be published in the CVPR NTIRE 2026 workshop proceedings.",
+                
+                // Tab buttons
+                "tab1-text": "Track 1: 3D Low-light Enhancement",
+                "tab2-text": "Track 2: 3D Smoke Restoration",
+                
+                // Track 1
+                "track1-title": "Track 1: 3D Low-Light Enhancement Challenge",
+                "track1-desc": "Low-light imaging is a long-standing challenge in 2D vision, where limited photons lead to severe noise, color shifts, and loss of fine textures, degrading both visual quality and downstream perception. While recent 2D low-light enhancement methods can produce visually pleasing results, they are often optimized for single images and may introduce view-dependent artifacts or hallucinated details. In real applications such as robotics, AR/VR, and autonomous systems, models must operate on multi-view observations and build a coherent 3D representation of the scene. This makes low-light enhancement fundamentally harder in 3D: the method must improve visibility while preserving cross-view consistency so that geometry and appearance remain stable when rendering novel views. The 3D Low-Light Enhancement Challenge targets this gap by encouraging approaches that bridge 2D enhancement and 3D multiview geometry, enabling reliable scene understanding and high-quality restoration and rendering under realistic low-light conditions.",
+                
+                // Track 2
+                "track2-title": "Track 2: 3D Smoke Restoration Challenge",
+                "track2-desc": "Smoke-filled scenes pose a unique barrier to 3D vision because the degradation is not a simple image corruption but a physical process: scattering introduces a veil of stray light, reduces contrast non-uniformly with depth, and alters visibility in a view- and path-dependent manner. In real deployments such as firefighting robots, industrial inspection, search-and-rescue, and autonomous navigation in dust or smoke, perception systems must still localize, map, and recognize objects under severely degraded observations. The difficulty is amplified in multi-view settings, where the same surface can appear inconsistently across viewpoints due to varying optical thickness, occlusions from dense plumes, and spatially varying attenuation. The 3D Smoke Restoration Challenge targets robust recovery of scene geometry and appearance under participating media, aiming for methods that not only enhance visibility but also produce stable, physically plausible 3D reconstructions and coherent novel-view renderings in realistic scattering environments.",
+                
+                // Data Structure
+                "data-structure-title": "Data Structure",
+                "data-desc-1": "We provide one fully released scene containing both degraded and clean images for debugging and validation. The development set includes 4 scenes, and performance is evaluated based on the submitted restored NVS results. During the testing period, the test set of 3 scenes will be released and evaluated using the same protocol. All low-light images are captured with a shutter speed of 1/400, and the well-lit reference images are captured at 1/10 under same camera settings. Participants may use additional training data or pretrained models, provided that all external resources and training details are clearly documented in the final factsheet.",
+                "data-desc-2": "We provide one fully released scene containing both degraded and clean images for debugging and validation. The development set includes 4 scenes, and performance is evaluated based on the submitted restored NVS results. During the testing period, the test set of 3 scenes will be released and evaluated using the same protocol. In each scene, the degraded smoke views and clean ground-truth views are captured under same illumination and camera settings. Smoke density is controlled to be consistent across all scenes. Participants may use additional training data or pretrained models, provided that all external resources and training details are clearly documented in the final factsheet.",
+                "data-org": "For each scene, the dataset is organized as follows:",
+                "data-format-note": '<code>transforms_train.json</code> and <code>transforms_test.json</code> follow the <a href="https://docs.nerf.studio/quickstart/data_conventions.html" target="_blank" rel="noopener noreferrer">Blender dataset format</a> and include camera intrinsics and extrinsics (poses) for training views and NVS views to be submitted. Examples of degraded and clean image pairs are shown below.',
+                
+                // Table headers
+                "th-part": "Part",
+                "th-scenes": "Scenes",
+                "th-train-images": "Train.<br>Images",
+                "th-train-poses": "Train.<br>Poses",
+                "th-test-images": "Test.<br>Images",
+                "th-test-poses": "Test.<br>Poses",
+                "th-leaderboard": "Leaderboard",
+                "td-not-eval": "Not evaluated",
+                "td-dev": "Development (immediate after submission)",
+                "td-test": "Test (when testing begins)",
+                
+                // Evaluation
+                "eval-title": "Evaluation",
+                "eval-desc": "Participants are supposed to submit the restored NVS images given the testing view poses of each scene. We evaluate the rendered results against the clean ground-truth references using <strong>PSNR</strong>, <strong>SSIM</strong>, and <strong>LPIPS</strong>. The final ranking is determined by the average per-scene performance across both the Development and Testing sets.",
+                
+                // Data Capture
+                "capture-title": "Data Capture",
+                "capture-desc": 'Each frame in the RealX3D dataset provides a pair of degraded and clean images. To acquire these sequences, we used the mechanical rail-dolly system shown in the video, where the camera moved at a constant speed along the rails. The detailed data acquisition protocol can be found <a href="#acquisition-protocol" style="color: #3273dc; text-decoration: underline;">below</a>.',
+                
+                // Organizer
+                "organizer-title": "Organizer",
+                
+                // RealX3D section
+                "realx3d-title": "RealX3D: A Physically-Degraded 3D Benchmark for Multi-view </br>Visual Restoration and Reconstruction",
+                "realx3d-intro": "RealX3D is a real-capture benchmark for multi-view visual restoration and 3D reconstruction under diverse physical degradations. Corruptions are grouped into four families—illumination, scattering, occlusion, and blurring—and captured at multiple severity levels using a unified acquisition protocol that yields pixel-aligned LQ/GT views. Each scene includes high-resolution capture, RAW images, and dense laser scans, from which we derive world-scale meshes and metric depth.",
+                "pipeline-caption": "Data acquisition and processing pipeline",
+                "acquisition-title": "Acquisition protocol",
+                "acquisition-desc": "RealX3D provides 2,407 paired low-quality and reference images, along with the same number of corresponding RAW captures. The dataset is collected across 15 indoor rooms and organized into 55 distinct scenes spanning seven degradation types. The current release includes defocus or camera motion blur with 8 scenes and 271 pairs, where each scene is captured at two blur severity levels; dynamic occlusion with 8 scenes and 271 pairs; reflection with 8 scenes and 271 pairs; extreme low light with 9 scenes and 319 pairs; low-light exposure variation with 9 scenes and 319 pairs; and smoke scattering with 5 scenes and 143 pairs. We further provide laser-scanned point clouds with 5 mm point spacing, along with calibrated camera intrinsics and extrinsics. Each view is paired with a metric depth map stored as a 16-bit PNG in millimeters, and each scene includes a colored mesh reconstructed from the scanned point clouds.",
+                
+                // Buttons
+                "btn-arxiv": "Arxiv",
+                "btn-data": "Data (comming soon)",
+                
+                // Footer
+                "footer-credit": 'This website is based on the <a href="https://nerfies.github.io">Nerfies</a>.'
+            },
+            ja: {
+                // Main Title
+                "main-title": "3D復元と再構築<br>&mdash; NTIRE 2026 チャレンジ &mdash;",
+                "organized-by": '<a href="https://www.mi.t.u-tokyo.ac.jp/" target="_blank" rel="noopener noreferrer">機械知能研究室</a>（東京大学）主催</br><a href="https://www.icd.riec.tohoku.ac.jp/" target="_blank" rel="noopener noreferrer">インタラクティブコンテンツデザイン研究室</a>（東北大学）</br><a href="https://www.informatik.uni-wuerzburg.de/computervision/" target="_blank" rel="noopener noreferrer">コンピュータビジョン研究室</a>（ヴュルツブルク大学）',
+                "keywords-title": "✨ キーワード ✨",
+                "kw-1": "ワールドモデリング",
+                "kw-2": "3D再構築",
+                "kw-3": "マルチビュー復元",
+                "kw-4": "物理的ロバスト性",
+                
+                // Overview
+                "overview-title": "概要",
+                "overview-p1": '<a href="https://cvpr.thecvf.com/" target="_blank" rel="noopener noreferrer">CVPR 2026</a>併催の<a href="https://cvlai.net/ntire/2026/" target="_blank" rel="noopener noreferrer">New Trends in Image Restoration and Enhancement (NTIRE) ワークショップ</a>で開催される<a href="" target="_blank" rel="noopener noreferrer">第1回 3D復元・再構築チャレンジ</a>へようこそ。',
+                "overview-p2": "本チャレンジは、実世界の様々な劣化条件下における頑健な3D再構築技術の発展を目指しています。具体的には、現実的な視覚劣化を考慮し、劣化した学習ビューを復元し、高品質なノベルビュー合成（NVS）のためのクリーンな3D表現を再構築するパイプラインを提案することが求められます。",
+                "overview-p3": 'この目標を支援するため、包括的な3Dベンチマーク<a href="https://arxiv.org/abs/2512.23437" target="_blank" rel="noopener noreferrer">RealX3D</a>を整備し、2つのトラックを設けました：<strong>(1) 3D低照度強調</strong>と<strong>(2) 3D煙除去</strong>。各トラックは、低照度または煙により劣化したマルチビュー画像を持つ複数のシーンと、評価用のクリーンなNVS参照画像を提供します。提出結果は、レンダリングされたNVSと対応する真値画像との比較により評価されます。評価プロトコルを簡略化するため、両トラックとも測光的忠実度に焦点を当て、学習ビューの真値カメラポーズが提供されます。',
+                "overview-p4": "参加者には、以下の2つの重要な観点からこのチャレンジに取り組むことをお勧めします。",
+                "overview-li1": "<strong>より良い視覚復元：</strong>実世界の視覚劣化に対する物理認識型視覚復元技術の新規設計または統合。",
+                "overview-li2": "<strong>より良い幾何整合性：</strong>野外3D再構築のためのマルチビュー学習手法または3D表現の新規設計。",
+                "overview-p5": "上位入賞者は賞を受賞し、CVPR 2026併催のNTIREワークショップでソリューションを発表するよう招待されます。チャレンジの結果はCVPR NTIRE 2026ワークショップ論文集にも掲載されます。",
+                
+                // Tab buttons
+                "tab1-text": "トラック1：3D低照度強調",
+                "tab2-text": "トラック2：3D煙除去",
+                
+                // Track 1
+                "track1-title": "トラック1：3D低照度強調チャレンジ",
+                "track1-desc": "低照度撮影は2Dビジョンにおける長年の課題であり、光子数の制限により深刻なノイズ、色ずれ、細部テクスチャの損失が生じ、視覚品質と後続認識の両方が劣化します。最近の2D低照度強調手法は視覚的に良好な結果を生成できますが、単一画像に最適化されていることが多く、ビュー依存のアーティファクトや幻覚的な詳細を導入する可能性があります。ロボティクス、AR/VR、自律システムなどの実用アプリケーションでは、モデルはマルチビュー観測で動作し、シーンの一貫した3D表現を構築する必要があります。これにより、3Dでの低照度強調は根本的に困難になります：手法は可視性を改善しながら、ノベルビューをレンダリングする際に幾何学と外観が安定するようにクロスビューの一貫性を保持する必要があります。3D低照度強調チャレンジは、2D強調と3Dマルチビュー幾何学を橋渡しするアプローチを奨励し、現実的な低照度条件下での信頼性の高いシーン理解と高品質な復元・レンダリングを可能にすることを目指しています。",
+                
+                // Track 2
+                "track2-title": "トラック2：3D煙除去チャレンジ",
+                "track2-desc": "煙が充満したシーンは、劣化が単純な画像破損ではなく物理的プロセスであるため、3Dビジョンに固有の障壁をもたらします：散乱は迷光のベールを導入し、深度に応じて不均一にコントラストを低下させ、ビューおよび経路依存的に可視性を変化させます。消防ロボット、産業検査、捜索救助、粉塵や煙中の自律航行などの実際の展開では、知覚システムは深刻に劣化した観測下でも位置特定、マッピング、物体認識を行う必要があります。マルチビュー設定では、光学的厚さの変動、濃密なプルームによる遮蔽、空間的に変化する減衰により、同じ表面がビューポイント間で一貫して見えない可能性があるため、困難さが増大します。3D煙除去チャレンジは、参与媒体下でのシーン幾何学と外観の頑健な復元を対象とし、可視性を向上させるだけでなく、現実的な散乱環境で安定した物理的に妥当な3D再構築と一貫したノベルビューレンダリングを生成する手法を目指しています。",
+                
+                // Data Structure
+                "data-structure-title": "データ構造",
+                "data-desc-1": "デバッグと検証用に、劣化画像とクリーン画像の両方を含む完全公開シーンを1つ提供します。開発セットには4つのシーンが含まれ、提出された復元NVS結果に基づいてパフォーマンスが評価されます。テスト期間中、3つのシーンのテストセットが公開され、同じプロトコルで評価されます。すべての低照度画像はシャッター速度1/400で撮影され、明るい参照画像は同じカメラ設定で1/10で撮影されています。参加者は追加の学習データや事前学習モデルを使用できますが、すべての外部リソースと学習詳細は最終ファクトシートに明確に記載する必要があります。",
+                "data-desc-2": "デバッグと検証用に、劣化画像とクリーン画像の両方を含む完全公開シーンを1つ提供します。開発セットには4つのシーンが含まれ、提出された復元NVS結果に基づいてパフォーマンスが評価されます。テスト期間中、3つのシーンのテストセットが公開され、同じプロトコルで評価されます。各シーンでは、劣化した煙ビューとクリーンな真値ビューが同じ照明とカメラ設定で撮影されています。煙の濃度はすべてのシーンで一定に制御されています。参加者は追加の学習データや事前学習モデルを使用できますが、すべての外部リソースと学習詳細は最終ファクトシートに明確に記載する必要があります。",
+                "data-org": "各シーンについて、データセットは以下のように構成されています：",
+                "data-format-note": '<code>transforms_train.json</code>と<code>transforms_test.json</code>は<a href="https://docs.nerf.studio/quickstart/data_conventions.html" target="_blank" rel="noopener noreferrer">Blenderデータセット形式</a>に従い、学習ビューと提出するNVSビューのカメラ内部パラメータと外部パラメータ（ポーズ）を含みます。劣化画像とクリーン画像のペアの例を以下に示します。',
+                
+                // Table headers
+                "th-part": "パート",
+                "th-scenes": "シーン数",
+                "th-train-images": "学習<br>画像",
+                "th-train-poses": "学習<br>ポーズ",
+                "th-test-images": "テスト<br>画像",
+                "th-test-poses": "テスト<br>ポーズ",
+                "th-leaderboard": "リーダーボード",
+                "td-not-eval": "評価対象外",
+                "td-dev": "開発用（提出後即時評価）",
+                "td-test": "テスト用（テスト開始時）",
+                
+                // Evaluation
+                "eval-title": "評価",
+                "eval-desc": "参加者は各シーンのテストビューポーズに対して復元されたNVS画像を提出します。レンダリング結果は<strong>PSNR</strong>、<strong>SSIM</strong>、<strong>LPIPS</strong>を使用してクリーンな真値参照と比較評価されます。最終ランキングは、開発セットとテストセットの両方におけるシーンごとの平均パフォーマンスによって決定されます。",
+                
+                // Data Capture
+                "capture-title": "データ収集",
+                "capture-desc": 'RealX3Dデータセットの各フレームは、劣化画像とクリーン画像のペアを提供します。これらのシーケンスを取得するために、動画に示されている機械式レール・ドリーシステムを使用し、カメラはレールに沿って一定速度で移動しました。詳細なデータ取得プロトコルは<a href="#acquisition-protocol" style="color: #3273dc; text-decoration: underline;">下記</a>をご覧ください。',
+                
+                // Organizer
+                "organizer-title": "主催者",
+                
+                // RealX3D section
+                "realx3d-title": "RealX3D：マルチビュー視覚復元と再構築のための</br>物理劣化3Dベンチマーク",
+                "realx3d-intro": "RealX3Dは、多様な物理劣化条件下でのマルチビュー視覚復元と3D再構築のための実撮影ベンチマークです。劣化は照明、散乱、遮蔽、ぼかしの4つのファミリーにグループ化され、ピクセル整列されたLQ/GTビューを生成する統一取得プロトコルを使用して複数の深刻度レベルで撮影されます。各シーンには高解像度撮影、RAW画像、密なレーザースキャンが含まれ、そこからワールドスケールのメッシュとメトリック深度を導出します。",
+                "pipeline-caption": "データ取得および処理パイプライン",
+                "acquisition-title": "取得プロトコル",
+                "acquisition-desc": "RealX3Dは、2,407組の低品質画像と参照画像のペアと、同数の対応するRAW撮影を提供します。データセットは15の屋内部屋で収集され、7つの劣化タイプにまたがる55の異なるシーンに整理されています。現在のリリースには、8シーン271ペアのデフォーカスまたはカメラモーションブラー（各シーンは2つのブラー深刻度レベルで撮影）、8シーン271ペアの動的遮蔽、8シーン271ペアの反射、9シーン319ペアの極端な低照度、9シーン319ペアの低照度露出変動、5シーン143ペアの煙散乱が含まれます。さらに、5mmの点間隔でレーザースキャンされた点群と、校正されたカメラ内部・外部パラメータを提供します。各ビューには16ビットPNGとしてミリメートル単位で保存されたメトリック深度マップがペアになっており、各シーンにはスキャンされた点群から再構築されたカラーメッシュが含まれています。",
+                
+                // Buttons
+                "btn-arxiv": "Arxiv",
+                "btn-data": "データ（近日公開）",
+                
+                // Footer
+                "footer-credit": 'このウェブサイトは<a href="https://nerfies.github.io">Nerfies</a>に基づいています。'
+            }
+        };
+
+        let currentLang = 'en';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            
+            // Update button states
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById('lang-' + lang).classList.add('active');
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            // Save preference
+            localStorage.setItem('preferredLang', lang);
+        }
+
+        // Load saved language preference on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedLang = localStorage.getItem('preferredLang');
+            if (savedLang && (savedLang === 'en' || savedLang === 'ja')) {
+                switchLanguage(savedLang);
+            }
+        });
     </script>
 </body>
 
