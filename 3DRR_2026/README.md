@@ -13,8 +13,8 @@ This challenge aims to advance robust 3D reconstruction under real-world, in-the
 
 To support this goal, we curate a comprehensive 3D benchmark, [RealX3D](https://arxiv.org/abs/2512.23437), and introduce **two tracks**:
 
-1. **3D Low-Light Enhancement**
-2. **3D Smoke Restoration**
+1. [**3D Low-Light Enhancement**](https://www.codabench.org/competitions/13854/)
+2. [**3D Smoke Restoration**](https://www.codabench.org/competitions/13993)
 
 Each track provides multiple scenes with multi-view images degraded by low-light or smoke, along with clean NVS references for evaluation. Submissions are assessed by comparing rendered NVS against the corresponding ground-truth captures. To simplify the evaluation protocol, both tracks focus on photometric fidelity, and the ground-truth camera poses of the training views are provided.
 
@@ -58,7 +58,7 @@ scene/
   transforms_train.json
   transforms_test.json
 ```
-`transforms_train.json` and `transforms_test.json` follow the [Blender dataset format](https://docs.nerf.studio/quickstart/data_conventions.html) and include camera intrinsics and extrinsics (poses) for training views and NVS views to be submitted.
+`transforms_train.json` and `transforms_test.json` follow the [Blender dataset format](https://docs.nerf.studio/quickstart/data_conventions.html) and include camera intrinsics and extrinsics (poses) for training views and NVS views to be submitted. Please visit the [Codabench](https://www.codabench.org/competitions/13854/) for more details and the download link.
 
 Examples of degraded and clean image pairs:
 
@@ -102,7 +102,8 @@ scene/
   transforms_train.json
   transforms_test.json
 ```
-`transforms_train.json` and `transforms_test.json` follow the [Blender dataset format](https://docs.nerf.studio/quickstart/data_conventions.html) and include camera intrinsics and extrinsics (poses) for training views and NVS views to be submitted.
+`transforms_train.json` and `transforms_test.json` follow the [Blender dataset format](https://docs.nerf.studio/quickstart/data_conventions.html) and include camera intrinsics and extrinsics (poses) for training views and NVS views to be submitted. Please visit the [Codabench](https://www.codabench.org/competitions/13993/) for more details and the download link. 
+
 
 Examples of degraded and clean image pairs:
 
