@@ -247,8 +247,10 @@ $$('[data-lang]').forEach(b => b.addEventListener('click', () => {
   const l = b.dataset.lang; if (l === lang) return; lang = l;
   $$('[data-lang]').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.lang === l)));
   const t = video.currentTime, playing = !video.paused && !video.ended;
-  video.poster = `assets/video/poster-${l}.jpg`; video.src = filmSrc(l);
+  video.poster = `assets/video/poster-${l}.jpg`;
+  video.preload = 'auto';                                  // preload="none" would stop the new source from loading at all
   video.addEventListener('loadedmetadata', () => { try { video.currentTime = t; } catch (_) {} if (playing) video.play().catch(() => {}); }, { once: true });
+  video.src = filmSrc(l); video.load();
 }));
 
 // ================================================================ 01 — bit-depth ruler
