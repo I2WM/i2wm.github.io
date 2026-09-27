@@ -254,12 +254,9 @@ h3 { font-family: var(--serif); font-weight: 600; }
 .story-steps span { font-size: 15.5px; line-height: 1.45; color: var(--muted); }
 .story-note { margin: 0; font: 500 12px/1.3 var(--narrow); letter-spacing: .16em; text-transform: uppercase; color: var(--faint); }
 
-/* fold: all the numbers */
+/* all the numbers, always open */
 .fold { max-width: var(--maxw); margin: 0 auto; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-.fold summary { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 18px 0; cursor: pointer; list-style: none; font: 600 clamp(18px, 1.6vw, 21px)/1.2 var(--serif); color: var(--ink); }
-.fold summary::-webkit-details-marker { display: none; }
-.fold summary span:first-child::before { content: "+"; display: inline-block; width: 1.1em; color: var(--ver); font-family: var(--sans); transition: transform .35s var(--e-out); }
-.fold[open] summary span:first-child::before { transform: rotate(45deg); }
+.fold-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0; padding: 18px 0; font: 600 clamp(18px, 1.6vw, 21px)/1.2 var(--serif); color: var(--ink); }
 .summary-hint { font: 500 12.5px/1 var(--narrow); letter-spacing: .12em; text-transform: uppercase; color: var(--faint); }
 
 /* ---------- 04 the same frame, four detectors ---------- */

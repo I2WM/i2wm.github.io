@@ -330,7 +330,7 @@ $$('.panel').forEach(p => {
   p.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); p.classList.toggle('is-open'); } });
 });
 
-// ================================================================ 02 — three pillars, three moving pictures
+// ================================================================ 03 — three pillars, three moving pictures
 (() => {
   const arts = $$('.art'); if (!arts.length) return;
   let curves = [];                                                    // real predicted curves of the demo scenes
@@ -395,7 +395,7 @@ $$('.panel').forEach(p => {
   });
 })();
 
-// ================================================================ 02 — one night frame through the adapter, driven by the scroll
+// ================================================================ 03 — one night frame through the adapter, driven by the scroll
 // The curve is global, so its step is a plain cross-fade; the grid is local, so its step sweeps across the frame cell by cell.
 (() => {
   const story = $('#story'); if (!story) return;
@@ -455,7 +455,7 @@ $$('.panel').forEach(p => {
   schedule();
 })();
 
-// ================================================================ 03 — the same frame, four detectors
+// ================================================================ 04 — the same frame, four detectors
 (() => {
   const box = $('#compare'); if (!box) return;
   const host = $('[data-multiples]', box), note = $('[data-compare-note]', box), tabs = $$('.tabs button[data-scene]', box);
@@ -517,7 +517,7 @@ $$('.panel').forEach(p => {
   addEventListener('resize', () => { if (current) paint(); });
 })();
 
-// ================================================================ 03 — numbers: bars on the beat, counting up
+// ================================================================ 04 — numbers: bars on the beat, counting up
 $$('.bar').forEach(b => b.style.setProperty('--row', b.dataset.i));
 function countUp(elm, delay) {
   const to = parseFloat(elm.dataset.to), sign = elm.dataset.sign || '', dec = (elm.dataset.to.split('.')[1] || '').length;
@@ -529,7 +529,7 @@ function countUp(elm, delay) {
 }
 whenRevealed($('.metrics-hero'), () => { const c = $$('.metrics-hero .count'); if (c[0]) countUp(c[0], 150); if (c[1]) countUp(c[1], 2200); });
 
-// ================================================================ 03 — all numbers from the paper (verbatim)
+// ================================================================ 04 — all numbers from the paper (verbatim)
 const TABLES = {"t1r":{"cap":"Table 1 · ResNet-50 backbone · mAP@50 and mAP@75 on PASCALRAW (low-light / normal / over-exposed), LOD, ROD and AODRaw.","groups":["PAS.LOW","PAS.NM","PAS.OE","LOD","ROD","AODRaw"],"sub":["@50","@75"],"rows":[["Linear-RAW","0.7668","0.5793","0.8661","0.7273","0.8747","0.7298","0.5710","0.3713","0.3041","0.1963","0.2301","0.1485"],["Default-ISP","0.8390","0.6676","0.8959","0.7328","0.8967","0.7333","0.5880","0.3549","0.4178","0.2709","0.3241","0.2063"],["ReconfigISP","0.8562","0.6662","0.8949","0.7286","0.8989","0.7263","0.5383","0.2903","0.3436","0.2137","0.2896","0.1763"],["RAW-Adapter","0.8647","0.6935","0.8942","0.7270","0.8987","0.7333","0.6082","0.3285","0.3950","0.2560","0.2934","0.1878"],["AdaptiveISP","0.8871","0.7293","0.9014","0.7872","0.9011","0.7636","0.6142","0.4071","0.4379","0.2848","0.3382","0.2131"],["Dark-ISP","0.7139","0.4663","0.8940","0.7550","0.8840","0.6890","0.5560","0.3630","0.4090","0.2710","0.3240","0.2060"],["Dr.RAW","0.8865","0.7305","0.8983","0.7639","0.8982","0.7624","0.6408","0.4399","0.4720","0.3160","0.3630","0.2310"],["RAWild (ours)","0.8910","0.7330","0.9020","0.7690","0.9020","0.7690","0.6909","0.4363","0.5541","0.3752","0.3623","0.2311"]]},"t1s":{"cap":"Table 1 · Swin-Transformer backbone · mAP@50 and mAP@75 on PASCALRAW (low-light / normal / over-exposed), LOD, ROD and AODRaw.","groups":["PAS.LOW","PAS.NM","PAS.OE","LOD","ROD","AODRaw"],"sub":["@50","@75"],"rows":[["Linear-RAW","0.5517","0.3336","0.8707","0.6882","0.8733","0.6196","0.5279","0.2828","0.3251","0.2120","0.1241","0.0768"],["Default-ISP","0.8581","0.7156","0.9023","0.7769","0.8966","0.7410","0.6978","0.5015","0.4885","0.3119","0.3428","0.2308"],["ReconfigISP","0.8803","0.6999","0.8946","0.7165","0.9017","0.7618","0.5935","0.3746","0.4051","0.2527","0.2977","0.1966"],["RAW-Adapter","0.8727","0.7121","0.9017","0.7869","0.8967","0.7546","0.6289","0.4149","0.4386","0.2869","0.3035","0.1985"],["AdaptiveISP","0.7830","0.5516","0.8704","0.7239","0.8883","0.7308","0.5990","0.4581","0.4440","0.2711","0.3661","0.2471"],["Dark-ISP","0.7233","0.4852","0.9010","0.7672","0.8980","0.7556","0.6303","0.4146","0.5039","0.3273","0.3398","0.2233"],["Dr.RAW","0.8814","0.7183","0.8986","0.7591","0.8958","0.7190","0.6950","0.5266","0.4933","0.3192","0.3268","0.2160"],["RAWild (ours)","0.9083","0.7406","0.9342","0.7792","0.9313","0.7921","0.6986","0.5057","0.5191","0.3467","0.4394","0.3263"]]},"t2":{"cap":"Table 2 · Mixed-sensor detection · synthetic (Syn) and real mixed-sensor datasets, mAP@50 and mAP@75.","groups":["PAS (Syn)","LOD (Syn)","ROD (Syn)","PAS & LOD","Multi-RAW"],"sub":["@50","@75"],"rows":[["Linear-RAW","0.8921","0.7295","0.5310","0.3297","0.3497","0.2273","0.6057","0.4175","0.2539","0.1227"],["RAW-Adapter","0.8869","0.7233","0.5874","0.3945","0.3637","0.2397","0.6540","0.4370","0.2334","0.1025"],["Dr.RAW","0.8949","0.7324","0.5924","0.4164","0.4234","0.2821","0.6660","0.4750","0.2572","0.1195"],["Dark-ISP","0.8888","0.7334","0.5837","0.3390","0.3703","0.2403","0.6420","0.4360","0.2603","0.1063"],["RAWild (ours)","0.8953","0.7343","0.6646","0.4602","0.4291","0.3223","0.6865","0.4896","0.3528","0.1336"]]},"t7":{"cap":"Table 7 · Semantic segmentation on RAW ADE20K with MiT backbones, mIoU, under low-light (LOW), normal (NM) and over-exposed (OE) conditions.","groups":["LOW","NM","OE"],"sub":["B0","B3","B5"],"rows":[["Linear-RAW","0.2027","0.3538","0.3653","0.2632","0.4403","0.4546","0.2691","0.4229","0.4404"],["RAW-Adapter","0.1885","0.3453","0.3636","0.2939","0.4457","0.4541","0.2683","0.4284","0.4385"],["Dr.RAW","0.2206","0.3581","0.3821","0.3134","0.4477","0.4666","0.2929","0.4343","0.4475"],["Dark-ISP","0.2202","0.3559","0.3806","0.3131","0.4432","0.4680","0.2917","0.4283","0.4488"],["RAWild (ours)","0.2872","0.3957","0.4082","0.3534","0.4516","0.4708","0.3372","0.4381","0.4560"]]},"t3":{"cap":"Table 3 · Efficiency · inference time and memory, as reported in the paper.","groups":null,"sub":["Time (ms)","Memory (GB)"],"rows":[["Linear-RAW","7.20","0.23"],["RAW-Adapter","10.00","0.24"],["Dr.RAW","10.52","0.53"],["Dark-ISP","20.45","0.99"],["RAWild (ours)","10.70","0.24"]]}};
 (() => {
   const host = $('[data-table-host]'), cap = $('[data-table-caption]'); if (!host) return;
@@ -547,7 +547,7 @@ const TABLES = {"t1r":{"cap":"Table 1 · ResNet-50 backbone · mAP@50 and mAP@75
   render('t1r');
 })();
 
-// ================================================================ 04 — copy BibTeX
+// ================================================================ 05 — copy BibTeX
 $$('[data-copy]').forEach(btn => btn.addEventListener('click', async () => {
   const src = $(btn.dataset.copy), label = $('.copy-label', btn), text = src.innerText.trim();
   let ok = false;
