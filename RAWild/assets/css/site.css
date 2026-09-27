@@ -189,7 +189,6 @@ a:hover .ext, button:hover .ext { transform: translate(2px, -2px); }
 
 /* ---------- sections ---------- */
 .section { position: relative; max-width: calc(var(--maxw) + 2 * var(--gutter)); margin: 0 auto; padding: clamp(96px, 12vw, 168px) var(--gutter) 0; }
-.section--fold { padding-top: clamp(40px, 5vw, 64px); }
 .sec-head { max-width: 780px; margin: 0 auto; text-align: center; }
 .kicker { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 0; font: 600 13px/1 var(--narrow); letter-spacing: .26em; text-transform: uppercase; color: var(--ver); }
 .kicker .num { color: var(--muted); letter-spacing: .1em; }
@@ -218,7 +217,15 @@ h3 { font-family: var(--serif); font-weight: 600; }
 .panel .bits small { font-size: .28em; font-weight: 500; letter-spacing: .14em; margin-left: .3em; text-transform: uppercase; opacity: .7; vertical-align: .25em; }
 .panel .cam { font: 500 clamp(14px, 1.15vw, 17px)/1.2 var(--serif); opacity: .88; white-space: nowrap; }
 
-/* ---------- 02 three pillars ---------- */
+/* ---------- 02 the architecture: the paper's own figure, on white ---------- */
+.figure { max-width: var(--maxw); margin: clamp(44px, 5vw, 64px) auto 0; }
+.figure .zoom { display: block; padding: clamp(8px, 2vw, 26px); border-radius: 10px; background: #fff; cursor: zoom-in;
+  box-shadow: 0 0 0 1px rgba(24, 36, 32, .08), 0 40px 80px -56px rgba(40, 36, 24, .7); }
+.figure img { width: 100%; height: auto; }
+.figure figcaption { max-width: 52em; margin: 20px auto 0; font-size: 15px; line-height: 1.6; color: var(--muted); text-align: center; text-wrap: balance; }
+.figure figcaption span { margin-right: 12px; font: 600 12.5px/1 var(--narrow); letter-spacing: .24em; text-transform: uppercase; color: var(--ver); }
+
+/* ---------- 03 three pillars ---------- */
 .pillars { list-style: none; padding: 0; margin: clamp(56px, 6.5vw, 90px) 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(26px, 4vw, 64px); }
 .pillar { position: relative; padding-top: 22px; border-top: 1px solid var(--rule); text-align: center; }
 .pillar::before { content: ""; position: absolute; top: -1px; left: 50%; width: 40px; height: 2px; margin-left: -20px; background: var(--ver); }
@@ -247,18 +254,15 @@ h3 { font-family: var(--serif); font-weight: 600; }
 .story-steps span { font-size: 15.5px; line-height: 1.45; color: var(--muted); }
 .story-note { margin: 0; font: 500 12px/1.3 var(--narrow); letter-spacing: .16em; text-transform: uppercase; color: var(--faint); }
 
-/* folds: the architecture, all the numbers */
+/* fold: all the numbers */
 .fold { max-width: var(--maxw); margin: 0 auto; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
 .fold summary { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 18px 0; cursor: pointer; list-style: none; font: 600 clamp(18px, 1.6vw, 21px)/1.2 var(--serif); color: var(--ink); }
 .fold summary::-webkit-details-marker { display: none; }
 .fold summary span:first-child::before { content: "+"; display: inline-block; width: 1.1em; color: var(--ver); font-family: var(--sans); transition: transform .35s var(--e-out); }
 .fold[open] summary span:first-child::before { transform: rotate(45deg); }
 .summary-hint { font: 500 12.5px/1 var(--narrow); letter-spacing: .12em; text-transform: uppercase; color: var(--faint); }
-.fold .figure { margin: 0 0 24px; }
-.figure .zoom { display: block; border-radius: 8px; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px rgba(24, 36, 32, .08); cursor: zoom-in; }
-.figure img { width: 100%; height: auto; }
 
-/* ---------- 03 the same frame, four detectors ---------- */
+/* ---------- 04 the same frame, four detectors ---------- */
 .compare { max-width: 1320px; margin: clamp(44px, 5vw, 64px) auto 0; }
 .compare-bar { display: flex; align-items: center; justify-content: space-between; gap: 14px 24px; flex-wrap: wrap; margin-bottom: 18px; }
 .tabs { display: flex; gap: 26px; flex-wrap: wrap; }
@@ -344,7 +348,7 @@ h3 { font-family: var(--serif); font-weight: 600; }
 .rtable tr.ours td { color: var(--ver); font-weight: 600; background: rgba(217, 79, 43, .06); }
 .tables-body .fine { text-align: left; margin-left: 0; }
 
-/* ---------- 04 the paper itself is the picture ---------- */
+/* ---------- 05 the paper itself is the picture ---------- */
 .paper-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1fr); gap: clamp(40px, 7vw, 110px); align-items: center; max-width: var(--maxw); margin: 0 auto; }
 .paper-object { position: relative; display: block; width: 100%; max-width: 400px; justify-self: center; transform: rotate(-3deg); transition: transform .8s var(--e-out); }
 .paper-object img { position: relative; z-index: 1; width: 100%; height: auto; border-radius: 3px; background: #fff; box-shadow: 0 1px 0 rgba(0, 0, 0, .06), 0 2px 6px rgba(40, 36, 24, .12); }

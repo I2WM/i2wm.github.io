@@ -87,7 +87,7 @@ const navIO = new IntersectionObserver(es => es.forEach(e => {
   const id = e.target.dataset.nav || e.target.id;
   navLinks.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#' + id));
 }), { rootMargin: '-45% 0px -50% 0px' });
-[['film'], ['problem'], ['sensors', 'problem'], ['method'], ['story', 'method'], ['architecture', 'method'], ['results'], ['compare', 'results'], ['numbers', 'results'], ['paper']]
+[['film'], ['problem'], ['sensors', 'problem'], ['architecture'], ['method'], ['story', 'method'], ['results'], ['compare', 'results'], ['numbers', 'results'], ['paper']]
   .forEach(([id, nav]) => { const s = document.getElementById(id); if (s) { if (nav) s.dataset.nav = nav; navIO.observe(s); } });
 new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) navLinks.forEach(a => a.classList.remove('is-active')); }),
   { rootMargin: '-45% 0px -50% 0px' }).observe($('#top'));

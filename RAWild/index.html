@@ -32,6 +32,7 @@
   <nav class="nav" aria-label="Sections">
     <a href="#film">Film</a>
     <a href="#problem">Problem</a>
+    <a href="#architecture">Overview</a>
     <a href="#method">Method</a>
     <a href="#results">Results</a>
     <a href="#paper">Paper</a>
@@ -151,10 +152,24 @@
   </figure>
 </div>
 
-<!-- ================= 02 METHOD ================= -->
+<!-- ================= 02 ARCHITECTURE ================= -->
+<section class="section section--open" id="architecture">
+  <header class="sec-head reveal">
+    <p class="kicker"><span class="num">02</span>Overview</p>
+    <h2>The full architecture.</h2>
+  </header>
+  <figure class="figure reveal">
+    <a class="zoom" href="assets/img/pipeline.webp" target="_blank" rel="noopener" aria-label="Open the architecture figure at full size">
+      <img src="assets/img/pipeline.webp" alt="RAWild architecture: a RAW image and its quantile histogram drive two transformer blocks via AdaLN, jointly predicting a global Bézier curve and a bilateral grid that feed the backbone network." loading="lazy" width="2200" height="1324">
+    </a>
+    <figcaption><span>Figure 4</span>A RAW image and its quantile histogram drive transformer blocks via AdaLN, jointly predicting a global Bézier curve and a bilateral grid for local color correction.</figcaption>
+  </figure>
+</section>
+
+<!-- ================= 03 METHOD ================= -->
 <section class="section section--open" id="method">
   <header class="sec-head reveal">
-    <p class="kicker"><span class="num">02</span>The method</p>
+    <p class="kicker"><span class="num">03</span>The method</p>
     <h2>A global curve, then a local grid.</h2>
     <p class="dek">A light adapter in front of the detector, steered by the RAW histogram.</p>
   </header>
@@ -167,7 +182,7 @@
     <li class="pillar reveal" style="--d:.12s">
       <canvas class="art" data-art="grid" aria-hidden="true"></canvas>
       <h3><span class="n">2</span>Bilateral grid</h3>
-      <p>A 3×3 colour matrix for every cell and brightness level.</p>
+      <p>A 3×3 color matrix for every cell and brightness level.</p>
     </li>
     <li class="pillar reveal" style="--d:.24s">
       <canvas class="art" data-art="hist" aria-hidden="true"></canvas>
@@ -191,28 +206,17 @@
       <ol class="story-steps">
         <li data-step="0"><b>Linear RAW</b><span>What the sensor records. At night, almost black.</span></li>
         <li data-step="1"><b>Bézier curve</b><span>One curve per channel lifts the tones.</span></li>
-        <li data-step="2"><b>Bilateral grid</b><span>Colour is finished locally, cell by cell.</span></li>
+        <li data-step="2"><b>Bilateral grid</b><span>Color is finished locally, cell by cell.</span></li>
       </ol>
       <p class="story-note">ROD · night-07732 · stage outputs of the adapter</p>
     </div>
   </div>
 </section>
 
-<section class="section section--fold">
-  <details class="fold reveal" id="architecture">
-    <summary><span>The full architecture</span><span class="summary-hint">Figure 4</span></summary>
-    <figure class="figure">
-      <a class="zoom" href="assets/img/pipeline.webp" target="_blank" rel="noopener" aria-label="Open the architecture figure at full size">
-        <img src="assets/img/pipeline.webp" alt="RAWild architecture: a RAW image and its quantile histogram drive two transformer blocks via AdaLN, jointly predicting a global Bézier curve and a bilateral grid that feed the backbone network." loading="lazy" width="2200" height="1324">
-      </a>
-    </figure>
-  </details>
-</section>
-
-<!-- ================= 03 RESULTS ================= -->
+<!-- ================= 04 RESULTS ================= -->
 <section class="section section--open" id="results">
   <header class="sec-head reveal">
-    <p class="kicker"><span class="num">03</span>Results</p>
+    <p class="kicker"><span class="num">04</span>Results</p>
     <h2>What the baselines miss.</h2>
     <p class="dek">The same frame for every method, one score threshold.</p>
   </header>
@@ -274,7 +278,7 @@
   </div>
 </section>
 
-<!-- ================= 04 PAPER ================= -->
+<!-- ================= 05 PAPER ================= -->
 <section class="section section--open" id="paper">
   <div class="paper-grid">
     <a class="paper-object reveal" href="https://arxiv.org/abs/2605.05941" target="_blank" rel="noopener" aria-label="Open the paper on arXiv">
@@ -282,7 +286,7 @@
       <span class="paper-shadow" aria-hidden="true"></span>
     </a>
     <div class="paper-side reveal" style="--d:.1s">
-      <p class="kicker"><span class="num">04</span>The paper</p>
+      <p class="kicker"><span class="num">05</span>The paper</p>
       <p class="paper-title">RAWild: Toward Sensor-Agnostic RAW Object Detection via Physics-Guided Curve and Grid Modeling</p>
       <p class="paper-venue">NeurIPS 2026</p>
       <ul class="links">
