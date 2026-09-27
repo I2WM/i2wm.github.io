@@ -223,7 +223,7 @@ h3 { font-family: var(--serif); font-weight: 600; }
   box-shadow: 0 0 0 1px rgba(24, 36, 32, .08), 0 40px 80px -56px rgba(40, 36, 24, .7); }
 .figure img { width: 100%; height: auto; }
 .figure figcaption { max-width: 52em; margin: 20px auto 0; font-size: 15px; line-height: 1.6; color: var(--muted); text-align: center; text-wrap: balance; }
-.figure figcaption span { margin-right: 12px; font: 600 12.5px/1 var(--narrow); letter-spacing: .24em; text-transform: uppercase; color: var(--ver); }
+.figure figcaption span { margin-right: 8px; font: 600 12.5px/1 var(--narrow); letter-spacing: .24em; text-transform: uppercase; color: var(--ver); }
 
 /* ---------- 03 three pillars ---------- */
 .pillars { list-style: none; padding: 0; margin: clamp(56px, 6.5vw, 90px) 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(26px, 4vw, 64px); }
