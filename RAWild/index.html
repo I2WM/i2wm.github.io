@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>RAWild · Sensor-Agnostic RAW Object Detection · NeurIPS 2026</title>
-<meta name="description" content="RAWild: Sensor-Agnostic RAW Object Detection via Physics-Guided Curve and Grid Modeling (NeurIPS 2026). A lightweight adapter predicts a global Bézier tone curve and a local bilateral-grid color transform from RAW statistics, so one detector trains and works across heterogeneous sensors.">
+<title>RAWild · Toward Sensor-Agnostic RAW Object Detection · NeurIPS 2026</title>
+<meta name="description" content="RAWild: Toward Sensor-Agnostic RAW Object Detection via Physics-Guided Curve and Grid Modeling (NeurIPS 2026). A lightweight adapter predicts a global Bézier tone curve and a local bilateral-grid color transform from RAW statistics, so one detector trains and works across heterogeneous sensors.">
 <meta name="theme-color" content="#F2F0E8">
 <link rel="canonical" href="https://i2wm.github.io/RAWild/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="I2WM">
-<meta property="og:title" content="RAWild · Sensor-Agnostic RAW Object Detection (NeurIPS 2026)">
+<meta property="og:title" content="RAWild · Toward Sensor-Agnostic RAW Object Detection (NeurIPS 2026)">
 <meta property="og:description" content="One adapter, every sensor: a global Bézier curve and a local bilateral grid, guided by the RAW histogram.">
 <meta property="og:url" content="https://i2wm.github.io/RAWild/">
 <meta property="og:image" content="https://i2wm.github.io/RAWild/assets/img/og.jpg">
@@ -30,6 +30,7 @@
 <header class="topbar" id="topbar">
   <a class="brand" href="#top" aria-label="RAWild — back to top"><span class="wm">RAWild<i class="wm-dot"></i></span></a>
   <nav class="nav" aria-label="Sections">
+    <a href="#film">Film</a>
     <a href="#problem">Problem</a>
     <a href="#method">Method</a>
     <a href="#results">Results</a>
@@ -51,34 +52,30 @@
     <p class="venue" data-at="0.4"><span>NeurIPS 2026</span></p>
     <div class="emblem" aria-hidden="true"></div>
     <h1 class="title" id="title">
-      <span class="sr-only">RAWild: Sensor-Agnostic RAW Object Detection via Physics-Guided Curve and Grid Modeling</span>
+      <span class="sr-only">RAWild: Toward Sensor-Agnostic RAW Object Detection via Physics-Guided Curve and Grid Modeling</span>
       <span class="wm wm--hero" aria-hidden="true" data-chars data-at="4.45">RAWild<i class="wm-dot"></i></span>
       <span class="subtitle" aria-hidden="true">
-        <span class="line" data-at="5.1"><span>Sensor-Agnostic RAW Object Detection</span></span>
+        <span class="line" data-at="5.1"><span>Toward Sensor-Agnostic RAW Object Detection</span></span>
         <span class="line line--muted" data-at="5.35"><span>via Physics-Guided Curve and Grid Modeling</span></span>
       </span>
     </h1>
     <div class="authors">
       <p class="row">
-        <span class="au" data-at="7.00"><span>Shuhong Liu<sup>1,2*</sup></span></span><span class="sep" aria-hidden="true">·</span>
-        <span class="au" data-at="7.07"><span>Gengjia Chang<sup>2*</sup></span></span><span class="sep" aria-hidden="true">·</span>
+        <span class="au" data-at="7.00"><span><a href="https://shuhongll.github.io/" target="_blank" rel="noopener">Shuhong Liu</a><sup>1,2*</sup></span></span><span class="sep" aria-hidden="true">·</span>
+        <span class="au" data-at="7.07"><span><a href="https://github.com/ppg94" target="_blank" rel="noopener">Gengjia Chang</a><sup>2*</sup></span></span><span class="sep" aria-hidden="true">·</span>
         <span class="au" data-at="7.14"><span>Jun Liu<sup>2</sup></span></span><span class="sep" aria-hidden="true">·</span>
-        <span class="au" data-at="7.21"><span>Xuangeng Chu<sup>1,2</sup></span></span>
+        <span class="au" data-at="7.21"><span><a href="https://xg-chu.site/" target="_blank" rel="noopener">Xuangeng Chu</a><sup>1,2</sup></span></span>
       </p>
       <p class="row">
-        <span class="au" data-at="7.50"><span>Yinqiang Zheng<sup>1</sup></span></span><span class="sep" aria-hidden="true">·</span>
-        <span class="au" data-at="7.57"><span>Tatsuya Harada<sup>1,3</sup></span></span><span class="sep" aria-hidden="true">·</span>
-        <span class="au" data-at="7.64"><span>Ziteng Cui<sup>1,2†</sup></span></span>
+        <span class="au" data-at="7.50"><span><a href="https://www.ai.u-tokyo.ac.jp/ja/members/yqzheng" target="_blank" rel="noopener">Yinqiang Zheng</a><sup>1</sup></span></span><span class="sep" aria-hidden="true">·</span>
+        <span class="au" data-at="7.57"><span><a href="https://www.mi.t.u-tokyo.ac.jp/harada/" target="_blank" rel="noopener">Tatsuya Harada</a><sup>1,3</sup></span></span><span class="sep" aria-hidden="true">·</span>
+        <span class="au" data-at="7.64"><span><a href="https://cuiziteng.github.io/" target="_blank" rel="noopener">Ziteng Cui</a><sup>1,2†</sup></span></span>
       </p>
       <p class="affil" data-at="8.0"><span><sup>1</sup>The University of Tokyo&emsp;<sup>2</sup>I2WM&emsp;<sup>3</sup>RIKEN</span></p>
       <p class="notes" data-at="8.25"><span>* Equal contribution&emsp;† Corresponding author</span></p>
     </div>
     <div class="actions" data-at="8.6">
-      <button class="btn btn--film" type="button" data-film-open>
-        <span class="play" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M3.2 1.6 10 6l-6.8 4.4z"/></svg></span>
-        Watch the film <span class="time">1:12</span>
-      </button>
-      <a class="btn" href="https://arxiv.org/abs/2605.05941" target="_blank" rel="noopener">
+      <a class="btn btn--primary" href="https://arxiv.org/abs/2605.05941" target="_blank" rel="noopener">
         <svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 2.8h6.4L15 6.4v10.8H5z"/><path d="M11.2 2.8v3.8H15M7.6 10h4.8M7.6 13h4.8"/></svg>Paper</a>
       <a class="btn" href="https://github.com/I2WM/RAWild" target="_blank" rel="noopener">
         <svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 6-4 4 4 4M13 6l4 4-4 4M11.2 4.5 8.8 15.5"/></svg>Code</a>
@@ -88,173 +85,201 @@
         <svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M8.2 6.2H5.4v4h2.8c0 2-1 3.2-2.8 3.6M14.6 6.2h-2.8v4h2.8c0 2-1 3.2-2.8 3.6"/></svg>BibTeX</a>
     </div>
   </div>
+  <a class="scroll-cue" href="#film" aria-label="Scroll to the film" data-at="9.2"><span class="cue-label">The film</span><span class="cue-line"></span></a>
+</section>
 
-  <div class="film" id="film" aria-hidden="true">
-    <div class="film-box">
-      <video class="film-video" playsinline preload="none" controls poster="assets/video/poster-en.jpg" aria-label="RAWild 72-second film"></video>
-      <button class="film-close" type="button" aria-label="Close the film" data-film-close><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg></button>
-    </div>
-    <div class="film-bar">
-      <span class="film-meta">The 72-second film · sound on</span>
-      <div class="seg" role="group" aria-label="Film language">
+<!-- ================= FILM ================= -->
+<section class="film-sec" id="film" aria-label="The 72-second film">
+  <div class="film-frame" data-film>
+    <video class="film-video" playsinline muted preload="metadata" poster="assets/video/poster-en.jpg"></video>
+    <button class="fp-sound-pill" type="button" data-sound aria-label="Turn the sound on">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk" d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="off" d="m16 9.5 5 5m0-5-5 5"/><path class="on" d="M16 8.8a4.6 4.6 0 0 1 0 6.4M18.6 6.4a8.2 8.2 0 0 1 0 11.2"/></svg>
+      <span class="lbl">Sound on</span>
+    </button>
+    <div class="fp-ui">
+      <button class="fp-btn" type="button" data-play aria-label="Pause">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-pause" d="M7.5 5h3v14h-3zM13.5 5h3v14h-3z"/><path class="i-play" d="M7 4.8 19 12 7 19.2z"/></svg>
+      </button>
+      <div class="fp-bar" data-bar role="slider" tabindex="0" aria-label="Seek" aria-valuemin="0" aria-valuemax="72" aria-valuenow="0">
+        <span class="fp-buf"></span><span class="fp-fill"></span><span class="fp-knob"></span>
+      </div>
+      <span class="fp-time" data-time>0:00 / 1:12</span>
+      <button class="fp-btn" type="button" data-sound aria-label="Turn the sound on">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk" d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="off" d="m16 9.5 5 5m0-5-5 5"/><path class="on" d="M16 8.8a4.6 4.6 0 0 1 0 6.4M18.6 6.4a8.2 8.2 0 0 1 0 11.2"/></svg>
+      </button>
+      <input class="fp-vol" data-vol type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume">
+      <div class="fp-lang" role="group" aria-label="Film language">
         <button type="button" data-lang="en" aria-pressed="true">EN</button>
         <button type="button" data-lang="zh" aria-pressed="false" lang="zh">中文</button>
       </div>
+      <button class="fp-btn" type="button" data-full aria-label="Full screen">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg>
+      </button>
     </div>
   </div>
-
-  <a class="scroll-cue" href="#problem" aria-label="Scroll to the problem" data-at="9.2"><span></span></a>
+  <p class="film-caption"><span>The film</span>RAWild in seventy-two seconds, on the same beat as this page.</p>
 </section>
 
 <!-- ================= 01 PROBLEM ================= -->
 <section class="section" id="problem">
-  <header class="sec-head reveal">
-    <p class="kicker"><span class="num">01</span>The problem</p>
-    <h2>Every sensor sees the world differently.</h2>
-  </header>
-  <div class="prose reveal">
-    <p class="lead">RAW sensor data keeps what an image signal processor throws away: deeper bit depth, a linear physical signal, and none of the ISP's nonlinear distortions. But exposure, spectral sensitivity and bit depth vary so much across devices that the domain gap between RAW datasets is far larger than between sRGB ones.</p>
-    <p>A detector trained on one camera's RAW stumbles on another's. RAWild is built so that a single network can train jointly across heterogeneous sensors — and hold up on all of them.</p>
-  </div>
-
-  <div class="sensors reveal" id="sensors">
-    <div class="bitruler" aria-hidden="true">
-      <div class="bitruler-track"></div>
+  <div class="split">
+    <header class="sec-head reveal">
+      <p class="kicker"><span class="num">01</span>The problem</p>
+      <h2>Every sensor sees the world differently.</h2>
+    </header>
+    <div class="prose reveal" style="--d:.1s">
+      <p class="lead">RAW sensor data keeps what an image signal processor throws away: deeper bit depth, a linear physical signal, and none of the ISP's nonlinear distortions.</p>
+      <p>But exposure, spectral sensitivity and bit depth vary so much across devices that the domain gap between RAW datasets is far larger than between sRGB ones. A detector trained on one camera's RAW stumbles on another's.</p>
     </div>
-    <ol class="sensor-cards">
-      <li class="sensor" data-bits="12">
-        <figure><img class="raw" src="assets/img/sensor-pascalraw.webp" alt="PASCALRAW scene captured with a Nikon D3200, as recorded (linear RAW)" loading="lazy" width="537" height="294"><img class="vis" src="assets/img/sensor-pascalraw-vis.webp" alt="" aria-hidden="true" loading="lazy" width="537" height="294"><span class="sensor-flip" aria-hidden="true"><span>RAW</span><span>Rendered</span></span></figure>
-        <p class="sensor-set">PASCALRAW</p>
-        <p class="sensor-cam">Nikon D3200</p>
-        <p class="sensor-meta"><b>12-bit</b> · 1/4000 s · ISO 360</p>
-      </li>
-      <li class="sensor" data-bits="14">
-        <figure><img class="raw" src="assets/img/sensor-aodraw.webp" alt="AODRaw scene captured with a Sony α7 III, as recorded (linear RAW)" loading="lazy" width="537" height="294"><img class="vis" src="assets/img/sensor-aodraw-vis.webp" alt="" aria-hidden="true" loading="lazy" width="537" height="294"><span class="sensor-flip" aria-hidden="true"><span>RAW</span><span>Rendered</span></span></figure>
-        <p class="sensor-set">AODRaw</p>
-        <p class="sensor-cam">Sony α7 III</p>
-        <p class="sensor-meta"><b>14-bit</b> · 1/320 s · ISO 100</p>
-      </li>
-      <li class="sensor" data-bits="16">
-        <figure><img class="raw" src="assets/img/sensor-lod.webp" alt="LOD scene captured with a Canon 5D IV, as recorded (linear RAW)" loading="lazy" width="537" height="294"><img class="vis" src="assets/img/sensor-lod-vis.webp" alt="" aria-hidden="true" loading="lazy" width="537" height="294"><span class="sensor-flip" aria-hidden="true"><span>RAW</span><span>Rendered</span></span></figure>
-        <p class="sensor-set">LOD</p>
-        <p class="sensor-cam">Canon 5D IV</p>
-        <p class="sensor-meta"><b>16-bit</b> · 1/2500 s · ISO 6400</p>
-      </li>
-      <li class="sensor" data-bits="24">
-        <figure><img class="raw" src="assets/img/sensor-rod.webp" alt="ROD scene captured with a Sony IMX490, as recorded (linear RAW)" loading="lazy" width="537" height="294"><img class="vis" src="assets/img/sensor-rod-vis.webp" alt="" aria-hidden="true" loading="lazy" width="537" height="294"><span class="sensor-flip" aria-hidden="true"><span>RAW</span><span>Rendered</span></span></figure>
-        <p class="sensor-set">ROD</p>
-        <p class="sensor-cam">Sony IMX490</p>
-        <p class="sensor-meta"><b>24-bit</b> · HDR exposure</p>
-      </li>
-    </ol>
-    <p class="caption">Four RAW benchmarks, four sensors, four very different pixel distributions (Figure 1 of the paper). Hover a card to see the scene rendered with its annotations. Experiments span sensors from 10 to 24 bits.</p>
   </div>
 </section>
+<div class="strip reveal" id="sensors" role="list" aria-label="Four RAW benchmarks captured by four sensors">
+  <figure class="panel" role="listitem" tabindex="0">
+    <img class="raw" src="assets/img/fig1/pascalraw-raw.webp" alt="PASCALRAW scene as recorded by a Nikon D3200" loading="lazy" width="589" height="401">
+    <img class="ren" src="assets/img/fig1/pascalraw-rendered.webp" alt="" aria-hidden="true" loading="lazy" width="589" height="401">
+    <figcaption><span class="bits">12<small>bit</small></span><span class="set">PASCALRAW</span><span class="cam">Nikon D3200</span><span class="exp">1/4000 s · ISO 360</span></figcaption>
+  </figure>
+  <figure class="panel" role="listitem" tabindex="0">
+    <img class="raw" src="assets/img/fig1/aodraw-raw.webp" alt="AODRaw scene as recorded by a Sony α7 III" loading="lazy" width="1126" height="751">
+    <img class="ren" src="assets/img/fig1/aodraw-rendered.webp" alt="" aria-hidden="true" loading="lazy" width="1126" height="751">
+    <figcaption><span class="bits">14<small>bit</small></span><span class="set">AODRaw</span><span class="cam">Sony α7 III</span><span class="exp">1/320 s · ISO 100</span></figcaption>
+  </figure>
+  <figure class="panel" role="listitem" tabindex="0">
+    <img class="raw" src="assets/img/fig1/lod-raw.webp" alt="LOD scene as recorded by a Canon 5D IV" loading="lazy" width="600" height="400">
+    <img class="ren" src="assets/img/fig1/lod-rendered.webp" alt="" aria-hidden="true" loading="lazy" width="600" height="400">
+    <figcaption><span class="bits">16<small>bit</small></span><span class="set">LOD</span><span class="cam">Canon 5D IV</span><span class="exp">1/2500 s · ISO 6400</span></figcaption>
+  </figure>
+  <figure class="panel" role="listitem" tabindex="0">
+    <img class="raw" src="assets/img/fig1/rod-raw.webp" alt="ROD scene as recorded by a Sony IMX490" loading="lazy" width="1201" height="801">
+    <img class="ren" src="assets/img/fig1/rod-rendered.webp" alt="" aria-hidden="true" loading="lazy" width="1189" height="793">
+    <figcaption><span class="bits">24<small>bit</small></span><span class="set">ROD</span><span class="cam">Sony IMX490</span><span class="exp">HDR exposure</span></figcaption>
+  </figure>
+</div>
+<p class="strip-caption">Four RAW benchmarks, four sensors (Figure 1 of the paper). Each panel opens on the recorded RAW; hover or tap it to see the same scene rendered for people. Experiments span sensors from 10 to 24 bits.</p>
 
 <!-- ================= 02 METHOD ================= -->
 <section class="section" id="method">
-  <header class="sec-head reveal">
-    <p class="kicker"><span class="num">02</span>The method</p>
-    <h2>A global curve, then a local grid.</h2>
-  </header>
-  <div class="prose reveal">
-    <p class="lead">RAWild is a lightweight adapter in front of the detector backbone. Guided by the statistics of the RAW image itself, it predicts two physically meaningful operators — then hands the backbone an image it can read.</p>
+  <div class="split">
+    <header class="sec-head reveal">
+      <p class="kicker"><span class="num">02</span>The method</p>
+      <h2>A global curve, then a local grid.</h2>
+    </header>
+    <div class="prose reveal" style="--d:.1s">
+      <p class="lead">RAWild is a lightweight adapter in front of the detector backbone. Guided by the statistics of the RAW image itself, it predicts two physically meaningful operators — then hands the backbone an image it can read.</p>
+    </div>
   </div>
-
-  <ol class="pillars reveal">
-    <li class="pillar">
-      <svg class="pillar-ico" viewBox="0 0 64 40" aria-hidden="true"><path class="ax" d="M4 36h56M4 36V4"/><path class="c1" d="M4 36C20 34 22 10 60 6"/><path class="c2" d="M4 36C24 33 30 14 60 6"/><path class="c3" d="M4 36C16 30 28 6 60 6"/></svg>
+  <ol class="pillars">
+    <li class="pillar reveal">
+      <canvas class="art" data-art="curve" aria-hidden="true"></canvas>
       <h3><span class="n">1</span>Global Bézier curve</h3>
-      <p>One monotone curve per channel, pinned to pure black and white, absorbs exposure, sensor non-linearity and per-channel sensitivity — color temperature, exposure and bit-depth shifts in a single smooth function.</p>
+      <p>One monotone curve per channel, pinned to pure black and white, absorbs exposure, sensor non-linearity and per-channel sensitivity. Every image gets its own curve.</p>
     </li>
-    <li class="pillar">
-      <svg class="pillar-ico" viewBox="0 0 64 40" aria-hidden="true"><path class="pl" d="M10 30 30 36 56 28 36 22z"/><path class="pl" d="M10 22 30 28 56 20 36 14z"/><path class="pl" d="M10 14 30 20 56 12 36 6z"/><path class="hot" d="M31 17.5 36 16l3 1-5 1.5z"/></svg>
+    <li class="pillar reveal" style="--d:.12s">
+      <canvas class="art" data-art="grid" aria-hidden="true"></canvas>
       <h3><span class="n">2</span>Local bilateral grid</h3>
-      <p>A compact grid of 3×3 color matrices — (H/16)×(W/16) cells × 8 luminance bins — corrects mixed illumination, lens-shading falloff and crosstalk. Each pixel slices its own matrix by position and brightness.</p>
+      <p>A compact grid of 3×3 color matrices — (H/16)×(W/16) cells × 8 luminance bins — corrects mixed illumination, lens shading and crosstalk. Each pixel picks its matrix by position and brightness.</p>
     </li>
-    <li class="pillar">
-      <svg class="pillar-ico" viewBox="0 0 64 40" aria-hidden="true"><path class="bars" d="M8 36V28M14 36V20M20 36V12M26 36V16M32 36V24M38 36V30M44 36V33M50 36V34M56 36V35"/></svg>
+    <li class="pillar reveal" style="--d:.24s">
+      <canvas class="art" data-art="hist" aria-hidden="true"></canvas>
       <h3><span class="n">3</span>Histogram guidance</h3>
-      <p>A differentiable 64-quantile descriptor per channel steers both predictions through AdaLN, so the same network adapts to bit depth, white-balance bias, exposure regime and dynamic range.</p>
+      <p>A differentiable 64-quantile descriptor per channel steers both predictions through AdaLN, so one network adapts to bit depth, white balance, exposure and dynamic range.</p>
     </li>
   </ol>
-  <p class="aside reveal">At initialization the whole adapter is exactly the identity; it then learns a bounded, well-conditioned residual — which is what lets a single network train jointly across heterogeneous sensors.</p>
+</section>
 
-  <figure class="figure figure--wide reveal" id="architecture">
-    <a class="zoom" href="assets/img/fig-architecture.webp" target="_blank" rel="noopener" aria-label="Open the architecture figure at full size">
-      <img src="assets/img/fig-architecture.webp" alt="RAWild architecture: a RAW image and its quantile histogram drive two transformer blocks via AdaLN, jointly predicting a global Bézier curve and a bilateral grid that feed the backbone network." loading="lazy">
-    </a>
-    <figcaption><b>Architecture.</b> A RAW image and its quantile histogram drive transformer blocks via AdaLN, jointly predicting a global Bézier curve and a bilateral grid for local color correction (Figure 4 of the paper).</figcaption>
-  </figure>
-
-  <!-- Interactive: inside the adapter -->
-  <div class="demo reveal" id="adapter">
-    <div class="demo-head">
+<!-- Interactive: inside the adapter — the section's visual centre -->
+<section class="stage" id="adapter" aria-labelledby="adapter-title">
+  <div class="stage-inner">
+    <div class="stage-head">
       <div>
-        <p class="kicker kicker--small">Inside the adapter</p>
-        <h3 class="demo-title">Follow one pixel through the curve and into the grid.</h3>
+        <p class="kicker kicker--dark">Inside the adapter</p>
+        <h3 class="stage-title" id="adapter-title">Follow one pixel through the curve and into the grid.</h3>
       </div>
-      <div class="seg seg--stages" role="tablist" aria-label="Adapter stage">
-        <button type="button" role="tab" data-stage="0" aria-selected="false">Linear RAW</button>
-        <button type="button" role="tab" data-stage="1" aria-selected="false">+ Bézier curve</button>
-        <button type="button" role="tab" data-stage="2" aria-selected="true">+ Bilateral grid</button>
+      <div class="stage-controls">
+        <div class="seg seg--dark" role="group" aria-label="Scene" data-scenes></div>
+        <div class="seg seg--dark" role="tablist" aria-label="Adapter stage">
+          <button type="button" role="tab" data-stage="0" aria-selected="false">Linear RAW</button>
+          <button type="button" role="tab" data-stage="1" aria-selected="false">+ Bézier curve</button>
+          <button type="button" role="tab" data-stage="2" aria-selected="true">+ Bilateral grid</button>
+        </div>
+        <button class="toggle" type="button" data-heat aria-pressed="false"><span class="sw"></span>Where the grid acts</button>
       </div>
     </div>
-    <div class="demo-body">
-      <div class="demo-image" tabindex="0" aria-label="ROD night scene. Hover or drag to inspect a pixel.">
-        <canvas class="demo-canvas"></canvas>
+    <div class="stage-body">
+      <div class="viewer" tabindex="0" aria-label="Adapter output. Hover, drag or use the arrow keys to inspect a pixel.">
+        <canvas class="viewer-canvas"></canvas>
         <span class="probe" aria-hidden="true"></span>
-        <span class="demo-stage-tag" aria-live="polite">Bézier + Grid</span>
+        <canvas class="loupe" aria-hidden="true"></canvas>
+        <span class="viewer-tag" aria-live="polite">Bézier + Grid</span>
       </div>
-      <div class="demo-side">
-        <div class="panel">
-          <p class="panel-title"><span>Global Bézier curve</span><span class="panel-sub">per channel · degree 7</span></p>
+      <aside class="hud">
+        <div class="hud-block">
+          <p class="hud-title"><span>Global Bézier curve</span><span class="hud-sub">per channel</span></p>
           <canvas class="curve-canvas" aria-label="Predicted per-channel tone curves"></canvas>
-          <p class="readout" data-readout="curve">Hover the image: each channel's value is mapped through its curve.</p>
+          <p class="readout" data-readout="curve"></p>
         </div>
-        <div class="panel">
-          <p class="panel-title"><span>Bilateral grid</span><span class="panel-sub">8 luminance bins</span></p>
+        <div class="hud-block">
+          <p class="hud-title"><span>Bilateral grid</span><span class="hud-sub">8 luminance bins</span></p>
           <canvas class="grid-canvas" aria-label="Bilateral grid luminance slices"></canvas>
-          <p class="readout" data-readout="grid">Brightness picks the slice, position picks the cell.</p>
+          <p class="readout" data-readout="grid"></p>
         </div>
-      </div>
+      </aside>
     </div>
-    <p class="caption">ROD <span class="mono">night-07357</span>. The curves are the ones RAWild predicts for this frame; the linear input is shown without gamma. Grid slices are drawn schematically; the real grid has one cell per 16×16 pixels.</p>
+    <p class="stage-caption">Stage outputs exported from RAWild models (ROD and LOD checkpoints) for illustration. The linear input is shown as recorded, without gamma — at night it is almost black. “Where the grid acts” marks the pixels the local grid changes most; left alone, the probe visits those regions by itself.</p>
   </div>
+</section>
+
+<section class="section section--figure">
+  <figure class="figure reveal" id="architecture">
+    <a class="zoom" href="assets/img/pipeline.webp" target="_blank" rel="noopener" aria-label="Open the architecture figure at full size">
+      <img src="assets/img/pipeline.webp" alt="RAWild architecture: a RAW image and its quantile histogram drive two transformer blocks via AdaLN, jointly predicting a global Bézier curve and a bilateral grid that feed the backbone network." loading="lazy" width="2200" height="1324">
+    </a>
+    <figcaption><b>Architecture.</b> A RAW image and its quantile histogram drive transformer blocks via AdaLN, jointly predicting a global Bézier curve and a bilateral grid for local color correction. At initialization the adapter is exactly the identity; it then learns a bounded, well-conditioned residual (Figure 4 of the paper).</figcaption>
+  </figure>
 </section>
 
 <!-- ================= 03 RESULTS ================= -->
 <section class="section" id="results">
-  <header class="sec-head reveal">
-    <p class="kicker"><span class="num">03</span>Results</p>
-    <h2>Two people, not one.</h2>
-  </header>
-  <div class="prose reveal">
-    <p class="lead">A low-light frame from PASCALRAW. Each baseline returns a single box around both pedestrians; RAWild separates them. Drag the divider, and switch the baseline.</p>
-  </div>
-
-  <div class="compare reveal" id="compare">
-    <div class="compare-head">
-      <div class="seg" role="group" aria-label="Baseline shown on the left">
-        <button type="button" data-m="default-isp" aria-pressed="true">Default ISP</button>
-        <button type="button" data-m="raw-adapter" aria-pressed="false">RAW-Adapter</button>
-        <button type="button" data-m="dark-isp" aria-pressed="false">Dark-ISP</button>
-      </div>
-      <span class="compare-set">PASCAL RAW · LOW</span>
+  <div class="split">
+    <header class="sec-head reveal">
+      <p class="kicker"><span class="num">03</span>Results</p>
+      <h2>What the baselines miss.</h2>
+    </header>
+    <div class="prose reveal" style="--d:.1s">
+      <p class="lead">Real detections from RAWild and each baseline on the same frames, all drawn at one score threshold, 0.5. Dashed boxes are the ground truth.</p>
     </div>
-    <div class="compare-stage" role="slider" tabindex="0" aria-label="Comparison divider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
-      <img class="cmp-img cmp-right" loading="lazy" src="assets/img/cmp-rawild.webp" alt="RAWild adapted image with two detected pedestrians" width="600" height="400">
-      <div class="cmp-left-clip"><img class="cmp-img cmp-left" loading="lazy" src="assets/img/cmp-default-isp.webp" alt="Baseline output" width="600" height="400"></div>
-      <svg class="cmp-boxes" viewBox="0 0 600 400" preserveAspectRatio="none" aria-hidden="true"></svg>
+  </div>
+</section>
+
+<section class="stage stage--results" id="browser" aria-label="Detection comparison">
+  <div class="stage-inner">
+    <div class="stage-head">
+      <div class="scene-tabs" role="tablist" aria-label="Scene" data-scene-tabs></div>
+      <div class="stage-controls">
+        <div class="seg seg--dark" role="group" aria-label="Exposure" data-exposure hidden>
+          <button type="button" data-exp="pas_low_2014_003709" aria-pressed="true">Low</button>
+          <button type="button" data-exp="pas_nm_2014_003709" aria-pressed="false">Normal</button>
+          <button type="button" data-exp="pas_oe_2014_003709" aria-pressed="false">Over</button>
+        </div>
+        <button class="toggle" type="button" data-gt aria-pressed="true"><span class="sw"></span>Ground truth</button>
+      </div>
+    </div>
+    <div class="cmp" role="slider" tabindex="0" aria-label="Comparison divider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+      <img class="cmp-img cmp-right" alt="RAWild adapted image with its detections">
+      <div class="cmp-left-clip"><img class="cmp-img cmp-left" alt="Standard display of the same frame with the selected baseline's detections"></div>
+      <svg class="cmp-boxes" preserveAspectRatio="none" aria-hidden="true"></svg>
       <div class="cmp-divider" aria-hidden="true"><span class="cmp-handle"><svg viewBox="0 0 24 24"><path d="m9 7-5 5 5 5M15 7l5 5-5 5"/></svg></span></div>
-      <span class="cmp-tag cmp-tag--left">Default ISP</span>
+      <span class="cmp-tag cmp-tag--left" data-left-tag>Default ISP</span>
       <span class="cmp-tag cmp-tag--right">RAWild</span>
     </div>
-    <p class="caption">Real model predictions. RAW-Adapter and Dark-ISP are shown with their detections as rendered by the authors' visualization; Default ISP and RAWild boxes are drawn from the saved predictions (score ≥ 0.2).</p>
+    <div class="scoreboard" data-scoreboard></div>
+    <p class="stage-caption" data-browser-caption></p>
   </div>
+</section>
 
+<section class="section" id="numbers">
   <div class="metrics" id="metrics">
-    <header class="sec-head sec-head--sub reveal">
+    <header class="sec-head reveal">
       <p class="kicker kicker--small">Mixed-sensor detection</p>
       <h2 class="h2--sub">One network, every sensor.</h2>
     </header>
@@ -273,26 +298,12 @@
         <div class="bar bar--ours" style="--v:35.28;--base:26.03" data-i="4"><span class="bar-name">RAWild</span><span class="bar-track"><span class="bar-fill"></span><span class="bar-gain"></span><span class="bar-bracket"><span>+9.25</span></span><span class="bar-val">35.28</span></span></div>
       </div>
     </div>
-    <div class="cards reveal">
-      <div class="card">
-        <p class="card-title">LOD · ResNet-50</p>
-        <p class="card-row"><span class="from">64.08</span><span class="arrow" aria-hidden="true">→</span><span class="to">69.09</span><span class="delta">+5.01</span></p>
-        <p class="card-sub">Dr.RAW → RAWild · mAP@50</p>
-      </div>
-      <div class="card">
-        <p class="card-title">ROD · ResNet-50</p>
-        <p class="card-row"><span class="from">47.20</span><span class="arrow" aria-hidden="true">→</span><span class="to">55.41</span><span class="delta">+8.21</span></p>
-        <p class="card-sub">Dr.RAW → RAWild · mAP@50</p>
-      </div>
-      <div class="card card--seg">
-        <p class="card-title">RAW ADE20K · segmentation</p>
-        <div class="dots" role="img" aria-label="Best mIoU in all 9 settings: 3 exposures by 3 MiT backbones">
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-        </div>
-        <p class="card-sub">Best mIoU in all 9 settings · 3 exposures × MiT-B0/B3/B5</p>
-      </div>
-    </div>
-    <p class="caption reveal">mAP@50 in percent. Multi-RAW from Table 2, LOD and ROD from Table 1 (ResNet-50, strongest baseline Dr.RAW), segmentation from Table 7 of the paper.</p>
+    <dl class="facts reveal">
+      <div class="fact"><dt>LOD · ResNet-50</dt><dd class="fact-nums"><span class="from">64.08</span><span class="arrow" aria-hidden="true">→</span><span class="to">69.09</span></dd><dd class="fact-sub">mAP@50 · strongest baseline Dr.RAW → RAWild</dd></div>
+      <div class="fact"><dt>ROD · ResNet-50</dt><dd class="fact-nums"><span class="from">47.20</span><span class="arrow" aria-hidden="true">→</span><span class="to">55.41</span></dd><dd class="fact-sub">mAP@50 · strongest baseline Dr.RAW → RAWild</dd></div>
+      <div class="fact"><dt>RAW ADE20K · segmentation</dt><dd class="fact-nums"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="to">9 / 9</span></dd><dd class="fact-sub">best mIoU in every setting · 3 exposures × MiT-B0/B3/B5</dd></div>
+    </dl>
+    <p class="caption reveal">mAP@50 in percent. Multi-RAW from Table 2, LOD and ROD from Table 1 (ResNet-50), segmentation from Table 7 of the paper.</p>
 
     <details class="tables reveal" id="tables">
       <summary><span>All numbers from the paper</span><span class="summary-hint">Tables 1, 2, 3 and 7</span></summary>
@@ -317,21 +328,25 @@
     <p class="kicker"><span class="num">04</span>The paper</p>
     <h2>Read the research.</h2>
   </header>
-  <div class="paper-grid reveal">
-    <div class="paper-card">
+  <div class="paper-grid">
+    <a class="paper-object reveal" href="https://arxiv.org/abs/2605.05941" target="_blank" rel="noopener" aria-label="Open the paper on arXiv">
+      <img src="assets/img/paper-p1.webp" alt="First page of the RAWild paper" loading="lazy" width="1224" height="1584">
+      <span class="paper-shadow" aria-hidden="true"></span>
+    </a>
+    <div class="paper-side reveal" style="--d:.1s">
       <p class="paper-venue">NeurIPS 2026</p>
-      <p class="paper-title">RAWild: Sensor-Agnostic RAW Object Detection via Physics-Guided Curve and Grid Modeling</p>
+      <p class="paper-title">RAWild: Toward Sensor-Agnostic RAW Object Detection via Physics-Guided Curve and Grid Modeling</p>
       <p class="paper-authors">Shuhong Liu*, Gengjia Chang*, Jun Liu, Xuangeng Chu, Yinqiang Zheng, Tatsuya Harada, Ziteng Cui†</p>
       <p class="paper-affil">The University of Tokyo · I2WM · RIKEN</p>
+      <ul class="links">
+        <li><a href="https://arxiv.org/abs/2605.05941" target="_blank" rel="noopener"><span class="l-name">Paper</span><span class="l-meta">arXiv 2605.05941</span><span class="ext" aria-hidden="true">↗</span></a></li>
+        <li><a href="https://github.com/I2WM/RAWild" target="_blank" rel="noopener"><span class="l-name">Code</span><span class="l-meta">github.com/I2WM/RAWild</span><span class="ext" aria-hidden="true">↗</span></a></li>
+        <li><a href="https://drive.google.com/drive/folders/1zmKUoUyjMoSE2jWIehoAxDQlutD6LC0a?usp=sharing" target="_blank" rel="noopener"><span class="l-name">Dataset</span><span class="l-meta">Multi-RAW · Google Drive</span><span class="ext" aria-hidden="true">↗</span></a></li>
+        <li><a href="https://drive.google.com/drive/folders/1-x90kmXguv7vsjsIs9w3Kp459byy_hhN?usp=sharing" target="_blank" rel="noopener"><span class="l-name">Simulation</span><span class="l-meta">Synthetic RAW · Google Drive</span><span class="ext" aria-hidden="true">↗</span></a></li>
+        <li><a href="https://drive.google.com/drive/folders/1gJlPLMO7Ty0XszLQTJkoZUIxeqbOwKqd?usp=sharing" target="_blank" rel="noopener"><span class="l-name">Checkpoints</span><span class="l-meta">Detection & segmentation</span><span class="ext" aria-hidden="true">↗</span></a></li>
+        <li><a href="#film"><span class="l-name">Film</span><span class="l-meta">72 s · EN / 中文</span><span class="ext" aria-hidden="true">↑</span></a></li>
+      </ul>
     </div>
-    <ul class="links">
-      <li><a href="https://arxiv.org/abs/2605.05941" target="_blank" rel="noopener"><span class="l-name">Paper</span><span class="l-meta">arXiv 2605.05941</span><span class="ext" aria-hidden="true">↗</span></a></li>
-      <li><a href="https://github.com/I2WM/RAWild" target="_blank" rel="noopener"><span class="l-name">Code</span><span class="l-meta">github.com/I2WM/RAWild</span><span class="ext" aria-hidden="true">↗</span></a></li>
-      <li><a href="https://drive.google.com/drive/folders/1zmKUoUyjMoSE2jWIehoAxDQlutD6LC0a?usp=sharing" target="_blank" rel="noopener"><span class="l-name">Dataset</span><span class="l-meta">Multi-RAW · Google Drive</span><span class="ext" aria-hidden="true">↗</span></a></li>
-      <li><a href="https://drive.google.com/drive/folders/1-x90kmXguv7vsjsIs9w3Kp459byy_hhN?usp=sharing" target="_blank" rel="noopener"><span class="l-name">Simulation</span><span class="l-meta">Synthetic RAW · Google Drive</span><span class="ext" aria-hidden="true">↗</span></a></li>
-      <li><a href="https://drive.google.com/drive/folders/1gJlPLMO7Ty0XszLQTJkoZUIxeqbOwKqd?usp=sharing" target="_blank" rel="noopener"><span class="l-name">Checkpoints</span><span class="l-meta">Detection & segmentation</span><span class="ext" aria-hidden="true">↗</span></a></li>
-      <li><button type="button" data-film-open data-film-scroll><span class="l-name">Film</span><span class="l-meta">72 s · EN / 中文</span><span class="ext" aria-hidden="true">▶</span></button></li>
-    </ul>
   </div>
 
   <div class="cite reveal" id="cite">
@@ -340,7 +355,7 @@
       <button class="copy" type="button" data-copy="#bibtex"><span class="copy-label">Copy BibTeX</span></button>
     </div>
 <pre class="bibtex" id="bibtex"><code>@inproceedings{liu2026rawild,
-  title     = {RAWild: Sensor-Agnostic RAW Object Detection via
+  title     = {RAWild: Toward Sensor-Agnostic RAW Object Detection via
                Physics-Guided Curve and Grid Modeling},
   author    = {Liu, Shuhong and Chang, Gengjia and Liu, Jun and Chu, Xuangeng
                and Zheng, Yinqiang and Harada, Tatsuya and Cui, Ziteng},
