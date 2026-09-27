@@ -23,7 +23,6 @@ const C = {
   ver: '#D94F2B', sage: '#739C87', blue: '#587A89',
 };
 const RGB = [C.ver, C.sage, C.blue];
-const RGB_NIGHT = ['#FF8A63', '#8FC2A6', '#86AFC2'];
 const hexRgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
 const rgba = (h, a) => { const [r, g, b] = hexRgb(h); return `rgba(${r},${g},${b},${a})`; };
 const mix = (c1, c2, u) => { const a = hexRgb(c1), b = hexRgb(c2); return `rgb(${a.map((v, i) => Math.round(lerp(v, b[i], u))).join(',')})`; };
@@ -88,7 +87,7 @@ const navIO = new IntersectionObserver(es => es.forEach(e => {
   const id = e.target.dataset.nav || e.target.id;
   navLinks.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#' + id));
 }), { rootMargin: '-45% 0px -50% 0px' });
-[['film'], ['problem'], ['sensors', 'problem'], ['method'], ['adapter', 'method'], ['architecture', 'method'], ['results'], ['browser', 'results'], ['numbers', 'results'], ['paper']]
+[['film'], ['problem'], ['sensors', 'problem'], ['method'], ['story', 'method'], ['architecture', 'method'], ['results'], ['compare', 'results'], ['numbers', 'results'], ['paper']]
   .forEach(([id, nav]) => { const s = document.getElementById(id); if (s) { if (nav) s.dataset.nav = nav; navIO.observe(s); } });
 new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) navLinks.forEach(a => a.classList.remove('is-active')); }),
   { rootMargin: '-45% 0px -50% 0px' }).observe($('#top'));
@@ -396,273 +395,124 @@ $$('.panel').forEach(p => {
   });
 })();
 
-// ================================================================ 02 — inside the adapter
+// ================================================================ 02 — one night frame through the adapter, driven by the scroll
+// The curve is global, so its step is a plain cross-fade; the grid is local, so its step sweeps across the frame cell by cell.
 (() => {
-  const box = $('#adapter'); if (!box) return;
-  const view = $('.viewer', box), cv = $('.viewer-canvas', box), probeEl = $('.probe', box), loupe = $('.loupe', box), tag = $('.viewer-tag', box);
-  const curveCv = $('.curve-canvas', box), gridCv = $('.grid-canvas', box);
-  const outCurve = $('[data-readout="curve"]', box), outGrid = $('[data-readout="grid"]', box);
-  const tabs = $$('[data-stage]', box), heatBtn = $('[data-heat]', box), sceneHost = $('[data-scenes]', box);
-  const NAMES = ['Linear RAW', 'Bézier', 'Bézier + Grid'];
-  let S = null, stage = 2, from = 2, wipeStart = -1e9, curveMix = 1, mixFrom = 1, mixStart = 0, heat = false, heatA = 0;
-  let pos = null, target = null, moveFrom = null, moveStart = 0, tourI = 0, lastUser = -1e9, started = false, visible = false, raf = 0;
-  const scenes = new Map();
-
-  async function loadScene(id) {
-    if (scenes.has(id)) return scenes.get(id);
-    const p = (async () => {
-      const m = await demoMeta(id), base = `assets/demo/${id}/`;
-      const [lin, bez, grd, ht] = await Promise.all(['linear', 'bezier', 'grid', 'heat'].map(n => loadImg(base + n + '.webp')));
-      const [W, H] = m.size, oc = document.createElement('canvas'); oc.width = W; oc.height = H;
-      const g = oc.getContext('2d', { willReadFrequently: true }); g.drawImage(lin, 0, 0);
-      let data = null; try { data = g.getImageData(0, 0, W, H).data; } catch (_) {}
-      const hc = document.createElement('canvas'); hc.width = W; hc.height = H;         // the heat map as a vermilion glow
-      const hg = hc.getContext('2d'); hg.drawImage(ht, 0, 0, W, H);
-      const hd = hg.getImageData(0, 0, W, H), px = hd.data;
-      for (let i = 0; i < px.length; i += 4) { const a = px[i]; px[i] = 255; px[i + 1] = 90; px[i + 2] = 42; px[i + 3] = a; }
-      hg.putImageData(hd, 0, 0);
-      const tour = m.windows.map(w => ({ x: w.cx, y: w.cy, r: w.r }));
-      return { id, m, imgs: [lin, bez, grd], heat: hc, data, W, H, lut: LUT3(m), tour };
-    })();
-    scenes.set(id, p); return p;
-  }
-  function pix(x, y) {
-    if (!S || !S.data) return [0, 0, 0];
-    const i = (Math.min(S.H - 1, Math.max(0, y | 0)) * S.W + Math.min(S.W - 1, Math.max(0, x | 0))) * 4;
-    return [S.data[i] / 255, S.data[i + 1] / 255, S.data[i + 2] / 255];
-  }
-  async function setScene(id) {
-    $$('button', sceneHost).forEach(b => b.setAttribute('aria-pressed', String(b.dataset.id === id)));
-    S = await loadScene(id);
-    view.style.aspectRatio = `${S.W} / ${S.H}`;
-    tourI = 0; pos = S.tour[0] ? { x: S.tour[0].x, y: S.tour[0].y } : { x: S.W / 2, y: S.H / 2 }; target = null;
-    from = stage; wipeStart = -1e9; kick();
-  }
-  function setStage(s, user) {
-    if (s === stage) return;
-    from = stage; stage = s; wipeStart = performance.now();
-    mixFrom = curveMix; mixStart = performance.now();
-    tabs.forEach(t => t.setAttribute('aria-selected', String(+t.dataset.stage === s)));
-    tag.textContent = NAMES[s];
-    if (user) lastUser = performance.now();
-    kick();
-  }
-  tabs.forEach(t => t.addEventListener('click', () => setStage(+t.dataset.stage, true)));
-  heatBtn.addEventListener('click', () => { heat = !heat; heatBtn.setAttribute('aria-pressed', String(heat)); if (heat && stage !== 2) setStage(2, true); lastUser = performance.now(); kick(); });
-  demoIndex.then(ix => {
-    sceneHost.innerHTML = ix.map(s => `<button type="button" data-id="${s.id}" aria-pressed="false">${s.label.replace(' · ', ' ')}</button>`).join('');
-    $$('button', sceneHost).forEach(b => b.addEventListener('click', () => { lastUser = performance.now(); setScene(b.dataset.id); }));
-  });
-
-  const toImage = e => { const r = view.getBoundingClientRect(); return { x: clamp((e.clientX - r.left) / r.width) * S.W, y: clamp((e.clientY - r.top) / r.height) * S.H }; };
-  view.addEventListener('pointermove', e => { if (!S || (e.pointerType === 'touch' && e.buttons === 0)) return; pos = toImage(e); target = null; lastUser = performance.now(); kick(); });
-  view.addEventListener('pointerdown', e => { if (!S) return; pos = toImage(e); target = null; lastUser = performance.now(); kick(); });
-  view.addEventListener('keydown', e => {
-    const d = e.shiftKey ? 80 : 16, m = { ArrowLeft: [-d, 0], ArrowRight: [d, 0], ArrowUp: [0, -d], ArrowDown: [0, d] }[e.key];
-    if (!m || !pos || !S) return; e.preventDefault(); pos = { x: clamp(pos.x + m[0], 0, S.W - 1), y: clamp(pos.y + m[1], 0, S.H - 1) }; target = null; lastUser = performance.now(); kick();
-  });
-
-  function drawView(now) {
-    const [W, H, ctx] = sizeCanvas(cv);
-    const w = E.cInOut(clamp((now - wipeStart) / 950));
-    ctx.drawImage(S.imgs[from], 0, 0, W, H);
-    if (w > 0) {
-      const tp = H * 0.32, xb = lerp(-tp, W, w), xt = xb + tp;
-      ctx.save(); ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(xt, 0); ctx.lineTo(xb, H); ctx.lineTo(0, H); ctx.closePath(); ctx.clip();
-      ctx.drawImage(S.imgs[stage], 0, 0, W, H); ctx.restore();
-      if (w < 1) line(ctx, [xt, 0], [xb, H], 'rgba(242,240,232,0.92)', 1.6);
-      else from = stage;
-    }
-    heatA = lerp(heatA, heat ? 1 : 0, 0.12);
-    if (heatA > 0.01) {
-      ctx.save(); ctx.globalAlpha = heatA * (0.6 + 0.25 * Math.sin(now / 420)); ctx.globalCompositeOperation = 'screen';
-      ctx.drawImage(S.heat, 0, 0, W, H); ctx.restore();
-    }
-    return [W, H];
-  }
-  function drawLoupe(W, H) {
-    const [LW, LH, g] = sizeCanvas(loupe);
-    const z = 3.2, sw = LW / z * S.W / W, sh = LH / z * S.H / H;
-    g.save(); g.beginPath(); g.arc(LW / 2, LH / 2, LW / 2, 0, Math.PI * 2); g.clip();
-    g.imageSmoothingEnabled = false; g.fillStyle = '#000'; g.fillRect(0, 0, LW, LH);
-    g.drawImage(S.imgs[stage], pos.x - sw / 2, pos.y - sh / 2, sw, sh, 0, 0, LW, LH);
-    if (heatA > 0.01) { g.globalAlpha = heatA * 0.6; g.globalCompositeOperation = 'screen'; g.drawImage(S.heat, pos.x - sw / 2, pos.y - sh / 2, sw, sh, 0, 0, LW, LH); }
-    g.restore();
-    line(g, [LW / 2 - 7, LH / 2], [LW / 2 + 7, LH / 2], 'rgba(255,255,250,.85)', 1); line(g, [LW / 2, LH / 2 - 7], [LW / 2, LH / 2 + 7], 'rgba(255,255,250,.85)', 1);
-    const px = pos.x / S.W * W, py = pos.y / S.H * H, off = LW * 0.62;             // up-right of the probe, flipping near the edges
-    const lx = px + off + LW > W ? px - off - LW : px + off, ly = clamp(py - off - LH / 2, 8, H - LH - 8);
-    loupe.style.transform = `translate(${lx}px, ${ly}px)`;
-  }
-  function drawCurve(v) {
+  const story = $('#story'); if (!story) return;
+  const layers = $$('.st', story), steps = $$('.story-steps li', story), curveCv = $('.story-curve', story), lattice = $('.story-lattice', story);
+  let lut = null, raf = 0, lastS = -1;
+  const stageAt = p => (p < 0.14 ? 0 : p < 0.4 ? E.sInOut((p - 0.14) / 0.26) : p < 0.56 ? 1 : p < 0.84 ? 1 + E.sInOut((p - 0.56) / 0.28) : 2);
+  const progress = () => { const r = story.getBoundingClientRect(), span = r.height - innerHeight; return span > 0 ? clamp(-r.top / span) : 1; };
+  function drawCurve(m) {
     const [W, H, ctx] = sizeCanvas(curveCv); ctx.clearRect(0, 0, W, H);
-    const L = 30, R = 8, T = 8, B = 22, pw = W - L - R, ph = H - T - B, X = x => L + x * pw, Y = y => T + (1 - y) * ph;
-    ctx.font = '500 11px "Barlow SC", sans-serif'; ctx.fillStyle = '#98A29B'; ctx.textAlign = 'center';
-    for (let i = 0; i <= 4; i++) { const u = i / 4; line(ctx, [X(u), Y(0)], [X(u), Y(1)], '#ECE9DF', 1, 1, i === 0 ? 0.35 : 0.08); line(ctx, [X(0), Y(u)], [X(1), Y(u)], '#ECE9DF', 1, 1, i === 0 ? 0.35 : 0.08); }
-    ctx.fillText('0', X(0), H - 6); ctx.fillText('1', X(1) - 3, H - 6); ctx.fillText('input', X(0.5), H - 6);
-    ctx.save(); ctx.translate(11, Y(0.5)); ctx.rotate(-Math.PI / 2); ctx.fillText('output', 0, 0); ctx.restore();
-    line(ctx, [X(0), Y(0)], [X(1), Y(1)], '#ECE9DF', 1, 1, 0.3, [5, 6]);
-    for (let ch = 0; ch < 3; ch++) { const pts = []; for (let i = 0; i <= 128; i++) { const x = i / 128; pts.push([X(x), Y(lerp(x, lutY(S.lut[ch], x), curveMix))]); } poly(ctx, pts, RGB_NIGHT[ch], 2); }
-    if (v) for (let ch = 0; ch < 3; ch++) {
-      const x = v[ch], y = lerp(x, lutY(S.lut[ch], x), curveMix);
-      line(ctx, [X(x), Y(0)], [X(x), Y(y)], RGB_NIGHT[ch], 1, 1, 0.6, [2, 3]); line(ctx, [X(x), Y(y)], [X(0), Y(y)], RGB_NIGHT[ch], 1, 1, 0.6, [2, 3]);
-      dot(ctx, X(x), Y(y), 5, '#101513'); dot(ctx, X(x), Y(y), 3.6, RGB_NIGHT[ch]);
+    const L = 4, R = W - 4, T = 4, B = H - 4, X = x => lerp(L, R, x), Y = y => lerp(B, T, y);
+    for (let i = 0; i <= 4; i++) {
+      const u = i / 4;
+      line(ctx, [X(u), Y(0)], [X(u), Y(1)], C.rule, 1, 1, i === 0 ? 0.9 : 0.32);
+      line(ctx, [X(0), Y(u)], [X(1), Y(u)], C.rule, 1, 1, i === 0 ? 0.9 : 0.32);
+    }
+    line(ctx, [X(0), Y(0)], [X(1), Y(1)], C.faint, 1.1, 1, 0.9, [4, 5]);
+    if (!lut) return;
+    for (let ch = 0; ch < 3; ch++) {
+      const pts = []; for (let i = 0; i <= 96; i++) { const x = i / 96; pts.push([X(x), Y(lerp(x, lutY(lut[ch], x), m))]); }
+      poly(ctx, pts, RGB[ch], 2.3);
     }
   }
-  function drawGrid(l) {
-    const [W, H, ctx] = sizeCanvas(gridCv); ctx.clearRect(0, 0, W, H);
-    const on = stage === 2 ? 1 : 0.4, pw = W * 0.6, pd = H * 0.2, sk = W * 0.22, x0 = W * 0.06, gap = (H - pd - 20) / 7, yb = H - 10;
-    const Pt = (u, v, d) => [x0 + u * pw + v * sk, yb - d * gap - v * pd];
-    const bin = l == null ? -1 : Math.min(7, Math.floor(l * 8));
-    for (let d = 0; d < 8; d++) {
-      const hot = d === bin && stage === 2, q = [Pt(0, 0, d), Pt(1, 0, d), Pt(1, 1, d), Pt(0, 1, d)];
-      ctx.save(); ctx.globalAlpha = on;
-      ctx.beginPath(); q.forEach((c, i) => (i ? ctx.lineTo(c[0], c[1]) : ctx.moveTo(c[0], c[1]))); ctx.closePath();
-      ctx.fillStyle = hot ? 'rgba(255,138,99,0.16)' : 'rgba(143,194,166,0.06)'; ctx.fill();
-      ctx.strokeStyle = hot ? '#FF8A63' : 'rgba(143,194,166,0.5)'; ctx.lineWidth = hot ? 1.5 : 1; ctx.stroke();
-      if (hot) { for (let i = 1; i < 12; i++) line(ctx, Pt(i / 12, 0, d), Pt(i / 12, 1, d), '#FF8A63', 0.6, 1, 0.3); for (let j = 1; j < 6; j++) line(ctx, Pt(0, j / 6, d), Pt(1, j / 6, d), '#FF8A63', 0.6, 1, 0.3); }
-      ctx.restore();
+  function drawSweep(t) {                                             // the grid's cells light up along the sweeping edge
+    const [W, H, ctx] = sizeCanvas(lattice); ctx.clearRect(0, 0, W, H);
+    if (t <= 0.001 || t >= 0.999) return;
+    const cell = W / (1862 / 16), edge = t * W, band = cell * 7;
+    ctx.save(); ctx.lineWidth = 0.7;
+    for (let x = Math.floor((edge - band) / cell) * cell; x <= edge; x += cell) {
+      const a = clamp(1 - (edge - x) / band) * 0.55; if (a <= 0) continue;
+      ctx.strokeStyle = `rgba(242,240,232,${a})`; ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
     }
-    ctx.font = '500 11px "Barlow SC", sans-serif'; ctx.fillStyle = '#98A29B'; ctx.textAlign = 'left';
-    const a0 = Pt(1, 0, 0), a1 = Pt(1, 0, 7); ctx.fillText('dark', a0[0] + 8, a0[1] + 2); ctx.fillText('bright', a1[0] + 8, a1[1] + 2);
-    if (pos && stage === 2 && l != null) {
-      const u = pos.x / S.W, v = 1 - pos.y / S.H;
-      line(ctx, Pt(u, v, 0), Pt(u, v, 7), '#ECE9DF', 1, 1, 0.45, [2, 3]);
-      const cu = 1 / 12, cv2 = 1 / 6, u0 = Math.floor(u / cu) * cu, v0 = Math.floor(v / cv2) * cv2;
-      const cell = [Pt(u0, v0, bin), Pt(u0 + cu, v0, bin), Pt(u0 + cu, v0 + cv2, bin), Pt(u0, v0 + cv2, bin)];
-      ctx.beginPath(); cell.forEach((c, i) => (i ? ctx.lineTo(c[0], c[1]) : ctx.moveTo(c[0], c[1]))); ctx.closePath(); ctx.fillStyle = 'rgba(255,138,99,0.5)'; ctx.fill();
-      const at = Pt(u, v, clamp(l * 8 - 0.5, 0, 7)); dot(ctx, at[0], at[1], 5, '#101513'); dot(ctx, at[0], at[1], 3.4, '#FF8A63');
-    }
+    ctx.strokeStyle = 'rgba(242,240,232,0.22)'; ctx.beginPath();
+    for (let y = 0; y <= H; y += cell) { ctx.moveTo(Math.max(0, edge - band), y); ctx.lineTo(edge, y); }
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(242,240,232,0.9)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(edge, 0); ctx.lineTo(edge, H); ctx.stroke();
+    ctx.restore();
   }
-  const f3 = x => x.toFixed(3).replace(/^0/, '');
-  function readouts(v, l) {
-    const cls = ['r', 'g', 'b'], nm = ['R', 'G', 'B'];
-    outCurve.innerHTML = stage === 0
-      ? 'Adapter input, linear: ' + v.map((x, c) => `<span class="${cls[c]}">${nm[c]} <b>${f3(x)}</b></span>`).join(' · ')
-      : v.map((x, c) => `<span class="${cls[c]}">${nm[c]} <b>${f3(x)}</b> → <b>${f3(lutY(S.lut[c], x))}</b></span>`).join(' · ');
-    const bin = Math.min(7, Math.floor(l * 8)) + 1, gx = Math.floor(pos.x / 16) + 1, gy = Math.floor(pos.y / 16) + 1;
-    outGrid.innerHTML = stage === 2
-      ? `Brightness ℓ <b>${f3(l)}</b> → luminance bin <b>${bin}</b> of 8 · cell <b>${gx}, ${gy}</b> of ${S.m.grid.cols} × ${S.m.grid.rows}`
-      : `Brightness ℓ <b>${f3(l)}</b> would pick luminance bin <b>${bin}</b> of 8. Switch the grid on to see the lookup.`;
+  function render() {
+    raf = 0;
+    const s = REDUCED ? 2 : stageAt(progress());
+    if (Math.abs(s - lastS) < 1e-4 && lut) return;
+    lastS = s;
+    layers[1].style.opacity = clamp(s).toFixed(3);                    // global: the curve fades in everywhere at once
+    const t = clamp(s - 1);
+    layers[2].style.opacity = t > 0 ? 1 : 0;                          // local: the grid sweeps across
+    layers[2].style.clipPath = `inset(0 ${((1 - t) * 100).toFixed(2)}% 0 0)`;
+    drawCurve(clamp(s)); drawSweep(t);
+    const on = s < 0.5 ? 0 : s < 1.5 ? 1 : 2;
+    steps.forEach((li, i) => li.classList.toggle('is-on', REDUCED || i === on));
   }
-  function frame(now) {
-    raf = 0; if (!visible || !S) return;
-    if (S.tour.length && now - lastUser > 2600) {                      // left alone, the probe visits the regions the grid changes most
-      if (!target || now - moveStart > 2600) {
-        tourI = (tourI + 1) % S.tour.length; const w = S.tour[tourI], a = Math.random() * Math.PI * 2, rr = w.r * 0.3 * Math.random();
-        target = { x: w.x + Math.cos(a) * rr, y: w.y + Math.sin(a) * rr }; moveFrom = { ...pos }; moveStart = now;
-      }
-      const u = E.cInOut(clamp((now - moveStart) / 1200));
-      pos = { x: lerp(moveFrom.x, target.x, u), y: lerp(moveFrom.y, target.y, u) };
-    }
-    curveMix = lerp(mixFrom, stage >= 1 ? 1 : 0, E.cInOut(clamp((now - mixStart) / 800)));
-    const [W, H] = drawView(now);
-    const v = pix(pos.x, pos.y), l = (v[0] + v[1] + v[2]) / 3;          // ℓ comes from the unmapped input, as in the paper
-    drawCurve(v); drawGrid(l); readouts(v, l); drawLoupe(W, H);
-    probeEl.style.transform = `translate(${pos.x / S.W * W}px, ${pos.y / S.H * H}px)`;
-    view.classList.add('is-probing');
-    raf = requestAnimationFrame(frame);
-  }
-  function kick() { if (!raf && visible && S) raf = requestAnimationFrame(frame); }
-  const nearIO = new IntersectionObserver(es => { if (es[0].isIntersecting) { nearIO.disconnect(); demoIndex.then(ix => ix[0] && setScene(ix[0].id)); } }, { rootMargin: '900px 0px' });
-  nearIO.observe(box);
-  new IntersectionObserver(es => {
-    visible = es[0].isIntersecting; kick();
-    if (visible && !started && !REDUCED) {                              // first view: walk through the three stages, then show where the grid acts
-      started = true; stage = 0; from = 0; curveMix = 0; mixFrom = 0; wipeStart = -1e9;
-      tabs.forEach(t => t.setAttribute('aria-selected', String(+t.dataset.stage === 0))); tag.textContent = NAMES[0];
-      setTimeout(() => performance.now() - lastUser > 1000 && setStage(1), 1400);
-      setTimeout(() => performance.now() - lastUser > 1000 && setStage(2), 3600);
-      setTimeout(() => { if (performance.now() - lastUser > 1000) { heat = true; heatBtn.setAttribute('aria-pressed', 'true'); setTimeout(() => { if (performance.now() - lastUser > 1000) { heat = false; heatBtn.setAttribute('aria-pressed', 'false'); } }, 2800); } }, 6000);
-    }
-  }, { threshold: 0.25 }).observe(box);
-  addEventListener('resize', kick);
+  const schedule = () => { if (!raf) raf = requestAnimationFrame(render); };
+  demoMeta('rod_night-07732').then(m => { lut = LUT3(m); lastS = -1; schedule(); }).catch(() => {});
+  addEventListener('scroll', schedule, { passive: true });
+  addEventListener('resize', () => { lastS = -1; schedule(); });
+  schedule();
 })();
 
-// ================================================================ 03 — detection browser
+// ================================================================ 03 — the same frame, four detectors
 (() => {
-  const box = $('#browser'); if (!box) return;
-  const cmp = $('.cmp', box), left = $('.cmp-left', box), right = $('.cmp-right', box), svg = $('.cmp-boxes', box), tagL = $('[data-left-tag]', box);
-  const tabsHost = $('[data-scene-tabs]', box), expo = $('[data-exposure]', box), board = $('[data-scoreboard]', box), cap = $('[data-browser-caption]', box), gtBtn = $('[data-gt]', box);
-  const GROUPS = [
-    { key: 'rod', title: 'Night traffic', sub: 'ROD · Sony IMX490', ids: ['rod_night-07732'] },
-    { key: 'pas', title: 'Three exposures', sub: 'PASCAL RAW · Nikon D3200', ids: ['pas_low_2014_003709', 'pas_nm_2014_003709', 'pas_oe_2014_003709'] },
-    { key: 'lod', title: 'Short exposure', sub: 'LOD · Canon 5D IV', ids: ['lod_4252'] },
-  ];
-  const cache = new Map(); let D = null, method = 'default_isp', x = 50, animId = 0;
-  const NS = 'http://www.w3.org/2000/svg';
-  const el = (tag, attrs, parent) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; };
-  const load = id => { if (!cache.has(id)) cache.set(id, json(`assets/scenes/${id}/data.json`)); return cache.get(id); };
-  tabsHost.innerHTML = GROUPS.map(g => `<button class="scene-tab" type="button" role="tab" data-g="${g.key}" aria-selected="false"><img src="assets/scenes/${g.ids[0]}/rawild.webp" alt="" loading="lazy"><span><b>${g.title}</b><span>${g.sub}</span></span></button>`).join('');
-
-  function setX(v) {
-    x = clamp(v, 0, 100); cmp.style.setProperty('--x', x + '%'); cmp.setAttribute('aria-valuenow', Math.round(x));
-    if (D) {
-      const W = D.size[0], l = svg.querySelector('#bcl'), r = svg.querySelector('#bcr');
-      if (l) l.setAttribute('width', W * x / 100);
-      if (r) { r.setAttribute('x', W * x / 100); r.setAttribute('width', W * (1 - x / 100)); }
-    }
-    tagL.style.opacity = x < 16 ? 0 : 1; $('.cmp-tag--right', box).style.opacity = x > 84 ? 0 : 1;
+  const box = $('#compare'); if (!box) return;
+  const host = $('[data-multiples]', box), note = $('[data-compare-note]', box), tabs = $$('.tabs button[data-scene]', box);
+  const SHOW = ['default_isp', 'darkisp', 'drraw_resnet', 'rawild'];
+  const cache = new Map(); let current = null, token = 0;
+  const load = id => { if (!cache.has(id)) cache.set(id, Promise.all([json(`assets/scenes/${id}/data.json`), loadImg(`assets/scenes/${id}/default.webp`)])); return cache.get(id); };
+  host.innerHTML = SHOW.map((k, i) => `<figure class="mult${k === 'rawild' ? ' mult--ours' : ''}" style="--k:${i}"><canvas role="img"></canvas><figcaption><span class="m-name"></span><span class="m-score"></span><span class="m-false"></span></figcaption></figure>`).join('');
+  const figs = $$('.mult', host);
+  const iou = (a, b) => {
+    const ix = Math.max(0, Math.min(a[2], b[2]) - Math.max(a[0], b[0])), iy = Math.max(0, Math.min(a[3], b[3]) - Math.max(a[1], b[1])), i = ix * iy;
+    const u = (a[2] - a[0]) * (a[3] - a[1]) + (b[2] - b[0]) * (b[3] - b[1]) - i; return u > 0 ? i / u : 0;
+  };
+  function matchGT(gt, preds) {                                        // greedy by score, IoU >= 0.5 — the same rule as the counts
+    const used = new Set();
+    preds.forEach(p => { let best = 0, bj = -1; gt.forEach((g, j) => { if (!used.has(j)) { const o = iou(p.box, g.box); if (o > best) { best = o; bj = j; } } }); if (best >= 0.5) used.add(bj); });
+    return used;
   }
-  function drawBoxes() {
-    const [W, H] = D.size; svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.innerHTML = '';
-    const defs = el('defs', {}, svg);
-    el('rect', { id: 'bcl', x: 0, y: 0, width: W * x / 100, height: H }, el('clipPath', { id: 'bclip-l' }, defs));
-    el('rect', { id: 'bcr', x: W * x / 100, y: 0, width: W * (1 - x / 100), height: H }, el('clipPath', { id: 'bclip-r' }, defs));
-    const side = (g, preds) => {
-      D.gt.forEach(q => { const [a, b, c, d] = q.box; el('rect', { class: 'gt', x: a, y: b, width: c - a, height: d - b }, g); });
-      preds.forEach((p, k) => { const [a, b, c, d] = p.box, grp = el('g', { class: 'pop', style: `--k:${k}` }, g); el('rect', { class: 'box' + (p.hit ? '' : ' fp'), x: a, y: b, width: c - a, height: d - b }, grp); });
-    };
-    side(el('g', { 'clip-path': 'url(#bclip-l)' }, svg), D.methods[method] ? D.methods[method].boxes : []);
-    side(el('g', { 'clip-path': 'url(#bclip-r)' }, svg), D.methods.rawild.boxes);
+  function cropOf(D) {                                                // one crop for all four panels: every box, with room around it
+    const [W, H] = D.size, ar = 16 / 10; let x0 = W, y0 = H, x1 = 0, y1 = 0;
+    const add = b => { x0 = Math.min(x0, b[0]); y0 = Math.min(y0, b[1]); x1 = Math.max(x1, b[2]); y1 = Math.max(y1, b[3]); };
+    D.gt.forEach(g => add(g.box)); SHOW.forEach(k => (D.methods[k] ? D.methods[k].boxes : []).forEach(p => add(p.box)));
+    let cw = Math.max((x1 - x0) * 1.4, W * 0.35), ch = Math.max((y1 - y0) * 1.4, H * 0.35);
+    if (cw / ch < ar) cw = ch * ar; else ch = cw / ar;
+    const m = Math.round(W * 0.012), IW = W - 2 * m, IH = H - 2 * m;    // stay clear of the rendering's edge columns
+    const k = Math.min(1, IW / cw, IH / ch); cw *= k; ch *= k;
+    const cx = clamp((x0 + x1) / 2, m + cw / 2, W - m - cw / 2), cy = clamp((y0 + y1) / 2, m + ch / 2, H - m - ch / 2);
+    return [cx - cw / 2, cy - ch / 2, cw, ch];
   }
-  function scoreboard() {
-    const keys = ['rawild', ...Object.keys(D.methods).filter(k => k !== 'rawild')], n = D.gt.length;
-    board.innerHTML = keys.map(k => {
-      const m = D.methods[k], dots = '<i></i>'.repeat(m.tp) + '<i class="miss"></i>'.repeat(m.fn) + '<i class="fp"></i>'.repeat(m.fp), ours = k === 'rawild';
-      return `<button class="score${ours ? ' score--ours' : ''}" type="button" data-k="${k}" ${ours ? 'tabindex="-1" aria-disabled="true"' : `aria-pressed="${k === method}"`}>
-        <span class="score-name">${m.name}</span><span class="score-dots" aria-hidden="true">${dots}</span>
-        <span class="score-text"><b>${m.tp}</b> of ${n} found · <b>${m.fp}</b> false</span></button>`;
-    }).join('');
-    $$('.score:not(.score--ours)', board).forEach(b => b.addEventListener('click', () => { method = b.dataset.k; paint(); sweep(); }));
+  function strokeBox(ctx, r, color, dash, width) {
+    ctx.save(); ctx.setLineDash(dash || []);
+    if (color === '#FFFFFF') { ctx.strokeStyle = 'rgba(0,0,0,0.45)'; ctx.lineWidth = width + 2; ctx.strokeRect(r[0], r[1], r[2], r[3]); }
+    ctx.strokeStyle = color; ctx.lineWidth = width; ctx.strokeRect(r[0], r[1], r[2], r[3]); ctx.restore();
   }
   function paint() {
-    if (!D.methods[method]) method = Object.keys(D.methods).find(k => k !== 'rawild');
-    left.src = `assets/scenes/${D.id}/default.webp`; right.src = `assets/scenes/${D.id}/rawild.webp`;
-    cmp.style.aspectRatio = `${D.size[0]} / ${D.size[1]}`;
-    cmp.style.maxWidth = `calc((100svh - 250px) * ${(D.size[0] / D.size[1]).toFixed(4)})`;   // image plus scoreboard fit one screen
-    tagL.textContent = D.methods[method].name;
-    drawBoxes(); scoreboard(); setX(x);
-    const r = D.methods.rawild, b = D.methods[method], n = D.gt.length;
-    cap.textContent = `${D.dataset} · ${D.sensor} · ${D.condition.toLowerCase()}. Left: the dataset's standard display of the frame with ${b.name}'s detections (${b.tp} of ${n} found, ${b.fp} false). Right: RAWild's adapted image with its own detections (${r.tp} of ${n} found, ${r.fp} false). A detection counts as found at IoU ≥ 0.5; dashed yellow boxes are false alarms.`;
+    if (!current) return;
+    const [D, img] = current, [sx, sy, sw, sh] = cropOf(D), n = D.gt.length;
+    figs.forEach((fig, i) => {
+      const key = SHOW[i], m = D.methods[key], cv = $('canvas', fig);
+      const [W, H, ctx] = sizeCanvas(cv); ctx.clearRect(0, 0, W, H);
+      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, W, H);
+      const s = W / sw, T = b => [(b[0] - sx) * s, (b[1] - sy) * s, (b[2] - b[0]) * s, (b[3] - b[1]) * s];
+      const col = key === 'rawild' ? '#E4552F' : '#FFFFFF', found = matchGT(D.gt, m.boxes);
+      D.gt.forEach((g, j) => { if (!found.has(j)) strokeBox(ctx, T(g.box), '#E3A82B', [2, 3], 1.8); });
+      m.boxes.forEach(p => strokeBox(ctx, T(p.box), col, p.hit ? null : [7, 4], 2));
+      $('.m-name', fig).textContent = m.name;
+      $('.m-score', fig).innerHTML = `${m.tp}<small>/${n}</small>`;
+      $('.m-false', fig).textContent = m.fp ? `${m.fp} false` : '';
+      cv.setAttribute('aria-label', `${m.name}: ${m.tp} of ${n} objects found, ${m.fp} false alarms`);
+    });
+    note.textContent = `${D.dataset} · ${D.sensor} · ${D.condition.toLowerCase()}. Each method's own detections at score ≥ 0.5, drawn on the dataset's standard rendering; found means IoU ≥ 0.5 with the ground truth.`;
   }
-  async function show(id, animate) { D = await load(id); paint(); if (animate) sweep(); }
-  function sweep() {
-    cancelAnimationFrame(animId); if (REDUCED) { setX(50); return; }
-    setX(97); const s = performance.now() + 150;
-    const step = now => { const u = clamp((now - s) / 1400); setX(lerp(97, 50, E.cInOut(u))); if (u < 1) animId = requestAnimationFrame(step); };
-    animId = requestAnimationFrame(step);
+  async function show(id) {
+    const my = ++token; const r = await load(id); if (my !== token) return;
+    current = r; paint();
   }
-  function selectGroup(key, animate) {
-    const g = GROUPS.find(q => q.key === key);
-    $$('.scene-tab', tabsHost).forEach(b => b.setAttribute('aria-selected', String(b.dataset.g === key)));
-    expo.hidden = g.ids.length < 2;
-    const pressed = $('[data-exp][aria-pressed="true"]', expo);
-    show(g.ids.length > 1 ? (pressed ? pressed.dataset.exp : g.ids[0]) : g.ids[0], animate);
-  }
-  $$('.scene-tab', tabsHost).forEach(b => b.addEventListener('click', () => selectGroup(b.dataset.g, true)));
-  $$('[data-exp]', expo).forEach(b => b.addEventListener('click', () => { $$('[data-exp]', expo).forEach(o => o.setAttribute('aria-pressed', String(o === b))); show(b.dataset.exp, false); }));
-  gtBtn.addEventListener('click', () => { const on = gtBtn.getAttribute('aria-pressed') !== 'true'; gtBtn.setAttribute('aria-pressed', String(on)); cmp.classList.toggle('no-gt', !on); });
-  let drag = false;
-  const at = e => { const r = cmp.getBoundingClientRect(); return (e.clientX - r.left) / r.width * 100; };
-  cmp.addEventListener('pointerdown', e => { drag = true; cmp.setPointerCapture(e.pointerId); cmp.classList.add('is-drag'); cancelAnimationFrame(animId); setX(at(e)); });
-  cmp.addEventListener('pointermove', e => { if (drag) setX(at(e)); });
-  const end = () => { drag = false; cmp.classList.remove('is-drag'); };
-  cmp.addEventListener('pointerup', end); cmp.addEventListener('pointercancel', end);
-  cmp.addEventListener('keydown', e => { const d = e.shiftKey ? 10 : 2, m = { ArrowLeft: -d, ArrowRight: d, Home: -100, End: 100 }[e.key]; if (m == null) return; e.preventDefault(); cancelAnimationFrame(animId); setX(x + m); });
-  const near = new IntersectionObserver(es => { if (es[0].isIntersecting) { near.disconnect(); selectGroup('rod', false); } }, { rootMargin: '700px 0px' });
+  tabs.forEach(t => t.addEventListener('click', () => { tabs.forEach(o => o.setAttribute('aria-selected', String(o === t))); show(t.dataset.scene); }));
+  const near = new IntersectionObserver(es => { if (es[0].isIntersecting) { near.disconnect(); show(tabs[0].dataset.scene); } }, { rootMargin: '800px 0px' });
   near.observe(box);
-  let swept = false;
-  new IntersectionObserver(es => { if (es[0].isIntersecting && D && !swept) { swept = true; sweep(); } }, { threshold: 0.35 }).observe(cmp);
+  addEventListener('resize', () => { if (current) paint(); });
 })();
 
 // ================================================================ 03 — numbers: bars on the beat, counting up
