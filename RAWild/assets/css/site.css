@@ -74,11 +74,11 @@ a:hover .ext, button:hover .ext { transform: translate(2px, -2px); }
 .progress span { display: block; height: 100%; background: var(--ver); transform-origin: left; transform: scaleX(var(--p, 0)); }
 
 /* ---------- hero ---------- */
-.hero { position: relative; min-height: 100vh; min-height: 100svh; display: grid; place-items: center; padding: calc(var(--bar-h) + 12px) var(--gutter) 84px; text-align: center; overflow: clip; }
+.hero { position: relative; min-height: 100vh; min-height: 100svh; display: grid; place-items: center; padding: calc(var(--bar-h) + 16px) var(--gutter) 92px; text-align: center; overflow: clip; }
 .hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.hero-inner { --ew: clamp(132px, min(23vw, calc(100vh - 640px), calc(100svh - 640px)), 330px); position: relative; width: 100%; max-width: 1100px; }
-.venue { margin: 0 0 calc(var(--ew) * .05 + 10px); font: 500 clamp(13px, 1.05vw, 15px)/1 var(--narrow); letter-spacing: .34em; color: var(--ver); text-transform: uppercase; padding-left: .34em; }
-.emblem { width: var(--ew); aspect-ratio: .96; margin: 0 auto calc(var(--ew) * .04 + 10px); }
+.hero-inner { --ew: clamp(168px, min(21vw, 26vh), 318px); position: relative; width: 100%; max-width: 1100px; }
+.venue { margin: 0 0 calc(var(--ew) * .44 + 16px); font: 500 clamp(13px, 1.05vw, 15px)/1 var(--narrow); letter-spacing: .34em; color: var(--ver); text-transform: uppercase; padding-left: .34em; }
+.emblem { width: var(--ew); aspect-ratio: 1320 / 700; margin: 0 auto calc(var(--ew) * .16 + 16px); }
 .title { margin: 0; font-weight: 400; }
 .wm--hero { display: inline-block; font-size: clamp(60px, min(11vw, 15.5vh), 172px); line-height: .92; }
 .subtitle { display: block; margin-top: clamp(14px, 2.4vh, 24px); font: 400 clamp(19px, 2.05vw, 29px)/1.32 var(--serif); color: var(--ink-2); letter-spacing: -.003em; }

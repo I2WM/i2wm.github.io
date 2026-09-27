@@ -117,150 +117,95 @@ $$('[data-at]', hero).forEach(el => el.style.setProperty('--at', el.dataset.at))
 const BPM = 82;
 let BEAT = 60 / BPM / 1.75, t0 = 0, landed = false, heroVisible = true, heroLUT = null;
 const tilt = { x: 0, y: 0, tx: 0, ty: 0 };
+const FAN = [1.6, 0, -1.6];                                          // depth per unit of bend: R forward, G flat, B back
 function setBeat(speed) { BEAT = 60 / BPM / speed; root.style.setProperty('--beat', BEAT.toFixed(4) + 's'); }
 const heroBeat = () => (performance.now() - t0) / 1000 / BEAT;
 
-// ---------------------------------------------------------------- the emblem: the RGB cube
-// Its black-to-white diagonal is the gray axis — what no correction would do. Applied to a gray input, each channel's
-// curve bends the colour away from that axis along its own channel: R = (g_R(t), t, t), G = (t, g_G(t), t), B = (t, t, g_B(t)).
-// So the three curves share black and white and wind around one straight line. The film's flat plot is the cube's
-// front face (G is exactly its projection there); after the period lands, the cube extrudes behind it, R and B fan out
-// into their own channels, and the camera turns from the front view to three-quarters.
-const vdot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
-const vcross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
-const vnorm = a => { const l = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; };
-const Qn = {
-  axis: (a, th) => { const s2 = Math.sin(th / 2); return [Math.cos(th / 2), a[0] * s2, a[1] * s2, a[2] * s2]; },
-  mul: (a, b) => [a[0] * b[0] - a[1] * b[1] - a[2] * b[2] - a[3] * b[3], a[0] * b[1] + a[1] * b[0] + a[2] * b[3] - a[3] * b[2],
-                  a[0] * b[2] - a[1] * b[3] + a[2] * b[0] + a[3] * b[1], a[0] * b[3] + a[1] * b[2] - a[2] * b[1] + a[3] * b[0]],
-  slerp: (a, b, t) => {
-    let d = a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
-    if (d < 0) { b = b.map(x => -x); d = -d; }
-    if (d > 0.9995) { const r = a.map((x, i) => x + (b[i] - x) * t), l = Math.hypot(...r); return r.map(x => x / l); }
-    const th = Math.acos(d), sn = Math.sin(th);
-    return a.map((x, i) => (x * Math.sin((1 - t) * th) + b[i] * Math.sin(t * th)) / sn);
-  },
-  rot: (q, v) => {
-    const [w, x, y, z] = q, u = [y * v[2] - z * v[1], z * v[0] - x * v[2], x * v[1] - y * v[0]];
-    const uu = [y * u[2] - z * u[1], z * u[0] - x * u[2], x * u[1] - y * u[0]];
-    return [v[0] + 2 * (w * u[0] + uu[0]), v[1] + 2 * (w * u[1] + uu[1]), v[2] + 2 * (w * u[2] + uu[2])];
-  },
-};
-const TILT_AXIS = vnorm([-1, 0, 1]), TILT_ANG = Math.acos(1 / Math.sqrt(3));   // turns (1,1,1) onto the vertical
-let ELEV = -0.36;                                                       // the camera looks down a little
-const smooth = (a, c, x) => { const u = clamp((x - a) / (c - a)); return u * u * (3 - 2 * u); };
-
 function drawHero(b) {
   if (!heroLUT) return;
-  const dbg = window.__hero; if (dbg && dbg.b != null) b = dbg.b;
+  if (window.__hero && window.__hero.b != null) b = window.__hero.b;     // freeze a beat when tuning
   const [W, H, ctx] = sizeCanvas(heroCv);
   ctx.clearRect(0, 0, W, H);
   const hr = hero.getBoundingClientRect(), er = emblem.getBoundingClientRect(), dr = wmDot.getBoundingClientRect();
-  const ecx = er.left - hr.left + er.width / 2, ecy = er.top - hr.top + er.height / 2;
-  const S = er.height * 0.5, f = S * 5.5, Z0 = 1.18;
+  const ex = er.left - hr.left, ey = er.top - hr.top, ew = er.width, eh = er.height;
+  const k = ew / 376;                                             // the film's emblem is 376 px wide at 1920
+  const bw = Math.min(W * 0.69, (H * 0.6) * 1320 / 700), bh = bw * 700 / 1320;
+  const shrink = P(b, 3.95, 4.8, E.qOut);
   const secs = b * BEAT;
 
-  // --- poses ---------------------------------------------------------------------------------------------
-  const cubeA = P(b, 6.7, 7.6), ue = P(b, 6.9, 8.7, E.cInOut), uc = P(b, 7.1, 9.8, E.sInOut), uf = P(b, 7.3, 9.4, E.sInOut);
-  // The cube stands up on its black corner: one tilt about a fixed axis turns the black-to-white diagonal vertical
-  // while the cube extrudes; then it turns like a top about that vertical gray axis, seen from slightly above.
-  const ts = Math.max(0, (b - 9.6) * BEAT), turnA = 0.3 * (ts - 1.8 * (1 - Math.exp(-ts / 1.8)));
-  const zoom = lerp(Z0, 1, uc), tw = P(b, 7.1, 9.8, E.sInOut);
-  const upright = Qn.axis(TILT_AXIS, TILT_ANG * uc);
-  const spinQ = Qn.axis([0, 1, 0], (dbg && dbg.turn != null ? dbg.turn : turnA) + tw * tilt.x * 0.9);
-  const camQ = Qn.axis([1, 0, 0], (dbg && dbg.elev != null ? dbg.elev : ELEV) * uc + tw * tilt.y * 0.35);
-  const q = Qn.mul(camQ, Qn.mul(spinQ, upright));
-  const fy = tw * Math.sin(secs * 0.8) * 2.5;
-  const toScreen = c => {                                                // colour -> world (blue extrudes with ue) -> screen
-    const v = Qn.rot(q, [(c[0] - 0.5) * S * zoom, (c[1] - 0.5) * S * zoom, (c[2] * ue - 0.5) * S * zoom]), k = f / (f + v[2]);
-    return [ecx + v[0] * k, ecy + fy - v[1] * k, v[2]];
+  // after the box unfolds it starts to turn; the pointer steers the turn
+  const turn = P(b, 6.6, 9.8, E.sInOut);
+  const yaw = turn * (0.62 * Math.sin(secs * 0.42) + tilt.x);
+  const pitch = turn * (-0.1 + 0.16 * Math.sin(secs * 0.31 + 1.1) + tilt.y);
+  const lift = turn * Math.sin(secs * 0.8) * 3;
+  const cx = lerp(W / 2, ex + ew / 2, shrink), cy = lerp(H * 0.5, ey + eh / 2, shrink) + lift;
+  const PW = lerp(bw, ew, shrink), PH = lerp(bh, eh, shrink);
+  const D = ew * 0.5, f = ew * 4.2, spread = P(b, 6.8, 9.2, E.sInOut);
+  const cyw = Math.cos(yaw), syw = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+  const proj = (x, y, z) => {                                       // x right, y up, z away from the viewer
+    const x1 = x * cyw + z * syw, z1 = -x * syw + z * cyw;
+    const y2 = y * cp - z1 * sp, z2 = y * sp + z1 * cp;
+    const s = f / (f + z2);
+    return [cx + x1 * s, cy - y2 * s, z2];
   };
+  const map = (x, y, z = 0) => proj((x - 0.5) * PW, (y - 0.5) * PH, z);
 
-  // --- the film's flat plot: a square, so input and output share one scale ---------------------------------
-  const shrink = P(b, 3.95, 4.8, E.qOut);
-  const bigSide = Math.min(H * 0.6, W * 0.46), faceSide = S * Z0 * f / (f - 0.5 * S * Z0);
-  const pcx = lerp(W / 2, ecx, shrink), pcy = lerp(H * 0.5, ecy, shrink), side = lerp(bigSide, faceSide, shrink);
-  const map2 = (x, y) => [pcx + (x - 0.5) * side, pcy - (y - 0.5) * side];
-  const gridA = P(b, 0, 0.7) * (1 - shrink);
+  const gridA = P(b, 0, 0.7) * (1 - shrink);                        // faint coordinate grid while the plot is big
   if (gridA > 0) {
     ctx.save(); ctx.globalAlpha = gridA;
     for (let i = 0; i <= 10; i++) {
       const u = i / 10, major = i % 5 === 0, p = P(b, 0.05 + i * 0.04, 0.9 + i * 0.04);
-      line(ctx, map2(u, 0), map2(u, 1), C.rule, major ? 1.2 : 0.7, p, major ? 0.55 : 0.28);
-      line(ctx, map2(0, u), map2(1, u), C.rule, major ? 1.2 : 0.7, p, major ? 0.55 : 0.28);
+      line(ctx, map(u, 0), map(u, 1), C.rule, major ? 1.2 : 0.7, p, major ? 0.55 : 0.28);
+      line(ctx, map(0, u), map(1, u), C.rule, major ? 1.2 : 0.7, p, major ? 0.55 : 0.28);
     }
-    line(ctx, map2(0, 0), map2(1, 1), C.faint, 1.2, P(b, 0.3, 1.4), 0.6, [7, 9]);
+    line(ctx, map(0, 0), map(1, 1), C.faint, 1.2, P(b, 0.3, 1.4), 0.6, [7, 9]);
     ctx.restore();
   }
 
-  // --- the cube: back faces carry a faint grid; edges fade with depth; back edges behind the curves ----------
-  const edges = [];
-  if (cubeA > 0) {
-    for (let a = 0; a < 3; a++) for (const v of [0, 1]) {
-      const n = [0, 0, 0]; n[a] = v ? 1 : -1;
-      const nz = Qn.rot(q, n)[2], fa = smooth(0.08, 0.6, nz) * cubeA * (a === 2 ? 1 : ue);
-      if (fa <= 0.01) continue;
-      const [u1, u2] = [0, 1, 2].filter(i => i !== a);
-      for (let i = 1; i < 4; i++) for (const [ua, ub] of [[u1, u2], [u2, u1]]) {
-        const p0 = [0, 0, 0], p1 = [0, 0, 0]; p0[a] = p1[a] = v; p0[ua] = p1[ua] = i / 4; p0[ub] = 0; p1[ub] = 1;
-        line(ctx, toScreen(p0), toScreen(p1), C.sage, 0.7, 1, 0.24 * fa);
-      }
-    }
-    for (let a = 0; a < 3; a++) for (let k2 = 0; k2 < 4; k2++) {
-      const [u1, u2] = [0, 1, 2].filter(i => i !== a), p0 = [0, 0, 0], p1 = [0, 0, 0];
-      p0[u1] = p1[u1] = k2 & 1; p0[u2] = p1[u2] = k2 >> 1; p0[a] = 0; p1[a] = 1;
-      const A = toScreen(p0), B = toScreen(p1), zm = (A[2] + B[2]) / 2;
-      edges.push({ A, B, zm, alpha: cubeA * lerp(1, 0.38, clamp(zm / (S * zoom) + 0.5)) });
-    }
-    edges.filter(e => e.zm > 0).forEach(e => line(ctx, e.A, e.B, C.sage, 1, 1, 0.6 * e.alpha));
-    const g0 = toScreen([0, 0, 0]), g1 = toScreen([1, 1, 1]);
-    line(ctx, g0, g1, C.ink2, 1, 1, 0.38 * P(b, 8.0, 9.4), [3, 5]);         // the gray axis
+  // the grid box: back and floor first, curves in between, front edges last
+  const unfold = P(b, 6.5, 8.6);
+  const hw = ew / 2 + 14 * k, hh = eh / 2 + 12 * k;
+  const V = (sx, sy, sz) => proj(sx * hw, sy * hh, sz * D / 2);
+  const depthA = z => clamp(0.55 - z / (D * 2.2), 0.18, 1);         // farther edges are fainter
+  const edge = (a, c, p, alpha, w) => { if (p > 0) line(ctx, a, c, C.sage, w, clamp(p), alpha * depthA((a[2] + c[2]) / 2)); };
+  if (unfold > 0) {
+    for (let i = 1; i < 6; i++) { const x = -1 + 2 * i / 6; edge(V(x, -1, 1), V(x, 1, 1), unfold * 1.5 - 0.3 - i * 0.04, 0.5, 0.9); edge(V(x, -1, -1), V(x, -1, 1), unfold * 1.5 - 0.45 - i * 0.03, 0.5, 0.9); }
+    for (let j = 1; j < 4; j++) { const y = -1 + 2 * j / 4; edge(V(-1, y, 1), V(1, y, 1), unfold * 1.5 - 0.35 - j * 0.05, 0.5, 0.9); }
+    const B4 = [V(-1, 1, 1), V(1, 1, 1), V(1, -1, 1), V(-1, -1, 1)];
+    for (let q = 0; q < 4; q++) edge(B4[q], B4[(q + 1) % 4], unfold * 1.6 - 0.1, 0.8, 1.1);
   }
-
-  // --- the three channel curves ---------------------------------------------------------------------------
   const travel = P(b, 0, 3.85, u => 1 - Math.pow(1 - u, 1.7));
-  const lw = lerp(Math.max(1.8, 5.2 * side / 1320 * 1.9), Math.max(2.6, S * 0.026), uc);
-  const DIRS = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
-  const dirOf = ch => vnorm([lerp(0, DIRS[ch][0], uf), lerp(1, DIRS[ch][1], uf), lerp(0, DIRS[ch][2], uf)]);
-  if (travel > 0) {
-    const threeD = cubeA > 0;
-    const strands = [0, 1, 2].map(ch => {
-      const dir = dirOf(ch), pts = [], spokes = []; let zs = 0;
-      for (let i = 0; i <= 160; i++) {
-        const x = travel * i / 160, d = lutY(heroLUT[ch], x) - x;
-        if (!threeD) { pts.push(map2(x, x + d)); continue; }
-        const p = toScreen([x + d * dir[0], x + d * dir[1], x + d * dir[2]]); zs += p[2]; pts.push(p);
-        if (i % 10 === 5) spokes.push([toScreen([x, x, x]), p]);
-      }
-      return { ch, pts, spokes, z: zs };
-    });
-    strands.sort((p, q2) => q2.z - p.z).forEach(({ ch, pts, spokes }) => {
-      spokes.forEach(([a, c]) => line(ctx, a, c, RGB[ch], 1.2, 1, 0.42 * uf));  // how far each channel leaves the gray axis
-      poly(ctx, pts, RGB[ch], lw, { glow: 0.25, blur: 10 });
-    });
+  const lw = Math.max(1.7, 5.2 * PW / 1320 * (W / 1920) * 1.9);
+  // The three curves share black and white and stay anchored to one straight line, the diagonal (no correction):
+  // each leaves it in its own direction — R toward the viewer, B away, G in the plane — by as much as it bends.
+  if (spread > 0) line(ctx, map(0, 0), map(1, 1), C.ink2, 1, 1, 0.34 * spread, [3, 5]);
+  if (travel > 0) for (let ch = 0; ch < 3; ch++) {
+    const pts = [];
+    for (let i = 0; i <= 160; i++) { const x = travel * i / 160, y = lutY(heroLUT[ch], x); pts.push(map(x, y, FAN[ch] * (y - x) * PH * spread)); }
+    poly(ctx, pts, RGB[ch], lw, { glow: 0.25, blur: 12 * Math.max(0.35, PW / bw) });
   }
-  edges.filter(e => e.zm <= 0).forEach(e => line(ctx, e.A, e.B, C.sage, 1.15, 1, 0.8 * e.alpha));
-  if (cubeA > 0) {                                                            // black and white, the shared ends
-    const k0 = toScreen([0, 0, 0]), k1 = toScreen([1, 1, 1]), ea = P(b, 8.0, 9.0);
-    dot(ctx, k0[0], k0[1], 3.4, C.ink, ea); dot(ctx, k1[0], k1[1], 3.8, C.ink2, ea); dot(ctx, k1[0], k1[1], 2.4, '#FFFFFA', ea);
+  if (unfold > 0) {
+    const F4 = [V(-1, 1, -1), V(1, 1, -1), V(1, -1, -1), V(-1, -1, -1)], B4 = [V(-1, 1, 1), V(1, 1, 1), V(1, -1, 1), V(-1, -1, 1)];
+    for (let q = 0; q < 4; q++) edge(F4[q], B4[q], unfold * 1.6 - 0.2 - q * 0.05, 1, 1.1);
+    for (let q = 0; q < 4; q++) edge(F4[q], F4[(q + 1) % 4], unfold * 1.6 - q * 0.06, 1.3, 1.35);
   }
 
-  // --- probes merge into one vermilion dot at (1,1), which flies to the wordmark's period (lands on beat 6.5)
+  // probes merge into one vermilion dot at (1,1), which flies to the wordmark's period (lands on beat 6.5)
   const merge = P(b, 3.85, 4.25), depart = P(b, 5.7, 6.5, E.cIn);
   const pr = dr.width / 2, px = dr.left + pr - hr.left, py = dr.top + dr.height / 2 - hr.top;
   if (b >= 6.5 && !landed) land();
   if (travel > 0 && b < 6.5) {
-    const s = Math.max(0.6, side / bigSide);
+    const s = Math.max(0.6, PW / bw);
     if (merge < 1) for (let ch = 0; ch < 3; ch++) {
-      const [x, y] = map2(travel, lutY(heroLUT[ch], travel));
+      const [x, y] = map(travel, lutY(heroLUT[ch], travel));
       dot(ctx, x, y, lerp(5.2, 6.5, merge) * s, mix(RGB[ch], C.ver, merge), 1, 12);
     }
     if (merge > 0) {
-      const [qx, qy] = map2(1, 1);
+      const [qx, qy] = map(1, 1);
       if (depart <= 0) dot(ctx, qx, qy, lerp(5, pr * 0.8, merge), C.ver, merge, 16);
       else {
-        const ccx2 = px - 0.012 * W, ccy2 = qy + (py - qy) * 0.28;
-        const at = v => [(1 - v) * (1 - v) * qx + 2 * (1 - v) * v * ccx2 + v * v * px, (1 - v) * (1 - v) * qy + 2 * (1 - v) * v * ccy2 + v * v * py];
+        const ccx = px - 0.012 * W, ccy = qy + (py - qy) * 0.28;
+        const at = v => [(1 - v) * (1 - v) * qx + 2 * (1 - v) * v * ccx + v * v * px, (1 - v) * (1 - v) * qy + 2 * (1 - v) * v * ccy + v * v * py];
         for (let t = 6; t >= 1; t--) { const v = Math.max(0, depart - t * 0.035), [tx, ty] = at(v); dot(ctx, tx, ty, pr * 0.8 * (1 - t / 7), C.ver, 0.18 * (1 - t / 7)); }
         const [x, y] = at(depart); dot(ctx, x, y, lerp(pr * 0.8, pr, depart), C.ver, 1, 18);
       }
