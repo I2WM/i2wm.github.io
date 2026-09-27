@@ -120,69 +120,99 @@ const tilt = { x: 0, y: 0, tx: 0, ty: 0 };
 function setBeat(speed) { BEAT = 60 / BPM / speed; root.style.setProperty('--beat', BEAT.toFixed(4) + 's'); }
 const heroBeat = () => (performance.now() - t0) / 1000 / BEAT;
 
+// The emblem is the RGB cube. Its black-to-white diagonal is the gray axis (no correction); each channel's curve,
+// applied to a gray input, bends away from that axis along its own channel, so the three curves share both ends
+// and wind around one straight line: R = (g_R(t), t, t), G = (t, g_G(t), t), B = (t, t, g_B(t)).
+const vdot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const vcross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+const vnorm = a => { const l = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; };
+function rotAxis(v, a, th) {                                         // Rodrigues rotation of v about the unit axis a
+  const c = Math.cos(th), sn = Math.sin(th), d = vdot(a, v), x = vcross(a, v);
+  return [v[0] * c + x[0] * sn + a[0] * d * (1 - c), v[1] * c + x[1] * sn + a[1] * d * (1 - c), v[2] * c + x[2] * sn + a[2] * d * (1 - c)];
+}
+const GRAY = vnorm([1, 1, 1]), SHOW = vnorm([1, 0.62, 0.34]);         // on screen: x right, y up, z away; gray axis runs up and to the right
+const PRES_AXIS = vnorm(vcross(GRAY, SHOW)), PRES_ANG = Math.acos(vdot(GRAY, SHOW));
+const SPIN0 = 2.1;                                                     // starting turn about the gray axis
+
 function drawHero(b) {
   if (!heroLUT) return;
   const [W, H, ctx] = sizeCanvas(heroCv);
   ctx.clearRect(0, 0, W, H);
   const hr = hero.getBoundingClientRect(), er = emblem.getBoundingClientRect(), dr = wmDot.getBoundingClientRect();
   const ex = er.left - hr.left, ey = er.top - hr.top, ew = er.width, eh = er.height;
-  const k = ew / 376;                                             // the film's emblem is 376 px wide at 1920
   const bw = Math.min(W * 0.69, (H * 0.6) * 1320 / 700), bh = bw * 700 / 1320;
   const shrink = P(b, 3.95, 4.8, E.qOut);
-  const secs = b * BEAT;
-
-  // after the box unfolds it starts to turn; the pointer steers the turn
-  const turn = P(b, 6.6, 9.8, E.sInOut);
-  const yaw = turn * (0.62 * Math.sin(secs * 0.42) + tilt.x);
-  const pitch = turn * (-0.1 + 0.16 * Math.sin(secs * 0.31 + 1.1) + tilt.y);
-  const lift = turn * Math.sin(secs * 0.8) * 3;
-  const cx = lerp(W / 2, ex + ew / 2, shrink), cy = lerp(H * 0.5, ey + eh / 2, shrink) + lift;
+  const cx = lerp(W / 2, ex + ew / 2, shrink), cy = lerp(H * 0.5, ey + eh / 2, shrink);
   const PW = lerp(bw, ew, shrink), PH = lerp(bh, eh, shrink);
-  const D = ew * 0.5, f = ew * 4.2, spread = P(b, 6.8, 9.2, E.sInOut);
-  const cyw = Math.cos(yaw), syw = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
-  const proj = (x, y, z) => {                                       // x right, y up, z away from the viewer
-    const x1 = x * cyw + z * syw, z1 = -x * syw + z * cyw;
-    const y2 = y * cp - z1 * sp, z2 = y * sp + z1 * cp;
-    const s = f / (f + z2);
-    return [cx + x1 * s, cy - y2 * s, z2];
-  };
-  const map = (x, y, z = 0) => proj((x - 0.5) * PW, (y - 0.5) * PH, z);
+  const map2 = (x, y) => [cx + (x - 0.5) * PW, cy - (y - 0.5) * PH];     // the film's flat plot
 
-  const gridA = P(b, 0, 0.7) * (1 - shrink);                        // faint coordinate grid while the plot is big
+  const gridA = P(b, 0, 0.7) * (1 - shrink);                            // faint coordinate grid while the plot is big
   if (gridA > 0) {
     ctx.save(); ctx.globalAlpha = gridA;
     for (let i = 0; i <= 10; i++) {
       const u = i / 10, major = i % 5 === 0, p = P(b, 0.05 + i * 0.04, 0.9 + i * 0.04);
-      line(ctx, map(u, 0), map(u, 1), C.rule, major ? 1.2 : 0.7, p, major ? 0.55 : 0.28);
-      line(ctx, map(0, u), map(1, u), C.rule, major ? 1.2 : 0.7, p, major ? 0.55 : 0.28);
+      line(ctx, map2(u, 0), map2(u, 1), C.rule, major ? 1.2 : 0.7, p, major ? 0.55 : 0.28);
+      line(ctx, map2(0, u), map2(1, u), C.rule, major ? 1.2 : 0.7, p, major ? 0.55 : 0.28);
     }
-    line(ctx, map(0, 0), map(1, 1), C.faint, 1.2, P(b, 0.3, 1.4), 0.6, [7, 9]);
+    line(ctx, map2(0, 0), map2(1, 1), C.faint, 1.2, P(b, 0.3, 1.4), 0.6, [7, 9]);
     ctx.restore();
   }
 
-  // the grid box: back and floor first, curves in between, front edges last
-  const unfold = P(b, 6.5, 8.6);
-  const hw = ew / 2 + 14 * k, hh = eh / 2 + 12 * k;
-  const V = (sx, sy, sz) => proj(sx * hw, sy * hh, sz * D / 2);
-  const depthA = z => clamp(0.55 - z / (D * 2.2), 0.18, 1);         // farther edges are fainter
-  const edge = (a, c, p, alpha, w) => { if (p > 0) line(ctx, a, c, C.sage, w, clamp(p), alpha * depthA((a[2] + c[2]) / 2)); };
+  // from beat 6.5 the flat plot twists into the cube, then the cube keeps turning about its gray axis
+  const m = P(b, 6.5, 8.8, E.sInOut), unfold = P(b, 6.5, 8.6);
+  const ts = Math.max(0, (b - 6.6) * BEAT), spin = SPIN0 + 0.34 * (ts - 1.4 * (1 - Math.exp(-ts / 1.4)));
+  const ramp = P(b, 6.6, 9.8, E.sInOut), yawP = ramp * tilt.x * 0.75, pitchP = ramp * tilt.y * 0.7;
+  const S = ew * 0.5, f = ew * 4.2, ccx = ex + ew / 2, ccy = ey + eh / 2 + ramp * Math.sin(b * BEAT * 0.8) * 3;
+  const cyw = Math.cos(yawP), syw = Math.sin(yawP), cp = Math.cos(pitchP), sp = Math.sin(pitchP);
+  const P3 = c => {                                                      // colour (r, g, b) in [0,1]^3 -> screen
+    let v = [(c[0] - 0.5) * S, (c[1] - 0.5) * S, (c[2] - 0.5) * S];
+    v = rotAxis(rotAxis(v, GRAY, spin), PRES_AXIS, PRES_ANG);
+    const x1 = v[0] * cyw + v[2] * syw, z1 = -v[0] * syw + v[2] * cyw, y2 = v[1] * cp - z1 * sp, z2 = v[1] * sp + z1 * cp;
+    const k = f / (f + z2);
+    return [ccx + x1 * k, ccy - y2 * k, z2];
+  };
+  const depthA = z => clamp(0.62 - z / (S * 1.5), 0.16, 1);            // farther lines are fainter
+  const drawEdge = (a, c, p, alpha, w) => { if (p > 0) line(ctx, a, c, C.sage, w, clamp(p), alpha * depthA((a[2] + c[2]) / 2)); };
+  let frontEdges = [];
   if (unfold > 0) {
-    for (let i = 1; i < 6; i++) { const x = -1 + 2 * i / 6; edge(V(x, -1, 1), V(x, 1, 1), unfold * 1.5 - 0.3 - i * 0.04, 0.5, 0.9); edge(V(x, -1, -1), V(x, -1, 1), unfold * 1.5 - 0.45 - i * 0.03, 0.5, 0.9); }
-    for (let j = 1; j < 4; j++) { const y = -1 + 2 * j / 4; edge(V(-1, y, 1), V(1, y, 1), unfold * 1.5 - 0.35 - j * 0.05, 0.5, 0.9); }
-    const B4 = [V(-1, 1, 1), V(1, 1, 1), V(1, -1, 1), V(-1, -1, 1)];
-    for (let q = 0; q < 4; q++) edge(B4[q], B4[(q + 1) % 4], unfold * 1.6 - 0.1, 0.8, 1.1);
+    const faces = [];                                                    // faint 4x4 grids on the three far faces
+    for (let a = 0; a < 3; a++) for (const v of [0, 1]) { const c = [0.5, 0.5, 0.5]; c[a] = v; faces.push({ a, v, z: P3(c)[2] }); }
+    faces.sort((p, q) => q.z - p.z).slice(0, 3).forEach(({ a, v }, fi) => {
+      const [u1, u2] = [0, 1, 2].filter(i => i !== a);
+      for (let i = 1; i < 4; i++) for (const [ua, ub] of [[u1, u2], [u2, u1]]) {
+        const p0 = [0, 0, 0], p1 = [0, 0, 0]; p0[a] = p1[a] = v; p0[ua] = p1[ua] = i / 4; p0[ub] = 0; p1[ub] = 1;
+        drawEdge(P3(p0), P3(p1), unfold * 1.5 - 0.3 - i * 0.05 - fi * 0.06, 0.42, 0.8);
+      }
+    });
+    for (let a = 0; a < 3; a++) for (let q = 0; q < 4; q++) {           // the twelve edges, far ones now, near ones after the curves
+      const [u1, u2] = [0, 1, 2].filter(i => i !== a), p0 = [0, 0, 0], p1 = [0, 0, 0];
+      p0[u1] = p1[u1] = q & 1; p0[u2] = p1[u2] = q >> 1; p0[a] = 0; p1[a] = 1;
+      const A = P3(p0), B = P3(p1), pr = unfold * 1.6 - 0.08 * (a * 4 + q) / 3;
+      if ((A[2] + B[2]) / 2 > 0) drawEdge(A, B, pr, 0.9, 1.1); else frontEdges.push([A, B, pr]);
+    }
+    const g0 = P3([0, 0, 0]), g1 = P3([1, 1, 1]);
+    line(ctx, g0, g1, C.ink2, 1, P(b, 7.2, 8.8), 0.32 * m, [3, 5]);     // the gray axis: what no correction would look like
   }
+
   const travel = P(b, 0, 3.85, u => 1 - Math.pow(1 - u, 1.7));
-  const lw = Math.max(1.7, 5.2 * PW / 1320 * (W / 1920) * 1.9);
-  if (travel > 0) for (let ch = 0; ch < 3; ch++) {
-    const z = (ch - 1) * D * 0.36 * spread, pts = [];
-    for (let i = 0; i <= 160; i++) { const x = travel * i / 160; pts.push(map(x, lutY(heroLUT[ch], x), z)); }
-    poly(ctx, pts, RGB[ch], lw, { glow: 0.25, blur: 12 * Math.max(0.35, PW / bw) });
+  const lw = lerp(Math.max(1.7, 5.2 * PW / 1320 * (W / 1920) * 1.9), Math.max(2.2, S * 0.016), m);
+  if (travel > 0) {
+    const strands = [0, 1, 2].map(ch => {
+      const pts = []; let zs = 0;
+      for (let i = 0; i <= 160; i++) {
+        const x = travel * i / 160, g = lutY(heroLUT[ch], x), p2 = map2(x, g);
+        if (m <= 0) { pts.push(p2); continue; }
+        const c = [x, x, x]; c[ch] = g; const p3 = P3(c); zs += p3[2];
+        pts.push([lerp(p2[0], p3[0], m), lerp(p2[1], p3[1], m)]);
+      }
+      return { ch, pts, z: zs };
+    });
+    strands.sort((p, q) => q.z - p.z).forEach(({ ch, pts }) => poly(ctx, pts, RGB[ch], lw, { glow: 0.25, blur: 12 * Math.max(0.35, PW / bw) }));
   }
-  if (unfold > 0) {
-    const F4 = [V(-1, 1, -1), V(1, 1, -1), V(1, -1, -1), V(-1, -1, -1)], B4 = [V(-1, 1, 1), V(1, 1, 1), V(1, -1, 1), V(-1, -1, 1)];
-    for (let q = 0; q < 4; q++) edge(F4[q], B4[q], unfold * 1.6 - 0.2 - q * 0.05, 1, 1.1);
-    for (let q = 0; q < 4; q++) edge(F4[q], F4[(q + 1) % 4], unfold * 1.6 - q * 0.06, 1.3, 1.35);
+  frontEdges.forEach(([A, B, pr]) => drawEdge(A, B, pr, 1.25, 1.3));
+  if (m > 0) {                                                            // the shared ends: black and white
+    const k0 = P3([0, 0, 0]), k1 = P3([1, 1, 1]);
+    dot(ctx, k0[0], k0[1], 3.2, C.ink, m); dot(ctx, k1[0], k1[1], 3.6, C.ink2, m); dot(ctx, k1[0], k1[1], 2.2, '#FFFFFA', m);
   }
 
   // probes merge into one vermilion dot at (1,1), which flies to the wordmark's period (lands on beat 6.5)
@@ -192,15 +222,15 @@ function drawHero(b) {
   if (travel > 0 && b < 6.5) {
     const s = Math.max(0.6, PW / bw);
     if (merge < 1) for (let ch = 0; ch < 3; ch++) {
-      const [x, y] = map(travel, lutY(heroLUT[ch], travel));
+      const [x, y] = map2(travel, lutY(heroLUT[ch], travel));
       dot(ctx, x, y, lerp(5.2, 6.5, merge) * s, mix(RGB[ch], C.ver, merge), 1, 12);
     }
     if (merge > 0) {
-      const [qx, qy] = map(1, 1);
+      const [qx, qy] = map2(1, 1);
       if (depart <= 0) dot(ctx, qx, qy, lerp(5, pr * 0.8, merge), C.ver, merge, 16);
       else {
-        const ccx = px - 0.012 * W, ccy = qy + (py - qy) * 0.28;
-        const at = v => [(1 - v) * (1 - v) * qx + 2 * (1 - v) * v * ccx + v * v * px, (1 - v) * (1 - v) * qy + 2 * (1 - v) * v * ccy + v * v * py];
+        const ccx2 = px - 0.012 * W, ccy2 = qy + (py - qy) * 0.28;
+        const at = v => [(1 - v) * (1 - v) * qx + 2 * (1 - v) * v * ccx2 + v * v * px, (1 - v) * (1 - v) * qy + 2 * (1 - v) * v * ccy2 + v * v * py];
         for (let t = 6; t >= 1; t--) { const v = Math.max(0, depart - t * 0.035), [tx, ty] = at(v); dot(ctx, tx, ty, pr * 0.8 * (1 - t / 7), C.ver, 0.18 * (1 - t / 7)); }
         const [x, y] = at(depart); dot(ctx, x, y, lerp(pr * 0.8, pr, depart), C.ver, 1, 18);
       }
