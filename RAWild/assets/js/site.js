@@ -412,6 +412,8 @@ $$('.panel').forEach(p => {
       line(ctx, [X(0), Y(u)], [X(1), Y(u)], C.rule, 1, 1, i === 0 ? 0.9 : 0.32);
     }
     line(ctx, [X(0), Y(0)], [X(1), Y(1)], C.faint, 1.1, 1, 0.9, [4, 5]);
+    ctx.font = '500 10.5px "Barlow SC", sans-serif'; ctx.fillStyle = C.faint; ctx.textAlign = 'right'; ctx.fillText('IN →', R - 2, B - 5);
+    ctx.save(); ctx.translate(L + 11, T + 2); ctx.rotate(-Math.PI / 2); ctx.textAlign = 'right'; ctx.fillText('OUT →', 0, 0); ctx.restore();
     if (!lut) return;
     for (let ch = 0; ch < 3; ch++) {
       const pts = []; for (let i = 0; i <= 96; i++) { const x = i / 96; pts.push([X(x), Y(lerp(x, lutY(lut[ch], x), m))]); }
