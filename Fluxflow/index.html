@@ -1,1 +1,1207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FluxFlow · Conservative Flow-Matching for Astronomical Image Super-Resolution</title>
+<meta name="description" content="FluxFlow: a conservative pixel-space flow-matching framework with a training-free Wiener-regularised correction, for ground-to-space astronomical super-resolution across heterogeneous sensors.">
+<meta name="theme-color" content="#F5F1E8">
+<meta property="og:type" content="website">
+<meta property="og:title" content="FluxFlow · Conservative Flow-Matching for Astronomical Image Super-Resolution">
+<meta property="og:description" content="One network, every sensor: a conservative flow that refuses to invent sources, with a training-free measurement-consistent correction.">
+<meta property="og:image" content="assets/img/star-cluster.jpg">
+<link rel="icon" href="assets/img/star-spikes.jpg">
+<link rel="preload" href="assets/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/barlow-sc-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css?v=48">
+<link rel="stylesheet" href="assets/css/editorial.css?v=48">
+<link rel="stylesheet" href="assets/css/chroma.css?v=3">
+<link rel="stylesheet" href="assets/css/chroma-depth.css?v=1">
+<link rel="stylesheet" href="assets/css/project-hero.css?v=2">
+<link rel="preload" href="assets/fonts/arimo-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/fraunces-regular.ttf" as="font" type="font/ttf" crossorigin>
+<script>document.documentElement.classList.add('js');</script>
+<script src="assets/js/inline-img.js?v=47"></script>
+<script defer src="assets/js/site.js?v=50"></script>
+<script defer src="assets/js/chroma.js?v=4"></script>
+</head>
+<body>
 
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============================ top bar ============================ -->
+<header class="topbar" id="topbar">
+  <a class="brand" href="#top" aria-label="FluxFlow —back to top">
+    <span class="chroma-brand">FluxFlow<span aria-hidden="true">✳</span></span>
+  </a>
+  <nav class="nav" id="section-nav" aria-label="Sections"><a href="#work">Fields</a><a href="#method">Method</a><a href="#overview">Overview</a><a href="#results">Results</a><a href="#research-team">Team</a></nav>
+  <div class="topbar-links"><a class="chroma-button nav-paper" href="#paper">The paper <span aria-hidden="true">↗</span></a></div>
+  <button class="menu-toggle" type="button" aria-controls="section-nav" aria-expanded="false" aria-label="Open navigation"><span></span><span></span></button>
+  <span class="progress" aria-hidden="true"><span></span></span>
+</header>
+
+<main id="main">
+
+<!-- ============================ hero ============================ -->
+<section class="hero project-hero" id="top" aria-labelledby="title">
+  <img class="chroma-hero-art project-hero-art" src="assets/img/chroma-hero.webp" width="1672" height="941" alt="" aria-hidden="true" fetchpriority="high" decoding="async">
+  <div class="project-copy">
+    <p class="project-eyebrow">Ground → space super-resolution</p>
+    <h1 class="project-title" id="title">FluxFlow<span aria-hidden="true">.</span><span class="sr-only">: Conservative Flow-Matching for Astronomical Image Super-Resolution</span></h1>
+    <p class="project-subtitle"><span>Conservative Flow-Matching for</span><span>Astronomical Image Super-Resolution</span></p>
+    <div class="project-people" aria-label="Authors and affiliations">
+      <div class="project-author-list"><ul class="project-author-row"><li class="project-person"><a href="https://shuhongll.github.io/" class="who" target="_blank" rel="noopener">Shuhong Liu</a><sup>1,2*</sup></li><li class="project-person"><span class="who">Xining Ge</span><sup>2*</sup></li><li class="project-person"><a href="https://cuiziteng.github.io/" class="who" target="_blank" rel="noopener">Ziteng Cui</a><sup>1,2</sup></li></ul><ul class="project-author-row"><li class="project-person"><span class="who">Liuzhuozheng Li</span><sup>1</sup></li><li class="project-person"><span class="who">Gengjia Chang</span><sup>2</sup></li><li class="project-person"><span class="who">Jun Liu</span><sup>2</sup></li><li class="project-person"><span class="who">Ziying Gu</span><sup>1</sup></li></ul><ul class="project-author-row"><li class="project-person"><span class="who">Dong Li</span><sup>2</sup></li><li class="project-person"><a href="https://xg-chu.site/" class="who" target="_blank" rel="noopener">Xuangeng Chu</a><sup>1,2</sup></li><li class="project-person"><a href="https://sites.google.com/view/linguedu/home" class="who" target="_blank" rel="noopener">Lin Gu</a><sup>3</sup></li><li class="project-person"><a href="https://www.mi.t.u-tokyo.ac.jp/harada/" class="who" target="_blank" rel="noopener">Tatsuya Harada</a><sup>1,4</sup></li></ul></div>
+      <ul class="project-affiliations"><li><sup>1</sup>The University of Tokyo</li><li><sup>2</sup>I2WM</li><li><sup>3</sup>Tohoku University</li><li><sup>4</sup>RIKEN AIP</li></ul>
+      <p class="project-contribution">* Equal contribution</p>
+    </div>
+    <nav class="project-actions" aria-label="Project resources">
+      <a class="project-action" href="#film"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2l9 6-9 6z"/></svg>Watch the film</a>
+      <a class="project-action" href="https://arxiv.org/abs/2605.03749" target="_blank" rel="noopener"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 2h7l4 4v12H5zM12 2v5h4M8 10h5M8 13h5"/></svg>Paper</a>
+      <a class="project-action" href="#dataset"><svg viewBox="0 0 20 20" aria-hidden="true"><ellipse cx="10" cy="4" rx="5.5" ry="2.3"/><path d="M4.5 4v11c0 3 11 3 11 0V4M4.5 9c0 3 11 3 11 0"/></svg>Dataset</a>
+      <a class="project-action" href="#cite"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 6h4v4H4zM12 6h4v4h-4zM8 10c0 3-2 4-3 4M16 10c0 3-2 4-3 4"/></svg>BibTeX</a>
+    </nav>
+  </div>
+</section><div class="chroma-marquee" aria-hidden="true"><div><span>REAL SKY · <em>FINER DETAIL</em> · CONSERVATIVE FLOW · <em>FLUXFLOW</em> · </span><span>REAL SKY · <em>FINER DETAIL</em> · CONSERVATIVE FLOW · <em>FLUXFLOW</em> · </span></div></div><section class="field-gallery" id="work" aria-labelledby="fields-title"><header class="gallery-heading"><div><p class="chroma-eyebrow">02 — The fields</p><h2 id="fields-title">The sky, <em>up close.</em></h2></div><div class="gallery-controls"><p>Drag to explore · Click for the original</p><div class="gallery-filters" role="group" aria-label="Filter astronomical images"><button type="button" data-filter="all" aria-pressed="true">All / 08</button><button type="button" data-filter="hst" aria-pressed="false">HST / 03</button><button type="button" data-filter="desi" aria-pressed="false">DESI / 02</button><button type="button" data-filter="fluxflow" aria-pressed="false">FluxFlow / 03</button></div></div></header><div class="gallery-track" tabindex="0" aria-label="Astronomical image gallery. Scroll horizontally or use arrow keys"><article class="field-card" data-field-type="hst"><button class="field-open" type="button" data-gallery-src="assets/img/star-cluster.jpg" data-gallery-title="Diffraction & light" data-gallery-source="HST observation" aria-label="Open Diffraction & light: HST observation"><img src="assets/img/star-cluster.jpg" alt="HST observation: Diffraction & light. Original image from the supplied project." loading="lazy" decoding="async"><span class="field-view" aria-hidden="true">View ↗</span></button><div class="field-caption"><span class="field-index">001</span><div><h3>Diffraction & light</h3><p>HST observation</p></div></div></article><article class="field-card" data-field-type="fluxflow"><button class="field-open" type="button" data-gallery-src="assets/img/cmp/r0-fluxflow.jpg" data-gallery-title="Recovered structure" data-gallery-source="FluxFlow · Field A" aria-label="Open Recovered structure: FluxFlow · Field A"><img src="assets/img/cmp/r0-fluxflow.jpg" alt="FluxFlow · Field A: Recovered structure. Original image from the supplied project." loading="lazy" decoding="async"><span class="field-view" aria-hidden="true">View ↗</span></button><div class="field-caption"><span class="field-index">002</span><div><h3>Recovered structure</h3><p>FluxFlow · Field A</p></div></div></article><article class="field-card" data-field-type="hst"><button class="field-open" type="button" data-gallery-src="assets/img/star-dense.jpg" data-gallery-title="A crowded sky" data-gallery-source="HST observation" aria-label="Open A crowded sky: HST observation"><img src="assets/img/star-dense.jpg" alt="HST observation: A crowded sky. Original image from the supplied project." loading="lazy" decoding="async"><span class="field-view" aria-hidden="true">View ↗</span></button><div class="field-caption"><span class="field-index">003</span><div><h3>A crowded sky</h3><p>HST observation</p></div></div></article><article class="field-card" data-field-type="desi"><button class="field-open" type="button" data-gallery-src="assets/img/ground-noisy.jpg" data-gallery-title="The ground view" data-gallery-source="DESI observation" aria-label="Open The ground view: DESI observation"><img src="assets/img/ground-noisy.jpg" alt="DESI observation: The ground view. Original image from the supplied project." loading="lazy" decoding="async"><span class="field-view" aria-hidden="true">View ↗</span></button><div class="field-caption"><span class="field-index">004</span><div><h3>The ground view</h3><p>DESI observation</p></div></div></article><article class="field-card" data-field-type="fluxflow"><button class="field-open" type="button" data-gallery-src="assets/img/cmp/r1-fluxflow.jpg" data-gallery-title="Sources, resolved" data-gallery-source="FluxFlow · Field B" aria-label="Open Sources, resolved: FluxFlow · Field B"><img src="assets/img/cmp/r1-fluxflow.jpg" alt="FluxFlow · Field B: Sources, resolved. Original image from the supplied project." loading="lazy" decoding="async"><span class="field-view" aria-hidden="true">View ↗</span></button><div class="field-caption"><span class="field-index">005</span><div><h3>Sources, resolved</h3><p>FluxFlow · Field B</p></div></div></article><article class="field-card" data-field-type="hst"><button class="field-open" type="button" data-gallery-src="assets/img/galaxy.jpg" data-gallery-title="Beyond the point source" data-gallery-source="HST observation" aria-label="Open Beyond the point source: HST observation"><img src="assets/img/galaxy.jpg" alt="HST observation: Beyond the point source. Original image from the supplied project." loading="lazy" decoding="async"><span class="field-view" aria-hidden="true">View ↗</span></button><div class="field-caption"><span class="field-index">006</span><div><h3>Beyond the point source</h3><p>HST observation</p></div></div></article><article class="field-card" data-field-type="desi"><button class="field-open" type="button" data-gallery-src="assets/img/ground-noisy2.jpg" data-gallery-title="Signal meets noise" data-gallery-source="DESI observation" aria-label="Open Signal meets noise: DESI observation"><img src="assets/img/ground-noisy2.jpg" alt="DESI observation: Signal meets noise. Original image from the supplied project." loading="lazy" decoding="async"><span class="field-view" aria-hidden="true">View ↗</span></button><div class="field-caption"><span class="field-index">007</span><div><h3>Signal meets noise</h3><p>DESI observation</p></div></div></article><article class="field-card" data-field-type="fluxflow"><button class="field-open" type="button" data-gallery-src="assets/img/cmp/r2-fluxflow.jpg" data-gallery-title="A finer field" data-gallery-source="FluxFlow · Field C" aria-label="Open A finer field: FluxFlow · Field C"><img src="assets/img/cmp/r2-fluxflow.jpg" alt="FluxFlow · Field C: A finer field. Original image from the supplied project." loading="lazy" decoding="async"><span class="field-view" aria-hidden="true">View ↗</span></button><div class="field-caption"><span class="field-index">008</span><div><h3>A finer field</h3><p>FluxFlow · Field C</p></div></div></article></div><div class="gallery-foot"><p>Observed fields and reconstructed outputs from the original project. Original pixels, original sources.</p><div class="gallery-arrows"><button type="button" data-gallery-scroll="-1" aria-label="Previous images">←</button><button type="button" data-gallery-scroll="1" aria-label="Next images">→</button></div></div></section>
+
+<!-- ============================ film ============================ -->
+
+
+<div class="research-facts" aria-label="Research at a glance">
+  <div><span>19,500</span><small>Real co-registered pairs</small></div>
+  <div><span>DESI → HST</span><small>Ground to space</small></div>
+  <div><span>×2 / ×4</span><small>Super-resolution scales</small></div>
+  <div><span>MC-FS</span><small>Training-free correction</small></div>
+</div>
+
+<section class="section" id="method">
+  <header class="sec-head reveal">
+    <p class="kicker"><span class="num">03</span>The method</p>
+    <h2 class="h2">A grounded flow.<br><em>A finer view.</em></h2>
+    <p class="dek">FluxFlow transports a ground observation to a space-quality estimate along straight paths, weighted by how much each pixel can actually be trusted.</p>
+  </header>
+
+  <div class="bento">
+    <article class="cell cell--wide reveal">
+      <canvas class="flow-canvas" width="900" height="420" aria-label="Straight-line conditional flow paths carrying samples from a blurred observation to a sharp estimate."></canvas>
+      <h3><span class="n">1</span>Conservative flow matching</h3>
+      <p>Pixel-space optimal-transport paths are straight, so the sampler is a short ODE —not a hundred stochastic steps. Observation uncertainty and source-region importance weight the objective, which is what keeps the model from spending capacity on the noise floor.</p>
+    </article>
+
+    <article class="cell reveal" style="--d:.1s">
+      <canvas class="wht-canvas" width="420" height="240" aria-label="A per-pixel inverse-variance weight map and the source mask derived from it."></canvas>
+      <h3><span class="n">2</span>Weight the evidence</h3>
+      <p>Every frame ships a per-pixel uncertainty map. Inverse-variance weighting plus a source-region term (WHT) stops ray trails and chip gaps from being memorised as signal.</p>
+    </article>
+
+    <article class="cell reveal" style="--d:.2s">
+      <canvas class="mcfs-canvas" width="420" height="240" aria-label="A residual is back-projected through a Wiener kernel, restoring measurement consistency without retraining."></canvas>
+      <h3><span class="n">3</span>Correct without retraining</h3>
+      <p>MC-FS back-projects the residual through a Wiener-regularised inverse of the forward operator. It is training-free, and it is what suppresses hallucinated sources while keeping recovered detail.</p>
+    </article>
+  </div>
+</section><!-- ============================ 01 problem ============================ -->
+<section class="section" id="problem">
+  <div class="split">
+    <div class="split-copy reveal">
+      <p class="kicker"><span class="num">04</span>The problem</p>
+      <h2 class="h2">One sky.<br><em>Two perspectives.</em></h2>
+      <p class="dek">Ground-based telescopes are limited by atmospheric seeing, which imposes a stochastic, spatially varying PSF that upsampling alone cannot undo. Space telescopes reach the diffraction limit but see almost none of the sky.</p>
+      <dl class="specs">
+        <div class="spec"><dt>Ground · DESI</dt><dd><b>1.0–1.3″</b><span>seeing-limited</span></dd></div>
+        <div class="spec"><dt>Space · HST</dt><dd><b>~0.09″</b><span>diffraction-limited</span></dd></div>
+        <div class="spec spec--w"><dt>Ratio</dt><dd><b>11–14×</b><span>in angular resolution</span></dd></div>
+      </dl>
+      <p class="fine">The 2.4 m HST aperture is diffraction-limited above the atmosphere; DESI is seeing-limited from the ground. The same point source, resolved two ways.</p>
+    </div>
+    <figure class="split-art reveal" style="--d:.12s">
+      <canvas class="psf-canvas" width="720" height="520" aria-label="Three renderings of one point source: ideal, diffraction-limited, and seeing-limited, with 1D cross-sections."></canvas>
+      <figcaption>One point source, three resolutions —redrawn from the paper's Figure 2.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============================ 02 failure ============================ -->
+
+
+<section class="section section--night" id="failure">
+  <div class="split split--rev">
+    <figure class="split-art reveal">
+      <canvas class="hal-canvas" width="720" height="520" aria-label="A star field where generative baselines add sources that have no counterpart in the observation, and the conservative correction extinguishes them."></canvas>
+        <div class="hal-ctl" role="group" aria-label="Measurement consistency">
+          <div class="hal-ctl-top">
+            <label for="halRange">Measurement consistency</label>
+            <output class="hal-state" for="halRange" data-hal-state>w/o MC-FS</output>
+          </div>
+          <input id="halRange" class="hal-range" type="range" min="0" max="100" value="0" step="1"
+                 aria-describedby="halNote">
+          <div class="hal-metrics">
+            <div class="hal-m"><span>Precision</span><b data-hm="p">0.602</b></div>
+            <div class="hal-m"><span>Recall</span><b data-hm="r">0.553</b></div>
+            <div class="hal-m"><span>Detection F1</span><b data-hm="f">0.5256</b></div>
+          </div>
+          <p class="fine" id="halNote">Both ends are the paper's own ablation &mdash; <b>w/o MC-FS</b> at 0 and the
+            full model at 100. The values in between are a visual blend, not measurements.</p>
+        </div>
+      <figcaption>Generative baselines add sources with no physical counterpart. The correction removes them.</figcaption>
+    </figure>
+    <div class="split-copy reveal" style="--d:.12s">
+      <p class="kicker"><span class="num">05</span>The failure</p>
+      <h2 class="h2">Detail matters.<br><em>Truth matters more.</em></h2>
+      <p class="dek">Synthetic training pairs do not carry real atmospheric statistics, so a generator learns to please the eye. It produces crisp texture, and occasionally a source that was never in the sky.</p>
+      <ul class="ticks">
+        <li><span class="tk tk--no"></span><b>Regression baselines</b> over-smooth: PSNR rises while structure and flux quietly degrade.</li>
+        <li><span class="tk tk--no"></span><b>Generative baselines</b> invent detail. Pixel metrics reward it; photometry does not.</li>
+        <li><span class="tk tk--ok"></span><b>FluxFlow</b> treats an unsupported source as a failure, not a flourish.</li>
+      </ul>
+      <p class="fine">Hover a method below to see how it renders the same sky &mdash; or drag the dial to move between the ablation and the full model.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 03 method ============================ -->
+<section class="section overview" id="overview" aria-labelledby="overview-title">
+  <header class="sec-head reveal">
+    <p class="kicker"><span class="num">06</span>Overview</p>
+    <h2 class="h2" id="overview-title">Observe. Transport.<br><em>Stay consistent.</em></h2>
+    <p class="dek">A conservative flow learns the structure. A measurement-consistent correction keeps it grounded in the observation.</p>
+  </header>
+  <figure class="architecture reveal">
+    <div class="arch-condition"><span class="arch-dot"></span>Ground observation <span class="mono">y</span><span class="arch-line"></span>Conditioning + uncertainty weights</div>
+    <div class="arch-stages">
+      <div class="arch-card"><span class="arch-label">01 / Initialise</span><div class="arch-visual noise-visual" aria-hidden="true"></div><h3>Gaussian noise</h3><p class="mono">x⁰ ~ N(0, I)</p></div>
+      <span class="arch-arrow" aria-hidden="true">→</span>
+      <div class="arch-card"><span class="arch-label">02 / Transport</span><svg class="arch-visual" viewBox="0 0 180 90" aria-hidden="true"><g fill="none" stroke="#B695FF" stroke-width="1.2"><path d="M15 17L165 36M15 35L165 42M15 55L165 48M15 76L165 54"/><path d="M15 25L165 39M15 67L165 51"/></g><g fill="#FF2D78"><circle cx="72" cy="24" r="3"/><circle cx="100" cy="39" r="3"/><circle cx="84" cy="52" r="3"/><circle cx="128" cy="58" r="3"/></g></svg><h3>Conservative flow</h3><p>Short, straight-path ODE</p></div>
+      <span class="arch-arrow" aria-hidden="true">→</span>
+      <div class="arch-card arch-card--accent"><span class="arch-label">03 / Correct</span><svg class="arch-visual" viewBox="0 0 180 90" aria-hidden="true"><g fill="none" stroke="#F5F1E860"><path d="M20 74H160M28 10V74M28 45H156"/></g><path d="M30 70C55 70 60 17 86 17S115 70 155 70" fill="none" stroke="#FF2D78" stroke-width="2"/><path d="M30 70C60 70 65 30 86 30S112 70 155 70" fill="none" stroke="#B695FF" stroke-width="1.5"/></svg><h3>MC-FS</h3><p>Wiener residual correction</p></div>
+      <span class="arch-arrow" aria-hidden="true">→</span>
+      <div class="arch-card"><span class="arch-label">04 / Reconstruct</span><div class="arch-visual result-visual" aria-hidden="true"></div><h3>Recovered field</h3><p>Structure + integrated flux</p></div>
+    </div>
+    <div class="arch-loop"><span aria-hidden="true">↳</span><span>Forward projection <b class="mono">A = DₛHPSF</b></span><span class="arch-loop-rule"></span><span>Residual against observation <b class="mono">y</b></span><span aria-hidden="true">↰</span></div>
+    <figcaption><span>The framework</span> Condition on the DESI frame, transport along the learned flow, then correct the forward-model residual at each sampling step.</figcaption>
+  </figure>
+</section><section class="film-sec" id="film" aria-label="The film">
+  <header class="film-heading"><p class="chroma-eyebrow">07 — The film / 01:38</p><h2>A little film.<br><em>A bigger picture.</em></h2></header>
+  <div class="film-frame" data-film>
+    <video class="film-video" playsinline muted preload="metadata" poster="assets/img/star-cluster.jpg" src="assets/video/film.mp4?v=47"></video>
+    <button class="fp-sound-pill" type="button" data-sound aria-label="Turn the sound on">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk" d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="off" d="m16 9.5 5 5m0-5-5 5"/><path class="on" d="M16 8.8a4.6 4.6 0 0 1 0 6.4M18.6 6.4a8.2 8.2 0 0 1 0 11.2"/></svg>
+      <span class="lbl">Sound on</span>
+    </button>
+    <div class="fp-ui">
+      <button class="fp-btn" type="button" data-play aria-label="Play">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-pause" d="M7.5 5h3v14h-3zM13.5 5h3v14h-3z"/><path class="i-play" d="M7 4.8 19 12 7 19.2z"/></svg>
+      </button>
+      <div class="fp-bar" data-bar role="slider" tabindex="0" aria-label="Seek" aria-valuemin="0" aria-valuemax="98" aria-valuenow="0">
+        <span class="fp-buf"></span><span class="fp-fill"></span><span class="fp-knob"></span>
+      </div>
+      <span class="fp-time" data-time>0:00 / 1:38</span>
+      <button class="fp-btn" type="button" data-mute aria-label="Mute">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk" d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="off" d="m16 9.5 5 5m0-5-5 5"/><path class="on" d="M16 8.8a4.6 4.6 0 0 1 0 6.4M18.6 6.4a8.2 8.2 0 0 1 0 11.2"/></svg>
+      </button>
+      <button class="fp-btn" type="button" data-full aria-label="Full screen">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg>
+      </button>
+    </div>
+  </div>
+  <p class="film-caption"><span>The film</span>FluxFlow in ninety-eight seconds.</p>
+</section>
+
+
+
+<!-- ============ scroll-driven: one frame through the adapter ============ -->
+<section class="story" id="story" aria-label="One frame through the adapter">
+  <header class="story-heading"><p class="chroma-eyebrow">08 — THE SAMPLER</p><h2>A field unfolds.<br><em>One step at a time.</em></h2></header>
+  <div class="story-pin">
+    <figure class="story-frame">
+      <canvas class="story-canvas" width="900" height="600"
+              aria-label="One field resolving from a seeing-limited ground observation to a sharp estimate as the page is scrolled."></canvas>
+      <canvas class="story-curve" width="260" height="260" aria-hidden="true"></canvas>
+      <span class="story-badge" data-badge>seeing-limited</span>
+    </figure>
+    <div class="story-side">
+      <p class="kicker kicker--small"><span class="num">08</span>The sampler, step by step</p>
+      <ol class="story-steps">
+        <li data-step="0"><b>Ground observation</b><span>DESI, seeing-limited. The PSF has already destroyed the high-frequency content, and read noise sits on top of it.</span></li>
+        <li data-step="1"><b>Flow transport</b><span>The state starts as pure noise, x⁰ ~ N(0, I). A conditional U-Net carries it along the straight-path interpolant with Euler steps.</span></li>
+        <li data-step="2"><b>Forward projection</b><span>The estimate is pushed back through the forward model A = D<sub>s</sub>H<sub>PSF</sub> — a Gaussian PSF of width σ<sub>PSF</sub> = 2, then area downsampling — and the residual against the DESI frame is formed.</span></li>
+        <li data-step="3"><b>Wiener correction</b><span>The residual is Wiener-deconvolved with &lambda;<sub>SNR</sub> = 50 and subtracted, scaled by &eta;<sub>i</sub> = &eta;<sub>0</sub>(1 &minus; i/N). This is what holds hallucinations out.</span></li>
+      </ol>
+      <p class="story-note">Scroll to step through the sampler.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ method depth: architecture, WHT, Algorithm 1 ============ -->
+<details class="deep-dive" id="technical"><summary><span class="chroma-eyebrow">The technical notes</span><span>Inside the sampler <em>↗</em></span><span class="deep-symbol" aria-hidden="true">+</span></summary><section class="section" id="inside">
+  <header class="sec-head reveal">
+    <p class="kicker"><span class="num">08A</span>Inside the sampler</p>
+    <h2 class="h2">The flow.<br><em>The mechanics.</em></h2>
+    <p class="dek">Measurement-consistent flow sampling. The velocity network proposes; the forward model disposes. Every step is projected back onto the observation — which is what keeps hallucinated sources out of the estimate.</p>
+  </header>
+
+  <ol class="pipe flow-rail" aria-label="The sampler, step by step">
+      <li class="node" tabindex="0"><img class="fr-t" src="assets/img/ground-noisy.jpg" alt="a seeing-limited DESI frame"><i class="fr-i">1</i><b>Noisy state x<sub>t</sub></b><span>x&#8304; ~ N(0, I)</span></li>
+      <li class="node" tabindex="0"><img class="fr-t" src="assets/img/ground-noisy2.jpg" alt="the second field"><i class="fr-i">2</i><b>DESI observation y</b><span>bicubic &#8594; HR grid</span></li>
+      <li class="node" tabindex="0"><img class="fr-t" src="assets/img/compare-wide.jpg" alt="one field, two resolutions"><i class="fr-i">3</i><b>Conditional U-Net v<sub>&#952;</sub></b><span>pixel space &middot; base_dim = 48 &middot; FiLM time conditioning, 256-d</span></li>
+      <li class="node" tabindex="0"><img class="fr-t" src="assets/img/cmp/r0-bicubic.jpg" alt="bicubic reference"><i class="fr-i">4</i><b>Euler step</b><span>x&#771; = x + v<sub>&#952;</sub>&#8202;&Delta;t</span></li>
+      <li class="node" tabindex="0"><img class="fr-t" src="assets/img/cmp/r0-hat.jpg" alt="HAT baseline"><i class="fr-i">5</i><b>Forward projection</b><span>A = D<sub>s</sub>H<sub>PSF</sub>, &sigma;<sub>PSF</sub> = 2</span></li>
+      <li class="node" tabindex="0"><img class="fr-t" src="assets/img/cmp/r0-fluxflow.jpg" alt="FluxFlow output"><i class="fr-i">6</i><b>Wiener correction</b><span>W(k) = H*(k)/(|H(k)|&sup2; + &lambda;<sub>SNR</sub><sup>&minus;1</sup>) &middot; residual r = A(x&#771;) &minus; y</span></li>
+      <li class="node" tabindex="0"><img class="fr-t" src="assets/img/star-spikes.jpg" alt="the recovered field"><i class="fr-i">7</i><b>Corrected estimate</b><span>x &#8592; x&#771; &minus; &eta;<sub>i</sub>&#8202;F<sup>&minus;1</sup>(W&#8202;F[D<sub>s</sub><sup>&#8868;</sup>r])</span></li>
+    </ol>
+
+  <div class="ins-grid">
+    <article class="ins-card reveal">
+      <p class="ins-k">01 &middot; Weight the evidence</p>
+      <p class="ins-eq">w<sub>p</sub> = <span class="frac"><span>1</span><span>&sigma;<sub>p</sub><sup>2</sup></span></span> &middot; m<sub>p</sub></p>
+      <ul class="ins-pts">
+        <li><b>1/&sigma;<sup>2</sup></b><span>inverse variance</span></li>
+        <li><b>m<sub>p</sub></b><span>source-region mask</span></li>
+      </ul>
+      <p class="ins-foot">Schematic, not a numbered paper equation &middot; <code>hst_wht.npy</code>, <code>hst_masks.npy</code></p>
+    </article>
+
+    <article class="ins-card reveal" style="--d:.08s">
+      <p class="ins-k">02 &middot; Correct without retraining</p>
+      <p class="ins-eq ins-eq--sm">W(k) = <span class="frac"><span>H*(k)</span><span>|H(k)|<sup>2</sup> + &lambda;<sub>SNR</sub><sup>&minus;1</sup></span></span></p>
+      <ul class="ins-pts">
+        <li><b>Training-free</b><span>back-projection, not a network</span></li>
+        <li><b>Residual</b><span>through the forward operator</span></li>
+      </ul>
+      <p class="ins-foot">Eq. (10) in the paper &middot; removes sources the observation never had</p>
+    </article>
+
+    <article class="ins-card reveal" style="--d:.16s">
+      <p class="ins-k">03 &middot; Settings as reported</p>
+      <dl class="ins-kv">
+        <div><dt>Euler steps</dt><dd>N = 10</dd></div>
+        <div><dt>Base step</dt><dd>&eta;<sub>0</sub> = 0.5</dd></div>
+        <div><dt>Regularisation</dt><dd>&lambda;<sub>SNR</sub> = 50</dd></div>
+        <div><dt>PSF width</dt><dd>&sigma;<sub>PSF</sub> = 2</dd></div>
+      </dl>
+      <p class="ins-foot">&eta;<sub>i</sub> = &eta;<sub>0</sub>&#8202;(1 &minus; i/N) &middot; optimum 1.92, rounded</p>
+    </article>
+
+    <article class="ins-card reveal" style="--d:.24s">
+      <p class="ins-k">04 &middot; Ablation &middot; weight term removed</p>
+      <dl class="ins-deltas">
+        <div><dt>PSNR</dt><dd><span>31.23</span><i aria-hidden="true">&rarr;</i><b>30.17</b></dd></div>
+        <div><dt>SSIM</dt><dd><span>0.714</span><i aria-hidden="true">&rarr;</i><b>0.685</b></dd></div>
+        <div><dt>Precision</dt><dd><span>0.738</span><i aria-hidden="true">&rarr;</i><b>0.688</b></dd></div>
+        <div><dt>F1</dt><dd><span>0.5412</span><i aria-hidden="true">&rarr;</i><b>0.5272</b></dd></div>
+      </dl>
+      <p class="ins-foot">Full model &rarr; <code>w/o WHT</code> &middot; paper Table 3</p>
+    </article>
+
+    <article class="ins-card ins-card--wide reveal" style="--d:.32s">
+      <p class="ins-k">05 &middot; Algorithm 1 &middot; MC-FS</p>
+      <pre class="algo"><code>Algorithm 1  MC-FS
+  inputs   observation y, PSF h, steps N, base step eta_0
+  precompute  W(k) from Eq. (10)
+  x &lt;- x0 ~ N(0, I)
+  for i = 1 .. N do
+    xt  &lt;- x + v_theta(x, t_i, c) * dt     Euler step
+    r   &lt;- A(xt) - y                       residual to forward model
+    eta_i &lt;- eta_0 * (1 - i / N)           linear decay
+    x   &lt;- xt - eta_i * F^-1(W * F[Ds^T r]) Wiener-corrected update
+  return x</code></pre>
+      <p class="ins-foot">The proposal is the network; the correction is the forward model.</p>
+    </article>
+  </div>
+
+  <details class="run reveal run--disc">
+    <summary><span class="kicker kicker--small">Reproduce it</span><span class="run-i" aria-hidden="true"></span></summary>
+    <div class="run-body">
+      <button type="button" class="run-copy" data-copy-cli>Copy the settings</button><pre class="cli"><code>git clone https://github.com/I2WM/FluxFlow
+
+# inference settings as reported in the paper
+#   sampling steps            N        = 10 Euler steps
+#   base correction step      eta_0    = 0.5      (eta_i = eta_0 (1 - i/N))
+#   Wiener regularisation     lambda_SNR = 50
+#   forward PSF width         sigma_PSF  = 2      (data-driven optimum 1.92, rounded)
+#   correction mode           adjoint            --correction_mode adjoint swaps the Wiener
+#                                                inverse for a plain adjoint
+#   correction off            --no_mcfm          removes the correction entirely
+#
+# Check the repository README for the current command-line interface:
+# https://github.com/I2WM/FluxFlow</code></pre></div>
+  </details>
+</section></details>
+
+<!-- ============================ 05 results ============================ -->
+<section class="section" id="results">
+  <header class="sec-head reveal">
+    <p class="kicker"><span class="num">09</span>Results</p>
+    <h2 class="h2">The detail.<br><em>The evidence.</em></h2>
+    <p class="dek">DESI–HST, 19,500 real co-registered pairs at ×2 and ×4. Astronomical restoration is judged by morphology and integrated flux, not by pixel-wise agreement.</p>
+  </header>
+
+  <div class="metrics">
+    <div class="metric metric--hero reveal">
+      <p class="metric-set">Flux-L1 · ×2</p>
+      <p class="bignum"><span class="count" data-to="2.959" data-dec="3">2.959</span></p>
+      <p class="gain">lowest of every method compared</p>
+    </div>
+
+    <div class="bars reveal" style="--d:.1s" role="img"
+         aria-label="Flux-L1 at ×2, lower is better: Bicubic 11.25, SwinIR 14.14, HAT 3.695, FISR 3.526, cGAN 4.502, GD-Net 3.639, AS-Bridge 5.151, FluxFlow 2.959.">
+      <div class="bar" style="--v:11.25" data-i="0"><span class="bar-name">Bicubic</span><span class="bar-track"><span class="bar-fill"></span><span class="bar-val">11.25</span></span></div>
+      <div class="bar" style="--v:14.14" data-i="1"><span class="bar-name">SwinIR</span><span class="bar-track"><span class="bar-fill"></span><span class="bar-val">14.14</span></span></div>
+      <div class="bar" style="--v:3.695"  data-i="2"><span class="bar-name">HAT</span><span class="bar-track"><span class="bar-fill"></span><span class="bar-val">3.695</span></span></div>
+      <div class="bar" style="--v:3.526" data-i="3"><span class="bar-name">FISR</span><span class="bar-track"><span class="bar-fill"></span><span class="bar-val">3.526</span></span></div>
+      <div class="bar" style="--v:4.502" data-i="4"><span class="bar-name">cGAN</span><span class="bar-track"><span class="bar-fill"></span><span class="bar-val">4.502</span></span></div>
+      <div class="bar" style="--v:3.639" data-i="5"><span class="bar-name">GD-Net</span><span class="bar-track"><span class="bar-fill"></span><span class="bar-val">3.639</span></span></div>
+      <div class="bar" style="--v:5.151" data-i="6"><span class="bar-name">AS-Bridge</span><span class="bar-track"><span class="bar-fill"></span><span class="bar-val">5.151</span></span></div>
+      <div class="bar bar--ours" style="--v:2.959" data-i="7"><span class="bar-name">FluxFlow</span><span class="bar-track"><span class="bar-fill"></span><span class="bar-val">2.959</span></span></div>
+    </div>
+  </div>
+
+  <dl class="facts reveal">
+    <div class="fact"><dt>SSIM · ×2</dt><dd><span class="from">0.702</span><span class="arrow" aria-hidden="true">↗</span><span class="to">0.714</span></dd></div>
+    <div class="fact"><dt>SSIM · ×4</dt><dd><span class="from">0.569</span><span class="arrow" aria-hidden="true">↗</span><span class="to">0.570</span></dd></div>
+    <div class="fact"><dt>Flux-L1 · ×4</dt><dd><span class="from">4.082</span><span class="arrow" aria-hidden="true">↗</span><span class="to">3.755</span></dd></div>
+    <div class="fact"><dt>PSNR · ×2</dt><dd><span class="from">31.31</span><span class="arrow" aria-hidden="true">↗</span><span class="to">31.23</span></dd></div>
+  </dl>
+  <p class="fine reveal">Best SSIM and best Flux-L1 at both scales; PSNR within 0.1 dB of the highest value.</p>
+
+  <div class="fold reveal" id="tables">
+    <h3 class="fold-head"><span>All numbers from the paper</span><span class="summary-hint">Tables 1, 2, 3, 7</span></h3>
+    <div class="tabs" role="tablist" aria-label="Result table">
+      
+      <button type="button" role="tab" data-t="t2b" aria-selected="true">Full comparison &middot; Table 2</button>
+      
+    </div>
+    <div class="table-wrap" data-table-host></div>
+    <p class="table-caption" data-table-caption></p>
+  </div>
+
+
+</section>
+
+<!-- ============================ 05 qualitative ============================ -->
+<section class="section section--night" id="compare">
+  <header class="sec-head reveal">
+    <p class="kicker"><span class="num">10</span>Qualitative</p>
+    <h2 class="h2">Same field.<br><em>Different answers.</em></h2>
+    <p class="dek">Real cutouts from the paper’s comparison figure, aligned across methods. One field, one scale. Drag the handle, or pick a method to put it under the divider.</p>
+  </header>
+
+  <div class="cmp reveal">
+    <div class="cmp-bar">
+      <div class="tabs tabs--scene" role="tablist" aria-label="Scene" data-scene-tabs></div>
+      <p class="legend"><span class="lg lg-a"></span><span data-under-name>Bicubic</span><span class="lg lg-b"></span>FluxFlow</p>
+    </div>
+
+    <div class="cmp-stage" data-stage>
+      <img class="cmp-under" data-under alt="" width="317" height="566">
+      <img class="cmp-over" data-over alt="" width="317" height="566">
+      <span class="cmp-handle" data-handle aria-hidden="true"><i></i></span>
+      <span class="cmp-loupe" data-loupe aria-hidden="true"></span>
+    </div>
+
+    <div class="cmp-methods" role="group" aria-label="Method" data-methods></div>
+    <p class="fine" data-cmp-note></p>
+  </div>
+</section>
+
+<!-- ============================ 06 dataset ============================ -->
+<section class="section" id="dataset">
+  <div class="split">
+    <div class="split-copy reveal">
+      <p class="kicker"><span class="num">11</span>The data</p>
+      <h2 class="h2">19,500 pairs.<br><em>All from the real sky.</em></h2>
+      <p class="dek">Each sample is a co-registered DESI ground cutout and its HST counterpart, shipped with the per-pixel weight map the training objective needs, the source masks the detection metrics need, and the source catalogue the flux metrics need.</p>
+      <ul class="files">
+        <li><code>desi_sci.npy</code><span>ground observation</span></li>
+        <li><code>hst_sci.npy</code><span>space ground truth</span></li>
+        <li><code>hst_wht.npy</code><span>inverse-variance weights</span></li>
+        <li><code>hst_masks.npy</code><span>detection evaluation</span></li>
+        <li><code>hst_sources.npz</code><span>source-flux evaluation</span></li>
+      </ul>
+      <p class="fine">Layout documented in the repository. Scales ×2 and ×4; splits, normalisation and per-sample directories are all that a run needs.</p>
+    </div>
+    <figure class="split-art reveal" style="--d:.12s">
+      <img class="zoom" src="assets/img/dome.jpg" alt="A ground-based telescope dome beneath a star field." loading="lazy" width="783" height="783">
+      <figcaption>Ground-based survey telescope. Every pair in the dataset is one of its exposures matched to a space observation.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============================ 07 paper ============================ -->
+<section class="research-team" id="research-team" aria-labelledby="team-title"><div class="team-intro"><p class="chroma-eyebrow">12 — The research / The people</p><h2 id="team-title">Different minds.<br><em>One shared sky.</em></h2><p>FluxFlow: Conservative Flow-Matching for Astronomical Image Super-Resolution.</p></div>      <div class="authors">
+        <p class="row">
+          <span class="au"><span><a href="https://shuhongll.github.io/" class="who" target="_blank" rel="noopener">Shuhong Liu</a><sup>1,2*</sup></span></span><span class="sep">·</span>
+          <span class="au"><span><span class="who">Xining Ge</span><sup>2*</sup></span></span><span class="sep">·</span><span class="au"><span><a href="https://cuiziteng.github.io/" class="who" target="_blank" rel="noopener">Ziteng Cui</a><sup>1,2</sup></span></span>
+        </p>
+        <p class="row">
+          <span class="au"><span><span class="who">Liuzhuozheng Li</span><sup>1</sup></span></span><span class="sep">·</span>
+          <span class="au"><span><span class="who">Gengjia Chang</span><sup>2</sup></span></span><span class="sep">·</span>
+          <span class="au"><span><span class="who">Jun Liu</span><sup>2</sup></span></span><span class="sep">·</span>
+          <span class="au"><span><span class="who">Ziying Gu</span><sup>1</sup></span></span>
+        </p>
+        <p class="row">
+          <span class="au"><span><span class="who">Dong Li</span><sup>2</sup></span></span><span class="sep">·</span>
+          <span class="au"><span><a href="https://xg-chu.site/" class="who" target="_blank" rel="noopener">Xuangeng Chu</a><sup>1,2</sup></span></span><span class="sep">·</span>
+          <span class="au"><span><a href="https://sites.google.com/view/linguedu/home" class="who" target="_blank" rel="noopener">Lin Gu</a><sup>3</sup></span></span><span class="sep">·</span>
+          <span class="au"><span><a href="https://www.mi.t.u-tokyo.ac.jp/harada/" class="who" target="_blank" rel="noopener">Tatsuya Harada</a><sup>1,4</sup></span></span>
+        </p>
+        <p class="affil"><sup>1</sup>The University of Tokyo&emsp;<sup>2</sup>I2WM&emsp;<sup>3</sup>Tohoku University&emsp;<sup>4</sup>RIKEN AIP</p>
+        <p class="affil affil--notes">* Equal contribution</p>
+      </div></section><section class="section" id="paper">
+  <div class="paper-grid">
+    <div class="paper-side reveal">
+      <p class="kicker"><span class="num">13</span>The paper</p>
+      <p class="paper-title">FluxFlow: Conservative Flow-Matching for Astronomical Image Super-Resolution</p>
+      <p class="paper-venue">Preprint · arXiv 2605.03749</p>
+      <ul class="links">
+        <li><a href="https://arxiv.org/abs/2605.03749" target="_blank" rel="noopener"><span class="l-name">Paper</span><span class="l-meta">arXiv 2605.03749</span><span class="ext" aria-hidden="true">↗</span></a></li>
+        <li><a href="https://github.com/I2WM/FluxFlow" target="_blank" rel="noopener"><span class="l-name">Code</span><span class="l-meta">I2WM/FluxFlow</span><span class="ext" aria-hidden="true">↗</span></a></li>
+        <li><a href="https://drive.google.com/drive/folders/1ZZ4-Qa_0ibzno5GIpk16eD6sVKOJelxw" target="_blank" rel="noopener"><span class="l-name">Checkpoint ×2</span><span class="l-meta">epoch_0300.pth</span><span class="ext" aria-hidden="true">↗</span></a></li>
+        <li><a href="https://drive.google.com/drive/folders/1Imk-in2xwcoEnMZadLQrHsezz3C72Tr-" target="_blank" rel="noopener"><span class="l-name">Checkpoint ×4</span><span class="l-meta">epoch_0300.pth</span><span class="ext" aria-hidden="true">↗</span></a></li>
+      </ul>
+      <div class="cite" id="cite">
+        <button class="copy" type="button" data-copy="#bibtex"><span class="copy-label">Copy BibTeX</span></button>
+<pre class="bibtex" id="bibtex"><code>@inproceedings{liu2026fluxflow,
+  title     = {{FluxFlow: Conservative Flow-Matching for
+               Astronomical Image Super-Resolution}},
+  author    = {Liu, Shuhong and Ge, Xining and Cui, Ziteng and
+               Li, Liuzhuozheng and Chang, Gengjia and
+               Liu, Jun and Gu, Ziying and Li, Dong and
+               Chu, Xuangeng and Gu, Lin and Harada, Tatsuya},
+  note      = {Preprint},
+  year      = {2026},
+  url       = {https://arxiv.org/abs/2605.03749}
+}</code></pre>
+      </div>
+    </div>
+    <figure class="paper-art reveal" style="--d:.1s">
+      <img src="assets/img/star-spikes.jpg" alt="A real HST field: bright stars carrying four-point diffraction spikes." loading="lazy" width="512" height="512">
+      <figcaption>Original HST observation from the supplied project assets.</figcaption>
+    </figure>
+  </div>
+</section>
+
+
+<!-- ======================= appendix knobs ======================= -->
+
+
+
+<!-- ======================= related work ======================= -->
+<details class="deep-dive related-dive" id="literature"><summary><span class="chroma-eyebrow">Further reading</span><span>Where MC-FS sits <em>↗</em></span><span class="deep-symbol" aria-hidden="true">+</span></summary><section class="rel" id="context" aria-labelledby="rel-h">
+  <div class="sec-head">
+    <p class="sec-kicker">Related work &middot; positioning</p>
+    <h2 id="rel-h">Two traditions.<br><em>One grounded approach.</em></h2>
+    <p class="sec-lede">Two literatures meet here: deterministic restoration, which returns one answer to a one&#8209;to&#8209;many
+      problem, and generative posterior sampling, which returns answers but needs derivatives the measurement operator cannot
+      cheaply give. FluxFlow takes a third route.</p>
+  </div>
+
+  <div class="rel-cols">
+    <article class="rel-col">
+      <h3><span class="rel-n">2.1</span> Regression&#8209;based restoration</h3>
+      <p>CNN backbones, Transformer variants and state&#8209;space models have steadily raised restoration quality through larger
+        receptive fields and richer feature interaction; a parallel line pursues all&#8209;in&#8209;one, condition&#8209;aware and
+        efficiency&#8209;oriented designs.</p>
+      <ul class="chips" aria-label="Representative regression-based methods">
+        <li>MPRNet</li><li>NAFNet</li><li>SwinIR</li><li>Restormer</li><li>HAT</li><li>SRFormer</li>
+        <li>DAT</li><li>HiT&#8209;SR</li><li>MambaIR</li><li>MaIR</li>
+      </ul>
+      <p>In astronomy, supervised pipelines target noise calibration, X&#8209;ray data, galaxies, star fields and cross&#8209;survey
+        enhancement.</p>
+      <p class="rel-crit">All of them yield a <b>deterministic output</b> from the degraded input, and therefore cannot capture
+        the ambiguity of a severely ill&#8209;posed one&#8209;to&#8209;many inverse problem.</p>
+    </article>
+
+    <article class="rel-col">
+      <h3><span class="rel-n">2.2</span> Diffusion &amp; generative priors</h3>
+      <p>Diffusion models act as generative priors for restoration: classifier and classifier&#8209;free guidance, latent and
+        cascaded variants, restoration as iterative refinement, posterior sampling with measurement operators, then acceleration
+        through residual shifting, single&#8209;step generation, consistency distillation and bridge transport.</p>
+      <ul class="chips" aria-label="Representative generative families">
+        <li>DPS</li><li>&#960;GDM</li><li>DDRM</li><li>SR3</li><li>Consistency distillation</li><li>Bridge transport</li>
+      </ul>
+      <p>In astronomy, diffusion&#8209;based super&#8209;resolution targets gravitational lensing, solar imaging, galaxy
+        reconstruction, intensity interferometry and cross&#8209;survey generation.</p>
+    </article>
+  </div>
+
+  <div class="rel-fig" data-m="ours">
+    <div class="rel-tabs" role="tablist" aria-label="Measurement step by method">
+      <button class="rel-tab" role="tab" data-m="dps" aria-selected="false">DPS</button>
+      <button class="rel-tab" role="tab" data-m="pgdm" aria-selected="false">&#960;GDM</button>
+      <button class="rel-tab" role="tab" data-m="ours" aria-selected="true">MC&#8209;FS &middot; ours</button>
+    </div>
+
+    <div class="rel-loop" aria-hidden="true">
+      <div class="rel-node rel-n1"><b>Generative step</b><span class="rel-gen"></span></div>
+      <span class="rel-arrow"></span>
+      <div class="rel-node rel-n2"><b>Measurement step</b><span class="rel-step"></span></div>
+    </div>
+    <p class="rel-repeat"><span>repeated at every Euler step</span></p>
+
+    <p class="rel-cap"></p>
+  </div>
+
+  <div class="rel-tblwrap">
+    <table class="rel-pos">
+      <caption>Table 4 of the paper, plus the plug&#8209;and&#8209;play framing of Appendix&nbsp;C.2.</caption>
+      <thead>
+        <tr><th scope="col">Method</th><th scope="col">Backbone</th><th scope="col">Residual point</th><th scope="col">Back-projection</th><th scope="col">Autograd through net</th></tr>
+      </thead>
+      <tbody>
+        <tr data-m="dps"><td>DPS</td><td>Diffusion</td><td>x&#770;<sub>0</sub>(x<sub>t</sub>) &mdash; Tweedie estimate</td><td>A<sup>&#8868;</sup> via Jacobian</td><td class="no">Required</td></tr>
+        <tr data-m="pgdm"><td>&#960;GDM</td><td>Diffusion</td><td>x&#770;<sub>0</sub>(x<sub>t</sub>) &mdash; Tweedie estimate</td><td>Moore&ndash;Penrose A<sup>+</sup></td><td class="no">Required</td></tr>
+        <tr data-m="ours" class="is-ours"><td>MC&#8209;FS</td><td>Flow matching</td><td>x&#771;<sup>(i+1)</sup> &mdash; OT&#8209;CFM interpolant, no denoising step</td><td>Wiener&#8209;regularised inverse</td><td class="yes">Not required</td></tr>
+      </tbody>
+    </table>
+    <p class="rel-base"><b>Baselines evaluated.</b> Bicubic &middot; SwinIR &middot; HAT &middot; FISR &middot; cGAN &middot; GD&#8209;Net
+      &middot; AS&#8209;Bridge in the main comparison; EDSR &middot; SRGAN &middot; RCAN &middot; ENLCA in the appendix tables.</p>
+  </div>
+
+  <div class="rel-notes">
+    <p><b>Not posterior sampling &mdash; and we say so.</b> DPS and &#960;GDM are derived as approximations to
+      &#8711;&thinsp;log&thinsp;p(x|y). MC&#8209;FS performs <em>constrained</em> sampling: it alternates unconstrained generative
+      dynamics with a hard projection toward the measurement&#8209;consistency set C(y). Posterior sampling gives probabilistic
+      guarantees under a well&#8209;specified likelihood; constrained sampling gives direct control over physical consistency
+      without requiring explicit likelihood modelling. The two views are complementary.</p>
+    <p><b>Closest prior work.</b> WienerFlow introduces Wiener&#8209;adaptive flow matching for low&#8209;light image enhancement
+      and is closest in spirit to MC&#8209;FS &mdash; but our derivation targets the rank&#8209;deficient ground&#8209;to&#8209;space
+      super&#8209;resolution operator and explicitly couples Wiener regularisation to the per&#8209;step adjoint correction.</p>
+    <p><b>Plug&#8209;and&#8209;play, restated.</b> MC&#8209;FS fits naturally into PnP: the velocity update is the prior step, the
+      Wiener correction is the data&#8209;fidelity step &mdash; a regularised proximal operator for D(x) = &frac12;&#8214;A(x) &minus; y&#8212;<sup>2</sup>.
+      The difference is that the proximal step is a Wiener deconvolution rather than the more common conjugate&#8209;gradient or
+      ADMM update, which removes the need for automatic differentiation through the velocity network entirely.</p>
+  </div>
+</section></details>
+
+
+<!-- ==================== downstream science (§H) ==================== -->
+
+
+<!-- ============== dataset + extra quantitative (§A, §F) ============== -->
+
+
+
+<!-- ==================== appendix E: analysis ==================== -->
+<details class="acc acc--group" id="appendix-h">
+  <summary class="app-head">
+    <span class="app-head-in">
+      <span class="acc-k">Appendix</span>
+      <span class="acc-t">Reference.<br><em>Room to explore.</em></span>
+      <span class="acc-lede">Nine deep dives, collapsed: the benchmark, the hyper&#8209;parameter sweeps,
+    downstream science, the derivation, the ablations, the extra tables, the training cost, the implementation constants and the
+    reading guide to the qualitative panels. Open any one of them.</span>
+    </span>
+    <span class="acc-i" aria-hidden="true"></span>
+  </summary>
+  <div class="acc-b">
+<details class="acc" id="knobs">
+  <summary>
+    <span class="acc-k">Appendix &middot; ablations</span>
+    <span class="acc-t">The four knobs that matter</span>
+    <span class="acc-i" aria-hidden="true"></span>
+  </summary>
+  <div class="acc-b">
+    <p class="acc-lede">Every hyper&#8209;parameter of MC&#8209;FS is swept in the appendix. Drag a value: the three metrics
+      move the way the paper reports. The curves encode the reported <em>shape</em> and the reported optima &mdash; they are
+      not digitised data points, and no value here is invented.</p>
+  <div class="knob-legend" aria-hidden="true">
+    <span><i style="--c:#F4F1E9"></i>PSNR</span>
+    <span><i style="--c:#B695FF"></i>Flux&#8209;L1</span>
+    <span><i style="--c:#D4FF3D"></i>Detection F1</span>
+    <span class="knob-legend-note">All three normalised to <b>1 = best</b>, per metric, per sweep.</span>
+  </div>
+
+  <div class="knob-grid">
+
+    <article class="knob" data-knob="psf">
+      <div class="knob-head">
+        <h3>Forward PSF width <span class="mono">&#947;<sub>PSF</sub></span></h3>
+        <output class="knob-val">2.0</output>
+      </div>
+      <canvas class="knob-canvas" height="232" role="img"
+        aria-label="Schematic sweep of the forward PSF width from 1 to 6 HR pixels"></canvas>
+      <input class="knob-range" type="range" min="1" max="6" step="0.1" value="2"
+        aria-label="Forward PSF width in HR pixels">
+      <p class="knob-note"></p>
+      <p class="knob-default">Default <b>&#947;<sub>PSF</sub> = 2</b> HR pixels at both scales.</p>
+    </article>
+
+    <article class="knob" data-knob="snr">
+      <div class="knob-head">
+        <h3>Wiener regularisation <span class="mono">&#958;<sub>SNR</sub></span></h3>
+        <output class="knob-val">50</output>
+      </div>
+      <canvas class="knob-canvas" height="232" role="img"
+        aria-label="Schematic sweep of the Wiener regularisation from 10 to 100"></canvas>
+      <input class="knob-range" type="range" min="10" max="100" step="1" value="50"
+        aria-label="Wiener regularisation value">
+      <p class="knob-note"></p>
+      <p class="knob-default">Default <b>&#958;<sub>SNR</sub> = 50</b>, the value used throughout Table 2.</p>
+    </article>
+
+    <article class="knob" data-knob="eta">
+      <div class="knob-head">
+        <h3>Base correction step <span class="mono">&#951;<sub>0</sub></span></h3>
+        <output class="knob-val">0.50</output>
+      </div>
+      <canvas class="knob-canvas" height="232" role="img"
+        aria-label="Schematic sweep of the base Wiener correction step size at 2x"></canvas>
+      <input class="knob-range" type="range" min="0.05" max="0.95" step="0.01" value="0.5"
+        aria-label="Base Wiener correction step size">
+      <p class="knob-note"></p>
+      <p class="knob-default">Default <b>&#951;<sub>0</sub> = 0.5</b>, with per&#8209;step decay &#951;<sub>i</sub> = &#951;<sub>0</sub>(1 &minus; i/N).</p>
+    </article>
+
+    <article class="knob" data-knob="steps">
+      <div class="knob-head">
+        <h3>Sampling steps <span class="mono">T</span></h3>
+        <output class="knob-val">10</output>
+      </div>
+      <canvas class="knob-canvas" height="232" role="img"
+        aria-label="Schematic sweep of the number of sampling steps at 2x"></canvas>
+      <input class="knob-range" type="range" min="2" max="30" step="1" value="10"
+        aria-label="Number of sampling steps">
+      <p class="knob-note"></p>
+      <p class="knob-default">Default <b>T = 10</b>, all other MC&#8209;FS hyper&#8209;parameters at their defaults.</p>
+    </article>
+
+  </div>
+
+  <ul class="knob-also">
+    <li><b>Source prior.</b> Replacing the Gaussian source with a bicubic bridge helps the velocity field locally
+      but couples the prior too tightly to the bicubic mean, suppressing the high&#8209;frequency content pixel&#8209;space
+      OT&#8209;CFM recovers under MC&#8209;FS guidance. The Gaussian source is retained.</li>
+    <li><b>Pixel space vs latent space.</b> The latent&#8209;space variant moves in the same direction on PSNR,
+      Flux&#8209;L1 and detection F1, but with smaller gaps.</li>
+    <li><b>Scale of the study.</b> 19,500 DESI&ndash;HST pairs, evaluated at &times;2 and &times;4.</li>
+  </ul>
+
+  <details class="knob-src">
+    <summary>Caption wording these curves are drawn from</summary>
+    <ul>
+      <li>Fig. 18 &mdash; &ldquo;PSNR decreases monotonically with &#947;<sub>PSF</sub>, while Flux&#8209;L1 and Detection F1
+        form broad plateaus over an intermediate range. We set &#947;<sub>PSF</sub> = 2 HR pixels at both scales.&rdquo;</li>
+      <li>Fig. 19 &mdash; &ldquo;Sweeping &#958;<sub>SNR</sub> from 10 to 100 leaves PSNR, Flux&#8209;L1, and Detection F1 essentially
+        unchanged, in agreement with the spectral analysis of Sections E.2 and E.3.&rdquo;</li>
+      <li>Fig. 20 &mdash; &ldquo;PSNR is concave with a peak near &#951;<sub>0</sub> &asymp; 0.4, Flux&#8209;L1 grows monotonically,
+        and Detection F1 peaks near &#951;<sub>0</sub> &asymp; 0.3 before falling.&rdquo;</li>
+      <li>Fig. 21 &mdash; &ldquo;PSNR decreases monotonically with T; Flux&#8209;L1 and Detection F1 attain their joint optimum
+        at T = 10 before degrading at larger T as the per&#8209;step Wiener correction &#951;<sub>i</sub> shrinks faster than the
+        cumulative ODE drift along v<sub>&#952;</sub>.&rdquo;</li>
+    </ul>
+  </details>
+  </div>
+</details>
+
+<details class="acc" id="downstream">
+  <summary>
+    <span class="acc-k">Appendix H &middot; downstream science</span>
+    <span class="acc-t">Does it change the science?</span>
+    <span class="acc-i" aria-hidden="true"></span>
+  </summary>
+  <div class="acc-b">
+    <p class="acc-lede">Photometric metrics are a proxy. The real question is whether a reconstruction makes the
+      catalogue measurements better. Every number below is measured on the <b>matched bright&#8209;source set</b>, under the
+      same SEP segmentation footprint as the ground truth, with one common threshold F<sub>thr</sub>&nbsp;=&nbsp;0.5&nbsp;nMgy at
+      both scales.</p>
+  <div class="dn-head">
+    <div class="dn-toggle" role="tablist" aria-label="Super-resolution scale">
+      <button class="dn-tab" role="tab" data-scale="2" aria-selected="true">&times;2</button>
+      <button class="dn-tab" role="tab" data-scale="4" aria-selected="false">&times;4</button>
+    </div>
+    <p class="dn-note">Lower is better in every column. Magnitude and shear are dimensionless; stellar&#8209;mass MAE is in
+      &Delta;&#8209;scaled nanomaggies.</p>
+  </div>
+
+  <div class="dn-tablewrap">
+    <table class="dn-table" data-scale="2">
+      <caption>Per&#8209;source downstream accuracy on the matched bright&#8209;source set (paper Tables 8 and 9).</caption>
+      <thead>
+        <tr>
+          <th scope="col" rowspan="2">Method</th>
+          <th scope="col" colspan="2">Magnitude residual &Delta;m</th>
+          <th scope="col" colspan="2">Stellar&#8209;mass MAE</th>
+          <th scope="col" colspan="2">Shear residual</th>
+        </tr>
+        <tr>
+          <th scope="col">mean</th><th scope="col">median</th>
+          <th scope="col">mean</th><th scope="col">median</th>
+          <th scope="col">mean</th><th scope="col">median</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Bicubic</th><td>0.758</td><td>0.637</td><td>7.767</td><td>1.537</td><td>0.148</td><td>0.122</td></tr>
+        <tr><th scope="row">SwinIR</th><td>0.649</td><td>0.300</td><td>8.197</td><td>0.762</td><td>0.149</td><td>0.116</td></tr>
+        <tr><th scope="row">HAT</th><td>0.542</td><td>0.192</td><td>7.962</td><td>0.524</td><td>0.151</td><td>0.112</td></tr>
+        <tr><th scope="row">FISR</th><td>0.561</td><td>0.230</td><td>8.014</td><td>0.608</td><td>0.165</td><td>0.133</td></tr>
+        <tr><th scope="row">cGAN</th><td>0.548</td><td>0.215</td><td>7.996</td><td>0.586</td><td>0.159</td><td>0.131</td></tr>
+        <tr><th scope="row">GD&#8209;Net</th><td>0.664</td><td>0.393</td><td>7.659</td><td>1.025</td><td>0.166</td><td>0.131</td></tr>
+        <tr class="is-ours"><th scope="row">FluxFlow</th><td>0.516</td><td>0.187</td><td>7.632</td><td>0.508</td><td>0.161</td><td>0.126</td></tr>
+      </tbody>
+    </table>
+    <table class="dn-table" data-scale="4" hidden>
+      <caption>Per&#8209;source downstream accuracy on the matched bright&#8209;source set (paper Tables 8 and 9).</caption>
+      <thead>
+        <tr>
+          <th scope="col" rowspan="2">Method</th>
+          <th scope="col" colspan="2">Magnitude residual &Delta;m</th>
+          <th scope="col" colspan="2">Stellar&#8209;mass MAE</th>
+          <th scope="col" colspan="2">Shear residual</th>
+        </tr>
+        <tr>
+          <th scope="col">mean</th><th scope="col">median</th>
+          <th scope="col">mean</th><th scope="col">median</th>
+          <th scope="col">mean</th><th scope="col">median</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Bicubic</th><td>1.067</td><td>0.863</td><td>16.90</td><td>3.648</td><td>0.144</td><td>0.115</td></tr>
+        <tr><th scope="row">SwinIR</th><td>0.969</td><td>0.461</td><td>16.51</td><td>2.43</td><td>0.118</td><td>0.090</td></tr>
+        <tr><th scope="row">HAT</th><td>0.886</td><td>0.397</td><td>16.19</td><td>2.207</td><td>0.108</td><td>0.081</td></tr>
+        <tr><th scope="row">FISR</th><td>0.876</td><td>0.417</td><td>16.25</td><td>2.246</td><td>0.124</td><td>0.097</td></tr>
+        <tr><th scope="row">cGAN</th><td>0.902</td><td>0.460</td><td>16.42</td><td>2.440</td><td>0.135</td><td>0.109</td></tr>
+        <tr><th scope="row">GD&#8209;Net</th><td>1.509</td><td>1.308</td><td>17.58</td><td>4.630</td><td>0.170</td><td>0.139</td></tr>
+        <tr class="is-ours"><th scope="row">FluxFlow</th><td>0.851</td><td>0.389</td><td>16.07</td><td>2.131</td><td>0.117</td><td>0.091</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="dn-notes">
+    <p><b>What improves.</b> FluxFlow returns the lowest magnitude residual and the lowest stellar&#8209;mass MAE &mdash; on both
+      the mean and the median, at both scales. At &times;4 the magnitude residual improves from 0.886 (HAT, best baseline) to
+      0.851, and the mass MAE from 16.19 to 16.07 &Delta;&#8209;nanomaggies.</p>
+    <p><b>What does not.</b> Shear is the flat metric. It is set by the second&#8209;moment tensor of each source, and its
+      orthogonal failure mode is catalog&#8209;level miscentering rather than image quality, so the ranking compresses: HAT stays
+      the strongest baseline on shear, and FluxFlow lands just behind it rather than ahead.</p>
+    <p><b>Why the mass median is the headline.</b> The median stellar&#8209;mass MAE is where bright, cleanly segmented sources
+      live; the mean is dragged by a handful of blended or badly segmented objects, which is why GD&#8209;Net posts a competitive
+      mean (7.659) but a median of 1.025.</p>
+  </div>
+  </div>
+</details>
+
+<details class="acc" id="benchmark">
+  <summary>
+    <span class="acc-k">Appendix A &amp; F &middot; the benchmark</span>
+    <span class="acc-t">19,500 real pairs, and nothing quite like them</span>
+    <span class="acc-i" aria-hidden="true"></span>
+  </summary>
+  <div class="acc-b">
+    <p class="acc-lede">DESI&ndash;HST is a cross&#8209;survey benchmark: ground&#8209;based seeing&#8209;limited spectra&#8209;era
+      imaging on one side, space&#8209;based diffraction&#8209;limited imaging on the other. It is the only ground&#8209;to&#8209;space
+      set in its comparison table, and one of only two that are both real and flux&#8209;calibrated.</p>
+  <div class="dt-atmos">
+    <div class="dt-bar">
+      <span class="dt-bar-lbl">DESI &middot; seeing&#8209;limited</span>
+      <span class="dt-bar-track"><i style="--w:100%"></i></span>
+      <span class="dt-bar-val">1.0&ndash;1.3&#8243; FWHM</span>
+    </div>
+    <div class="dt-bar">
+      <span class="dt-bar-lbl">HST &middot; diffraction&#8209;limited</span>
+      <span class="dt-bar-track"><i class="hot" style="--w:5.27%"></i></span>
+      <span class="dt-bar-val">~0.09&#8243; FWHM</span>
+    </div>
+    <p class="dt-atmos-note">The resolution gap is dominated by atmospheric turbulence, not by pixel scale: a
+      <b>11&ndash;14&times;</b> ratio in FWHM (a 2.4&nbsp;m space aperture against DESI's time-varying, spatially extended
+      i&#8209;band seeing). That is what makes DESI&rarr;HST super&#8209;resolution substantially harder than benchmarks that
+      rely on pixel&#8209;scale downsampling alone.</p>
+  </div>
+
+  <div class="dt-tablewrap">
+    <table class="dt-table">
+      <caption>Astronomical super&#8209;resolution datasets (paper Table 1). &#10003; marks real data and absolute flux
+        calibration; the last column is the imaging direction.</caption>
+      <thead>
+        <tr><th scope="col">Dataset</th><th scope="col">Size</th><th scope="col">Real</th><th scope="col">Flux</th><th scope="col">Type</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Miao et al. 2024</th><td>2,000</td><td>&#10003;</td><td></td><td>G&rarr;G</td></tr>
+        <tr><th scope="row">Shan et al. 2025</th><td>9,383</td><td>&#10003;</td><td></td><td>G&rarr;G</td></tr>
+        <tr><th scope="row">Song et al. 2024</th><td>1,597</td><td>&#10003;</td><td></td><td>S&rarr;G</td></tr>
+        <tr><th scope="row">Reddy et al. 2024</th><td>2,880</td><td>&#10003;</td><td></td><td>G&rarr;S</td></tr>
+        <tr><th scope="row">Luo et al. 2025</th><td>17,000</td><td>&#10003;</td><td></td><td>G&rarr;G</td></tr>
+        <tr><th scope="row">Li et al. 2022</th><td>14,604</td><td>&#10003;</td><td></td><td>G&rarr;G</td></tr>
+        <tr><th scope="row">Wu et al. 2025</th><td>54,738</td><td>&#10003;</td><td>&#10003;</td><td>S&rarr;S</td></tr>
+        <tr><th scope="row">Zhang et al. 2026</th><td>120,000</td><td></td><td>&#10003;</td><td>S&rarr;G</td></tr>
+        <tr class="is-ours"><th scope="row">FluxFlow (ours)</th><td>19,500</td><td>&#10003;</td><td>&#10003;</td><td>G&rarr;S</td></tr>
+      </tbody>
+    </table>
+    <p class="dt-legend"><b>G</b> ground&#8209;based imaging &middot; <b>S</b> space&#8209;based imaging &middot; <b>&rarr;</b> the
+      direction of the super&#8209;resolution mapping.</p>
+  </div>
+
+  <div class="dt-extra">
+    <h3>Supervised on other benchmarks</h3>
+    <p>The same architecture, with the terms that need flux calibration switched off &mdash; the inverse&#8209;variance term, the
+      source&#8209;importance term and the Wiener&#8209;deconvolved measurement consistency are not available on these sets, so an
+      ablated configuration is evaluated instead.</p>
+    <ul>
+      <li><b>STAR at &times;2</b> &mdash; highest PSNR and SSIM, together with a top&#8209;tier Flux&#8209;L1.</li>
+      <li><b>STAR at &times;4</b> &mdash; remains competitive with the strongest regression baselines.</li>
+      <li><b>AstroSR at &times;2</b> &mdash; highest PSNR and a competitive SSIM.</li>
+    </ul>
+    <p class="dt-caveat"><b>The honest caveat.</b> AstroSR is distributed as RGB composites without absolute flux calibration,
+      so total brightness is no longer conserved across the SDSS&rarr;HSC mapping. The Flux&#8209;L1 column on that benchmark
+      carries limited physical meaning and is reported only for completeness. The margins over regression baselines are
+      markedly smaller than on DESI&ndash;HST, because neither dataset exposes super&#8209;resolution under atmospheric
+      aberration &mdash; the dominant degradation mode this method is built for is simply absent.</p>
+  </div>
+  </div>
+</details>
+
+<details class="acc" id="analysis">
+  <summary>
+    <span class="acc-k">Appendix E &middot; analysis</span>
+    <span class="acc-t">Why the adjoint is not enough</span>
+    <span class="acc-i" aria-hidden="true"></span>
+  </summary>
+  <div class="acc-b">
+<ol class="an-steps">
+    <li>
+      <span class="an-tag">E.1</span>
+      <h3>The consistency set</h3>
+      <p>A source whose morphology has <em>no preimage</em> under A still produces a non&#8209;zero forward residual, so it is
+        penalised wherever the correction enforces y&nbsp;=&nbsp;A(x). Hallucinations are therefore not undetectable in
+        principle &mdash; they are trajectories that exit the consistency set C(y), and the whole sampler is built to push them
+        back in.</p>
+    </li>
+    <li>
+      <span class="an-tag">E.2</span>
+      <h3>The Wiener kernel from MMSE</h3>
+      <p>Minimising the mean&#8209;square error over the Fourier&#8209;domain filter, setting the variation to zero and solving
+        gives the optimal filter <span class="mono">W(k) = H*(k) / (|H(k)|&sup2; + &#955;<sub>SNR</sub><sup>&minus;1</sup>)</span>.</p>
+    </li>
+    <li>
+      <span class="an-tag">E.3</span>
+      <h3>Spectral analysis</h3>
+      <p>Naive adjoint back&#8209;projection contracts high&#8209;frequency modes at a rate of <span class="mono">|H(k)|&sup2;</span>
+        per step, so the loss accumulates into <b>PSF&#8209;scale smoothing</b> across integration steps. Replacing that multiplier
+        with the Wiener kernel keeps the cumulative transfer function stable at high frequencies and preserves the resolution
+        gain the flow provides.</p>
+    </li>
+    <li>
+      <span class="an-tag">E.4</span>
+      <h3>Closed&#8209;form toy model</h3>
+      <p>A normalised 2&#8209;D Gaussian PSF of width &#947;<sub>h</sub>, probed with a single point source of amplitude
+        &#945;, restricted to the band the LR observation actually supports, iterated for N Euler steps &mdash; giving an exact
+        per&#8209;mode recovery factor rather than a fixed&#8209;point approximation.</p>
+    </li>
+  </ol>
+
+  <div class="an-limits">
+    <h3>Two limits, and what they mean</h3>
+    <div class="an-limit">
+      <span class="an-limit-k">&#958;<sub>SNR</sub> &rarr; &infin;</span>
+      <p class="mono">W(k) &rarr; H*(k)/|H(k)|&sup2; = 1/H(k)</p>
+      <p>The exact inverse filter. Maximally amplifies high frequencies and is unstable wherever H(k)&nbsp;&asymp;&nbsp;0.</p>
+    </div>
+    <div class="an-limit">
+      <span class="an-limit-k">&#958;<sub>SNR</sub> &rarr; 0</span>
+      <p class="mono">W(k) &rarr; &#958;<sub>SNR</sub>&#8202;H*(k) &rarr; 0</p>
+      <p>The response stays proportional to the matched filter &mdash; equivalent, up to scaling, to the raw adjoint. This is
+        exactly the variant the ablation calls <em>w/o Wiener</em>.</p>
+    </div>
+    <p class="an-limit-note">&#958;<sub>SNR</sub> therefore interpolates continuously between the two extremes, and controls how
+      aggressively the deconvolution restores the high&#8209;frequency content the PSF suppressed.</p>
+  </div>
+
+  <div class="an-toy">
+    <h3>What that costs in the toy model &mdash; FWHM of the recovered profile, in HR pixels</h3>
+    <div class="dt-bar">
+      <span class="dt-bar-lbl">True PSF</span>
+      <span class="dt-bar-track"><i style="--w:69.5%"></i></span>
+      <span class="dt-bar-val">4.71</span>
+    </div>
+    <div class="dt-bar">
+      <span class="dt-bar-lbl">Naive adjoint &middot; N = 10</span>
+      <span class="dt-bar-track"><i class="bad" style="--w:100%"></i></span>
+      <span class="dt-bar-val">6.78</span>
+    </div>
+    <div class="dt-bar">
+      <span class="dt-bar-lbl">Wiener&#8209;corrected</span>
+      <span class="dt-bar-track"><i class="hot" style="--w:71.5%"></i></span>
+      <span class="dt-bar-val">4.85</span>
+    </div>
+    <p class="an-toy-note">At N&nbsp;=&nbsp;10 the naive recovery is visibly broader than the true PSF &mdash; the FWHM is enlarged
+      from <b>4.71</b> to <b>6.78</b> HR pixels, while the Wiener&#8209;corrected profile comes in at <b>4.85</b> and tracks the
+      true PSF with in&#8209;line width. The widening is a low&#8209;pass effect, not noise amplification.</p>
+  </div>
+
+  <div class="an-caveat">
+    <p><b>The honest caveat, in the paper's own analysis.</b> If the iteration were run to convergence instead of a finite N,
+      the fixed&#8209;point per&#8209;pixel variance evaluates to roughly <span class="mono">0.21&#8202;&sigma;&sup2;<sub>n</sub></span>
+      at the DESI&ndash;HST setting (&#947;<sub>h</sub>&nbsp;=&nbsp;2, k<sub>max</sub>&nbsp;=&nbsp;&pi;/4). Modest in absolute terms,
+      but it is a substantial amplification of the noise power inside the narrow LR&#8209;supported band, and the prefactor grows
+      exponentially as k<sub>max</sub> approaches Nyquist. The practical N&nbsp;=&nbsp;10 keeps the recovery short of that fixed
+      point &mdash; so in this regime the dominant pathology is the finite&#8209;N low&#8209;pass effect of Eq.&nbsp;27, not the
+      asymptotic noise amplification of Eq.&nbsp;30.</p>
+  </div>
+  </div>
+</details>
+
+<!-- ==================== main ablation (Table 3) ==================== -->
+<details class="acc" id="ablation">
+  <summary>
+    <span class="acc-k">Table 3 &middot; ablation</span>
+    <span class="acc-t">What each piece is worth</span>
+    <span class="acc-i" aria-hidden="true"></span>
+  </summary>
+  <div class="acc-b">
+<div class="dn-tablewrap">
+    <table class="dn-table" data-wide="1">
+      <caption>Ablation on photometry and detection metrics (paper Table 3). WHT = inverse&#8209;variance weighting,
+        Src = source&#8209;weighted loss.</caption>
+      <thead>
+        <tr>
+          <th scope="col" rowspan="2">Ablation</th>
+          <th scope="col" colspan="3">Photometry</th>
+          <th scope="col" colspan="3">Detection</th>
+        </tr>
+        <tr>
+          <th scope="col">PSNR &uarr;</th><th scope="col">SSIM &uarr;</th><th scope="col">Flux&#8209;L1 &darr;</th>
+          <th scope="col">Prec &uarr;</th><th scope="col">Rec &uarr;</th><th scope="col">F1 &uarr;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">w/ VAE</th><td>28.90</td><td>0.593</td><td>5.075</td><td>0.859</td><td>0.211</td><td>0.3402</td></tr>
+        <tr><th scope="row">w/ Bridge</th><td>30.77</td><td>0.663</td><td>3.206</td><td>0.702</td><td>0.393</td><td>0.5019</td></tr>
+        <tr><th scope="row">w/o WHT</th><td>30.17</td><td>0.685</td><td>2.814</td><td>0.688</td><td>0.483</td><td>0.5272</td></tr>
+        <tr><th scope="row">w/o Src</th><td>31.16</td><td>0.711</td><td>3.098</td><td>0.729</td><td>0.464</td><td>0.5382</td></tr>
+        <tr><th scope="row">w/o MC&#8209;FS</th><td>30.78</td><td>0.698</td><td>3.025</td><td>0.602</td><td>0.553</td><td>0.5256</td></tr>
+        <tr><th scope="row">w/o Wiener</th><td>30.79</td><td>0.699</td><td>3.031</td><td>0.708</td><td>0.448</td><td>0.5066</td></tr>
+        <tr class="is-ours"><th scope="row">Ours</th><td>31.23</td><td>0.714</td><td>2.959</td><td>0.738</td><td>0.458</td><td>0.5412</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="dn-notes">
+    <p><b>The one that matters most.</b> Without MC&#8209;FS the sampler produces compact hallucination sources, and the table
+      shows the signature: the <b>highest recall in the whole study (0.553)</b> together with a precision collapse to 0.602.
+      The spurious peaks float as false positives and drag F1 to 0.5256, below the full model's 0.5412.</p>
+    <p><b>The quiet trade&#8209;off.</b> w/o WHT posts a marginally <em>better</em> Flux&#8209;L1 (2.814 vs 2.959) &mdash; and that is
+      reported rather than hidden, because it comes from fitting drizzle artefacts that overlap the source apertures. Without the
+      WHT term the velocity field treats cosmic&#8209;ray trails and chip gaps as valid targets and reproduces them in the
+      reconstruction; the drops in PSNR, F1 and precision are the real cost.</p>
+    <p><b>Source weighting.</b> A uniform loss is dominated by background pixels and cannot preferentially preserve the faint
+      outer galaxy profiles that carry morphological and PSF&#8209;shape information. The two weights are complementary: WHT filters
+      data quality, source weighting emphasises scientifically informative regions.</p>
+    <p><b>Latent space.</b> Moving the flow into a frozen SD&#8209;VAE feature space costs 2.33&nbsp;dB of PSNR and 0.121 of SSIM,
+      and collapses recall to 0.211; the bridge variant that replaces the Gaussian source with a noisy bicubic mean recovers most
+      of the photometry but still trails the full model on precision and F1.</p>
+  </div>
+  </div>
+</details>
+
+<!-- ============ Tables 6-7: STAR and AstroSR ============ -->
+<details class="acc" id="otherdata">
+  <summary>
+    <span class="acc-k">Tables 6 &amp; 7 &middot; other benchmarks</span>
+    <span class="acc-t">The same model, on data it was not built for</span>
+    <span class="acc-i" aria-hidden="true"></span>
+  </summary>
+  <div class="acc-b">
+<div class="dn-tablewrap">
+    <table class="dn-table">
+      <caption>STAR dataset (paper Table 6) at &times;2 and &times;4. PSNR / SSIM higher is better; Flux&#8209;L1 lower is better.
+        Best per row in bold-ish; FluxFlow highlighted.</caption>
+      <thead>
+        <tr><th scope="col" rowspan="2">Scale</th><th scope="col" rowspan="2">Metric</th>
+          <th scope="col" colspan="8">Method</th></tr>
+        <tr><th>Bicubic</th><th>EDSR</th><th>SRGAN</th><th>RCAN</th><th>SwinIR</th><th>HAT</th><th>FISR</th><th>Ours</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">&times;2</th><td>PSNR &uarr;</td><td>28.71</td><td>33.50</td><td>32.25</td><td>33.89</td><td>34.05</td><td>34.38</td><td>34.40</td><td>34.66</td></tr>
+        <tr><th scope="row">&times;2</th><td>SSIM &uarr;</td><td>0.6945</td><td>0.7729</td><td>0.7501</td><td>0.7808</td><td>0.7812</td><td>0.7836</td><td>0.7859</td><td>0.7918</td></tr>
+        <tr><th scope="row">&times;2</th><td>Flux&#8209;L1 &darr;</td><td>125.4</td><td>48.78</td><td>51.35</td><td>43.44</td><td>42.41</td><td>41.27</td><td>41.05</td><td>41.84</td></tr>
+        <tr><th scope="row">&times;4</th><td>PSNR &uarr;</td><td>26.21</td><td>30.73</td><td>30.33</td><td>32.13</td><td>32.24</td><td>32.67</td><td>32.51</td><td>32.44</td></tr>
+        <tr><th scope="row">&times;4</th><td>SSIM &uarr;</td><td>0.5993</td><td>0.6549</td><td>0.6522</td><td>0.6838</td><td>0.6881</td><td>0.6936</td><td>0.6891</td><td>0.6867</td></tr>
+        <tr><th scope="row">&times;4</th><td>Flux&#8209;L1 &darr;</td><td>239.2</td><td>67.47</td><td>74.72</td><td>60.52</td><td>55.35</td><td>48.49</td><td>50.94</td><td>57.20</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="dn-tablewrap">
+    <table class="dn-table">
+      <caption>AstroSR dataset (paper Table 7) at &times;2.</caption>
+      <thead>
+        <tr><th scope="col" rowspan="2">Scale</th><th scope="col" rowspan="2">Metric</th>
+          <th scope="col" colspan="9">Method</th></tr>
+        <tr><th>Bicubic</th><th>EDSR</th><th>SRGAN</th><th>RCAN</th><th>ENLCA</th><th>SwinIR</th><th>HAT</th><th>FISR</th><th>Ours</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">&times;2</th><td>PSNR &uarr;</td><td>17.75</td><td>23.71</td><td>23.46</td><td>23.72</td><td>23.70</td><td>23.74</td><td>23.81</td><td>23.84</td><td>23.87</td></tr>
+        <tr><th scope="row">&times;2</th><td>SSIM &uarr;</td><td>0.171</td><td>0.350</td><td>0.348</td><td>0.351</td><td>0.350</td><td>0.352</td><td>0.352</td><td>0.354</td><td>0.352</td></tr>
+        <tr><th scope="row">&times;2</th><td>Flux&#8209;L1 &darr;</td><td>1916</td><td>213.6</td><td>165.9</td><td>226.3</td><td>216.1</td><td>223.1</td><td>193.3</td><td>192.5</td><td>198.7</td></tr>
+      </tbody>
+    </table>
+    <p class="dt-caveat"><b>Read this column with care.</b> AstroSR is distributed as RGB composites without absolute flux
+      calibration, so total brightness is not conserved across the SDSS&rarr;HSC mapping: its Flux&#8209;L1 column carries limited
+      physical meaning and is reported only for completeness.</p>
+  </div>
+
+  <div class="dn-notes">
+    <p><b>What it wins.</b> On STAR at &times;2 the model takes the highest PSNR (34.66) and the highest SSIM (0.7918), with a
+      top&#8209;tier Flux&#8209;L1 (41.84, behind FISR's 41.05 and HAT's 41.27). At &times;4 it stays competitive with the strongest
+      regression baselines &mdash; HAT leads PSNR at 32.67 against 32.44. On AstroSR at &times;2 it takes the highest PSNR (23.87)
+      and a competitive SSIM (0.352 against FISR's 0.354).</p>
+  </div>
+  </div>
+</details>
+
+<!-- ==================== Table 5: training cost ==================== -->
+<details class="acc" id="cost">
+  <summary>
+    <span class="acc-k">Table 5 &middot; training cost</span>
+    <span class="acc-t">What it costs to train</span>
+    <span class="acc-i" aria-hidden="true"></span>
+  </summary>
+  <div class="acc-b">
+<div class="co-grid">
+    <div class="co-col">
+      <h3>&times;2 scale</h3>
+      <div class="dt-bar"><span class="dt-bar-lbl">SwinIR</span><span class="dt-bar-track"><i style="--w:17.0%"></i></span><span class="dt-bar-val">94&#8202;h</span></div>
+      <div class="dt-bar"><span class="dt-bar-lbl">HAT</span><span class="dt-bar-track"><i style="--w:100.0%"></i></span><span class="dt-bar-val">552&#8202;h</span></div>
+      <div class="dt-bar"><span class="dt-bar-lbl">FISR</span><span class="dt-bar-track"><i style="--w:17.0%"></i></span><span class="dt-bar-val">94&#8202;h</span></div>
+      <div class="dt-bar"><span class="dt-bar-lbl">cGAN</span><span class="dt-bar-track"><i style="--w:1.4%"></i></span><span class="dt-bar-val">8&#8202;h</span></div>
+      <div class="dt-bar"><span class="dt-bar-lbl">GD‑Net</span><span class="dt-bar-track"><i style="--w:0.9%"></i></span><span class="dt-bar-val">5&#8202;h</span></div>
+      <div class="dt-bar"><span class="dt-bar-lbl">AS‑Bridge</span><span class="dt-bar-track"><i style="--w:26.1%"></i></span><span class="dt-bar-val">144&#8202;h</span></div>
+      <div class="dt-bar"><span class="dt-bar-lbl">FluxFlow</span><span class="dt-bar-track"><i class="hot" style="--w:2.9%"></i></span><span class="dt-bar-val">16&#8202;h</span></div>
+    </div>
+    <div class="co-col">
+      <h3>&times;4 scale</h3>
+      <div class="dt-bar"><span class="dt-bar-lbl">SwinIR</span><span class="dt-bar-track"><i style="--w:17.8%"></i></span><span class="dt-bar-val">98&#8202;h</span></div>
+      <div class="dt-bar"><span class="dt-bar-lbl">HAT</span><span class="dt-bar-track"><i style="--w:99.5%"></i></span><span class="dt-bar-val">549&#8202;h</span></div>
+      <div class="dt-bar"><span class="dt-bar-lbl">FISR</span><span class="dt-bar-track"><i style="--w:31.9%"></i></span><span class="dt-bar-val">176&#8202;h</span></div>
+      <div class="dt-bar"><span class="dt-bar-lbl">cGAN</span><span class="dt-bar-track"><i style="--w:2.9%"></i></span><span class="dt-bar-val">16&#8202;h</span></div>
+      <div class="dt-bar"><span class="dt-bar-lbl">GD‑Net</span><span class="dt-bar-track"><i style="--w:33.3%"></i></span><span class="dt-bar-val">184&#8202;h</span></div>
+      <div class="dt-bar"><span class="dt-bar-lbl">AS‑Bridge</span><span class="dt-bar-track"><i style="--w:65.2%"></i></span><span class="dt-bar-val">360&#8202;h</span></div>
+      <div class="dt-bar"><span class="dt-bar-lbl">FluxFlow</span><span class="dt-bar-track"><i class="hot" style="--w:8.5%"></i></span><span class="dt-bar-val">47&#8202;h</span></div>
+    </div>
+  </div>
+  <p class="co-note"><b>Reading it.</b> FluxFlow trains in <b>16&nbsp;h</b> at &times;2 and <b>47&nbsp;h</b> at &times;4 &mdash;
+    under 3% of the cost of the strongest Transformer regression baseline (HAT, 552&nbsp;h / 549&nbsp;h) and an order of
+    magnitude less than the heaviest generative baseline at &times;4 (AS&#8209;Bridge, 360&nbsp;h). Only the two cheapest
+    baselines, cGAN and GD&#8209;Net, train faster at &times;2.</p>
+  </div>
+</details>
+
+<!-- ================ implementation details (§D) ================ -->
+<details class="acc" id="impl">
+  <summary>
+    <span class="acc-k">Appendix D &middot; implementation</span>
+    <span class="acc-t">How it is built</span>
+    <span class="acc-i" aria-hidden="true"></span>
+  </summary>
+  <div class="acc-b">
+<div class="im-flow">
+    <div class="im-node"><b>DESI observation</b><span>bicubic&nbsp;&rarr;&nbsp;HR grid</span></div>
+    <span class="im-plus">&plus;</span>
+    <div class="im-node"><b>Noisy state x<sub>t</sub></b><span>Gaussian source</span></div>
+    <span class="im-arrow"></span>
+    <div class="im-node wide"><b>Encoder</b><span>ConvBlock &rarr; 2&times;2 max&#8209;pool, base_dim&nbsp;=&nbsp;48, channels double per level</span></div>
+    <span class="im-arrow"></span>
+    <div class="im-node"><b>Bottleneck</b><span>ConvBlocks at the lowest resolution</span></div>
+    <span class="im-arrow"></span>
+    <div class="im-node wide"><b>Decoder</b><span>ConvTransBlock upsampling &plus; skip connections from the matching level</span></div>
+    <span class="im-arrow"></span>
+    <div class="im-node hot"><b>Velocity v<sub>&#952;</sub></b><span>predicted on the HR grid</span></div>
+  </div>
+
+  <p class="im-conv"><b>Every ConvBlock</b> is <span class="mono">Conv2d &rarr; LeakyReLU &rarr; FiLM &rarr; Conv2d &rarr; LeakyReLU</span>.
+    The FiLM layer applies a feature&#8209;wise affine modulation conditioned on the time&#8209;conditioning state &tau;, so the time
+    signal is injected at <em>every</em> resolution rather than only at the input. The timestep t&nbsp;&isin;&nbsp;[0,1] is mapped to
+    &tau; by a sinusoidal positional embedding followed by a two&#8209;layer MLP of output dimension <b>256</b>.</p>
+
+  <div class="im-spec">
+    <div class="im-spec-col">
+      <h3>Training</h3>
+      <dl>
+        <dt>Objective</dt><dd>OT&#8209;CFM, spatially weighted MSE (Eq. 5)</dd>
+        <dt>Interpolant</dt><dd>x<sub>t</sub> = (1&minus;t)x<sub>0</sub> + t&thinsp;x<sub>1</sub>, target u<sub>t</sub> = x<sub>1</sub> &minus; x<sub>0</sub></dd>
+        <dt>Sampling</dt><dd>x<sub>0</sub> ~ N(0, I), t ~ U(0,1)</dd>
+        <dt>Grad clipping</dt><dd>1.0</dd>
+        <dt>Schedule</dt><dd>1,000&#8209;step linear warm&#8209;up &rarr; cosine decay to zero</dd>
+        <dt>Precision</dt><dd>fp32</dd>
+        <dt>EMA eval</dt><dd>every 20 epochs, 10 Euler steps from pure Gaussian noise</dd>
+      </dl>
+    </div>
+    <div class="im-spec-col">
+      <h3>Normalisation</h3>
+      <dl>
+        <dt>Clip thresholds</dt><dd>0.01% tail percentiles of all training&#8209;split pixels</dd>
+        <dt>Why</dt><dd>suppresses cosmic rays and hot pixels that would otherwise set the range</dd>
+        <dt>Thresholds</dt><dd>one pair for the LR set, another for the HR set &mdash; estimated once, then frozen</dd>
+        <dt>Rescaling</dt><dd>linear min&ndash;max to [0,1] using global per&#8209;modality flux extrema</dd>
+        <dt>Reporting</dt><dd>PSNR / SSIM are measured in that normalised domain, so the maximal value is exactly 1</dd>
+      </dl>
+    </div>
+    <div class="im-spec-col">
+      <h3>Forward&#8209;model PSF</h3>
+      <dl>
+        <dt>Calibration</dt><dd>&gamma;<sub>PSF</sub> swept on a fine grid; the minimising value is rounded to an integer</dd>
+        <dt>Result</dt><dd>data-driven optimum &sigma;* = <b>1.92</b>, rounded to &sigma;<sub>PSF</sub> = 2 HR pixels and used throughout inference</dd>
+        <dt>Cross&#8209;check</dt><dd>consistent with the median DECam i&#8209;band seeing in Appendix A</dd>
+      </dl>
+      <h3 class="im-spec-h3b">Cost</h3>
+      <dl>
+        <dt>Hardware</dt><dd>single NVIDIA A100&#8209;80GB, identical schedule budget for all baselines</dd>
+        <dt>&times;2 scale</dt><dd>16 h end&#8209;to&#8209;end training</dd>
+        <dt>&times;4 scale</dt><dd>47 h end&#8209;to&#8209;end training</dd>
+      </dl>
+    </div>
+  </div>
+  </div>
+</details>
+
+
+<!-- ================== appendix I: reading guide ================== -->
+<details class="acc" id="reading">
+  <summary>
+    <span class="acc-k">Appendix I &middot; additional visualisation</span>
+    <span class="acc-t">What to look for in the comparisons</span>
+    <span class="acc-i" aria-hidden="true"></span>
+  </summary>
+  <div class="acc-b">
+<ol class="rd-list">
+    <li>
+      <span class="rd-fig">Figure 24 &middot; &times;2</span>
+      <p>FluxFlow recovers the <b>diffraction spikes</b> of the central star and the morphology of the extended source,
+        while avoiding the speckled background of AS&#8209;Bridge.</p>
+    </li>
+    <li>
+      <span class="rd-fig">Figure 25 &middot; &times;2</span>
+      <p>On a bright central star surrounded by closely packed compact sources, FluxFlow reproduces the spike pattern and
+        <b>resolves the neighbouring sources</b> without the merging or smearing seen in the baselines.</p>
+    </li>
+    <li>
+      <span class="rd-fig">Figure 26 &middot; &times;4</span>
+      <p>On a field with a saturated source in the upper&#8209;left corner and several low&#8209;SNR background galaxies,
+        FluxFlow <b>preserves faint background galaxies</b> that Bicubic and GD&#8209;Net erase, while reconstructing the
+        saturated halo more cleanly than the speckled output of AS&#8209;Bridge.</p>
+    </li>
+    <li>
+      <span class="rd-fig">Figure 27 &middot; &times;4</span>
+      <p>On a binary&#8209;star field, FluxFlow reproduces the <b>four&#8209;pointed diffraction pattern</b> on the lower
+        companion together with surrounding faint sources &mdash; whereas regression baselines suppress the spike pattern and
+        the generative baselines either over&#8209;smooth or over&#8209;sharpen the background.</p>
+    </li>
+  </ol>
+  <p class="rd-foot">The panels in the comparison gallery above are real cut&#8209;outs sliced from the paper's own
+    comparison grids &mdash; every one of the 42 tiles is a genuine render, not a reconstruction of one.</p>
+  </div>
+</details>
+  </div>
+</details>
+
+</main>
+
+<footer class="footer">
+  <p class="footer-line"><span>From ground<br><em>to space.</em></span><a href="#top" aria-label="Back to top">↗</a></p>
+  <div class="footer-bar">
+    <span class="wm wm--foot">FluxFlow<i class="wm-dot"></i></span>
+    <span>The University of Tokyo · I2WM · Tohoku University · RIKEN AIP</span>
+    <a href="#top">Back to top ↗</a>
+  </div>
+</footer>
+<dialog class="field-dialog" aria-labelledby="gallery-dialog-title"><div class="field-dialog-top"><p id="gallery-dialog-title"></p><button type="button" data-gallery-close aria-label="Close image viewer">✕</button></div><img class="field-dialog-image" alt=""><div class="field-dialog-bottom"><p data-gallery-caption></p><div><button type="button" data-gallery-prev aria-label="Previous image">←</button><button type="button" data-gallery-next aria-label="Next image">→</button><a data-gallery-original target="_blank" rel="noopener">Open original ↗</a></div></div></dialog>
+</body>
+</html>
