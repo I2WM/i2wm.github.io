@@ -1,0 +1,26 @@
+/* Complete original scientific images; no crop or visual filtering. */
+.story-frame{padding:58px 12px 12px;background:#211529}
+.story-visual{position:relative;width:min(100%,calc(100svh - 255px));aspect-ratio:1;margin-inline:auto;--story-reveal:0%;overflow:hidden;background:#211529}
+.story-visual img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;object-position:center;filter:none;transform:none;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.story-original{clip-path:inset(0 calc(100% - var(--story-reveal)) 0 0)}
+.story-image-caption{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;font:400 11px/1.5 var(--mono);color:#f5f1e8bb}
+.story-image-caption a{color:#f5f1e8;text-decoration:underline;text-underline-offset:3px;cursor:zoom-in}
+.story-image-caption [data-story-progress]{color:var(--lime);margin-left:6px}
+.story-frame .story-badge{top:12px;left:12px}
+.result-visual{background:#211529 url('../img/complete/r0-fluxflow.png') center/contain no-repeat}
+.cmp-stage{touch-action:none;user-select:none;-webkit-user-select:none;cursor:ew-resize}
+.cmp-stage img{object-fit:contain;object-position:center;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.cmp-stage .cmp-handle{pointer-events:none}
+.cmp-stage.is-dragging{cursor:grabbing}
+.cmp-stage:focus-visible{outline:2px solid var(--lime);outline-offset:5px}
+.cmp-methods button:disabled{opacity:.35;cursor:default}
+.story-steps li{opacity:.78}
+.story-steps li.is-on{opacity:1}
+.story-steps li span{color:#f5f1e8e6}
+.story-note{color:#decde6}
+@media(min-width:901px){
+  .story{min-height:1600px}
+  .story-pin{height:auto;min-height:calc(100svh - 84px);box-sizing:border-box;padding-top:24px;padding-bottom:32px}
+  .story-side{gap:18px}
+}
+@media(max-width:900px){.story-visual{width:min(100%,max(180px,calc(100svh - 270px)))}.story-frame{padding:50px 8px 8px}.story-image-caption{font-size:9px;gap:6px}}
