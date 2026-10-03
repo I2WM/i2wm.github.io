@@ -18,11 +18,12 @@
 <link rel="stylesheet" href="assets/css/chroma.css?v=3">
 <link rel="stylesheet" href="assets/css/chroma-depth.css?v=1">
 <link rel="stylesheet" href="assets/css/project-hero.css?v=2">
+<link rel="stylesheet" href="assets/css/complete-images.css?v=3">
 <link rel="preload" href="assets/fonts/arimo-latin-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/fraunces-regular.ttf" as="font" type="font/ttf" crossorigin>
 <script>document.documentElement.classList.add('js');</script>
 <script src="assets/js/inline-img.js?v=47"></script>
-<script defer src="assets/js/site.js?v=50"></script>
+<script defer src="assets/js/site.js?v=52"></script>
 <script defer src="assets/js/chroma.js?v=4"></script>
 </head>
 <body>
@@ -180,9 +181,9 @@
     <figcaption><span>The framework</span> Condition on the DESI frame, transport along the learned flow, then correct the forward-model residual at each sampling step.</figcaption>
   </figure>
 </section><section class="film-sec" id="film" aria-label="The film">
-  <header class="film-heading"><p class="chroma-eyebrow">07 — The film / 01:38</p><h2>A little film.<br><em>A bigger picture.</em></h2></header>
+  <header class="film-heading"><p class="chroma-eyebrow">07 — The film / 01:12</p><h2>A little film.<br><em>A bigger picture.</em></h2></header>
   <div class="film-frame" data-film>
-    <video class="film-video" playsinline muted preload="metadata" poster="assets/img/star-cluster.jpg" src="assets/video/film.mp4?v=47"></video>
+    <video class="film-video" playsinline muted preload="metadata" poster="assets/img/video-cover-art.png" src="assets/video/film.mp4?v=art-interactive"></video>
     <button class="fp-sound-pill" type="button" data-sound aria-label="Turn the sound on">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk" d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="off" d="m16 9.5 5 5m0-5-5 5"/><path class="on" d="M16 8.8a4.6 4.6 0 0 1 0 6.4M18.6 6.4a8.2 8.2 0 0 1 0 11.2"/></svg>
       <span class="lbl">Sound on</span>
@@ -191,10 +192,10 @@
       <button class="fp-btn" type="button" data-play aria-label="Play">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-pause" d="M7.5 5h3v14h-3zM13.5 5h3v14h-3z"/><path class="i-play" d="M7 4.8 19 12 7 19.2z"/></svg>
       </button>
-      <div class="fp-bar" data-bar role="slider" tabindex="0" aria-label="Seek" aria-valuemin="0" aria-valuemax="98" aria-valuenow="0">
+      <div class="fp-bar" data-bar role="slider" tabindex="0" aria-label="Seek" aria-valuemin="0" aria-valuemax="72" aria-valuenow="0">
         <span class="fp-buf"></span><span class="fp-fill"></span><span class="fp-knob"></span>
       </div>
-      <span class="fp-time" data-time>0:00 / 1:38</span>
+      <span class="fp-time" data-time>0:00 / 1:12</span>
       <button class="fp-btn" type="button" data-mute aria-label="Mute">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk" d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="off" d="m16 9.5 5 5m0-5-5 5"/><path class="on" d="M16 8.8a4.6 4.6 0 0 1 0 6.4M18.6 6.4a8.2 8.2 0 0 1 0 11.2"/></svg>
       </button>
@@ -203,7 +204,7 @@
       </button>
     </div>
   </div>
-  <p class="film-caption"><span>The film</span>FluxFlow in ninety-eight seconds.</p>
+  <p class="film-caption"><span>The film</span>FluxFlow in seventy-two seconds.</p>
 </section>
 
 
@@ -213,10 +214,12 @@
   <header class="story-heading"><p class="chroma-eyebrow">08 — THE SAMPLER</p><h2>A field unfolds.<br><em>One step at a time.</em></h2></header>
   <div class="story-pin">
     <figure class="story-frame">
-      <canvas class="story-canvas" width="900" height="600"
-              aria-label="One field resolving from a seeing-limited ground observation to a sharp estimate as the page is scrolled."></canvas>
-      <canvas class="story-curve" width="260" height="260" aria-hidden="true"></canvas>
-      <span class="story-badge" data-badge>seeing-limited</span>
+      <span class="story-badge" data-badge>Ground observation</span>
+      <div class="story-visual" data-story-visual>
+        <img class="story-observation" src="assets/img/complete/r0-desi.png" width="128" height="128" loading="lazy" draggable="false" alt="Complete DESI observation of the same field">
+        <img class="story-original" src="assets/img/complete/r0-fluxflow.png" width="256" height="256" loading="lazy" draggable="false" alt="Complete FluxFlow reconstruction, progressively revealed by scrolling">
+      </div>
+      <figcaption class="story-image-caption"><span>DESI → FluxFlow <span data-story-progress>0%</span></span><a class="zoom" href="assets/img/complete/sampling-complete.jpg">Full sampling figure ↗</a></figcaption>
     </figure>
     <div class="story-side">
       <p class="kicker kicker--small"><span class="num">08</span>The sampler, step by step</p>
@@ -392,10 +395,9 @@
     </div>
 
     <div class="cmp-stage" data-stage>
-      <img class="cmp-under" data-under alt="" width="317" height="566">
-      <img class="cmp-over" data-over alt="" width="317" height="566">
+      <img class="cmp-under" data-under draggable="false" alt="Baseline reconstruction of the complete field" width="256" height="256">
+      <img class="cmp-over" data-over draggable="false" alt="FluxFlow reconstruction of the complete field" width="256" height="256">
       <span class="cmp-handle" data-handle aria-hidden="true"><i></i></span>
-      <span class="cmp-loupe" data-loupe aria-hidden="true"></span>
     </div>
 
     <div class="cmp-methods" role="group" aria-label="Method" data-methods></div>
