@@ -1,0 +1,198 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "progress": 0.5,
+      "sectionBottom": 1973.46875,
+      "textBottom": 870.21875,
+      "noteBottom": 870.21875,
+      "pinBottom": 1000,
+      "sectionTop": -1226.53125,
+      "textTop": 205.78125,
+      "activeOpacity": "1",
+      "bodyColor": "rgba(245, 241, 232, 0.9)",
+      "overflow": false
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "progress": 1,
+      "sectionBottom": 1000.46875,
+      "textBottom": 870.21875,
+      "noteBottom": 870.21875,
+      "pinBottom": 1000,
+      "sectionTop": -2199.53125,
+      "textTop": 205.78125,
+      "activeOpacity": "1",
+      "bodyColor": "rgba(245, 241, 232, 0.9)",
+      "overflow": false
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 700
+      },
+      "progress": 0.5,
+      "sectionBottom": 1343.46875,
+      "textBottom": 772.4375,
+      "noteBottom": 772.4375,
+      "pinBottom": 804.4375,
+      "sectionTop": -896.53125,
+      "textTop": 108,
+      "activeOpacity": "1",
+      "bodyColor": "rgba(245, 241, 232, 0.9)",
+      "overflow": false
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 700
+      },
+      "progress": 1,
+      "sectionBottom": 700.46875,
+      "textBottom": 668.46875,
+      "noteBottom": 668.46875,
+      "pinBottom": 700.46875,
+      "sectionTop": -1539.53125,
+      "textTop": 4.03125,
+      "activeOpacity": "1",
+      "bodyColor": "rgba(245, 241, 232, 0.9)",
+      "overflow": false
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 600
+      },
+      "progress": 0.5,
+      "sectionBottom": 1157.90625,
+      "textBottom": 1045.40625,
+      "noteBottom": 1045.40625,
+      "pinBottom": 1077.40625,
+      "sectionTop": -762.09375,
+      "textTop": 108,
+      "activeOpacity": "1",
+      "bodyColor": "rgba(245, 241, 232, 0.9)",
+      "overflow": false
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 600
+      },
+      "progress": 1,
+      "sectionBottom": 599.90625,
+      "textBottom": 567.90625,
+      "noteBottom": 567.90625,
+      "pinBottom": 599.90625,
+      "sectionTop": -1320.09375,
+      "textTop": -369.5,
+      "activeOpacity": "1",
+      "bodyColor": "rgba(245, 241, 232, 0.9)",
+      "overflow": false
+    },
+    {
+      "viewport": {
+        "width": 943,
+        "height": 390
+      },
+      "progress": 0.5,
+      "sectionBottom": 898.4375,
+      "textBottom": 866.4375,
+      "noteBottom": 866.4375,
+      "pinBottom": 898.4375,
+      "sectionTop": -701.5625,
+      "textTop": -70.96875,
+      "activeOpacity": "1",
+      "bodyColor": "rgba(245, 241, 232, 0.9)",
+      "overflow": false
+    },
+    {
+      "viewport": {
+        "width": 943,
+        "height": 390
+      },
+      "progress": 1,
+      "sectionBottom": 390.4375,
+      "textBottom": 358.4375,
+      "noteBottom": 358.4375,
+      "pinBottom": 390.4375,
+      "sectionTop": -1209.5625,
+      "textTop": -578.96875,
+      "activeOpacity": "1",
+      "bodyColor": "rgba(245, 241, 232, 0.9)",
+      "overflow": false
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "progress": 0.5,
+      "sectionBottom": 1033.046875,
+      "textBottom": 969.046875,
+      "noteBottom": 0,
+      "pinBottom": 1033.046875,
+      "sectionTop": -310.890625,
+      "textTop": 358.859375,
+      "activeOpacity": "1",
+      "bodyColor": "rgba(245, 241, 232, 0.9)",
+      "overflow": false
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "progress": 1,
+      "sectionBottom": 844.046875,
+      "textBottom": 780.046875,
+      "noteBottom": 0,
+      "pinBottom": 844.046875,
+      "sectionTop": -499.890625,
+      "textTop": 169.859375,
+      "activeOpacity": "1",
+      "bodyColor": "rgba(245, 241, 232, 0.9)",
+      "overflow": false
+    },
+    {
+      "viewport": {
+        "width": 320,
+        "height": 740
+      },
+      "progress": 0.5,
+      "sectionBottom": 995.125,
+      "textBottom": 931.125,
+      "noteBottom": 0,
+      "pinBottom": 995.125,
+      "sectionTop": -421.6875,
+      "textTop": 222.9375,
+      "activeOpacity": "1",
+      "bodyColor": "rgba(245, 241, 232, 0.9)",
+      "overflow": false
+    },
+    {
+      "viewport": {
+        "width": 320,
+        "height": 740
+      },
+      "progress": 1,
+      "sectionBottom": 740.125,
+      "textBottom": 676.125,
+      "noteBottom": 0,
+      "pinBottom": 740.125,
+      "sectionTop": -676.6875,
+      "textTop": -32.0625,
+      "activeOpacity": "1",
+      "bodyColor": "rgba(245, 241, 232, 0.9)",
+      "overflow": false
+    }
+  ],
+  "errors": []
+}

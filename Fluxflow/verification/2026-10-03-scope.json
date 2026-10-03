@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "originalTablesUnchanged": 7,
+  "homepageUnchanged": true,
+  "allPreviousStylesheetsUnchanged": true,
+  "unchangedVideoSourceFiles": [
+    "Closing.tsx",
+    "Common.tsx",
+    "Composition.tsx",
+    "Dataset.tsx",
+    "Experience.tsx",
+    "Home.tsx",
+    "Method.tsx",
+    "Results.tsx",
+    "Root.tsx"
+  ],
+  "websiteMovieMatchesFinalExport": true,
+  "posterMatchesFinalExport": true,
+  "completeSourceAssetsVerified": 57,
+  "scientificPixelValuesPreserved": true
+}
