@@ -1,0 +1,138 @@
+{
+  "passed": true,
+  "movie": {
+    "duration": 72.0,
+    "fps": 30.0,
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "changedVideoScenes": [
+    "Closing.tsx",
+    "Experience.tsx"
+  ],
+  "otherVideoSourceFilesUnchanged": true,
+  "originalMusicDecodedBytesUnchanged": true,
+  "reviewedExportFrames": [
+    {
+      "frame": 1950,
+      "meanRGBError": 1.5226797196502058
+    },
+    {
+      "frame": 2110,
+      "meanRGBError": 0.9643008937757201
+    }
+  ],
+  "all7TablesUnchanged": true,
+  "originalMediaAndScriptsUnchanged": 140,
+  "hubbleImageExtractedAtNativeResolution": true,
+  "sameHubbleUsedOnPageAndInMovie": true,
+  "modelFullPDFPagePreserved": true,
+  "openingAndStaticCoverUnchanged": true,
+  "webChecks": {
+    "passed": true,
+    "results": [
+      {
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "geometry": {
+          "width": 1270,
+          "height": 645,
+          "naturalWidth": 2093,
+          "naturalHeight": 1063,
+          "fit": "contain",
+          "filter": "none",
+          "overflow": false
+        },
+        "hubble": {
+          "src": "assets/img/hubble-telescope.jpg",
+          "naturalWidth": 1250,
+          "naturalHeight": 1250,
+          "filter": "none"
+        }
+      },
+      {
+        "viewport": {
+          "width": 1024,
+          "height": 768
+        },
+        "geometry": {
+          "width": 892.09375,
+          "height": 453.078125,
+          "naturalWidth": 2093,
+          "naturalHeight": 1063,
+          "fit": "contain",
+          "filter": "none",
+          "overflow": false
+        },
+        "hubble": {
+          "src": "assets/img/hubble-telescope.jpg",
+          "naturalWidth": 1250,
+          "naturalHeight": 1250,
+          "filter": "none"
+        }
+      },
+      {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "geometry": {
+          "width": 328,
+          "height": 166.578125,
+          "naturalWidth": 2093,
+          "naturalHeight": 1063,
+          "fit": "contain",
+          "filter": "none",
+          "overflow": false
+        },
+        "hubble": {
+          "src": "assets/img/hubble-telescope.jpg",
+          "naturalWidth": 1250,
+          "naturalHeight": 1250,
+          "filter": "none"
+        }
+      },
+      {
+        "viewport": {
+          "width": 320,
+          "height": 740
+        },
+        "geometry": {
+          "width": 258,
+          "height": 131.03125,
+          "naturalWidth": 2093,
+          "naturalHeight": 1063,
+          "fit": "contain",
+          "filter": "none",
+          "overflow": false
+        },
+        "hubble": {
+          "src": "assets/img/hubble-telescope.jpg",
+          "naturalWidth": 1250,
+          "naturalHeight": 1250,
+          "filter": "none"
+        }
+      }
+    ],
+    "errors": [],
+    "requests": [],
+    "methodFullFigureViewer": "passed",
+    "mobileVideoScreensUpdated": true
+  },
+  "embeddedVideoPlayback": {
+    "passed": true,
+    "metadata": {
+      "duration": 72,
+      "width": 1920,
+      "height": 1080,
+      "src": "http://127.0.0.1:8766/FluxFlow_Chroma%E7%89%88/assets/video/film.mp4?v=hubble-update"
+    },
+    "desktopAndMobile": "passed",
+    "playPauseSeekAndSound": "passed",
+    "errors": []
+  }
+}
