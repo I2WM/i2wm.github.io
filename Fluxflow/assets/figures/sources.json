@@ -1,0 +1,23 @@
+{
+  "hubble": {
+    "source": "sup_observers.pdf",
+    "sourcePDFSHA256": "900f03326a015068134063fa98641a984e8fe7df18049b0ede524df3c3998c0f",
+    "page": 1,
+    "position": "left",
+    "xref": 15,
+    "nativeDimensions": [
+      1250,
+      1250
+    ],
+    "extractedBytesSHA256": "c033bdbc8c1f34bed71b308941cf109717f2b8668734a15fdaf1d5d11440453d",
+    "originalRasterBytesPreserved": true
+  },
+  "model": {
+    "source": "sup_model(1).pdf",
+    "sourcePDFSHA256": "3b07cae25c9eff28dc849b176fbd4e6553226e523645fd6450f063c2a25aa3ce",
+    "page": 1,
+    "renderScale": 4,
+    "fullPagePreserved": true,
+    "rasterSHA256": "67f9008ca748cbdd068219275b4156ea187adb764bc527364352ee1c221a0861"
+  }
+}

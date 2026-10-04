@@ -66,8 +66,8 @@ function visibleLoop(el, draw) {
   return () => { if (REDUCED) draw(performance.now()); };
 }
 
-const TOK = { star:'#F4F1E9', moon:'#C9BBDD', faint:'#B695FF', dim:'#A28BAE',
-              viol:'#FF2D78', ground:'#D4FF3D', ok:'#D4FF3D', space:'#B695FF', rule:'rgba(242,239,230,.12)' };
+const TOK = { star:'#E6EDF7', moon:'#B8C7DC', faint:'#B19DFA', dim:'#8E9FB8',
+              viol:'#B19DFA', ground:'#7ECFE0', ok:'#7ECFE0', space:'#B19DFA', rule:'rgba(184,199,220,.12)' };
 
 // ---------------------------------------------------------------------------
 // 1. HERO —the film's title card, live
@@ -169,7 +169,7 @@ const BODY = { x: 0.71, y: 0.42, size: 0.34, R: 0.245, k: 0.30, tilt: -0.30, img
     cx.fillStyle = g; cx.fillRect(0, 0, S, S);
     cx.globalCompositeOperation = 'source-over';
     cx.beginPath(); cx.arc(S / 2, S / 2, R - 0.5, 0, 6.284);
-    cx.lineWidth = 1; cx.strokeStyle = 'rgba(242,239,230,.20)'; cx.stroke();
+    cx.lineWidth = 1; cx.strokeStyle = 'rgba(184,199,220,.20)'; cx.stroke();
     BODY.img = c;
   };
   img.src = (window.__INLINE_IMG && window.__INLINE_IMG.starCluster) || 'assets/img/star-cluster.jpg';
@@ -463,7 +463,7 @@ const BODY = { x: 0.71, y: 0.42, size: 0.34, R: 0.245, k: 0.30, tilt: -0.30, img
       if (sh < 1) {
         ctx.save();
         ctx.globalCompositeOperation = 'lighter';
-        ctx.strokeStyle = 'rgba(242,239,230,0.9)';
+        ctx.strokeStyle = 'rgba(184,199,220,0.9)';
         for (let i = 0; i < 3; i++) {
           const k = clamp(sh - i * 0.085);
           if (k <= 0) continue;
@@ -569,14 +569,14 @@ function psfCanvas() {
     const dt = Math.min(0.05, (now - (draw.last || now)) / 1000); draw.last = now;
     st.tick(dt);
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#211327'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#0c1421'; ctx.fillRect(0, 0, W, H);
     const P = st.project(W, H, null, 0.86);
     const SX = 0.40, SZ = 0.40, HGT = 0.62, GAP = 0.60;
     const rise = clamp((now - t0) / 1100);
 
     /* the floor they stand on */
     ctx.save();
-    ctx.strokeStyle = 'rgba(242,239,230,.09)'; ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(184,199,220,.09)'; ctx.lineWidth = 1;
     const rows = [[-1.32, 1.32]];
     for (const [a, b] of rows) {
       for (let k = 0; k < 3; k++) {
@@ -640,8 +640,8 @@ function psfCanvas() {
     const order = [0, 1, 2].sort((a, c) => col[a] - col[c]);
     const legY = H - 60, pad = 14, colW = (W - pad * 2) / 3;
     const scrim2 = ctx.createLinearGradient(0, legY - 34, 0, H - 40);
-    scrim2.addColorStop(0, 'rgba(33,19,39,0)');
-    scrim2.addColorStop(1, 'rgba(33,19,39,.88)');
+    scrim2.addColorStop(0, 'rgba(12,20,33,0)');
+    scrim2.addColorStop(1, 'rgba(12,20,33,.88)');
     ctx.save();
     ctx.globalAlpha = rise;
     ctx.fillStyle = scrim2; ctx.fillRect(0, legY - 34, W, H - 40 - (legY - 34));
@@ -781,7 +781,7 @@ function halCanvas() {
 
     st.tick(dt);
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#211327'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#0c1421'; ctx.fillRect(0, 0, W, H);
     const P = st.project(W, H, null, 0.92);
     const SX = 1.05, SZ = 0.68, BASE = -0.10;
     /* the residual field: 1 - eff of every invented source, flattened by over-smoothing */
@@ -894,13 +894,13 @@ function flowCanvas() {
     const u = clamp((T - 0.12) / 0.78);
 
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#211327'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#0c1421'; ctx.fillRect(0, 0, W, H);
     const P = st.project(W, H, null, 1.0);
     const R = 1.0;
 
     /* the noise shell, as hairlines: three great circles is enough to read a sphere */
     ctx.save();
-    ctx.strokeStyle = 'rgba(242,239,230,.09)'; ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(184,199,220,.09)'; ctx.lineWidth = 1;
     for (const plane of [0, 1, 2]) {
       ctx.beginPath();
       for (let i = 0; i <= 48; i++) {
@@ -950,7 +950,7 @@ function flowCanvas() {
       const g = ctx.createRadialGradient(hx, hy, 0, hx, hy, r);
       g.addColorStop(0, 'rgba(255,255,255,.95)');
       g.addColorStop(0.4, 'rgba(206,196,255,.35)');
-      g.addColorStop(1, 'rgba(255,45,120,0)');
+      g.addColorStop(1, 'rgba(177,157,250,0)');
       ctx.fillStyle = g; ctx.beginPath(); ctx.arc(hx, hy, r, 0, 6.284); ctx.fill();
       ctx.restore();
       /* the start of the path stays marked, so the shell counts as samples rather than dust */
@@ -1109,11 +1109,11 @@ function pointerReadout(ctx, W, H, st, x, y, big, sub, colour, show) {
   ctx.font = '500 10px "Source Sans 3", sans-serif';
   const wSub = ctx.measureText(sub).width;
   const w = Math.max(wBig, wSub) + 20;
-  ctx.strokeStyle = 'rgba(242,239,230,.28)'; ctx.lineWidth = 1;
+  ctx.strokeStyle = 'rgba(184,199,220,.28)'; ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(x + 5, y - 5); ctx.lineTo(tx - 8, ty + 2); ctx.stroke();
-  ctx.fillStyle = 'rgba(33,19,39,.88)';
+  ctx.fillStyle = 'rgba(12,20,33,.88)';
   ctx.fillRect(tx - 10, ty - 12, w, 38);
-  ctx.strokeStyle = 'rgba(242,239,230,.14)';
+  ctx.strokeStyle = 'rgba(184,199,220,.14)';
   ctx.strokeRect(tx - 10, ty - 12, w, 38);
   ctx.textAlign = 'left';
   if (show) {
@@ -1130,8 +1130,8 @@ function screenLabel(ctx, W, H, state, left, right, hint) {
   /* a gallery caption sits on a fade, not on the object: the geometry reaches the foot of the
      panel and a faint label printed straight onto it disappears */
   const scrim = ctx.createLinearGradient(0, H - 64, 0, H);
-  scrim.addColorStop(0, 'rgba(33,19,39,0)');
-  scrim.addColorStop(1, 'rgba(33,19,39,.92)');
+  scrim.addColorStop(0, 'rgba(12,20,33,0)');
+  scrim.addColorStop(1, 'rgba(12,20,33,.92)');
   ctx.fillStyle = scrim; ctx.fillRect(0, H - 64, W, 64);
   ctx.font = '500 11px "Source Sans 3", sans-serif';
   const stacked = ctx.measureText(left).width + ctx.measureText(right).width > W - 40;
@@ -1182,7 +1182,7 @@ function whtCanvas() {
     st.tick(dt);
     const rise = clamp((now - t0) / 1400);
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#211327'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#0c1421'; ctx.fillRect(0, 0, W, H);
 
     const P = st.project(W, H, null, 1);
     const HW = 1.05, HZ = 0.78, HH = 0.88;
@@ -1197,7 +1197,7 @@ function whtCanvas() {
     pool.addColorStop(1, 'rgba(120,134,158,0)');
     ctx.fillStyle = pool; ctx.fillRect(0, 0, W, H);
     ctx.save();
-    ctx.strokeStyle = 'rgba(242,239,230,.10)'; ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(184,199,220,.10)'; ctx.lineWidth = 1;
     for (let i = 0; i <= G; i += 1) {
       const a = P(gx(i) - HW / (G - 1), 0, -HZ), b = P(gx(i) - HW / (G - 1), 0, HZ);
       ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
@@ -1253,7 +1253,7 @@ function whtCanvas() {
       void base;
       const bx = (hotTop[0].x + hotTop[2].x) / 2, by = (hotTop[0].y + hotTop[2].y) / 2;
       ctx.save();
-      ctx.strokeStyle = 'rgba(255,45,120,.55)'; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+      ctx.strokeStyle = 'rgba(177,157,250,.55)'; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
       ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(bx, P(0, 0, 0).y + (by - P(0, 0, 0).y) * 0); ctx.stroke();
       ctx.setLineDash([]);
       ctx.restore();
@@ -1304,7 +1304,7 @@ function mcfsCanvas() {
     const est = lerp(0.34, 0.62, u);
 
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#211327'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#0c1421'; ctx.fillRect(0, 0, W, H);
 
     const P = st.project(W, H, null, 0.94);
     const SX = 1.15, SZ = 1.15, SY = 1.15;
@@ -1314,7 +1314,7 @@ function mcfsCanvas() {
 
     /* the zero plane, so the negative skirt is legible */
     ctx.save();
-    ctx.strokeStyle = 'rgba(242,239,230,.13)'; ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(184,199,220,.13)'; ctx.lineWidth = 1;
     for (let i = 0; i < G; i += 2) {
       const a = P(X(i), -0.16, -SZ), b = P(X(i), -0.16, SZ);
       ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
@@ -1363,8 +1363,8 @@ function mcfsCanvas() {
     ctx.globalCompositeOperation = 'lighter';
     const g = ctx.createRadialGradient(e.x, e.y, 0, e.x, e.y, 26);
     g.addColorStop(0, 'rgba(255,255,255,.95)');
-    g.addColorStop(0.3, 'rgba(255,45,120,.5)');
-    g.addColorStop(1, 'rgba(255,45,120,0)');
+    g.addColorStop(0.3, 'rgba(177,157,250,.5)');
+    g.addColorStop(1, 'rgba(177,157,250,0)');
     ctx.fillStyle = g; ctx.beginPath(); ctx.arc(e.x, e.y, 26, 0, 6.284); ctx.fill();
     ctx.restore();
     ctx.save();
@@ -1999,7 +1999,7 @@ function storySection() {
        identity, so a rule underneath is simply covered by the middle one; dashed over
        the top it reads as the measured reference the curves depart from. */
     ctx.save();
-    ctx.strokeStyle = 'rgba(242,239,230,.42)'; ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(184,199,220,.42)'; ctx.lineWidth = 1;
     ctx.setLineDash([3, 4]);
     ctx.beginPath(); ctx.moveTo(pad, H - pad); ctx.lineTo(pad + side, pad); ctx.stroke();
     ctx.restore();
@@ -2031,7 +2031,7 @@ function storySection() {
     // never leave the frame empty: if the sprite is not ready yet, say so with a
     // placeholder instead of a silent black box
     if (!ground) {
-      ctx.fillStyle = '#211327'; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = '#0c1421'; ctx.fillRect(0, 0, W, H);
       ctx.save();
       ctx.fillStyle = TOK.faint; ctx.font = '500 12px "Source Sans 3", sans-serif';
       ctx.textAlign = 'center';
@@ -2221,9 +2221,9 @@ else boot();
   ];
 
   var SERIES = [
-    { key: 'psnr', color: '#F4F1E9' },
-    { key: 'l1',   color: '#B695FF' },
-    { key: 'f1',   color: '#D4FF3D' }
+    { key: 'psnr', color: '#E6EDF7' },
+    { key: 'l1',   color: '#B19DFA' },
+    { key: 'f1',   color: '#7ECFE0' }
   ];
 
   function draw(k, canvas, value) {
@@ -2243,16 +2243,16 @@ else boot();
     var Y = function (q) { return PT + (1 - Math.max(0, Math.min(1, q))) * ih; };
 
     /* grid */
-    g.strokeStyle = 'rgba(242,239,230,.07)'; g.lineWidth = 1;
+    g.strokeStyle = 'rgba(184,199,220,.07)'; g.lineWidth = 1;
     for (var i = 0; i <= 4; i++) {
       var yy = Math.round(PT + ih * i / 4) + .5;
       g.beginPath(); g.moveTo(PL, yy); g.lineTo(PL + iw, yy); g.stroke();
     }
-    g.strokeStyle = 'rgba(242,239,230,.16)';
+    g.strokeStyle = 'rgba(184,199,220,.16)';
     g.beginPath(); g.moveTo(PL + .5, PT); g.lineTo(PL + .5, PT + ih); g.stroke();
 
     /* axis labels */
-    g.fillStyle = '#B695FF';
+    g.fillStyle = '#B19DFA';
     g.font = '10px ui-monospace, SFMono-Regular, Menlo, monospace';
     g.textAlign = 'right'; g.textBaseline = 'middle';
     g.fillText('best', PL - 6, PT + 6);
@@ -2265,7 +2265,7 @@ else boot();
     /* default rule */
     var dx = Math.round(X(k.def)) + .5;
     g.save();
-    g.strokeStyle = 'rgba(255,45,120,.42)'; g.setLineDash([3, 3]);
+    g.strokeStyle = 'rgba(177,157,250,.42)'; g.setLineDash([3, 3]);
     g.beginPath(); g.moveTo(dx, PT); g.lineTo(dx, PT + ih); g.stroke();
     g.restore();
 
@@ -2286,12 +2286,12 @@ else boot();
 
     /* live markers */
     var vx = X(value), vl = Math.round(vx) + .5;
-    g.strokeStyle = 'rgba(255,45,120,.55)';
+    g.strokeStyle = 'rgba(177,157,250,.55)';
     g.beginPath(); g.moveTo(vl, PT); g.lineTo(vl, PT + ih); g.stroke();
     for (var t = 0; t < SERIES.length; t++) {
       var sr = SERIES[t], qv = sr, py2 = Y(k.q[sr.key](value));
       g.beginPath(); g.arc(vx, py2, 3.1, 0, Math.PI * 2);
-      g.fillStyle = '#211327'; g.fill();
+      g.fillStyle = '#0c1421'; g.fill();
       g.lineWidth = 1.5; g.strokeStyle = sr.color; g.stroke();
     }
   }
@@ -2405,8 +2405,8 @@ else boot();
       });
       Array.prototype.forEach.call(rows, function (r) {
         var on = r.getAttribute('data-m') === m;
-        r.style.background = on && m === 'ours' ? 'rgba(255,45,120,.055)'
-                            : on ? 'rgba(242,239,230,.028)' : '';
+        r.style.background = on && m === 'ours' ? 'rgba(177,157,250,.055)'
+                            : on ? 'rgba(184,199,220,.028)' : '';
       });
     }
 
