@@ -1,0 +1,18 @@
+{
+  "instruction": "User screenshot: remove I2WM from Ziteng Cui; include Quanfeng Xu",
+  "verified_url": "https://github.com/I2WM/FluxFlow#readme",
+  "date": "2026-10-06",
+  "Ziteng Cui": {
+    "affiliations": [
+      "The University of Tokyo"
+    ],
+    "superscript": "1"
+  },
+  "Quanfeng Xu": {
+    "affiliations": [
+      "Shanghai Astronomical Observatory"
+    ],
+    "superscript": "3*"
+  },
+  "note": "Latest user instruction and current README supersede the older local manuscript for Ziteng affiliation; other authors unchanged"
+}

@@ -1,0 +1,193 @@
+{
+  "hero": [
+    {
+      "name": "Shuhong Liu",
+      "affiliation": "1,2*◆"
+    },
+    {
+      "name": "Xining Ge",
+      "affiliation": "2*"
+    },
+    {
+      "name": "Quanfeng Xu",
+      "affiliation": "3*"
+    },
+    {
+      "name": "Ziteng Cui",
+      "affiliation": "1"
+    },
+    {
+      "name": "Liuzhuozheng Li",
+      "affiliation": "1"
+    },
+    {
+      "name": "Gengjia Chang",
+      "affiliation": "2"
+    },
+    {
+      "name": "Jun Liu",
+      "affiliation": "2"
+    },
+    {
+      "name": "Ziying Gu",
+      "affiliation": "1"
+    },
+    {
+      "name": "Dong Li",
+      "affiliation": "2"
+    },
+    {
+      "name": "Xuangeng Chu",
+      "affiliation": "1,2"
+    },
+    {
+      "name": "Lin Gu",
+      "affiliation": "4"
+    },
+    {
+      "name": "Tatsuya Harada",
+      "affiliation": "1,5"
+    }
+  ],
+  "team": [
+    {
+      "name": "Shuhong Liu",
+      "affiliation": "1,2*◆"
+    },
+    {
+      "name": "Xining Ge",
+      "affiliation": "2*"
+    },
+    {
+      "name": "Quanfeng Xu",
+      "affiliation": "3*"
+    },
+    {
+      "name": "Ziteng Cui",
+      "affiliation": "1"
+    },
+    {
+      "name": "Liuzhuozheng Li",
+      "affiliation": "1"
+    },
+    {
+      "name": "Gengjia Chang",
+      "affiliation": "2"
+    },
+    {
+      "name": "Jun Liu",
+      "affiliation": "2"
+    },
+    {
+      "name": "Ziying Gu",
+      "affiliation": "1"
+    },
+    {
+      "name": "Dong Li",
+      "affiliation": "2"
+    },
+    {
+      "name": "Xuangeng Chu",
+      "affiliation": "1,2"
+    },
+    {
+      "name": "Lin Gu",
+      "affiliation": "4"
+    },
+    {
+      "name": "Tatsuya Harada",
+      "affiliation": "1,5"
+    }
+  ],
+  "refined": [
+    "top",
+    "film",
+    "method",
+    "compare",
+    "dataset",
+    "paper"
+  ],
+  "resultsUsesA": true,
+  "bibtex": "@misc{liu2026fluxflow,\n  title     = {{FluxFlow: Conservative Flow-Matching for\n               Astronomical Image Super-Resolution}},\n  author    = {Liu, Shuhong and Ge, Xining and Xu, Quanfeng and\n               Cui, Ziteng and Li, Liuzhuozheng and Chang, Gengjia and\n               Liu, Jun and Gu, Ziying and Li, Dong and\n               Chu, Xuangeng and Gu, Lin and Harada, Tatsuya},\n  note      = {NeurIPS 2026 submission; author list follows the local manuscript},\n  year      = {2026},\n  url       = {https://arxiv.org/abs/2605.03749}\n}",
+  "affiliates": "1The University of Tokyo2I2WM3Shanghai Astronomical Observatory (SHAO)4Tohoku University5RIKEN",
+  "source": "assets/video/film-hubble-corrected-20261006.mp4",
+  "allLinks": [
+    {
+      "text": "Watch the film",
+      "url": "#film"
+    },
+    {
+      "text": "Paper",
+      "url": "https://arxiv.org/abs/2605.03749"
+    },
+    {
+      "text": "Dataset",
+      "url": "#dataset"
+    },
+    {
+      "text": "BibTeX",
+      "url": "#cite"
+    },
+    {
+      "text": "Code",
+      "url": "https://github.com/I2WM/FluxFlow"
+    }
+  ],
+  "scientificImages": [
+    {
+      "src": "assets/img/model-architecture.png",
+      "width": 2093,
+      "height": 1063,
+      "fit": "contain",
+      "filter": "none"
+    },
+    {
+      "src": "assets/img/hubble-telescope.jpg",
+      "width": 1250,
+      "height": 1250,
+      "fit": "contain",
+      "filter": "none"
+    }
+  ],
+  "imageFailures": [],
+  "errors": [],
+  "widths": [
+    {
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "width": 1024,
+      "scroll": 1024
+    },
+    {
+      "width": 768,
+      "scroll": 768
+    },
+    {
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "width": 320,
+      "scroll": 320
+    }
+  ],
+  "checks": {
+    "heroNames": true,
+    "heroZitengOnlyTokyo": true,
+    "heroQuanfengSHAOEqual": true,
+    "teamNames": true,
+    "teamZitengOnlyTokyo": true,
+    "teamQuanfengSHAOEqual": true,
+    "exactSelection": true,
+    "resultsKeptA": true,
+    "bibtexHasQuanfeng": true,
+    "fiveInstitutions": true,
+    "scienceImagesIntact": true,
+    "noMissingImages": true,
+    "noScriptErrors": true,
+    "correctResults": true,
+    "noPageHorizontalOverflow": true
+  }
+}

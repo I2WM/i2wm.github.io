@@ -970,7 +970,7 @@ function flowCanvas() {
         'straight, length ' + len.toFixed(2) + ' \u00b7 no bending',
         TOK.star, true);
     }
-    screenLabel(ctx, W, H, st, 't = 0  OBSERVATION', 't = 1  ESTIMATE', st.inside ? 'CLICK AND DRAG TO ORBIT' : 'DRAG TO ORBIT');
+    screenLabel(ctx, W, H, st, 't = 0  GAUSSIAN NOISE', 't = 1  ESTIMATE', st.inside ? 'CLICK AND DRAG TO ORBIT' : 'DRAG TO ORBIT');
   }
   visibleLoop(cv, draw)();
   draw(performance.now());
@@ -2076,7 +2076,7 @@ const TABLES = {
     rows: [
       ['\u00d72', 'PSNR \u2191',  '26.69', '31.22', '31.31', '30.93', '28.88', '28.82', '28.38', '31.23'],
       ['\u00d72', 'SSIM \u2191',  '0.594', '0.702', '0.711', '0.704', '0.579', '0.692', '0.626', '0.714'],
-      ['\u00d72', 'Flux-L1 \u2193', '11.25', '14.136', '3.695', '3.526', '4.502', '3.639', '5.151', '2.959'],
+      ['\u00d72', 'Flux-L1 \u2193', '11.251', '4.136', '3.695', '3.526', '4.502', '3.639', '5.151', '2.959'],
       ['\u00d74', 'PSNR \u2191',  '22.74', '29.15', '29.21', '29.02', '26.48', '24.64', '24.72', '29.14'],
       ['\u00d74', 'SSIM \u2191',  '0.415', '0.569', '0.570', '0.568', '0.477', '0.496', '0.514', '0.570'],
       ['\u00d74', 'Flux-L1 \u2193', '18.08', '4.939', '4.168', '4.082', '5.479', '4.599', '6.542', '3.755'],
@@ -2164,7 +2164,7 @@ else boot();
   var KNOBS = [
     {
       id: 'psf', lo: 1, hi: 6, def: 2, fmt: function (v) { return v.toFixed(1); },
-      xlab: '\u03b3 PSF  (HR pixels)',
+      xlab: '\u03c3 PSF  (HR pixels)',
       q: {
         psnr: function (v) { return 1 - (v - 1) / 5; },
         l1:   function (v) { return 0.30 + 0.62 * Math.exp(-Math.pow((v - 3.5) / 2.2, 2)); },
@@ -2172,25 +2172,25 @@ else boot();
       },
       note: function (v) {
         if (v < 1.7) return 'Narrower than default: the Wiener step back-projects less of the LR residual, so Flux-L1 and detection F1 sit below their plateau.';
-        if (v <= 2.3) return 'Default. Both scales are run at \u03b3_PSF = 2 HR pixels.';
+        if (v <= 2.3) return 'Default. Both scales are run at \u03c3_PSF = 2 HR pixels.';
         if (v <= 4.4) return 'Inside the broad plateau: PSNR keeps falling while Flux-L1 and detection F1 hold.';
         return 'Past the plateau: an over-wide forward kernel starts to cost Flux-L1 and detection F1 as well.';
       }
     },
     {
       id: 'snr', lo: 10, hi: 100, def: 50, fmt: function (v) { return String(Math.round(v)); },
-      xlab: '\u03be SNR',
+      xlab: '\u03bb SNR',
       q: {
         psnr: function (v) { return 0.900 + 0.012 * Math.sin(v / 7.3); },
         l1:   function (v) { return 0.720 + 0.012 * Math.sin(v / 5.1 + 1.4); },
         f1:   function (v) { return 0.805 + 0.012 * Math.sin(v / 6.2 + 2.7); }
       },
       note: function () {
-        return 'Flat end to end: sweeping \u03be_SNR from 10 to 100 leaves PSNR, Flux-L1 and detection F1 essentially unchanged \u2014 the spectral analysis of \u00a7E.2\u2013E.3 predicts exactly this.';
+        return 'Flat end to end: sweeping \u03bb_SNR from 10 to 100 leaves PSNR, Flux-L1 and detection F1 essentially unchanged \u2014 the spectral analysis of \u00a7E.2\u2013E.3 predicts exactly this.';
       }
     },
     {
-      id: 'eta', lo: 0.05, hi: 0.95, def: 0.5, fmt: function (v) { return v.toFixed(2); },
+      id: 'eta', lo: 0.1, hi: 1.0, def: 0.5, fmt: function (v) { return v.toFixed(2); },
       xlab: '\u03b7 0',
       q: {
         psnr: function (v) { return Math.max(0, 1 - 2.2 * Math.pow(v - 0.4, 2)); },
@@ -2205,7 +2205,7 @@ else boot();
       }
     },
     {
-      id: 'steps', lo: 2, hi: 30, def: 10, fmt: function (v) { return String(Math.round(v)); },
+      id: 'steps', lo: 5, hi: 60, def: 10, fmt: function (v) { return String(Math.round(v)); },
       xlab: 'T   (sampling steps)',
       q: {
         psnr: function (v) { return Math.max(0, 1 - 0.8 * (v - 2) / 28); },

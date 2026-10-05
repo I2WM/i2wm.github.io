@@ -1,0 +1,14 @@
+{
+  "selection": "01B 02B 03B 04A 05B 06B 07B",
+  "target": "D:\\xwechat_files\\wxid_2nae89ixqo2s12_6429\\msg\\file\\2026-10\\FluxFlow_哈勃与方法图更新版\\FluxFlow_Chroma版",
+  "changed_existing_files": [
+    "index.html",
+    "README.txt",
+    "assets/js/site.js"
+  ],
+  "original_assets_preserved_except_site_js": true,
+  "video_sha256": "92e3951cf17afc6073cea686f518acc2ca65f890809b09c9064d498416b7036b",
+  "Ziteng_Cui": "Tokyo only (1)",
+  "Quanfeng_Xu": "SHAO, equal contribution (3*)",
+  "online_published": false
+}
