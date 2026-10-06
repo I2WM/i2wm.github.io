@@ -18,9 +18,9 @@
  byId('results').querySelector('.metric--hero').append(make('p','refine-only metric-context','Lower is better<br><span>DESI–HST · ×2</span>'));
  byId('compare').querySelector('.cmp-stage').insertAdjacentElement('afterend',make('p','refine-only compare-guide','<span aria-hidden="true">↔</span> Drag the divider to inspect the same field'));
  const stats=make('dl','refine-only release-stats','<div><dt>Training</dt><dd>17,737</dd></div><div><dt>Test</dt><dd>1,701</dd></div><div><dt>Scales</dt><dd>×2 / ×4</dd></div>');
- const download=make('a','refine-only release-download','Download the dataset <span aria-hidden="true">↗</span><small>Hugging Face · COSMOS / UDS</small>');
- download.href='https://huggingface.co/datasets/xiningning/FluxFlow';download.target='_blank';download.rel='noopener';
- const dataset=byId('dataset');dataset.querySelector('.dek').after(stats,download);
+ const availability=make('div','refine-only data-availability','<strong>Dataset not publicly available</strong><small>DESI–HST data are described here for reference; no public download is provided.</small>');
+ availability.setAttribute('role','note');
+ const dataset=byId('dataset');dataset.querySelector('.dek').after(stats,availability);
  const resources=make('nav','refine-only resource-actions','');resources.setAttribute('aria-label','Primary research resources');
  [...byId('paper').querySelectorAll('.links>li')].slice(0,3).forEach(li=>{const a=li.querySelector('a').cloneNode(true);resources.append(a)});
  byId('paper').querySelector('.paper-venue').after(resources);
