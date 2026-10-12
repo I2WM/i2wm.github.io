@@ -1,0 +1,192 @@
+WEBVTT
+
+00:00:00.833 --> 00:00:05.033
+FluxFlow reconstructs a higher resolution
+astronomical image from a ground
+
+00:00:05.033 --> 00:00:08.933
+based observation. The goal is to recover
+structure and source brightness,
+
+00:00:09.133 --> 00:00:11.733
+while avoiding objects the measurement does not
+support.
+
+00:00:14.700 --> 00:00:17.800
+DESI provides the blurred, noisy ground based
+input.
+
+00:00:18.067 --> 00:00:21.600
+The Hubble Space Telescope supplies a sharper
+observational reference.
+
+00:00:21.933 --> 00:00:25.467
+FluxFlow estimates a two times or four times
+reconstruction;
+
+00:00:25.700 --> 00:00:28.000
+it does not replace a new Hubble observation.
+
+00:00:30.800 --> 00:00:34.733
+The DESI Hubble dataset uses aligned
+observations, not synthetic blur
+
+00:00:34.733 --> 00:00:38.467
+alone. The paper studies about 19,500 pairs.
+
+00:00:38.733 --> 00:00:46.033
+The prepared version contains 19,438 pairs per
+scale, together with reliability maps and source
+labels.
+
+00:00:48.367 --> 00:00:50.767
+Regression models can oversmooth fine detail.
+
+00:00:51.033 --> 00:00:55.033
+Generative models can turn noise into plausible
+stars or galaxies.
+
+00:00:55.333 --> 00:00:59.167
+These hallucinated sources can bias catalogues
+and flux measurements.
+
+00:00:59.433 --> 00:01:01.800
+Looking sharper is not enough for scientific
+use.
+
+00:01:04.500 --> 00:01:08.433
+FluxFlow learns a continuous flow from Gaussian
+noise to a reconstructed
+
+00:01:08.433 --> 00:01:11.000
+image, conditioned on the DESI observation.
+
+00:01:11.267 --> 00:01:15.700
+It works directly in pixel space, avoiding a
+lossy latent image compressor.
+
+00:01:18.367 --> 00:01:19.900
+Training combines two weights.
+
+00:01:20.167 --> 00:01:24.333
+Hubble inverse variance maps reduce the
+influence of unreliable pixels.
+
+00:01:24.633 --> 00:01:27.967
+Source region masks give stars and galaxies
+greater importance.
+
+00:01:28.267 --> 00:01:31.867
+These reference derived maps supervise training,
+not inference.
+
+00:01:34.467 --> 00:01:38.267
+During sampling, blur and downsample the
+candidate reconstruction with
+
+00:01:38.267 --> 00:01:42.167
+a physical forward model. Compare that
+projection with the observed DESI
+
+00:01:42.167 --> 00:01:47.000
+image. The difference is a residual that reveals
+inconsistency with the measurement.
+
+00:01:49.833 --> 00:01:54.467
+A Wiener regularized back projection turns that
+residual into a high resolution
+
+00:01:54.467 --> 00:01:58.600
+correction. Repeating the check at every flow
+step suppresses unsupported
+
+00:01:58.600 --> 00:02:02.800
+structure. The regularization helps avoid
+cumulative blur from repeated
+
+00:02:02.800 --> 00:02:04.300
+ordinary back projections.
+
+00:02:06.667 --> 00:02:10.100
+The paper compares FluxFlow with regression and
+generative baselines at
+
+00:02:10.100 --> 00:02:14.600
+both scales. Inspect the same stars and galaxies
+against the Hubble reference,
+
+00:02:14.833 --> 00:02:18.300
+rather than treating a visually convincing
+texture as evidence.
+
+00:02:21.333 --> 00:02:24.933
+FluxFlow achieves the lowest source flux error
+among the compared methods:
+
+00:02:25.133 --> 00:02:30.233
+2.959 at two times and 3.755 at four times.
+
+00:02:30.500 --> 00:02:38.133
+Structural similarity reaches 0.714 and 0.570,
+respectively, with the latter tied for best.
+
+00:02:41.033 --> 00:02:42.767
+Ablations explain the mechanism.
+
+00:02:43.033 --> 00:02:46.067
+Without measurement consistency, false sources
+increase.
+
+00:02:46.367 --> 00:02:49.767
+Without Wiener correction, repeated projections
+broaden sources.
+
+00:02:50.067 --> 00:02:53.867
+Reliability weighting also reduces learning from
+instrumental defects.
+
+00:02:54.133 --> 00:02:56.800
+Each component serves a different scientific
+purpose.
+
+00:02:59.333 --> 00:03:01.833
+Hallucinations are reduced, not eliminated.
+
+00:03:02.100 --> 00:03:06.267
+The historical patch split contains overlapping
+sky regions, so its reported
+
+00:03:06.267 --> 00:03:10.233
+results should not be read as spatially
+independent generalization.
+
+00:03:10.500 --> 00:03:13.333
+More demanding scientific validation remains
+necessary.
+
+00:03:16.200 --> 00:03:20.733
+Future research includes explicit joint
+denoising, multispectral reconstruction,
+
+00:03:20.867 --> 00:03:22.667
+and uncertainty calibrated sampling.
+
+00:03:22.967 --> 00:03:26.167
+Broader telescope and noise conditions need
+further evaluation.
+
+00:03:26.433 --> 00:03:31.133
+These are research directions, not capabilities
+demonstrated by the current single band system.
+
+00:03:33.733 --> 00:03:37.800
+Explore the paper and code to understand how
+FluxFlow balances restored
+
+00:03:37.800 --> 00:03:39.933
+detail with observational evidence.
+
+00:03:40.200 --> 00:03:44.367
+Conservative reconstruction is a step toward
+more reliable astronomical imaging.
+

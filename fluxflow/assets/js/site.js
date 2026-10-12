@@ -1470,7 +1470,7 @@ function filmPlayer() {
   if (!frame) return;
   const video = $('.film-video', frame);
   const bar = $('[data-bar]', frame), time = $('[data-time]', frame);
-  let dragging = false, userPaused = false;
+  let dragging = false, userPaused = false, userStarted = false;
   const fmt = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
   const sync = () => {
     frame.classList.toggle('is-paused', video.paused);
@@ -1479,7 +1479,7 @@ function filmPlayer() {
     frame.classList.toggle('is-sound', !video.muted && video.volume > 0);
   };
   const tick = () => {
-    const d = video.duration || 72, t = video.currentTime;
+    const d = video.duration || Number(video.dataset.duration) || 0, t = video.currentTime;
     bar.style.setProperty('--p', (t / d * 100).toFixed(2) + '%');
     if (video.buffered.length) bar.style.setProperty('--buf', (video.buffered.end(video.buffered.length - 1) / d * 100).toFixed(2) + '%');
     time.textContent = `${fmt(t)} / ${fmt(d)}`;
@@ -1491,35 +1491,37 @@ function filmPlayer() {
   ['play', 'pause', 'volumechange'].forEach(ev => video.addEventListener(ev, sync));
   ['timeupdate', 'progress'].forEach(ev => video.addEventListener(ev, tick));
   const toggle = () => {
+    if (!userStarted) { video.muted = false; video.volume = 1; }
+    userStarted = true;
     userPaused = !video.paused;
     if (video.paused) video.play().catch(() => {}); else video.pause();
   };
   video.addEventListener('click', toggle);
   $('[data-play]', frame).addEventListener('click', toggle);
   $('[data-mute]', frame).addEventListener('click', () => { video.muted = !video.muted; if (!video.muted) video.volume = 1; });
-  $('[data-sound]', frame).addEventListener('click', () => { video.muted = false; video.volume = 1; video.play().catch(() => {}); });
+  $('[data-sound]', frame).addEventListener('click', () => { userStarted = true; userPaused = false; video.muted = false; video.volume = 1; video.play().catch(() => {}); });
   $('[data-full]', frame).addEventListener('click', () => {
     if (document.fullscreenElement) document.exitFullscreen();
     else if (frame.requestFullscreen) frame.requestFullscreen();
   });
   const seek = e => {
     const r = bar.getBoundingClientRect();
-    video.currentTime = clamp((e.clientX - r.left) / r.width) * (video.duration || 72);
+    video.currentTime = clamp((e.clientX - r.left) / r.width) * (video.duration || Number(video.dataset.duration) || 0);
     tick();
   };
-  bar.addEventListener('pointerdown', e => { dragging = true; bar.setPointerCapture(e.pointerId); seek(e); });
-  bar.addEventListener('pointermove', e => { if (dragging) seek(e); });
-  bar.addEventListener('pointerup', () => { dragging = false; });
+  bar.addEventListener('pointerdown', e => { dragging = true; bar.setPointerCapture(e.pointerId); const r=bar.getBoundingClientRect(); bar.style.setProperty('--p', (clamp((e.clientX-r.left)/r.width)*100)+'%'); });
+  bar.addEventListener('pointermove', e => { if (dragging) { const r=bar.getBoundingClientRect(); bar.style.setProperty('--p', (clamp((e.clientX-r.left)/r.width)*100)+'%'); } });
+  bar.addEventListener('pointerup', e => { if (dragging) seek(e); dragging = false; });
   bar.addEventListener('pointercancel', () => { dragging = false; });
   bar.addEventListener('keydown', e => {
     const d = { ArrowLeft: -2, ArrowRight: 2 }[e.key];
-    if (d) { e.preventDefault(); video.currentTime = clamp(video.currentTime + d, 0, (video.duration || 72) - 0.1); tick(); }
+    if (d) { e.preventDefault(); video.currentTime = clamp(video.currentTime + d, 0, (video.duration || Number(video.dataset.duration) || 0) - 0.1); tick(); }
     if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(); }
   });
   // autoplay when it enters view, pause when it leaves
   new IntersectionObserver(es => {
     const r = es[0].intersectionRatio;
-    if (r > 0.55 && !REDUCED && !userPaused && video.paused) video.play().catch(() => {});
+    if (r > 0.55 && userStarted && !REDUCED && !userPaused && video.paused) video.play().catch(() => {});
     else if (r < 0.2 && !video.paused) { video.pause(); }
   }, { threshold: [0, 0.2, 0.55] }).observe(frame);
   video.addEventListener('ended', () => { userPaused = true; sync(); });
@@ -2089,13 +2091,13 @@ function tables() {
   const host = $('[data-table-host]');
   if (!host) return;
   const caps = $('[data-table-caption]');
-  const buttons = $$('.tabs button');
+  const buttons = $$('#full-results .tabs button');
   const render = key => {
     const t = TABLES[key];
     if (!t) return;
     host.innerHTML = `<table class="res"><thead><tr>${t.cols.map(c => `<th>${c}</th>`).join('')}</tr></thead><tbody>` +
       t.rows.map((r, i) => `<tr class="${i === t.ours ? 'is-ours' : ''}">` +
-        r.map((c, j) => `<td class="${j === t.cols.length - 1 ? 'best' : ''}">${c}</td>`).join('') + '</tr>').join('') +
+        r.map((c, j) => `<td class="${j === t.cols.length - 1 ? 'ours-column' : ''}">${c}</td>`).join('') + '</tr>').join('') +
       '</tbody></table>';
     if (caps) caps.textContent = t.cap;
   };
