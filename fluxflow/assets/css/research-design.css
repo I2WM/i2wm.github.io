@@ -1321,3 +1321,69 @@
  .site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout *,.site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout *:before,.site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout *:after{scroll-behavior:auto!important;transition:none!important}
 }
 
+
+/* RawVLA research-page borrowing: experiment context, evidence switch, reference inspection. */
+.site-codex.nasa-layout.research-evidence #results .result-context{display:flex;align-items:center;justify-content:space-between;gap:22px;margin:0 0 30px;padding:17px 0;border-block:1px solid #d7d7de}
+.site-codex.nasa-layout.research-evidence .result-scale-controls{display:flex;align-items:center;gap:9px}
+.site-codex.nasa-layout.research-evidence .result-scale-controls>span{font:500 13px/1.5 var(--sans);color:#55555e;margin-right:12px}
+.site-codex.nasa-layout.research-evidence .result-scale-controls button{font:600 15px/1.4 var(--sans);border:1px solid #ccc5d5;padding:10px 15px;min-width:52px;min-height:44px;background:#fff;color:#493769;cursor:pointer;border-radius:2px}
+.site-codex.nasa-layout.research-evidence .result-scale-controls button[aria-pressed=true]{background:#655087;border-color:#655087;color:white}
+.site-codex.nasa-layout.research-evidence .result-scale-controls button:hover{border-color:#655087}
+.site-codex.nasa-layout.research-evidence .result-source{display:flex;flex-wrap:wrap;gap:8px 20px;font:400 12px/1.5 var(--sans);color:#55555e;margin:0}
+.site-codex.nasa-layout.research-evidence .result-source a{color:#564387;font-weight:600}
+.site-codex.nasa-layout.research-evidence #results .result-ssim{display:flex;align-items:baseline;gap:17px;max-width:330px;margin-top:22px;padding-top:17px;border-top:1px solid #d7d7de;font:400 13px/1.6 var(--sans);color:#55555e}
+.site-codex.nasa-layout.research-evidence #results .result-ssim b{font:600 21px/1.2 var(--sans);color:#493769}
+.site-codex.nasa-layout.research-evidence #results .flux-axis{display:flex;justify-content:space-between;margin:0 52px 7px 111px;color:#64646d;font:400 11px/1.5 var(--sans)}
+.site-codex.nasa-layout.research-evidence #results .bar-fill{width:var(--flux-width)!important}
+.site-codex.nasa-layout.research-evidence #results .bar-val{position:static;margin-left:10px;font-size:13px;line-height:1.5;display:inline-block;vertical-align:middle;color:#45454e}
+.site-codex.nasa-layout.research-evidence #results .bar-track{display:flex;align-items:center;gap:0;padding-right:52px}
+.site-codex.nasa-layout.research-evidence #results .bar-fill{display:block;flex:0 0 var(--flux-width);height:9px;max-width:100%}
+.site-codex.nasa-layout.research-evidence #results .bar-reading-note{margin-top:14px;font-size:12px!important;line-height:1.65!important}
+.site-codex.nasa-layout.research-evidence .result-announcement{position:absolute!important;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.site-codex.nasa-layout.research-evidence #compare .compare-reading{display:flex;justify-content:space-between;align-items:center;gap:36px;padding:20px 0;margin:0 0 30px;border-top:1px solid #484850;border-bottom:1px solid #484850}
+.site-codex.nasa-layout.research-evidence #compare .compare-reading p{margin:0;max-width:73ch;color:#c6c6ce;font:400 14px/1.65 var(--sans)}
+.site-codex.nasa-layout.research-evidence #compare .compare-reading p b{display:block;font:600 16px/1.4 var(--sans);color:#f0f0f5;margin-bottom:8px}
+.site-codex.nasa-layout.research-evidence #compare .compare-reading p span{display:block}
+.site-codex.nasa-layout.research-evidence #compare .compare-reading button{font:500 13px/1.5 var(--sans);min-height:44px;padding:11px 15px;white-space:nowrap;color:#eee8f7;background:#2b2633;border:1px solid #8b7d9d;border-radius:2px;cursor:pointer}
+.site-codex.nasa-layout.research-evidence #compare .compare-reading button:hover{background:#3a3048;border-color:#c4b3e5}
+.site-codex.nasa-layout.research-evidence #compare .compare-reading button span{margin-left:8px}
+@media(max-width:1000px){.site-codex.nasa-layout.research-evidence #results .result-context{align-items:flex-start;flex-direction:column;gap:15px}.site-codex.nasa-layout.research-evidence #compare .compare-reading{gap:24px}}
+@media(max-width:760px){
+ .site-codex.nasa-layout.research-evidence #results .result-context{padding:15px 0;margin-bottom:24px}
+ .site-codex.nasa-layout.research-evidence .result-scale-controls{gap:8px;justify-content:flex-start;width:100%}
+ .site-codex.nasa-layout.research-evidence .result-scale-controls>span{flex:1;margin-right:4px;font-size:12px}
+ .site-codex.nasa-layout.research-evidence .result-scale-controls button{min-width:49px;padding:10px 13px}
+ .site-codex.nasa-layout.research-evidence .result-source{gap:7px 14px;font-size:11px}
+ .site-codex.nasa-layout.research-evidence #results .flux-axis{margin-left:87px;margin-right:52px}
+ .site-codex.nasa-layout.research-evidence #results .result-ssim{max-width:100%;padding-top:15px;margin-top:17px}
+ .site-codex.nasa-layout.research-evidence #compare .compare-reading{display:block;padding:18px 0;margin-bottom:25px}
+ .site-codex.nasa-layout.research-evidence #compare .compare-reading p{font-size:13px}
+ .site-codex.nasa-layout.research-evidence #compare .compare-reading button{margin-top:16px;min-height:44px}
+}
+
+/* RawVLA video-entry structure, 20261014: full-width cover, centered play, in-image caption. */
+.site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction{padding:54px var(--rail) 47px;background:#17171b;scroll-margin-top:0}
+.site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-inner{display:block;width:100%;max-width:var(--page-width);margin:0 auto}
+.site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-entry-title{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);padding:0;margin:0;white-space:nowrap}
+.site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-cover{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid #66616f;border-radius:20px;background:#111015;box-shadow:0 9px 32px #0003;color:white;text-decoration:none}
+.site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-cover>img{display:block;width:100%;height:100%;object-fit:cover;filter:none}
+.site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-cover:after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(16,12,23,.88));pointer-events:none}
+.site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-play{position:absolute;z-index:1;top:50%;left:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:76px;height:76px;padding-left:4px;border:1px solid #ffffffaa;border-radius:50%;background:rgba(66,47,88,.92);color:white;box-shadow:0 8px 32px #0004;transition:background .18s,transform .18s}
+.site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-play svg{width:28px;height:28px;display:block}
+.site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-cover:hover .youtube-link-play{background:#665083;transform:translate(-50%,-50%)}
+.site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-caption{position:absolute;z-index:1;bottom:24px;left:28px;right:28px;font:600 clamp(16px,2vw,22px)/1.35 var(--sans);color:#fff;text-shadow:0 1px 3px #0004}
+.site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-coming{top:20px;left:24px;border-radius:4px;font:600 12px/1.5 var(--sans);padding:5px 10px;background:#231a31ed;border-color:#bcb0d1;color:#f3effa}
+.site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-footer{display:flex;justify-content:space-between;align-items:baseline;gap:16px;width:100%;max-width:none;margin:14px 0 0;font:400 13px/1.5 var(--sans);color:#c6c6ce}
+.site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-footer a{color:#d4c5ec;font-size:14px;line-height:1.5;text-decoration:underline;text-underline-offset:4px;min-height:28px;display:inline-flex;align-items:center;gap:7px}
+.site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-cover:focus-visible{outline:3px solid #ece3fa;outline-offset:-6px;border-radius:20px}
+@media(max-width:600px){
+ .site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction{padding:35px var(--rail) 38px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-cover{border-radius:12px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-play{width:56px;height:56px;padding-left:3px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-play svg{width:22px;height:22px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-caption{bottom:14px;left:16px;right:16px;font-size:16px;line-height:1.35}
+ .site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-coming{top:12px;left:14px;padding:3px 8px;font-size:11px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-footer{align-items:center;flex-wrap:nowrap;gap:13px;font-size:11px;line-height:1.55}
+ .site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-footer a{font-size:12px;min-height:44px;white-space:nowrap}
+}
+@media(prefers-reduced-motion:reduce){.site-codex.nasa-layout.mission-layout.editorial-finish.quality-layout #youtube-introduction .youtube-link-play{transition:none}}
