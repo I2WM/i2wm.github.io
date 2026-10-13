@@ -1,0 +1,229 @@
+/* Final editorial pass over the accepted direction: hierarchy, image scale,
+   spacing rhythm and readable narrow-screen figures; the palette remains black/white. */
+.site-codex.nasa-layout.mission-layout.editorial-finish{--page-width:1240px;--page-gutter:clamp(22px,4.4vw,68px)}
+.site-codex.nasa-layout.mission-layout.editorial-finish #main>.section{padding-block:70px!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #main>.section>.sec-head{margin-bottom:34px;gap:14px 64px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #main h2,.site-codex.nasa-layout.mission-layout.editorial-finish #main .h2{font-size:clamp(30px,3vw,42px)!important;line-height:1.12!important;font-weight:700!important;letter-spacing:-.025em!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #main>.section>.sec-head>.h2{max-width:25ch}
+.site-codex.nasa-layout.mission-layout.editorial-finish #main>.section>.sec-head>.dek{font-size:18px!important;line-height:1.65!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #main>.section>.sec-head .kicker{font-size:11px!important;letter-spacing:.11em!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #main p{font-weight:400}
+.site-codex.nasa-layout.mission-layout.editorial-finish .topbar .brand .chroma-brand{font-size:22px!important;letter-spacing:0}
+.site-codex.nasa-layout.mission-layout.editorial-finish .topbar .nav a{font-size:15px!important;font-weight:600}
+.site-codex.nasa-layout.mission-layout.editorial-finish .topbar .nav-paper{font-size:14px!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #main>#top{min-height:660px!important;padding-top:139px!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #top .project-title{font-size:clamp(64px,6.4vw,91px);font-weight:750;letter-spacing:-.045em;margin-bottom:19px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #top .project-subtitle{font-size:28px;font-weight:600;line-height:1.3;max-width:590px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #top .project-eyebrow{margin-bottom:17px;font-size:11px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #top .hero-explainer{font-size:18px;margin:20px 0 24px;max-width:49ch;line-height:1.6}
+.site-codex.nasa-layout.mission-layout.editorial-finish #top .project-actions{gap:27px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #top .project-action{font-size:15px;font-weight:600}
+.site-codex.nasa-layout.mission-layout.editorial-finish #top .project-action.primary{padding:12px 19px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .hero-paths{margin-top:45px;gap:30px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .hero-paths a{padding:18px 0 23px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .hero-paths b{font-size:18px;font-weight:650;letter-spacing:-.01em}
+.site-codex.nasa-layout.mission-layout.editorial-finish .hero-paths .path-kicker{font-size:10px;margin-bottom:8px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .author-strip{padding-block:22px 28px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .author-strip .project-author-list{gap:10px 26px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .author-strip .project-person,.site-codex.nasa-layout.mission-layout.editorial-finish .author-strip .who{font-size:15px;font-weight:500}
+.site-codex.nasa-layout.mission-layout.editorial-finish .author-strip .project-affiliations{font-size:12px;margin-top:16px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .author-strip .project-contribution{font-size:11px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #atmosphere{min-height:580px;padding-block:75px 63px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #atmosphere .atmosphere-copy{width:43%;max-width:510px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #atmosphere .atmosphere-copy h2{font-size:41px!important;max-width:18ch;line-height:1.12!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #atmosphere .atmosphere-copy p{font-size:17px;line-height:1.6;max-width:48ch}
+.site-codex.nasa-layout.mission-layout.editorial-finish #atmosphere .atmosphere-copy .overline{font-size:11px!important;margin-bottom:18px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #atmosphere .text-link{font-size:15px}
+
+/* The photography is the observation section's first focal point. */
+.site-codex.nasa-layout.mission-layout.editorial-finish #main>#observatories{padding-top:70px!important;padding-bottom:35px!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #main>#observatories>.sec-head{display:block!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #observatories>.sec-head>.h2{max-width:none;margin:13px 0 15px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #observatories>.sec-head>.dek{max-width:68ch}
+.site-codex.nasa-layout.mission-layout.editorial-finish .observatory-grid{gap:36px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .observatory-card figure{aspect-ratio:1.82}
+.site-codex.nasa-layout.mission-layout.editorial-finish .observatory-copy{padding-top:19px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .observatory-copy h3{font-size:25px;font-weight:650;margin-bottom:10px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .observatory-copy>p:not(.photo-note){font-size:16px!important;max-width:62ch}
+.site-codex.nasa-layout.mission-layout.editorial-finish .instrument-specs :is(dt,dd){font-size:13px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .instrument-specs>div{padding:9px 0}
+.site-codex.nasa-layout.mission-layout.editorial-finish .photo-note{font-size:12px!important;line-height:1.6}
+.site-codex.nasa-layout.mission-layout.editorial-finish .footprint-figure{margin-top:29px;grid-template-columns:minmax(0,1fr) 285px;gap:0 38px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .footprint-figure>a>img{max-height:250px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .footprint-figure figcaption{font-size:14px;line-height:1.7}
+.site-codex.nasa-layout.mission-layout.editorial-finish #main>#abstract{padding-block:52px!important;gap:58px;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr)}
+.site-codex.nasa-layout.mission-layout.editorial-finish #abstract .abstract-lead{font-size:23px;line-height:1.35;font-weight:600;max-width:22ch}
+.site-codex.nasa-layout.mission-layout.editorial-finish #abstract .abstract-text p{font-size:17px;max-width:66ch;line-height:1.7}
+.site-codex.nasa-layout.mission-layout.editorial-finish #abstract .task-summary{margin-top:22px;padding-top:17px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #abstract .task-summary li b{font-size:16px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #abstract .task-summary li span{font-size:13px}
+
+/* Keep evidence large enough to inspect, without a wall of equally loud labels. */
+.site-codex.nasa-layout.mission-layout.editorial-finish #dataset .dataset-stats{padding:20px 0;margin-bottom:27px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #dataset .dataset-stats dd{font-size:35px;font-weight:700}
+.site-codex.nasa-layout.mission-layout.editorial-finish #dataset .dataset-stats dt{font-size:11px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #dataset .pair-columns{font-size:14px;margin-bottom:10px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #dataset .pair-row{gap:24px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #dataset .pair-row>div{min-width:0}
+.site-codex.nasa-layout.mission-layout.editorial-finish #dataset .pair-row img{width:100%;max-height:352px;object-fit:contain;background:#111;image-rendering:auto}
+.site-codex.nasa-layout.mission-layout.editorial-finish #dataset .read-guide{margin-top:24px;padding-top:20px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #dataset .read-guide h3{font-size:19px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #dataset .read-guide li{font-size:14px;line-height:1.6}
+.site-codex.nasa-layout.mission-layout.editorial-finish #dataset .read-guide b{font-size:16px;font-weight:600}
+.site-codex.nasa-layout.mission-layout.editorial-finish #dataset .dataset-explainer{gap:40px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #dataset .dataset-explainer p{font-size:14px;line-height:1.6}
+.site-codex.nasa-layout.mission-layout.editorial-finish #main>#hallucinations{padding-block:47px 65px!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #hallucinations .hallucination-layout{gap:45px;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr)}
+.site-codex.nasa-layout.mission-layout.editorial-finish #hallucinations .explain-points>.sec-head{margin-bottom:4px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #hallucinations .explain-points>.sec-head h2{font-size:34px!important;max-width:19ch}
+.site-codex.nasa-layout.mission-layout.editorial-finish #hallucinations .explain-points>.sec-head .dek{font-size:16px!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #hallucinations .explain-points>p{font-size:15px;line-height:1.65;padding-top:14px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #hallucinations .explain-points>p b{font-size:17px;font-weight:650}
+.site-codex.nasa-layout.mission-layout.editorial-finish #hallucinations .figure-guide{font-size:14px}
+
+/* A native scroll viewport for the paper architecture, instead of an unreadable thumbnail. */
+.site-codex.nasa-layout.mission-layout.editorial-finish #main>#method{padding-block:70px 58px!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #main>#method>.sec-head,.site-codex.nasa-layout.mission-layout.editorial-finish #main>#results>.sec-head{display:block!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #main>#method>.sec-head>.h2,.site-codex.nasa-layout.mission-layout.editorial-finish #main>#results>.sec-head>.h2{max-width:none;margin:13px 0 15px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #main>#method>.sec-head>.dek,.site-codex.nasa-layout.mission-layout.editorial-finish #main>#results>.sec-head>.dek{max-width:75ch}
+.site-codex.nasa-layout.mission-layout.editorial-finish .architecture-viewport{min-width:0;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#8b789d #ededee}
+.site-codex.nasa-layout.mission-layout.editorial-finish .architecture-mobile-hint{display:none}
+.site-codex.nasa-layout.mission-layout.editorial-finish .architecture-controls{display:none}
+.site-codex.nasa-layout.mission-layout.editorial-finish #method .model-figure-link{max-width:1060px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #method .model-read-path{font-size:14px;margin-bottom:18px;padding-block:12px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #method .model-figure{margin-bottom:30px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #method .bento{gap:31px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #method .cell{grid-template-rows:140px 60px 1fr!important;gap:16px!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #method .cell canvas{height:140px!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #method .cell h3{font-size:21px!important;line-height:1.25!important;font-weight:650!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #method .cell p{font-size:15px;line-height:1.65}
+.site-codex.nasa-layout.mission-layout.editorial-finish #method .method-note{font-size:12px;max-width:104ch}
+.site-codex.nasa-layout.mission-layout.editorial-finish #main>#results{padding-block:58px 68px!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #results .metrics{grid-template-columns:minmax(0,.62fr) minmax(0,1fr);gap:65px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #results .bignum{font-size:85px;color:#24242b;font-weight:700}
+.site-codex.nasa-layout.mission-layout.editorial-finish #results .metric-set{font-size:12px;letter-spacing:.08em}
+.site-codex.nasa-layout.mission-layout.editorial-finish #results .gain{font-size:16px;font-weight:600;max-width:30ch}
+.site-codex.nasa-layout.mission-layout.editorial-finish #results .bar-name{font-size:14px;font-weight:400}
+.site-codex.nasa-layout.mission-layout.editorial-finish #results .bar--ours .bar-name{font-weight:700;color:#493769}
+.site-codex.nasa-layout.mission-layout.editorial-finish #results .bar--ours{background:#7f69ab0c}
+.site-codex.nasa-layout.mission-layout.editorial-finish #results .bar-fill{height:9px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #results .facts{margin-top:32px;gap:32px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #results .fact dt{font-size:12px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #results .fact .to{font-weight:600}
+.site-codex.nasa-layout.mission-layout.editorial-finish #results>p.fine{max-width:95ch;text-align:left;margin-left:0}
+.site-codex.nasa-layout.mission-layout.editorial-finish #results #full-results{margin-top:24px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #main>#compare{padding-block:65px 34px!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #compare .scale-panel-head h3{font-size:33px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #compare .dual-comparison{gap:36px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #compare .scale-resolution{font-size:13px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #compare .compare-controls{gap:16px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #compare .compare-controls select{min-height:43px;font-size:14px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #compare .scale-stage{box-shadow:0 1px 0 #ffffff0a}
+.site-codex.nasa-layout.mission-layout.editorial-finish #main>.mission-gallery-panel>summary span:nth-child(2){font-size:24px!important}
+
+/* Give reading and code the first visual priority; model files follow quietly. */
+.site-codex.nasa-layout.mission-layout.editorial-finish #main>#paper{padding-block:64px 54px!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish .paper-resource-grid{grid-template-columns:minmax(0,.52fr) minmax(0,1fr);gap:28px 58px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .paper-preview{max-width:265px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .paper-resource-copy h2{font-size:37px!important;font-weight:700!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish .formal-paper-title{font-size:20px;line-height:1.45;margin:18px 0 12px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .paper-venue{font-size:13px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .resource-rows .links{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;margin-top:26px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .resource-rows .links li{min-width:0}
+.site-codex.nasa-layout.mission-layout.editorial-finish .resource-rows .links a{grid-template-columns:minmax(0,1fr) 23px;gap:8px;text-decoration:none;min-height:70px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .resource-rows .l-name{font-size:21px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .resource-rows .l-meta{grid-column:1;grid-row:2;font-size:12px;color:#606069}
+.site-codex.nasa-layout.mission-layout.editorial-finish .resource-rows .ext{grid-column:2;grid-row:1/3}
+.site-codex.nasa-layout.mission-layout.editorial-finish .resource-rows .resource-secondary .l-name{font-size:16px;font-weight:500}
+.site-codex.nasa-layout.mission-layout.editorial-finish .resource-rows .resource-secondary .ext{background:none;color:#564387!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish .resource-rows .resource-secondary a{min-height:60px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .resource-rows a:hover .l-name{text-decoration:underline;text-underline-offset:4px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .citation-head{font-size:13px;padding-block:12px}
+.site-codex.nasa-layout.mission-layout.editorial-finish #main>.compact-dive:not(.mission-gallery-panel)>summary>span:nth-child(2){font-size:24px!important;font-weight:500!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #appendix-h>summary .acc-t{font-size:28px!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish #appendix-h>summary .acc-lede{font-size:16px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .footer{padding-block:40px 25px!important}
+.site-codex.nasa-layout.mission-layout.editorial-finish .footer .footer-line{font-size:32px!important;margin-bottom:29px}
+.site-codex.nasa-layout.mission-layout.editorial-finish .footer .footer-bar{font-size:12px}
+
+@media(max-width:1100px){
+ .site-codex.nasa-layout.mission-layout.editorial-finish #top .project-subtitle{font-size:26px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .hero-paths b{font-size:17px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #hallucinations .hallucination-layout{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:28px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #method .cell{grid-template-rows:140px 85px 1fr!important}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .paper-resource-grid{gap:28px 35px}
+}
+@media(max-width:760px){
+ .site-codex.nasa-layout.mission-layout.editorial-finish #main>.section{padding-block:45px!important}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #main h2,.site-codex.nasa-layout.mission-layout.editorial-finish #main .h2{font-size:30px!important;line-height:1.15!important}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #main>.section>.sec-head{margin-bottom:26px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #main>.section>.sec-head>.dek{font-size:16px!important}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #main>#top{min-height:0!important;padding-top:200px!important}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #top .project-title{font-size:61px;font-weight:750}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #top .project-subtitle{font-size:22px;line-height:1.35}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #top .hero-explainer{font-size:16px;line-height:1.65}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #top .project-actions{gap:16px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #top .project-action{font-size:14px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .hero-paths{gap:0;margin-top:30px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .hero-paths a{padding:13px 0}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .hero-paths b{font-size:16px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .author-strip{padding-block:20px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .author-strip .project-person,.site-codex.nasa-layout.mission-layout.editorial-finish .author-strip .who{font-size:14px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #atmosphere{min-height:0;padding-block:270px 62px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #atmosphere .atmosphere-copy{width:100%}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #atmosphere .atmosphere-copy h2{font-size:32px!important;max-width:19ch}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #atmosphere .atmosphere-copy p{font-size:16px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #main>#observatories{padding-top:48px!important}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .observatory-grid{gap:28px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .observatory-copy h3{font-size:24px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .observatory-card figure{aspect-ratio:1.5}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .footprint-figure{display:block}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #main>#abstract{display:block;padding-block:43px!important}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #abstract .abstract-lead{font-size:21px;max-width:none;margin-bottom:23px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #abstract .abstract-text p{font-size:16px;line-height:1.75}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #dataset .dataset-stats{padding-block:14px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #dataset .dataset-stats dd{font-size:29px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #dataset .pair-row img{max-height:none}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #main>#hallucinations{padding-block:39px 48px!important}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #hallucinations .hallucination-layout{grid-template-columns:1fr;gap:23px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #hallucinations .explain-points>.sec-head h2{font-size:29px!important}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #main>#method{padding-block:48px 42px!important}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .architecture-mobile-hint{display:block;font-size:13px!important;line-height:1.55;margin:0 0 14px;color:#62626a!important}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .architecture-controls{display:flex;gap:15px;margin-bottom:12px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .architecture-controls button{font:600 14px/1.4 var(--sans);padding:9px 0;background:none;border:0;border-bottom:2px solid transparent;color:#505058;cursor:pointer}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .architecture-controls button[aria-pressed=true]{border-bottom-color:#7967aa;color:#493769}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .architecture-viewport{padding-bottom:12px;margin-bottom:7px;touch-action:pan-x pan-y;background:#fff}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #method .architecture-viewport[data-view=details] .model-figure-link{min-width:840px;width:840px;max-width:none;margin:0}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #method .architecture-viewport[data-view=overview] .model-figure-link{min-width:0;width:100%;max-width:100%;margin:0}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #method .architecture-viewport img{width:100%;max-width:none;height:auto}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #method .model-figure figcaption{font-size:12px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #method .bento{gap:27px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #method .cell{grid-template-rows:140px auto auto!important;gap:14px!important}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #method .cell h3{font-size:23px!important}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #main>#results{padding-block:43px 48px!important}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #results .metrics{grid-template-columns:1fr;gap:25px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #results .bignum{font-size:76px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #results .gain{max-width:none;font-size:15px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #results .facts{gap:22px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #main>#compare{padding-block:48px 28px!important}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #compare .dual-comparison{gap:33px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #compare .scale-panel-head h3{font-size:31px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #main>#paper{padding-block:50px 43px!important}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .paper-resource-grid{grid-template-columns:1fr}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .paper-preview{max-width:215px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .paper-resource-copy h2{font-size:31px!important}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .formal-paper-title{font-size:19px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .resource-rows .links{gap:0 20px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .resource-rows .l-name{font-size:19px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .resource-rows .resource-secondary .l-name{font-size:15px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #main>.compact-dive:not(.mission-gallery-panel)>summary>span:nth-child(2){font-size:22px!important}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .footer .footer-line{font-size:29px!important}
+}
+@media(max-width:370px){
+ .site-codex.nasa-layout.mission-layout.editorial-finish #top .project-title{font-size:55px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #top .project-subtitle{font-size:21px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #top .project-actions{gap:15px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish #top .project-action{font-size:13px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .author-strip .who{font-size:13px}
+ .site-codex.nasa-layout.mission-layout.editorial-finish .resource-rows .links{gap:0 16px}
+}

@@ -1,0 +1,55 @@
+﻿/* Retain the NASA4 black/white visual identity. Background and foreground
+   switch together; no blue-gray page palette and no scientific-image filters. */
+.site-codex.nasa-layout #abstract{background:#f4f4f4!important}
+.site-codex.nasa-layout #dataset{background:#fff!important}
+.site-codex.nasa-layout #method{
+ background:#101217!important;color:#f2f3f5;
+ --starlight:#f2f3f5;--moonlight:#c7cbd1;--faint:#bdc3cd;
+ --rule:#454952;--rule-2:#454952;--codex-line:#454952;
+ --codex-text:#f2f3f5;--codex-muted:#c7cbd1;
+}
+.site-codex.nasa-layout #method :is(h2,h3,strong,b){color:#f2f3f5}
+.site-codex.nasa-layout #method>.sec-head>.h2{color:#f2f3f5}
+.site-codex.nasa-layout #method :is(.dek,.cell p,.method-note,.model-read-path,figcaption){color:#c7cbd1!important}
+.site-codex.nasa-layout #method :is(.kicker,.cell .n,.model-read-path b){color:#c2b7f3}
+.site-codex.nasa-layout #method .model-figure{background:transparent}
+.site-codex.nasa-layout #method .model-figure-link{background:#fff;outline:1px solid #5a5e68}
+.site-codex.nasa-layout #method :is(.model-read-path,.model-figure figcaption){border-color:#454952}
+.site-codex.nasa-layout #method .model-figure figcaption a{color:#d7d1f5}
+.site-codex.nasa-layout #method .cell canvas{background:#1b1e25;border:1px solid #454952}
+.site-codex.nasa-layout #method .cell h3{color:#f2f3f5}
+.site-codex.nasa-layout #results{background:#fff!important}
+.site-codex.nasa-layout #compare{background:#101217!important;color:#f2f3f5}
+.site-codex.nasa-layout #compare :is(h2,h3){color:#f2f3f5}
+.site-codex.nasa-layout #compare>.sec-head>.h2{color:#f2f3f5}
+.site-codex.nasa-layout #compare :is(.dek,.fine,.scale-status,.compare-hint,.scale-resolution,.compare-controls label){color:#c7cbd1!important}
+.site-codex.nasa-layout #compare :is(.kicker,.overline){color:#c2b7f3}
+.site-codex.nasa-layout #compare .scale-legend span{color:#c7cbd1}
+.site-codex.nasa-layout #compare .scale-legend span:last-child{color:#d3c4fa}
+.site-codex.nasa-layout #compare .compare-controls select{background:#23262d;color:#f2f3f5;border-color:#686d79}
+.site-codex.nasa-layout #compare .scale-panel-head{border-color:#686d79}
+.site-codex.nasa-layout #main .section :is(h2,h3,h4){-webkit-text-fill-color:currentColor}
+
+/* Light accordion entrances use dark type; opened dark panels use light type. */
+.site-codex.nasa-layout #main>.compact-dive>summary{color:#202733}
+.site-codex.nasa-layout #main>.compact-dive>summary span:nth-child(2){color:#202733}
+.site-codex.nasa-layout #main :is(.compact-dive:where(:not(#full-results))>section,.compact-dive:where(:not(#full-results))>div,#technical,#appendix-h>.acc-b){
+ --ink:#f2f3f5;--subtle:#c7cbd1;--starlight:#f2f3f5;
+ --moonlight:#c7cbd1;--faint:#bdc3cd;--dim:#bdc3cd;
+ --rule:#454952;--rule-2:#454952;
+ color:#f2f3f5;background:#101217;
+}
+.site-codex.nasa-layout #main :is(.compact-dive:where(:not(#full-results))>section,.compact-dive:where(:not(#full-results))>div,#technical,#appendix-h>.acc-b) :is(h2,h3,h4,b,strong){color:#f2f3f5!important;-webkit-text-fill-color:currentColor}
+.site-codex.nasa-layout #main :is(.compact-dive:where(:not(#full-results))>section,.compact-dive:where(:not(#full-results))>div,#technical,#appendix-h>.acc-b) :is(p,li,figcaption,dt,dd,label,th,td){color:#c7cbd1}
+.site-codex.nasa-layout #main :is(.compact-dive:where(:not(#full-results))>section,.compact-dive:where(:not(#full-results))>div,#technical,#appendix-h>.acc-b) :is(.dek,.fine,.dt-caveat){color:#c7cbd1!important}
+.site-codex.nasa-layout #main :is(.compact-dive:where(:not(#full-results))>section,.compact-dive:where(:not(#full-results))>div,#technical,#appendix-h>.acc-b) :is(.kicker,.overline,.chroma-eyebrow){color:#c2b7f3}
+.site-codex.nasa-layout #work .gallery-filters button{color:#dce0e7;background:#23262d;border-color:#686d79}
+.site-codex.nasa-layout #work .gallery-filters button[aria-pressed=true]{color:#fff;background:#5965b9}
+.site-codex.nasa-layout #appendix-h>.acc-b :is(th,td){color:#dce0e7!important}
+.site-codex.nasa-layout #appendix-h>.acc-b :is(h3,h4){color:#f2f3f5!important}
+.site-codex.nasa-layout #appendix-h>.acc-b .acc-t{color:#f2f3f5}
+.site-codex.nasa-layout #appendix-h>summary :is(.acc-t,.acc-lede){color:#202733}
+.site-codex.nasa-layout #appendix-h>.acc-b .acc-i:before,
+.site-codex.nasa-layout #appendix-h>.acc-b .acc-i:after{background:#d3c4fa!important}
+.site-codex.nasa-layout .footer .wm-dot{display:none}
+
