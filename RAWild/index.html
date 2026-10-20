@@ -22,7 +22,7 @@
 <link rel="preload" href="assets/fonts/barlow-sc-500.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css?v=20261020-poster">
 <script>document.documentElement.classList.add('js');</script>
-<script defer src="assets/js/site.js?v=20261020-poster"></script>
+<script defer src="assets/js/site.js?v=20261020-narrated-film"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -93,9 +93,9 @@
 </section>
 
 <!-- ================= FILM ================= -->
-<section class="film-sec" id="film" aria-label="The 72-second film">
-  <div class="film-frame" data-film>
-    <video class="film-video" playsinline muted preload="metadata" poster="assets/video/poster-en.jpg"></video>
+<section class="film-sec" id="film" aria-label="The RAWild narrated film">
+  <div class="film-frame" data-film data-duration="455.61">
+    <video class="film-video" playsinline muted preload="metadata" poster="assets/video/film-narrated-poster.jpg"></video>
     <button class="fp-sound-pill" type="button" data-sound aria-label="Turn the sound on">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk" d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="off" d="m16 9.5 5 5m0-5-5 5"/><path class="on" d="M16 8.8a4.6 4.6 0 0 1 0 6.4M18.6 6.4a8.2 8.2 0 0 1 0 11.2"/></svg>
       <span class="lbl">Sound on</span>
@@ -104,24 +104,20 @@
       <button class="fp-btn" type="button" data-play aria-label="Pause">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-pause" d="M7.5 5h3v14h-3zM13.5 5h3v14h-3z"/><path class="i-play" d="M7 4.8 19 12 7 19.2z"/></svg>
       </button>
-      <div class="fp-bar" data-bar role="slider" tabindex="0" aria-label="Seek" aria-valuemin="0" aria-valuemax="72" aria-valuenow="0">
+      <div class="fp-bar" data-bar role="slider" tabindex="0" aria-label="Seek" aria-valuemin="0" aria-valuemax="456" aria-valuenow="0">
         <span class="fp-buf"></span><span class="fp-fill"></span><span class="fp-knob"></span>
       </div>
-      <span class="fp-time" data-time>0:00 / 1:12</span>
+      <span class="fp-time" data-time>0:00 / 7:35</span>
       <button class="fp-btn" type="button" data-sound aria-label="Turn the sound on">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk" d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="off" d="m16 9.5 5 5m0-5-5 5"/><path class="on" d="M16 8.8a4.6 4.6 0 0 1 0 6.4M18.6 6.4a8.2 8.2 0 0 1 0 11.2"/></svg>
       </button>
       <input class="fp-vol" data-vol type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume">
-      <div class="fp-lang" role="group" aria-label="Film language">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="zh" aria-pressed="false" lang="zh">中文</button>
-      </div>
       <button class="fp-btn" type="button" data-full aria-label="Full screen">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg>
       </button>
     </div>
   </div>
-  <p class="film-caption"><span>The film</span>RAWild in seventy-two seconds.</p>
+  <p class="film-caption"><span>The film</span>A narrated overview of RAWild.</p>
 </section>
 
 <!-- ================= 01 PROBLEM ================= -->

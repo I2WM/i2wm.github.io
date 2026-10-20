@@ -256,10 +256,10 @@ Promise.all([fontsReady, demoMeta('rod_night-07357').then(m => { heroLUT = LUT3(
 (() => {
   const frame = $('[data-film]'); if (!frame) return;
   const video = $('.film-video', frame), bar = $('[data-bar]', frame), time = $('[data-time]', frame), vol = $('[data-vol]', frame);
-  let lang = 'en', userPaused = false, heardOnce = false, idle = 0, dragging = false;
+  let userPaused = false, heardOnce = false, idle = 0, dragging = false;
+  const duration = +frame.dataset.duration || 0;
   const fmt = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
-  const src = l => `assets/video/film-${l}-${frame.getBoundingClientRect().width * dprOf() > 1400 ? 1080 : 720}.mp4`;
-  const ensureSrc = () => { if (!video.getAttribute('src')) video.src = src(lang); };
+  const ensureSrc = () => { if (!video.getAttribute('src')) video.src = 'assets/video/film-narrated.mp4'; };
   const sync = () => {
     frame.classList.toggle('is-paused', video.paused);
     frame.classList.toggle('is-sound', !video.muted && video.volume > 0);
@@ -268,8 +268,9 @@ Promise.all([fontsReady, demoMeta('rod_night-07357').then(m => { heroLUT = LUT3(
     vol.value = video.muted ? 0 : video.volume;
   };
   const tick = () => {
-    const d = video.duration || 72, t = video.currentTime;
+    const d = video.duration || duration, t = video.currentTime;
     bar.style.setProperty('--t', (t / d * 100).toFixed(3) + '%'); bar.setAttribute('aria-valuenow', Math.round(t));
+    bar.setAttribute('aria-valuemax', Math.ceil(d));
     time.textContent = `${fmt(t)} / ${fmt(d)}`;
     if (video.buffered.length) bar.style.setProperty('--buf', (video.buffered.end(video.buffered.length - 1) / d * 100).toFixed(2) + '%');
   };
@@ -293,23 +294,15 @@ Promise.all([fontsReady, demoMeta('rod_night-07357').then(m => { heroLUT = LUT3(
     } else video.muted = true;
   }));
   vol.addEventListener('input', () => { video.volume = +vol.value; video.muted = +vol.value === 0; if (!video.muted) heardOnce = true; });
-  const seekAt = e => { const r = bar.getBoundingClientRect(); video.currentTime = clamp((e.clientX - r.left) / r.width) * (video.duration || 72); tick(); };
+  const seekAt = e => { const r = bar.getBoundingClientRect(); video.currentTime = clamp((e.clientX - r.left) / r.width) * (video.duration || duration); tick(); };
   bar.addEventListener('pointerdown', e => { dragging = true; bar.classList.add('is-drag'); bar.setPointerCapture(e.pointerId); ensureSrc(); seekAt(e); });
   bar.addEventListener('pointermove', e => { if (dragging) seekAt(e); });
   const endDrag = () => { dragging = false; bar.classList.remove('is-drag'); };
   bar.addEventListener('pointerup', endDrag); bar.addEventListener('pointercancel', endDrag);
   bar.addEventListener('keydown', e => {
     const d = { ArrowLeft: -5, ArrowRight: 5, Home: -1e3, End: 1e3 }[e.key]; if (d == null) return;
-    e.preventDefault(); video.currentTime = clamp(video.currentTime + d, 0, (video.duration || 72) - 0.1); tick();
+    e.preventDefault(); video.currentTime = clamp(video.currentTime + d, 0, (video.duration || duration) - 0.1); tick();
   });
-  $$('[data-lang]', frame).forEach(b => b.addEventListener('click', () => {
-    const l = b.dataset.lang; if (l === lang) return; lang = l;
-    $$('[data-lang]', frame).forEach(x => x.setAttribute('aria-pressed', String(x.dataset.lang === l)));
-    const t = video.currentTime, playing = !video.paused && !video.ended;
-    video.poster = `assets/video/poster-${l}.jpg`; video.preload = 'auto';
-    video.addEventListener('loadedmetadata', () => { try { video.currentTime = t; } catch (_) {} if (playing) play(); }, { once: true });
-    video.src = src(l); video.load();
-  }));
   $('[data-full]', frame).addEventListener('click', () => {
     if (document.fullscreenElement) document.exitFullscreen();
     else if (frame.requestFullscreen) frame.requestFullscreen().catch(() => {});
