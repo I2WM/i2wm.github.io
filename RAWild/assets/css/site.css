@@ -345,7 +345,11 @@ h3 { font-family: var(--serif); font-weight: 600; }
 .rtable tr.ours td { color: var(--ver); font-weight: 600; background: rgba(217, 79, 43, .06); }
 .tables-body .fine { text-align: left; margin-left: 0; }
 
-/* ---------- 05 the paper itself is the picture ---------- */
+/* ---------- 05 the poster, printed on the same paper ---------- */
+.poster-figure .zoom { padding: clamp(6px, 1.2vw, 16px); background: var(--paper-hi); }
+.poster-figure img { border-radius: 3px; }
+
+/* ---------- 06 the paper itself is the picture ---------- */
 .paper-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1fr); gap: clamp(40px, 7vw, 110px); align-items: center; max-width: var(--maxw); margin: 0 auto; }
 .paper-object { position: relative; display: block; width: 100%; max-width: 400px; justify-self: center; transform: rotate(-3deg); transition: transform .8s var(--e-out); }
 .paper-object img { position: relative; z-index: 1; width: 100%; height: auto; border-radius: 3px; background: #fff; box-shadow: 0 1px 0 rgba(0, 0, 0, .06), 0 2px 6px rgba(40, 36, 24, .12); }
