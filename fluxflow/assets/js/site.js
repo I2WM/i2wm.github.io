@@ -637,28 +637,7 @@ function psfCanvas() {
        screen column, where the labels printed on top of each other and of the next mound (caught
        in out/instruments/psf-3d.png). A fixed legend row cannot collide — and its order follows the
        current screen order, so it stays true after the user orbits past 90 degrees too. */
-    const order = [0, 1, 2].sort((a, c) => col[a] - col[c]);
-    const legY = H - 60, pad = 14, colW = (W - pad * 2) / 3;
-    const scrim2 = ctx.createLinearGradient(0, legY - 34, 0, H - 40);
-    scrim2.addColorStop(0, 'rgba(12,20,33,0)');
-    scrim2.addColorStop(1, 'rgba(12,20,33,.88)');
-    ctx.save();
-    ctx.globalAlpha = rise;
-    ctx.fillStyle = scrim2; ctx.fillRect(0, legY - 34, W, H - 40 - (legY - 34));
-    ctx.textAlign = 'center';
-    order.forEach((i, rank) => {
-      const cxL = pad + colW * (rank + 0.5);
-      const live = hot && hotD < 14 && hot.kind === states[i];
-      ctx.fillStyle = tint[i];
-      ctx.fillRect(cxL - 6, legY - 15, 12, 2);
-      ctx.font = '500 10.5px "Source Sans 3", sans-serif';
-      ctx.fillStyle = live ? TOK.star : tint[i];
-      ctx.fillText(label[i].toUpperCase(), cxL, legY);
-      ctx.font = '500 9.5px "Source Sans 3", sans-serif';
-      ctx.fillStyle = TOK.faint;
-      ctx.fillText(value[i], cxL, legY + 14);
-    });
-    ctx.restore();
+    canvasLegend(ctx, 'reference', 'Ideal (pale): — · diffraction-limited (violet): ~0.09″ · seeing-limited (cyan): 1.0–1.3″.');
 
     cv.__hot = null;
     if (hot && hotD < 14) {
@@ -855,7 +834,7 @@ function halCanvas() {
     ctx.textAlign = 'left';
     ctx.globalAlpha = 0.9 * (0.25 + 0.75 * lblMix);
     ctx.fillStyle = eff > 0.5 ? TOK.viol : TOK.ground;
-    ctx.fillText(lbl || (eff > 0.5 ? 'MC-FS ON \u00b7 INVENTED SOURCES SUPPRESSED' : 'GENERATIVE BASELINE \u00b7 7 UNSUPPORTED SOURCES'), 12, 20);
+    canvasLegend(ctx, 'state', lbl || (eff > 0.5 ? 'MC-FS on · invented sources suppressed' : 'Generative baseline · 7 unsupported sources')); 
     ctx.restore();
     screenLabel(ctx, W, H, st, 'RESIDUAL \u00b7 HEIGHT = WHAT THE MODEL ADDED', 'UNSUPPORTED SOURCES', st.inside ? 'CLICK AND DRAG TO ORBIT' : 'DRAG TO ORBIT');
   }
@@ -1099,58 +1078,52 @@ function quad(ctx, p, fill) {
 
 /* the pointer readout: value, meaning, and a leader back to the thing it describes */
 function pointerReadout(ctx, W, H, st, x, y, big, sub, colour, show) {
-  const tx = clamp(x + 16, 90, W - 90), ty = clamp(y - 18, 26, H - 60);
+  if (!show) return;
   ctx.save();
-  /* measured in the font each line is drawn in: this used to measure with whatever font was
-     current (and to set a font string canvas cannot parse, since it held a var()), so the box was
-     sized off a font that never rendered */
-  ctx.font = '500 13px "Source Sans 3", sans-serif';
-  const wBig = ctx.measureText(big).width;
-  ctx.font = '500 10px "Source Sans 3", sans-serif';
-  const wSub = ctx.measureText(sub).width;
-  const w = Math.max(wBig, wSub) + 20;
-  ctx.strokeStyle = 'rgba(184,199,220,.28)'; ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(x + 5, y - 5); ctx.lineTo(tx - 8, ty + 2); ctx.stroke();
-  ctx.fillStyle = 'rgba(12,20,33,.88)';
-  ctx.fillRect(tx - 10, ty - 12, w, 38);
-  ctx.strokeStyle = 'rgba(184,199,220,.14)';
-  ctx.strokeRect(tx - 10, ty - 12, w, 38);
-  ctx.textAlign = 'left';
-  if (show) {
-    ctx.font = '500 13px "Source Sans 3", sans-serif';
-    ctx.fillStyle = colour; ctx.fillText(big, tx, ty + 3);
-    ctx.font = '500 10px "Source Sans 3", sans-serif';
-    ctx.fillStyle = TOK.faint; ctx.fillText(sub, tx, ty + 18);
+  const maxW = Math.max(80, W - 32);
+  const lines = [];
+  function wrap(text, font, color) {
+    ctx.font = font;
+    let line = '';
+    for (const word of text.split(' ')) {
+      const candidate = line ? line + ' ' + word : word;
+      if (line && ctx.measureText(candidate).width > maxW - 20) {
+        lines.push({text:line,font:font,color:color}); line = word;
+      } else line = candidate;
+    }
+    if (line) lines.push({text:line,font:font,color:color});
   }
+  wrap(big, '500 16px Arial, sans-serif', colour);
+  wrap(sub, '400 14px Arial, sans-serif', TOK.faint);
+  let width = 0;
+  lines.forEach(l => {ctx.font=l.font; width=Math.max(width,ctx.measureText(l.text).width);});
+  width = Math.min(maxW, width + 20);
+  const height = lines.length * 22 + 16;
+  const tx = clamp(x + 16, 8, Math.max(8, W - width - 8));
+  const ty = clamp(y - height, 8, Math.max(8, H - height - 8));
+  ctx.fillStyle = 'rgba(12,20,33,.96)'; ctx.fillRect(tx,ty,width,height);
+  ctx.textAlign = 'left';
+  lines.forEach((l,i) => {ctx.font=l.font;ctx.fillStyle=l.color;ctx.fillText(l.text,tx+10,ty+23+i*22);});
   ctx.restore();
 }
 
-function screenLabel(ctx, W, H, state, left, right, hint) {
-  ctx.save();
-  /* a gallery caption sits on a fade, not on the object: the geometry reaches the foot of the
-     panel and a faint label printed straight onto it disappears */
-  const scrim = ctx.createLinearGradient(0, H - 64, 0, H);
-  scrim.addColorStop(0, 'rgba(12,20,33,0)');
-  scrim.addColorStop(1, 'rgba(12,20,33,.92)');
-  ctx.fillStyle = scrim; ctx.fillRect(0, H - 64, W, 64);
-  ctx.font = '500 11px "Source Sans 3", sans-serif';
-  const stacked = ctx.measureText(left).width + ctx.measureText(right).width > W - 40;
-  ctx.textAlign = 'left';
-  ctx.fillStyle = TOK.faint;
-  ctx.fillText(left, 12, H - (stacked ? 21 : 6), W - 24);
-  ctx.textAlign = 'right';
-  ctx.fillStyle = TOK.viol;
-  ctx.fillText(right, W - 12, H - 6, W - 24);
-  /* the affordance, fading once the reader has taken hold of it */
-  const a = clamp(1 - state.idle / 1.6) * 0.7 + (state.idle > 30 ? 0 : 0);
-  const show = state.idle < 22 ? Math.max(a, 0.22 * clamp(1 - state.idle / 22)) : 0;
-  if (show > 0.01) {
-    ctx.textAlign = 'center';
-    ctx.globalAlpha = show;
-    ctx.fillStyle = TOK.dim;
-    ctx.fillText(hint, W / 2, H - (stacked ? 38 : 23), W - 24);
+// Labels live in the document flow: readable at narrow widths, never over the evidence.
+function canvasLegend(ctx, key, text) {
+  const cv = ctx.canvas;
+  // Stable method captions live after each animation in the HTML.
+  if (cv.closest('#method')) return;
+  if (!cv.__legendParts) cv.__legendParts = {};
+  if (!cv.__legendElement) {
+    cv.__legendElement = document.createElement('p');
+    cv.__legendElement.className = 'canvas-legend';
+    cv.insertAdjacentElement('afterend', cv.__legendElement);
   }
-  ctx.restore();
+  if (cv.__legendParts[key] === text) return;
+  cv.__legendParts[key] = text;
+  cv.__legendElement.textContent = Object.values(cv.__legendParts).join(' ');
+}
+function screenLabel(ctx, W, H, state, left, right, hint) {
+  canvasLegend(ctx, 'meaning', left + ' · ' + right);
 }
 
 // 2d. the weight field: inverse-variance weight as height, source mask in violet
@@ -1354,7 +1327,7 @@ function mcfsCanvas() {
     ctx.beginPath(); ctx.moveTo(mA.x, mA.y); ctx.lineTo(mB.x, mB.y); ctx.stroke();
     ctx.setLineDash([]);
     ctx.font = '500 10.5px "Source Sans 3", sans-serif'; ctx.fillStyle = TOK.faint; ctx.textAlign = 'center';
-    ctx.fillText('MEASUREMENT', mA.x, mA.y - 6);
+    canvasLegend(ctx, 'markers', 'Dashed line: measurement · bright point: estimate.');
     ctx.restore();
 
     const ex = X(Math.round(est * (G - 1))), ez = Z(Math.round((G - 1) * 0.5));
@@ -1369,7 +1342,7 @@ function mcfsCanvas() {
     ctx.restore();
     ctx.save();
     ctx.font = '500 10.5px "Source Sans 3", sans-serif'; ctx.fillStyle = TOK.viol; ctx.textAlign = 'center';
-    ctx.fillText('ESTIMATE', e.x, e.y + 30);
+
     ctx.restore();
 
     /* picking the surface: nearest cell centre in screen space */
@@ -2544,54 +2517,6 @@ else boot();
   else boot();
 })();
 
-/* ==================== 1. section rail ==================== */
-(function () {
-  function boot() {
-    var main = document.getElementById('main') || document.querySelector('main');
-    if (!main) return;
-    var secs = Array.prototype.filter.call(main.querySelectorAll('section[id]'), function (s) {
-      return s.id !== 'top' && s.getBoundingClientRect().height > 220;
-    });
-    if (secs.length < 3) return;
-    var labels = secs.map(function (s) {
-      var h = s.querySelector('h2, .h2, h1');
-      var t = (h && h.textContent.trim()) || s.id;
-      return t.replace(/\s+/g, ' ').slice(0, 22);
-    });
-    var rail = document.createElement('nav');
-    rail.className = 'sec-rail';
-    rail.setAttribute('aria-label', 'Section rail');
-    var btns = secs.map(function (s, i) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.innerHTML = '<span class="sr-label">' + labels[i] + '</span><span class="sr-dot"></span>';
-      b.addEventListener('click', function () { s.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
-      rail.appendChild(b);
-      return b;
-    });
-    document.body.appendChild(rail);
-
-    var cur = -1;
-    /* Compare viewport-relative tops directly: no cached offsets, so lazy images and
-       web fonts reflowing later cannot leave the rail pointing at the wrong section. */
-    function upd() {
-      var line = innerHeight * 0.34, best = 0;
-      for (var i = 0; i < secs.length; i++) {
-        if (secs[i].getBoundingClientRect().top <= line) best = i;
-      }
-      if (best !== cur) {
-        cur = best;
-        btns.forEach(function (b, i) { b.classList.toggle('is-on', i === best); });
-      }
-      rail.classList.toggle('is-on', scrollY > innerHeight * 0.6);
-    }
-    addEventListener('scroll', upd, { passive: true });
-    addEventListener('resize', upd);
-    upd();
-  }
-  if (document.readyState === 'loading') addEventListener('DOMContentLoaded', boot); else boot();
-})();
-
 /* ==================== 2. algorithm stepper ==================== */
 (function () {
   function boot() {
@@ -2774,89 +2699,4 @@ else boot();
   if (document.readyState === 'loading') addEventListener('DOMContentLoaded', boot); else boot();
 })();
 
-/* ================== accordion continuity ================== */
-(function () {
-  var DUR_OPEN = 420, DUR_CLOSE = 300, EASE_OPEN = 'cubic-bezier(.16,1,.3,1)';
-  function boot() {
-    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var panels = document.querySelectorAll('details.acc');
-    Array.prototype.forEach.call(panels, function (d) {
-      var body = d.querySelector('.acc-b');
-      var sum = d.querySelector('summary');
-      if (!body || !sum) return;
-      var anim = null;
-      function release() { body.classList.remove('is-animating'); body.style.height = ''; anim = null; }
-      sum.addEventListener('click', function (e) {
-        e.preventDefault();
-        if (anim) { anim.cancel(); anim = null; }
-        var opening = !d.open;
-        body.classList.add('is-animating');
-        var from, to;
-        if (opening) { from = 0; d.open = true; to = body.scrollHeight; }
-        else { from = body.getBoundingClientRect().height; to = 0; }
-        /* a canvas inside a closed <details> measures 0x0 and paints at its fallback size,
-           and nothing else re-measures it on open — a resize event is the site's own
-           "measure everything again" signal (the knob sweeps listen for exactly this). */
-        if (opening) dispatchEvent(new Event('resize'));
-        anim = body.animate(
-          [{ height: from + 'px' }, { height: to + 'px' }],
-          { duration: opening ? DUR_OPEN : DUR_CLOSE,
-            easing: opening ? EASE_OPEN : 'cubic-bezier(.4,0,1,1)' });
-        anim.onfinish = function () { if (!opening) d.open = false; release(); };
-        anim.oncancel = release;
-      });
-    });
-  }
-  if (document.readyState === 'loading') addEventListener('DOMContentLoaded', boot); else boot();
-})();
-
-/* ==================== open the appendix you navigated to ==================== */
-/* The top nav links straight into #knobs and #analysis, which are closed <details>. A jump
-   that leaves the reader staring at a collapsed row is a dead end, so opening the target
-   is part of following the link. Independent of View Transitions on purpose: this has to
-   work everywhere the anchor does. */
-(function () {
-  function openTarget(id) {
-    if (!id) return;
-    /* panels are nested: opening the row without its group would land the reader on a
-       closed group holding an open panel */
-    var t = document.getElementById(id);
-    while (t) {
-      if (t.tagName === 'DETAILS' && t.classList && t.classList.contains('acc') && !t.open) t.open = true;
-      t = t.parentElement;
-    }
-  }
-  function boot() {
-    openTarget((location.hash || '').slice(1));
-    addEventListener('hashchange', function () { openTarget((location.hash || '').slice(1)); });
-    document.addEventListener('click', function (e) {
-      var a = e.target.closest && e.target.closest('a[href^="#"]');
-      if (!a) return;
-      openTarget((a.getAttribute('href') || '').slice(1));
-    }, true);
-  }
-  if (document.readyState === 'loading') addEventListener('DOMContentLoaded', boot); else boot();
-})();
-
-/* ================== anchor continuity ================== */
-(function () {
-  function boot() {
-    if (!document.startViewTransition) return;
-    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (document.documentElement.dataset.vtBound) return;
-    document.documentElement.dataset.vtBound = '1';
-    document.addEventListener('click', function (e) {
-      var a = e.target.closest && e.target.closest('a[href^="#"]');
-      if (!a) return;
-      var id = a.getAttribute('href').slice(1);
-      var target = id ? document.getElementById(id) : null;
-      if (!target) return;
-      e.preventDefault();
-      document.startViewTransition(function () {
-        target.scrollIntoView({ behavior: 'instant', block: 'start' });
-      });
-    }, true);
-  }
-  if (document.readyState === 'loading') addEventListener('DOMContentLoaded', boot); else boot();
-})();
 })();

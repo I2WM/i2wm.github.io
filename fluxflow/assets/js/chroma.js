@@ -1,24 +1,10 @@
 (() => {
   'use strict';
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const menu=document.querySelector('.menu-toggle'),nav=document.querySelector('#section-nav');
-  function closeMenu(){menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open navigation');nav.classList.remove('is-open')}
-  menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Close navigation':'Open navigation');nav.classList.toggle('is-open',open)});
-  nav.addEventListener('click',e=>{if(e.target.closest('a'))closeMenu()});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
-  document.addEventListener('click',e=>{if(!e.target.closest('.topbar'))closeMenu()});
-  matchMedia('(min-width:901px)').addEventListener('change',closeMenu);
-
-  function openDeepTarget(hash){let target=document.getElementById(hash.replace(/^#/,''));while(target){if(target.matches('details.deep-dive'))target.open=true;target=target.parentElement}}
-  openDeepTarget(location.hash);
-  addEventListener('hashchange',()=>openDeepTarget(location.hash));
-  document.addEventListener('click',e=>{const link=e.target.closest('a[href^="#"]');if(link)openDeepTarget(link.getAttribute('href'))},true);
-  document.querySelectorAll('details.deep-dive').forEach(detail=>detail.addEventListener('toggle',()=>{if(detail.open)requestAnimationFrame(()=>dispatchEvent(new Event('resize')))}));
-
   const bar=document.querySelector('.topbar');
   const colored=[['method','cobalt'],['sampling-overview','lime'],['film','plum'],['story','plum'],['technical','cobalt'],['compare','plum'],['dataset','lime'],['research-team','plum'],['literature','rose'],['appendix-h','plum'],['knobs','lime'],['downstream','paper'],['benchmark','cobalt'],['analysis','paper'],['ablation','rose'],['otherdata','paper'],['cost','lime'],['impl','cobalt'],['reading','paper']].map(([id,tone])=>[document.getElementById(id),tone]);
   let pending=0;
-  function updateSurface(){pending=0;let tone='paper';const probe=bar.clientHeight+40;const hero=document.getElementById('top');if(hero.classList.contains('project-hero')&&hero.getBoundingClientRect().bottom>probe)tone='night';for(const [section,value] of colored){if(!section)continue;const box=section.getBoundingClientRect();if(box.top<=probe&&box.bottom>probe)tone=value}bar.dataset.surface=tone}
+  function updateSurface(){pending=0;let tone='paper';const probe=bar.clientHeight+40;const hero=document.getElementById('top');if(hero.classList.contains('paper-hero')&&hero.getBoundingClientRect().bottom>probe)tone='night';for(const [section,value] of colored){if(!section)continue;const box=section.getBoundingClientRect();if(box.top<=probe&&box.bottom>probe)tone=value}bar.dataset.surface=tone}
   function queueSurface(){if(!pending)pending=requestAnimationFrame(updateSurface)}
   addEventListener('scroll',queueSurface,{passive:true});addEventListener('resize',queueSurface);updateSurface();
   document.addEventListener('toggle',queueSurface,true);

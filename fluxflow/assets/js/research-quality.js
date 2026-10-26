@@ -15,15 +15,6 @@
   strip.addEventListener('scroll',update,{passive:true});addEventListener('resize',update,{passive:true});
   new MutationObserver(()=>requestAnimationFrame(()=>{strip.scrollLeft=0;update()})).observe(view,{attributes:true,attributeFilter:['hidden']});update();
  }
- // The legacy view-transition handler already moves the page. Add a stable fragment
- // and target focus, without replacing the gallery's own controls or external links.
- const originalTabindex=new WeakMap();
- document.addEventListener('click',e=>{
-  const a=e.target.closest('a[href^="#"]');if(!a||a.hasAttribute('data-figure-open'))return;
-  const id=a.getAttribute('href').slice(1),target=id&&document.getElementById(id);if(!target)return;
-  if(!originalTabindex.has(target))originalTabindex.set(target,target.getAttribute('tabindex'));
-  setTimeout(()=>{history.replaceState(null,'','#'+encodeURIComponent(id));target.setAttribute('tabindex','-1');target.focus({preventScroll:true});target.addEventListener('blur',()=>{const prior=originalTabindex.get(target);prior===null?target.removeAttribute('tabindex'):target.setAttribute('tabindex',prior);originalTabindex.delete(target)},{once:true})},0);
- });
  const zoom=document.querySelector('.lightbox');
  if(zoom){
   zoom.setAttribute('role','dialog');zoom.setAttribute('aria-modal','true');zoom.setAttribute('aria-label','Original research image');
