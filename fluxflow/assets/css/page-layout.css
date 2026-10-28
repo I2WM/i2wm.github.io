@@ -772,17 +772,19 @@
  #site-revised#site-revised #compare .compare-controls option:disabled{color:GrayText!important;}
 }
 
-/* V17: unavailable video destination, reserved in the existing Paper action row. */
-#site-revised#site-revised #paper .paper-secondary-actions .paper-video-pending{
- display:inline-flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;
- max-width:100%;min-height:44px;padding:9px 12px;box-sizing:border-box;
- border:1px solid #526074;border-radius:6px;background:#172130;color:#c4cedb;
- font:600 17px/1.4 var(--sans);opacity:1;cursor:not-allowed;box-shadow:none;
-}
-#site-revised#site-revised #paper .paper-video-pending svg{flex:none;width:24px;height:18px;color:#c4cedb;}
-#site-revised#site-revised #paper .paper-video-status{font-size:14px!important;font-weight:400;line-height:1.4;color:#b4c1d2;white-space:nowrap;}
-@media(forced-colors:active){
- #site-revised#site-revised #paper .paper-secondary-actions .paper-video-pending{background:Canvas;border-color:GrayText;color:GrayText;}
- #site-revised#site-revised #paper .paper-video-pending :is(svg,.paper-video-status){color:GrayText;}
- #site-revised#site-revised #paper .paper-video-pending svg path{fill:Canvas;}
+/* V18: responsive video presentation above Abstract. */
+#site-revised#site-revised #video{padding:64px var(--gutter) 0;background:#fff;color:#18212d;scroll-margin-top:88px;}
+#site-revised#site-revised #video .project-video-inner{width:100%;max-width:1120px;margin:0 auto;}
+#site-revised#site-revised #video .project-video-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px 24px;flex-wrap:wrap;margin-bottom:20px;}
+#site-revised#site-revised #video h2{font-size:28px!important;line-height:1.2!important;margin:0!important;color:#18212d!important;}
+#site-revised#site-revised #video .project-video-heading a{font-size:17px;line-height:1.5;color:#245cba;text-decoration:underline;text-underline-offset:4px;}
+#site-revised#site-revised #video .project-video-frame{position:relative;width:100%;min-height:200px;aspect-ratio:16/9;overflow:hidden;border-radius:10px;background:#080d15;box-shadow:0 14px 36px #101b2d1a;}
+#site-revised#site-revised #video iframe{display:block;width:100%;height:100%;border:0;}
+#site-revised#site-revised #video .project-video-note{margin:16px 0 0;font-size:15px!important;line-height:1.55!important;color:#626874;}
+#site-revised#site-revised #video a:focus-visible{outline:3px solid #2b65b6;outline-offset:5px;border-radius:2px;}
+@media(max-width:760px){
+ #site-revised#site-revised #video{padding:40px 22px 0;}
+ #site-revised#site-revised #video h2{font-size:24px!important;}
+ #site-revised#site-revised #video .project-video-heading{margin-bottom:16px;gap:10px 20px;}
+ #site-revised#site-revised #video .project-video-frame{border-radius:6px;}
 }
