@@ -1,0 +1,62 @@
+/* Method-only vertical reading layout. No hidden reveal state. */
+#site-revised#site-revised #method .section-inner{max-width:1200px;width:100%;min-width:0;margin:0 auto;}
+#site-revised#site-revised #method .m23-intro{font-size:20px!important;line-height:1.65!important;color:#d0d6de;max-width:75ch;margin:0 0 48px;}
+#site-revised#site-revised #method .m23-row{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:48px;align-items:center;padding:52px 0;border-top:1px solid #ffffff30;}
+#site-revised#site-revised #method .m23-row.m23-reverse{grid-template-columns:minmax(280px,1fr) minmax(0,1.6fr);}
+#site-revised#site-revised #method .m23-reverse .m23-visual{grid-column:2;grid-row:1;}
+#site-revised#site-revised #method .m23-reverse .m23-copy{grid-column:1;grid-row:1;}
+#site-revised#site-revised #method .m23-visual,#site-revised#site-revised #method .m23-copy{min-width:0;}
+#site-revised#site-revised #method .m23-kicker{font-size:13px!important;line-height:1.5!important;color:#9fc6ff;letter-spacing:.07em!important;text-transform:uppercase;font-weight:700;margin:0 0 14px;}
+#site-revised#site-revised #method .m23-copy h3{color:#fff;font-size:clamp(28px,2.8vw,38px)!important;line-height:1.15!important;margin:0 0 24px;}
+#site-revised#site-revised #method .m23-copy p{color:#d0d6de;margin:0 0 20px;}
+#site-revised#site-revised #method .m23-copy .m23-small{font-size:15px!important;line-height:1.65!important;color:#b7c4d4;}
+#site-revised#site-revised #method .m23-pair{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+#site-revised#site-revised #method .m23-figure{margin:0;min-width:0;}
+#site-revised#site-revised #method .m23-figure img{display:block;width:100%;height:auto;max-width:100%;border:0;border-radius:0;}
+#site-revised#site-revised #method .m23-figure figcaption{font-size:15px!important;line-height:1.45!important;color:#dce5f1;margin:12px 0 0;font-weight:600;}
+#site-revised#site-revised #method .m23-caption{font-size:14px!important;line-height:1.6!important;color:#aebed1;margin:18px 0 0;}
+#site-revised#site-revised #method a{color:#9fc6ff;text-underline-offset:4px;}
+#site-revised#site-revised #method .m23-copy .m23-number{font-size:clamp(30px,3vw,42px)!important;line-height:1.15!important;font-weight:700;color:#fff;white-space:nowrap;margin:28px 0 10px;}
+#site-revised#site-revised #method .m23-number span{color:#89a3c1;}
+#site-revised#site-revised #method .m23-number-label{font-size:15px!important;line-height:1.5!important;color:#dce5f1;}
+#site-revised#site-revised #method .m23-loop{padding-left:22px;margin:20px 0;}
+#site-revised#site-revised #method .m23-loop li{color:#d0d6de;font-size:16px!important;line-height:1.65!important;margin:0 0 13px;padding-left:5px;}
+#site-revised#site-revised #method .m23-loop b{color:#fff;}
+#site-revised#site-revised #method .m23-diagram-scroll{overflow-x:auto;scrollbar-color:#8396b0 #15191f;}
+#site-revised#site-revised #method .m23-toy-triplet{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
+#site-revised#site-revised #method .m23-toy-triplet img{background:#000;}
+#site-revised#site-revised #method .m23-equation{margin:26px 0;max-width:360px;}
+#site-revised#site-revised #method .m23-equation img{display:block;width:100%;height:auto;}
+#site-revised#site-revised #method .m23-equation figcaption{font-size:13px!important;line-height:1.5!important;color:#aebed1;margin-top:8px;}
+#site-revised#site-revised #method .m23-metrics{margin:26px 0;}
+#site-revised#site-revised #method .m23-metrics>div{padding:14px 0;border-block-start:1px solid #ffffff30;}
+#site-revised#site-revised #method .m23-metrics dt{color:#bdcadb;font-size:15px!important;}
+#site-revised#site-revised #method .m23-metrics dd{margin:5px 0 0;color:#fff;font-size:28px!important;font-weight:700;line-height:1.3!important;}
+#site-revised#site-revised #method .m23-details{padding:0;margin:30px 0 0;border:0;border-top:1px solid #ffffff38;border-bottom:1px solid #ffffff38;border-radius:0;background:none;box-shadow:none;}
+#site-revised#site-revised #method .m23-details summary{display:list-item;list-style:disclosure-closed;color:#fff;font-size:19px!important;line-height:1.5!important;font-weight:600;padding:24px 0;cursor:pointer;}
+#site-revised#site-revised #method .m23-details[open] summary{list-style:disclosure-open;}
+#site-revised#site-revised #method .m23-details summary::after{content:none;}
+#site-revised#site-revised #method .m23-details-body{color:#d0d6de;padding:0 0 24px;max-width:85ch;}
+#site-revised#site-revised #method .m23-downloads{display:grid;grid-template-columns:1fr 1fr;gap:8px 28px;}
+#site-revised#site-revised #method .m23-downloads li{font-size:15px!important;}
+#site-revised#site-revised #method .m23-sources{font-size:14px!important;line-height:1.65!important;color:#aebed1;margin-top:24px;max-width:95ch;}
+#site-revised#site-revised #method :is(a,summary,.m23-diagram-scroll):focus-visible{outline:3px solid #9fc6ff;outline-offset:4px;}
+@media(max-width:900px){
+ #site-revised#site-revised #method .m23-row,#site-revised#site-revised #method .m23-row.m23-reverse{grid-template-columns:1fr;gap:26px;padding:36px 0;}
+ #site-revised#site-revised #method .m23-reverse .m23-visual,#site-revised#site-revised #method .m23-reverse .m23-copy{grid-column:auto;grid-row:auto;}
+ #site-revised#site-revised #method .m23-copy{order:0;}
+ #site-revised#site-revised #method .m23-visual{order:1;}
+ #site-revised#site-revised #method .m23-copy h3{max-width:30ch;}
+ #site-revised#site-revised #method .m23-visual{max-width:720px;}
+}
+@media(max-width:600px){
+ #site-revised#site-revised #method .m23-diagram-scroll .m23-figure{min-width:690px;}
+ #site-revised#site-revised #method .m23-diagram-scroll::after{content:"Swipe across the illustration or tap to enlarge";font-size:13px;color:#9fc6ff;display:block;margin-top:12px;}
+ #site-revised#site-revised #method .m23-pair{gap:12px;}
+ #site-revised#site-revised #method .m23-toy-triplet{gap:8px;}
+ #site-revised#site-revised #method .m23-toy-triplet figcaption{font-size:12px!important;}
+ #site-revised#site-revised #method .m23-downloads{grid-template-columns:1fr;}
+}
+@media(prefers-reduced-motion:reduce){
+ #site-revised#site-revised #method [data-m23-reveal]{animation:none!important;transition:none!important;transform:none!important;opacity:1!important;}
+}
