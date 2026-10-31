@@ -1,0 +1,79 @@
+[
+  {
+    "name": "candidate",
+    "latex": "\\tilde{{x}}^{(i+1)}={x}^{(i)}+v_\\theta({x}^{(i)},t_i,{c})\\,\\Delta t",
+    "pdf": "candidate.pdf",
+    "page_pt": [
+      177.41,
+      45.81
+    ],
+    "extracted_text": "˜x(i+1) = x(i) + vθ(x(i), ti, c) ∆t\n",
+    "sha256": "498ec79509a91d3b15d3c19cbac7551ee2a89d924b8340dac4b5d14c1198d3a8"
+  },
+  {
+    "name": "forward",
+    "latex": "\\begin{gathered}\\hat{ y}_i= A(\\tilde{ x}^{(i+1)})\\\\[5pt] A= D_s\\circ H_{\\mathrm{PSF}}\\end{gathered}",
+    "pdf": "forward.pdf",
+    "page_pt": [
+      103.63,
+      65.77
+    ],
+    "extracted_text": "ˆyi = A(˜x(i+1))\nA = Ds ◦HPSF\n",
+    "sha256": "d3c115c76924586e7f4597d1d1e7c4bf15dc7d61cad9d7d591c017ba12a7d6f7"
+  },
+  {
+    "name": "residual",
+    "latex": " r^{(i)}=\\hat{ y}_i- y",
+    "pdf": "residual.pdf",
+    "page_pt": [
+      88.72,
+      46.46
+    ],
+    "extracted_text": "r(i) = ˆyi −y\n",
+    "sha256": "a1f233109d2cfb98b8abb6da7bca50716f08e384ca1c3d37e654c254456a8937"
+  },
+  {
+    "name": "correction",
+    "latex": "\\begin{gathered}\\delta_i=\\mathcal F^{-1}\\![W\\,\\mathcal F( D_s^{\\top} r^{(i)})]\\\\[5pt] x^{(i+1)}=\\tilde{ x}^{(i+1)}-\\eta_i\\delta_i\\end{gathered}",
+    "pdf": "correction.pdf",
+    "page_pt": [
+      144.25,
+      67.06
+    ],
+    "extracted_text": "δi = F−1[W F(D⊤\ns r(i))]\nx(i+1) = ˜x(i+1) −ηiδi\n",
+    "sha256": "ec56ea5dba3bb3b8298907fbd6f48e73ae88aa0fcb46c930fd716d1f518bc106"
+  },
+  {
+    "name": "naive",
+    "latex": " A^{\\top}= H_{\\mathrm{PSF}}^{\\top}\\circ D_s^{\\top}",
+    "pdf": "naive.pdf",
+    "page_pt": [
+      113.71,
+      44.66
+    ],
+    "extracted_text": "A⊤= H⊤\nPSF ◦D⊤\ns\n",
+    "sha256": "5f96976029a5a088ff19d22efac13646296fe83795540e4fb426768ee6ed295e"
+  },
+  {
+    "name": "wiener",
+    "latex": "W( k)=\\frac{H^{*}( k)}{|H( k)|^2+\\lambda_{\\mathrm{SNR}}^{-1}}",
+    "pdf": "wiener.pdf",
+    "page_pt": [
+      149.33,
+      60.0
+    ],
+    "extracted_text": "W(k) =\nH∗(k)\n|H(k)|2 + λ−1\nSNR\n",
+    "sha256": "7823ccc9180ceae1158a88824adb8849d513e225b56b4de986f3b457c072701e"
+  },
+  {
+    "name": "weights",
+    "latex": "\\sqrt{W}\\,(1+M)",
+    "pdf": "weights.pdf",
+    "page_pt": [
+      94.58,
+      50.84
+    ],
+    "extracted_text": "√\nW (1 + M)\n",
+    "sha256": "3dc168bc3ed1ef753719e4fd56090d414bb04f461a4b5b90ede7ada5c411aae9"
+  }
+]

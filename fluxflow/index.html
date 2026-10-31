@@ -20,6 +20,8 @@
 <script defer="" src="assets/js/chroma.js?v=20261026-v11"></script>
 <meta content="20261014-video-entry-live" name="deployment-version"/><link href="assets/css/components.css?v=20261026-v11" rel="stylesheet"/><link href="assets/css/page-layout.css?v=20261028-v19" rel="stylesheet"/><link rel="stylesheet" href="assets/css/motion.css?v=20261026-v14"/>
 <link rel="stylesheet" href="assets/css/method-v21.css?v=20261031-v21"/>
+<link rel="stylesheet" href="assets/css/method-v22.css?v=20261031-v22"/>
+<script defer src="assets/js/method-v22.js?v=20261031-v22"></script>
 </head>
 <body class="site-codex nasa-layout mission-layout editorial-finish quality-layout research-evidence" data-design-revision="20261026-original-hubble-v11" id="site-revised">
 <a class="skip" href="#main">Skip to content</a>
@@ -71,43 +73,391 @@
 </section><section class="section codex-section nasa-light subsection" id="dataset"><div class="section-inner"><header class="sec-head"><h3 class="subsection-title">Learning from real image pairs</h3><p class="dek">Prepared-split figures reported by the original project website, retained separately from the paper’s reported totals.</p></header>
 <dl class="dataset-stats"><div><dt>Prepared pairs / scale</dt><dd>19,438</dd></div><div><dt>Training pairs</dt><dd>17,737</dd></div><div><dt>Test pairs</dt><dd>1,701</dd></div><div><dt>Target scales</dt><dd>×2 / ×4</dd></div></dl>
 <p class="dataset-summary">The original website reports paired COSMOS and UDS observations at both scales, with the same sample identities for ×2 and ×4.</p>
-<p class="section-detail-link"><a href="#dataset-details">View data fields and preparation details ↓</a></p></div></section><section class="section is-refined nasa-light mission-light" id="method"><div class="section-inner">
-<header class="sec-head"><h2 class="h2"><span aria-hidden="true" class="section-number">03</span>The method</h2><p class="dek">Recover detail in pixel space. At every sampling step, check whether it agrees with the measured light.</p></header>
-<div class="method-training"><p class="method-eyebrow">Training foundation</p><p>A conditional U-Net learns a velocity field from Gaussian noise to HST targets, conditioned on the upsampled DESI observation. The flow-matching loss uses <strong>√W × (1 + M)</strong>: inverse-variance weights reduce unreliable pixels’ influence, while a source mask gives source pixels twice the weight. HST is the training target; DESI is the condition at inference.</p></div>
-
-<div class="method-block" aria-labelledby="method-consistency-title">
-<div class="method-heading"><p class="method-eyebrow">Measurement-consistent flow sampling · MC-FS</p><h3 id="method-consistency-title">Keep every step anchored to the observation</h3><p>Small fluctuations in the initial noise can sharpen into plausible sources during sampling. MC-FS checks each candidate in DESI space and corrects discrepancies, reducing structure that the observation does not support.</p></div>
-<figure class="method-figure method-overview"><div class="method-image-scroll" tabindex="0" role="region" aria-label="MC-FS conceptual illustration, scroll horizontally on small screens"><a href="assets/method/mcfs-overview.png" data-figure-open="" data-figure-title="MC-FS conceptual illustration · paper Figure 14"><img src="assets/method/mcfs-overview.png" width="1545" height="507" alt="Gaussian noise follows a learned velocity toward the target space. A red wrong-drift path heads toward a false source; a green projection correction uses the DESI measurement to redirect it toward the background." loading="lazy" decoding="async"/></a></div><figcaption><span class="method-source-label">Conceptual illustration</span> Paper Fig. 14. Comparing the projected candidate A(x̃) with DESI exposes a measurement discrepancy. The correction redirects the trajectory. <a href="assets/method/mcfs-overview.png" data-figure-open="" data-figure-title="MC-FS conceptual illustration · paper Figure 14">Enlarge figure ↗</a></figcaption></figure>
-<ol class="method-steps"><li><b>01 · Predict</b><span>Take an Euler step with the learned velocity field.</span></li><li><b>02 · Project</b><span>Apply the Gaussian PSF and area downsampling to the candidate.</span></li><li><b>03 · Compare</b><span>Compute the residual against the measured DESI image.</span></li><li><b>04 · Correct</b><span>Lift the residual to the HR grid and apply a Wiener correction.</span></li></ol>
-<p class="method-equation" aria-label="The residual at step i equals the forward model of the candidate minus the DESI observation"><span>r<sub>i</sub> = A(x̃<sub>i+1</sub>) − y</span><span>A = D<sub>s</sub> ∘ H<sub>PSF</sub></span></p>
-<p class="method-note">Repeat for 10 steps. The correction is training-free and requires no gradient through the network. Agreement with DESI constrains the reconstruction; it does not establish that every faint source is real.</p>
-
-<div class="method-evidence-heading"><h4>Fewer spurious detections, with a recall trade-off</h4><p>These are real reconstruction outputs from the video presentation’s Method 2 comparison. Green rings mark true-positive detections; red rings mark false positives under the paper’s HST-reference matching protocol.</p></div>
-<div class="method-detection-pair"><figure class="method-figure"><a href="assets/method/detections-without-mcfs.png" data-figure-open="" data-figure-title="Real-data detections · without MC-FS"><img src="assets/method/detections-without-mcfs.png" width="543" height="543" alt="Reconstruction without MC-FS, with many red-ringed false detections among green-ringed matched sources." loading="lazy" decoding="async"/></a><figcaption><strong>Without MC-FS</strong><span>More false detections in the background</span></figcaption></figure><figure class="method-figure"><a href="assets/method/detections-fluxflow.png" data-figure-open="" data-figure-title="Real-data detections · full FluxFlow"><img src="assets/method/detections-fluxflow.png" width="544" height="543" alt="Full FluxFlow reconstruction of the same field, with fewer red-ringed false detections; some detections are also absent." loading="lazy" decoding="async"/></a><figcaption><strong>Full FluxFlow</strong><span>Fewer false detections, with some missed sources</span></figcaption></figure></div>
-<div class="method-table-scroll"><table class="method-table"><caption>×2 test-set ablation · paper Table 3 · identical evaluation protocol</caption><thead><tr><th scope="col">Variant</th><th scope="col">Precision ↑</th><th scope="col">Recall ↑</th><th scope="col">F1 ↑</th></tr></thead><tbody><tr><th scope="row">Without MC-FS</th><td>0.602</td><td>0.553</td><td>0.5256</td></tr><tr><th scope="row">Full FluxFlow</th><td>0.738</td><td>0.458</td><td>0.5412</td></tr></tbody></table></div>
+<p class="section-detail-link"><a href="#dataset-details">View data fields and preparation details ↓</a></p></div></section><section class="section is-refined nasa-light mission-light" id="method">
+<div class="section-inner">
+<header class="sec-head">
+<h2 class="h2">
+<span aria-hidden="true" class="section-number">03</span>The method</h2>
+<p class="dek">Start with one low-resolution DESI image. Estimate finer structure in the same sky field, while checking the result against that observation.</p>
+</header>
+<p class="method-reading-guide">Paired HST images provide training targets and evaluation references; a new reconstruction takes DESI as its observation input, not HST. Measurement-Consistent Flow Sampling (MC-FS) is the observation check explained below. Follow five connected steps, or choose “Read all steps”.</p>
+<div class="method-story" data-method-story>
+<div class="method-story-controls" data-method-controls hidden>
+<div class="method-stage-nav" role="tablist" aria-label="Method explanation">
+<button type="button" id="method-tab-0" data-method-tab="0" role="tab" aria-controls="method-stage-0">
+<span>01</span>Why constrain?</button>
+<button type="button" id="method-tab-1" data-method-tab="1" role="tab" aria-controls="method-stage-1">
+<span>02</span>MC-FS loop</button>
+<button type="button" id="method-tab-2" data-method-tab="2" role="tab" aria-controls="method-stage-2">
+<span>03</span>Why naive blurs</button>
+<button type="button" id="method-tab-3" data-method-tab="3" role="tab" aria-controls="method-stage-3">
+<span>04</span>Wiener update</button>
+<button type="button" id="method-tab-4" data-method-tab="4" role="tab" aria-controls="method-stage-4">
+<span>05</span>Evidence & limits</button>
+</div>
+<div class="method-story-toolbar">
+<button type="button" data-method-prev>← Previous</button>
+<p class="method-story-status" data-method-status role="status" aria-live="polite" aria-atomic="true">
+</p>
+<button type="button" data-method-next>Next →</button>
+<button type="button" data-method-all aria-pressed="false">Read all steps</button>
+</div>
+<div class="method-swipe-surface" data-method-swipe>Swipe here to change steps · use the buttons for direct navigation</div>
+</div>
+<div class="method-slide-viewport">
+<article class="method-slide" id="method-stage-0" data-method-panel aria-labelledby="method-consistency-title">
+<div class="method-heading">
+<p class="method-eyebrow">01 / 05 · Why constrain?</p>
+<h3 id="method-consistency-title">Keep every step anchored to the observation</h3>
+<p>A plausible source must also agree with measured light.</p>
+</div>
+<p class="method-lead">The generative model starts from random noise and progressively builds an image, guided by DESI. A small noise bump can become a plausible star that is absent from the HST reference. A sharper-looking image can therefore be less faithful. MC-FS asks whether the predicted scene would reproduce the measured DESI image.</p>
+<figure class="method-figure method-overview">
+<div class="method-image-scroll" tabindex="0" role="region" aria-label="MC-FS conceptual illustration, scroll horizontally on small screens">
+<a href="assets/method/mcfs-overview.png" data-figure-open="" data-figure-title="MC-FS conceptual illustration · paper Figure 14">
+<img src="assets/method/mcfs-overview.png" width="1545" height="507" alt="Gaussian noise follows a learned velocity toward the target space. A red wrong-drift path heads toward a false source; a green projection correction uses the DESI measurement to redirect it toward the background." loading="lazy" decoding="async"/>
+</a>
+</div>
+<figcaption>
+<span class="method-source-label">Conceptual illustration</span> Paper Fig. 14. Here y is the DESI observation, x̃ is a candidate reconstruction, and A is the approximate blur-and-downsample observation model. The point-spread function (PSF) models how light is spread. Comparing A(x̃) with y exposes a discrepancy. The correction redirects the trajectory. <a href="assets/method/mcfs-overview.png" data-figure-open="" data-figure-title="MC-FS conceptual illustration · paper Figure 14">Enlarge figure ↗</a>
+</figcaption>
+</figure>
+<p class="method-bridge">
+<b>Next:</b> turn this conceptual correction into an explicit four-step sampling loop.</p>
+</article>
+<article class="method-slide" id="method-stage-1" data-method-panel aria-labelledby="method-loop-title">
+<div class="method-heading">
+<p class="method-eyebrow">02 / 05 · MC-FS loop</p>
+<h3 id="method-loop-title">From candidate to measurement-consistent update</h3>
+<p>Use the observed DESI image to correct each Euler candidate.</p>
+</div>
+<div class="method-loop">
+<p class="method-source-label">Conceptual walkthrough · not recorded intermediate images</p>
+<div class="method-loop-nav" data-loop-controls hidden role="tablist" aria-label="Four operations in one MC-FS step">
+<button type="button" id="method-loop-tab-0" data-method-loop-tab="0" role="tab" aria-controls="method-loop-0">
+<span>01</span>Euler candidate</button>
+<button type="button" id="method-loop-tab-1" data-method-loop-tab="1" role="tab" aria-controls="method-loop-1">
+<span>02</span>Forward degradation</button>
+<button type="button" id="method-loop-tab-2" data-method-loop-tab="2" role="tab" aria-controls="method-loop-2">
+<span>03</span>Measurement residual</button>
+<button type="button" id="method-loop-tab-3" data-method-loop-tab="3" role="tab" aria-controls="method-loop-3">
+<span>04</span>Wiener correction</button>
+</div>
+<div class="method-loop-panel" id="method-loop-0" data-method-loop-panel>
+<h4>Predict an HR candidate</h4>
+<p>The network predicts how to change the current high-resolution state x at flow time t, using the upsampled DESI condition c. A small step Δt produces a candidate x̃. The symbol vθ denotes this learned rate of change; no observation check has happened yet.</p>
+<figure class="method-pdf-formula">
+<div class="method-pdf-frame">
+<object type="application/pdf" data="assets/method/formulas/candidate.pdf#page=1&amp;toolbar=0&amp;navpanes=0&amp;scrollbar=0&amp;view=Fit" aria-label="The current HR image plus a velocity step gives the candidate estimate.">
+<p class="method-pdf-fallback">The current HR image plus a velocity step gives the candidate estimate. <a href="assets/method/formulas/candidate.pdf" target="_blank" rel="noopener">Open the equation PDF</a>.</p>
+</object>
+</div>
+<figcaption>The current HR image plus a velocity step gives the candidate estimate. <a href="assets/method/formulas/candidate.pdf" target="_blank" rel="noopener">Open PDF ↗</a> · <a href="assets/method/formulas/candidate.tex" download>LaTeX source</a>
+</figcaption>
+</figure>
+</div>
+<div class="method-loop-panel" id="method-loop-1" data-method-loop-panel>
+<h4>Predict what DESI would observe</h4>
+<p>Ask: if this estimate were the sky, what would DESI measure? The point-spread function (PSF) describes how the instrument and atmosphere spread light. MC-FS approximates it with a Gaussian blur, HPSF, then averages onto the coarser DESI grid with Ds. This is an approximate observation model, not a new telescope measurement.</p>
+<figure class="method-pdf-formula">
+<div class="method-pdf-frame">
+<object type="application/pdf" data="assets/method/formulas/forward.pdf#page=1&amp;toolbar=0&amp;navpanes=0&amp;scrollbar=0&amp;view=Fit" aria-label="The approximate observation operator applies PSF blur, followed by area downsampling.">
+<p class="method-pdf-fallback">The approximate observation operator applies PSF blur, followed by area downsampling. <a href="assets/method/formulas/forward.pdf" target="_blank" rel="noopener">Open the equation PDF</a>.</p>
+</object>
+</div>
+<figcaption>The approximate observation operator applies PSF blur, followed by area downsampling. <a href="assets/method/formulas/forward.pdf" target="_blank" rel="noopener">Open PDF ↗</a> · <a href="assets/method/formulas/forward.tex" download>LaTeX source</a>
+</figcaption>
+</figure>
+</div>
+<div class="method-loop-panel" id="method-loop-2" data-method-loop-panel>
+<h4>Measure the mismatch</h4>
+<p>Subtract the observed image y from the predicted DESI image ŷ. The residual r is predicted minus observed: a positive value means excess predicted signal, a negative value means a deficit. The comparison constrains the estimate, but DESI cannot uniquely determine every fine detail.</p>
+<figure class="method-pdf-formula">
+<div class="method-pdf-frame">
+<object type="application/pdf" data="assets/method/formulas/residual.pdf#page=1&amp;toolbar=0&amp;navpanes=0&amp;scrollbar=0&amp;view=Fit" aria-label="Residual equals predicted DESI pixels minus observed DESI pixels.">
+<p class="method-pdf-fallback">Residual equals predicted DESI pixels minus observed DESI pixels. <a href="assets/method/formulas/residual.pdf" target="_blank" rel="noopener">Open the equation PDF</a>.</p>
+</object>
+</div>
+<figcaption>Residual equals predicted DESI pixels minus observed DESI pixels. <a href="assets/method/formulas/residual.pdf" target="_blank" rel="noopener">Open PDF ↗</a> · <a href="assets/method/formulas/residual.tex" download>LaTeX source</a>
+</figcaption>
+</figure>
+</div>
+<div class="method-loop-panel" id="method-loop-3" data-method-loop-panel>
+<h4>Correct and repeat</h4>
+<p>Map the residual back to the high-resolution grid using the adjoint Dsᵀ. For s×s area averaging, this includes a 1/s² factor; it is not ordinary resizing. Filter this lifted residual, then subtract the correction from the candidate. F and F⁻¹ are the Fourier transform and its inverse; W is the Wiener kernel explained in step 4. The step strength η decays over 10 updates.</p>
+<figure class="method-pdf-formula">
+<div class="method-pdf-frame">
+<object type="application/pdf" data="assets/method/formulas/correction.pdf#page=1&amp;toolbar=0&amp;navpanes=0&amp;scrollbar=0&amp;view=Fit" aria-label="Transform the lifted residual, multiply by the Wiener kernel, invert the transform, and subtract the scaled correction.">
+<p class="method-pdf-fallback">Transform the lifted residual, multiply by the Wiener kernel, invert the transform, and subtract the scaled correction. <a href="assets/method/formulas/correction.pdf" target="_blank" rel="noopener">Open the equation PDF</a>.</p>
+</object>
+</div>
+<figcaption>Transform the lifted residual, multiply by the Wiener kernel, invert the transform, and subtract the scaled correction. <a href="assets/method/formulas/correction.pdf" target="_blank" rel="noopener">Open PDF ↗</a> · <a href="assets/method/formulas/correction.tex" download>LaTeX source</a>
+</figcaption>
+</figure>
+</div>
+</div>
+<p class="method-note">Training-free correction · no gradient through the network · 10 Euler steps. The flow proposes detail; the observation constrains it.</p>
+<p class="method-bridge">
+<b>Next:</b> why the textbook PSF-adjoint back-projection leaves sources too broad.</p>
+</article>
+<article class="method-slide" id="method-stage-2" data-method-panel aria-labelledby="method-naive-title">
+<div class="method-heading">
+<p class="method-eyebrow">03 / 05 · Why naive blurs</p>
+<h3 id="method-naive-title">A measurement check can still widen the source</h3>
+<p>The back-projection itself matters at a finite update budget.</p>
+</div>
+<div class="method-naive-intro">
+<p class="method-lead">A simple way to map the residual back is the transpose, or adjoint, of the forward model. It applies the PSF again. Fine spatial frequencies then recover more slowly than coarse ones, so a finite budget of 10 updates can leave a source too broad, even when there is no observation noise.</p>
+<figure class="method-pdf-formula">
+<div class="method-pdf-frame">
+<object type="application/pdf" data="assets/method/formulas/naive.pdf#page=1&amp;toolbar=0&amp;navpanes=0&amp;scrollbar=0&amp;view=Fit" aria-label="The naive adjoint lifts the residual and then convolves it with the PSF adjoint.">
+<p class="method-pdf-fallback">The naive adjoint lifts the residual and then convolves it with the PSF adjoint. <a href="assets/method/formulas/naive.pdf" target="_blank" rel="noopener">Open the equation PDF</a>.</p>
+</object>
+</div>
+<figcaption>The naive adjoint lifts the residual and then convolves it with the PSF adjoint. <a href="assets/method/formulas/naive.pdf" target="_blank" rel="noopener">Open PDF ↗</a> · <a href="assets/method/formulas/naive.tex" download>LaTeX source</a>
+</figcaption>
+</figure>
+</div>
+<figure class="method-figure method-toy">
+<div class="method-image-scroll" tabindex="0" role="region" aria-label="Four-panel toy reconstruction, scroll horizontally on small screens">
+<a href="assets/method/toy-reconstruction.png" data-figure-open="" data-figure-title="Noise-free toy reconstruction · paper Figure 15">
+<img src="assets/method/toy-reconstruction.png" width="2592" height="681" alt="Noise-free toy experiment: HST-quality truth, DESI input, naive adjoint reconstruction with a broader source, and the sharper Wiener-corrected reconstruction." loading="lazy" decoding="async"/>
+</a>
+</div>
+<figcaption>
+<span class="method-source-label">Controlled toy experiment</span> Paper Fig. 15. At 10 updates and zero observation noise, the naive reconstruction is already broader than the truth. This isolates finite-step recovery from noise amplification. <a href="assets/method/toy-reconstruction.png" data-figure-open="" data-figure-title="Noise-free toy reconstruction · paper Figure 15">Enlarge figure ↗</a>
+</figcaption>
+</figure>
+<div class="method-finding">
+<strong>4.71 → 6.78 HR px</strong>
+<p>The source widens in this noise-free toy experiment. Finite-step under-recovery is the dominant effect here; this is not simply a denoising problem.</p>
+</div>
+<p class="method-bridge">
+<b>Next:</b> change the correction kernel while retaining the measurement check.</p>
+</article>
+<article class="method-slide" id="method-stage-3" data-method-panel aria-labelledby="method-wiener-title">
+<div class="method-heading">
+<p class="method-eyebrow">04 / 05 · Wiener update</p>
+<h3 id="method-wiener-title">Correct the measurement without widening the source</h3>
+<p>Replace the PSF adjoint with a regularized frequency-dependent kernel.</p>
+</div>
+<div class="method-kernel">
+<figure class="method-pdf-formula">
+<div class="method-pdf-frame">
+<object type="application/pdf" data="assets/method/formulas/wiener.pdf#page=1&amp;toolbar=0&amp;navpanes=0&amp;scrollbar=0&amp;view=Fit" aria-label="The Wiener kernel divides the complex-conjugate PSF transfer by its squared magnitude plus inverse signal-to-noise regularization.">
+<p class="method-pdf-fallback">The Wiener kernel divides the complex-conjugate PSF transfer by its squared magnitude plus inverse signal-to-noise regularization. <a href="assets/method/formulas/wiener.pdf" target="_blank" rel="noopener">Open the equation PDF</a>.</p>
+</object>
+</div>
+<figcaption>The Wiener kernel divides the complex-conjugate PSF transfer by its squared magnitude plus inverse signal-to-noise regularization. <a href="assets/method/formulas/wiener.pdf" target="_blank" rel="noopener">Open PDF ↗</a> · <a href="assets/method/formulas/wiener.tex" download>LaTeX source</a>
+</figcaption>
+</figure>
+<p>Here H(k) is the PSF expressed at spatial frequency k, H* is its complex conjugate, and λSNR controls regularization. The Wiener kernel replaces the PSF-adjoint part of the back-projection. It acts on the lifted residual, not on the entire reconstructed image, and improves finite-step recovery within the frequencies DESI supports.</p>
+</div>
+<div class="method-profile-layout">
+<figure class="method-figure method-profile">
+<a href="assets/method/toy-profile.png" data-figure-open="" data-figure-title="Toy source profiles · paper Figure 16(c)">
+<img src="assets/method/toy-profile.png" width="1095" height="899" alt="Normalized intensity profile: the naive curve is wider than the true PSF, while the Wiener curve closely follows it. FWHM is 6.78 pixels for naive and 4.85 for Wiener." loading="lazy" decoding="async"/>
+</a>
+<figcaption>Paper Fig. 16(c) · radial profile after 10 updates</figcaption>
+</figure>
+<div class="method-profile-copy">
+<h4>A sharper profile at the same update budget</h4>
+<dl class="method-widths">
+<div>
+<dt>Truth</dt>
+<dd>4.71 <span>HR px</span>
+</dd>
+</div>
+<div>
+<dt>Naive adjoint</dt>
+<dd>6.78 <span>HR px</span>
+</dd>
+</div>
+<div>
+<dt>Wiener correction</dt>
+<dd>4.85 <span>HR px</span>
+</dd>
+</div>
+</dl>
+<p>Full width at half maximum (FWHM) measures the source’s width at half its peak intensity. The Wiener-corrected profile remains close to the reference width.</p>
+<p class="method-note">This is a simplified Gaussian-PSF toy model with a constant step size. The full sampler uses a decaying correction strength. The result explains a mechanism, rather than measuring performance on a real sky field.</p>
+</div>
+</div>
+<details class="method-details">
+<summary>Frequency recovery and convergence in the toy model</summary>
+<div class="method-details-body">
+<div class="method-extra-plots">
+<figure class="method-figure">
+<a href="assets/method/toy-recovery.png" data-figure-open="" data-figure-title="Signal recovery · paper Figure 16(a)">
+<img src="assets/method/toy-recovery.png" width="1082" height="870" alt="Signal recovery versus spatial frequency: naive recovery falls inside the supported low-resolution band, while Wiener remains close to one." loading="lazy" decoding="async"/>
+</a>
+<figcaption>Fig. 16(a) · per-mode recovery at 10 updates</figcaption>
+</figure>
+<figure class="method-figure">
+<a href="assets/method/toy-convergence.png" data-figure-open="" data-figure-title="Source-width convergence · paper Figure 16(b)">
+<img src="assets/method/toy-convergence.png" width="1077" height="883" alt="Fitted source width versus update count for zero and nonzero noise. Wiener approaches the reference width in fewer updates than the naive adjoint." loading="lazy" decoding="async"/>
+</a>
+<figcaption>Fig. 16(b) · source width versus update count</figcaption>
+</figure>
+</div>
+<p>For a Gaussian PSF, the naive per-mode contraction rate is proportional to |H(k)|², which is small at high frequencies. Finite-step under-recovery is the dominant effect here. Infinite-iteration inverse-filter noise amplification is a separate limit; the Wiener-preconditioned iteration does not change the asymptotic fixed point.</p>
+</div>
+</details>
+<p class="method-bridge">
+<b>Next:</b> check the real-data gains and the precision/recall trade-off.</p>
+</article>
+<article class="method-slide" id="method-stage-4" data-method-panel aria-labelledby="method-evidence-title">
+<div class="method-heading">
+<p class="method-eyebrow">05 / 05 · Evidence & limits</p>
+<h3 id="method-evidence-title">Check the gains against the trade-offs</h3>
+<p>Compare with real observations, then state what remains uncertain.</p>
+</div>
+<div class="method-evidence-heading">
+<h4>Fewer spurious detections, with a recall trade-off</h4>
+<p>These are real reconstruction outputs from the video presentation’s Method 2 comparison. Green rings mark true-positive detections; red rings mark false positives under the paper’s HST-reference matching protocol.</p>
+</div>
+<div class="method-detection-pair">
+<figure class="method-figure">
+<a href="assets/method/detections-without-mcfs.png" data-figure-open="" data-figure-title="Real-data detections · without MC-FS">
+<img src="assets/method/detections-without-mcfs.png" width="543" height="543" alt="Reconstruction without MC-FS, with many red-ringed false detections among green-ringed matched sources." loading="lazy" decoding="async"/>
+</a>
+<figcaption>
+<strong>Without MC-FS</strong>
+<span>More false detections in the background</span>
+</figcaption>
+</figure>
+<figure class="method-figure">
+<a href="assets/method/detections-fluxflow.png" data-figure-open="" data-figure-title="Real-data detections · full FluxFlow">
+<img src="assets/method/detections-fluxflow.png" width="544" height="543" alt="Full FluxFlow reconstruction of the same field, with fewer red-ringed false detections; some detections are also absent." loading="lazy" decoding="async"/>
+</a>
+<figcaption>
+<strong>Full FluxFlow</strong>
+<span>Fewer false detections, with some missed sources</span>
+</figcaption>
+</figure>
+</div>
+<div class="method-table-scroll">
+<table class="method-table">
+<caption>×2 test-set ablation · paper Table 3 · identical evaluation protocol</caption>
+<thead>
+<tr>
+<th scope="col">Variant</th>
+<th scope="col">Precision ↑</th>
+<th scope="col">Recall ↑</th>
+<th scope="col">F1 ↑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Without MC-FS</th>
+<td>0.602</td>
+<td>0.553</td>
+<td>0.5256</td>
+</tr>
+<tr>
+<th scope="row">Full FluxFlow</th>
+<td>0.738</td>
+<td>0.458</td>
+<td>0.5412</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p class="method-note">Precision improves while recall falls: the method rejects more false peaks but also misses some real sources. The images illustrate one field; the numbers summarize the full ×2 test-set ablation.</p>
+<div class="method-evidence-secondary">
+<h4>What changes when Wiener is removed?</h4>
+<figure class="method-figure">
+<div class="method-image-scroll" tabindex="0" role="region" aria-label="Original real-data ablation, scroll horizontally on small screens">
+<a href="assets/revision/ablation_mcfs.png" data-figure-open="" data-figure-title="Original MC-FS and Wiener ablation">
+<img src="assets/revision/ablation_mcfs.png" width="2000" height="650" alt="Original ablation columns: DESI, without MC-FS, without Wiener, full FluxFlow, and HST. Red boxes and arrows highlight source and structure differences." loading="lazy" decoding="async"/>
+</a>
+</div>
+<figcaption>
+<span class="method-source-label">Real-data ablation</span> Paper ablation figure. Compare “w/o Wiener” with “Ours” and the HST reference.</figcaption>
+</figure>
+<div class="method-table-scroll">
+<table class="method-table">
+<caption>×2 test-set ablation · paper Table 3</caption>
+<thead>
+<tr>
+<th scope="col">Variant</th>
+<th scope="col">PSNR ↑</th>
+<th scope="col">Flux-L1 ↓</th>
+<th scope="col">F1 ↑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Without Wiener</th>
+<td>30.79</td>
+<td>3.031</td>
+<td>0.5066</td>
+</tr>
+<tr>
+<th scope="row">Full FluxFlow</th>
+<td>31.23</td>
+<td>2.959</td>
+<td>0.5412</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="method-limit">
+<strong>Measurement consistency is a constraint, not a certificate of truth.</strong> Hallucinations are suppressed, not eliminated. Some real faint sources are also missed, and high-frequency ambiguity remains.</p>
+</article>
+</div>
+</div>
+<details class="method-details method-training-details">
+<summary>Training foundation</summary>
+<div class="method-details-body">
+<div class="method-training">
+<p class="method-eyebrow">Training foundation</p>
+<p>A conditional U-Net learns a velocity field from Gaussian noise to HST targets, conditioned on the upsampled DESI observation. The training loss uses the square root of the HST inverse-variance weight map W (often stored as WHT) and a source mask M. The map says which target pixels are reliable; the mask gives source pixels twice the weight. This training map W is distinct from the frequency-dependent sampling kernel W(k). HST is the training target; DESI is the condition at inference.</p>
 </div>
 
-<div class="method-block" aria-labelledby="method-wiener-title">
-<div class="method-heading"><p class="method-eyebrow">Wiener-deconvolved correction</p><h3 id="method-wiener-title">Correct the measurement without widening the source</h3><p>A plain adjoint correction applies the PSF again when mapping the residual back to the high-resolution grid. High spatial frequencies converge slowly, so a limited number of updates leaves sources too broad. Wiener reweighting accelerates recovery within the band supported by the observation.</p></div>
-<p class="method-equation" aria-label="W of k equals the complex conjugate of H of k divided by the squared magnitude of H of k plus inverse lambda SNR"><span>W(k) = </span><span class="method-fraction"><span>H*(k)</span><span>|H(k)|² + λ<sub>SNR</sub><sup>−1</sup></span></span></p>
-<p class="method-note">H is the PSF transfer function. The regularized kernel replaces the PSF adjoint in the back-projection; it is not an extra blur or a post-processing denoiser.</p>
-<figure class="method-figure method-toy"><div class="method-image-scroll" tabindex="0" role="region" aria-label="Four-panel toy reconstruction, scroll horizontally on small screens"><a href="assets/method/toy-reconstruction.png" data-figure-open="" data-figure-title="Noise-free toy reconstruction · paper Figure 15"><img src="assets/method/toy-reconstruction.png" width="2592" height="681" alt="Noise-free toy experiment: HST-quality truth, DESI input, naive adjoint reconstruction with a broader source, and the sharper Wiener-corrected reconstruction." loading="lazy" decoding="async"/></a></div><figcaption><span class="method-source-label">Controlled toy experiment</span> Paper Fig. 15. At 10 updates and zero observation noise, the naive reconstruction is already broader than the truth. This isolates finite-step recovery from noise amplification. <a href="assets/method/toy-reconstruction.png" data-figure-open="" data-figure-title="Noise-free toy reconstruction · paper Figure 15">Enlarge figure ↗</a></figcaption></figure>
-<div class="method-profile-layout"><figure class="method-figure method-profile"><a href="assets/method/toy-profile.png" data-figure-open="" data-figure-title="Toy source profiles · paper Figure 16(c)"><img src="assets/method/toy-profile.png" width="1095" height="899" alt="Normalized intensity profile: the naive curve is wider than the true PSF, while the Wiener curve closely follows it. FWHM is 6.78 pixels for naive and 4.85 for Wiener." loading="lazy" decoding="async"/></a><figcaption>Paper Fig. 16(c) · radial profile after 10 updates</figcaption></figure><div class="method-profile-copy"><h4>A sharper profile at the same update budget</h4><dl class="method-widths"><div><dt>Truth</dt><dd>4.71 <span>HR px</span></dd></div><div><dt>Naive adjoint</dt><dd>6.78 <span>HR px</span></dd></div><div><dt>Wiener correction</dt><dd>4.85 <span>HR px</span></dd></div></dl><p>Full width at half maximum (FWHM) measures the source’s width at half its peak intensity. The Wiener-corrected profile remains close to the reference width.</p><p class="method-note">This is a simplified Gaussian-PSF toy model with a constant step size. The full sampler uses a decaying correction strength. The result explains a mechanism, rather than measuring performance on a real sky field.</p></div></div>
-<details class="method-details"><summary>Frequency recovery and convergence in the toy model</summary><div class="method-details-body"><div class="method-extra-plots"><figure class="method-figure"><a href="assets/method/toy-recovery.png" data-figure-open="" data-figure-title="Signal recovery · paper Figure 16(a)"><img src="assets/method/toy-recovery.png" width="1082" height="870" alt="Signal recovery versus spatial frequency: naive recovery falls inside the supported low-resolution band, while Wiener remains close to one." loading="lazy" decoding="async"/></a><figcaption>Fig. 16(a) · per-mode recovery at 10 updates</figcaption></figure><figure class="method-figure"><a href="assets/method/toy-convergence.png" data-figure-open="" data-figure-title="Source-width convergence · paper Figure 16(b)"><img src="assets/method/toy-convergence.png" width="1077" height="883" alt="Fitted source width versus update count for zero and nonzero noise. Wiener approaches the reference width in fewer updates than the naive adjoint." loading="lazy" decoding="async"/></a><figcaption>Fig. 16(b) · source width versus update count</figcaption></figure></div><p>For a Gaussian PSF, the naive per-mode contraction rate is proportional to |H(k)|², which is small at high frequencies. Finite-step under-recovery is the dominant effect here. Infinite-iteration inverse-filter noise amplification is a separate limit; the Wiener-preconditioned iteration does not change the asymptotic fixed point.</p></div></details>
-<details class="method-details"><summary>Real-data cross-check: remove the Wiener correction</summary><div class="method-details-body"><figure class="method-figure"><div class="method-image-scroll" tabindex="0" role="region" aria-label="Original real-data ablation, scroll horizontally on small screens"><a href="assets/revision/ablation_mcfs.png" data-figure-open="" data-figure-title="Original MC-FS and Wiener ablation"><img src="assets/revision/ablation_mcfs.png" width="2000" height="650" alt="Original ablation columns: DESI, without MC-FS, without Wiener, full FluxFlow, and HST. Red boxes and arrows highlight source and structure differences." loading="lazy" decoding="async"/></a></div><figcaption><span class="method-source-label">Real-data ablation</span> Paper ablation figure. Compare “w/o Wiener” with “Ours” and the HST reference.</figcaption></figure><div class="method-table-scroll"><table class="method-table"><caption>×2 test-set ablation · paper Table 3</caption><thead><tr><th scope="col">Variant</th><th scope="col">PSNR ↑</th><th scope="col">Flux-L1 ↓</th><th scope="col">F1 ↑</th></tr></thead><tbody><tr><th scope="row">Without Wiener</th><td>30.79</td><td>3.031</td><td>0.5066</td></tr><tr><th scope="row">Full FluxFlow</th><td>31.23</td><td>2.959</td><td>0.5412</td></tr></tbody></table></div></div></details>
 </div>
-
-<details class="method-details method-network"><summary>Network architecture and implementation</summary><div class="method-details-body"><p>Upsampled DESI is channel-concatenated with the flow state. A four-level conditional U-Net uses time-conditioned FiLM blocks to predict pixel-space velocity, without a latent VAE.</p>
+<figure class="method-pdf-formula">
+<div class="method-pdf-frame">
+<object type="application/pdf" data="assets/method/formulas/weights.pdf#page=1&amp;toolbar=0&amp;navpanes=0&amp;scrollbar=0&amp;view=Fit" aria-label="Square-root inverse-variance weighting times one plus the source mask weights the training loss.">
+<p class="method-pdf-fallback">Square-root inverse-variance weighting times one plus the source mask weights the training loss. <a href="assets/method/formulas/weights.pdf" target="_blank" rel="noopener">Open the equation PDF</a>.</p>
+</object>
+</div>
+<figcaption>Square-root inverse-variance weighting times one plus the source mask weights the training loss. <a href="assets/method/formulas/weights.pdf" target="_blank" rel="noopener">Open PDF ↗</a> · <a href="assets/method/formulas/weights.tex" download>LaTeX source</a>
+</figcaption>
+</figure>
+</details>
+<details class="method-details method-network">
+<summary>Network architecture and implementation</summary>
+<div class="method-details-body">
+<p>Upsampled DESI is channel-concatenated with the flow state. A four-level conditional U-Net uses time-conditioned FiLM blocks to predict pixel-space velocity, without a latent VAE.</p>
 <figure aria-labelledby="model-caption" class="model-figure">
-<div aria-describedby="architecture-help" aria-label="Complete model architecture — scroll horizontally on narrow screens or open the original image" class="architecture-viewport" data-view="overview" role="region" tabindex="0"><a aria-label="View the complete model architecture" class="model-figure-link zoom" href="assets/img/model-architecture.png">
+<div aria-describedby="architecture-help" aria-label="Complete model architecture — scroll horizontally on narrow screens or open the original image" class="architecture-viewport" data-view="overview" role="region" tabindex="0">
+<a aria-label="View the complete model architecture" class="model-figure-link zoom" href="assets/img/model-architecture.png">
 <img alt="Complete conditional U-Net architecture: DESI and noise-state inputs, time MLP, encoder-decoder skip connections, FiLM blocks and velocity prediction." decoding="async" height="1063" loading="lazy" src="assets/img/model-architecture.png" width="2093"/>
 </a>
-</div><figcaption id="model-caption"><span>Time-conditioned U-Net · complete architecture</span><span><a class="zoom" href="assets/img/model-architecture.png">Open original figure ↗</a><a href="assets/figures/sup-model.pdf" rel="noopener" target="_blank">PDF ↗</a></span></figcaption>
-<div aria-label="Model figure view" class="architecture-controls" role="group"><button aria-pressed="true" data-architecture-mode="overview" type="button">Overview</button><button aria-pressed="false" data-architecture-mode="details" type="button">Read details</button></div><p class="sr-only" id="architecture-help">View the whole model — switch to details to read its layers</p></figure>
-<p class="section-detail-link"><a href="#sampler-guide">Explore sampling and implementation ↓</a></p></div></details>
+</div>
+<figcaption id="model-caption">
+<span>Time-conditioned U-Net · complete architecture</span>
+<span>
+<a class="zoom" href="assets/img/model-architecture.png">Open original figure ↗</a>
+<a href="assets/figures/sup-model.pdf" rel="noopener" target="_blank">PDF ↗</a>
+</span>
+</figcaption>
+<div aria-label="Model figure view" class="architecture-controls" role="group">
+<button aria-pressed="true" data-architecture-mode="overview" type="button">Overview</button>
+<button aria-pressed="false" data-architecture-mode="details" type="button">Read details</button>
+</div>
+<p class="sr-only" id="architecture-help">View the whole model — switch to details to read its layers</p>
+</figure>
+<p class="section-detail-link">
+<a href="#sampler-guide">Explore sampling and implementation ↓</a>
+</p>
+</div>
+</details>
 <p class="method-sources">Sources: <a href="https://arxiv.org/html/2605.03749v2#S5.SS2" target="_blank" rel="noopener">paper §5.2</a>, Table 3, and Appendix E, Figs. 14–16. Qualitative examples also appear in the local video-script slides, Method 2 and 3. Hallucinations are suppressed, not eliminated.</p>
-</div></section><section class="section nasa-light mission-light" id="results">
+</div>
+</section><section class="section nasa-light mission-light" id="results">
 <header class="sec-head"><h2 class="h2"><span aria-hidden="true" class="section-number">04</span>Results</h2><p class="dek">FluxFlow achieves the lowest source-flux error in the reported comparison at both scales. Select a scale to inspect its metrics and the full method comparison.</p></header><div class="result-context"><div aria-label="Quantitative result scale" class="result-scale-controls" role="group"><span>Scale</span><button aria-pressed="true" data-result-scale="2" type="button">×2</button><button aria-pressed="false" data-result-scale="4" type="button">×4</button></div></div><div class="metrics clean-metrics"><article class="clean-metric"><h3 class="metric-set">Source-flux error (Flux-L1)</h3><p class="bignum">2.959</p><p>Lower is better</p></article><article class="clean-metric"><h3>Structural similarity (SSIM)</h3><p class="bignum" data-result-ssim="">0.714</p><p>Higher is better</p></article></div><figure class="clean-result-chart"><h3>Source-flux error by method</h3><div aria-label="Flux-L1 at ×2, lower is better: Bicubic 11.251, SwinIR 4.136, HAT 3.695, FISR 3.526, cGAN 4.502, GD-Net 3.639, AS-Bridge 5.151, FluxFlow 2.959." class="bars" role="img" style="--d:.1s">
 <div aria-hidden="true" class="flux-axis"><span>0</span><span>5</span><span>10</span><span>15</span><span>20</span></div><div class="bar" data-i="0" style="--v:11.251;--flux-width:56.2550%"><span class="bar-name">Bicubic</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-val">11.251</span></div>
 <div class="bar" data-i="1" style="--v:4.136;--flux-width:20.6800%"><span class="bar-name">SwinIR</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-val">4.136</span></div>
