@@ -1,0 +1,82 @@
+/* Three evidence-led Method chapters; existing local fonts, visible-first content. */
+#site-revised#site-revised #method,#site-revised#site-revised #method *{font-family:"Source Sans 3",Arial,Helvetica,sans-serif!important;}
+#site-revised#site-revised #method :is(h2,h3,h4),#site-revised#site-revised #method summary{font-family:Arimo,Arial,Helvetica,sans-serif!important;}
+#site-revised#site-revised #method .section-inner{width:100%;max-width:1200px;min-width:0;margin:0 auto;}
+#site-revised#site-revised #method .section-inner>.sec-head{margin-bottom:24px!important;}
+#site-revised#site-revised #method .section-inner>.sec-head>.h2{font-size:clamp(38px,4vw,52px)!important;line-height:1.08!important;letter-spacing:-.035em!important;}
+#site-revised#site-revised #method .section-inner>.sec-head .dek{font-size:clamp(21px,2vw,26px)!important;line-height:1.4!important;max-width:55ch!important;}
+#site-revised#site-revised #method .m25-intro{font-size:19px!important;line-height:1.6!important;max-width:78ch;color:#bdcadb;margin:0 0 44px;}
+#site-revised#site-revised #method .m25-chapter{padding:44px 0 52px;border-top:1px solid #ffffff30;}
+#site-revised#site-revised #method .m25-lead{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;margin-bottom:30px;}
+#site-revised#site-revised #method .m25-lead h3{font-size:clamp(28px,3vw,39px)!important;line-height:1.14!important;letter-spacing:-.025em!important;margin:0;max-width:26ch;color:#fff;}
+#site-revised#site-revised #method .m25-lead>p{font-size:19px!important;line-height:1.6!important;max-width:55ch;margin:0;color:#d0dbe8;}
+#site-revised#site-revised #method .m25-comparison{display:grid;grid-template-columns:1fr 1fr;gap:26px;max-width:1080px;margin:0 auto;}
+#site-revised#site-revised #method .m25-figure{margin:0;min-width:0;}
+#site-revised#site-revised #method .m25-figure a{display:block;}
+#site-revised#site-revised #method .m25-figure img{display:block;width:100%;height:auto;max-width:100%;border:0;border-radius:0;}
+#site-revised#site-revised #method .m25-figure figcaption{font-size:17px!important;line-height:1.4!important;color:#e6edf7;font-weight:600;margin-top:14px;}
+#site-revised#site-revised #method .m25-legend{display:flex;flex-wrap:wrap;gap:8px 28px;color:#b6c5d6;font-size:14px!important;line-height:1.5!important;margin:18px 0 0;}
+#site-revised#site-revised #method .m25-legend .m25-green{color:#a0d8a0;}
+#site-revised#site-revised #method .m25-legend .m25-red{color:#f2a9a0;}
+#site-revised#site-revised #method .m25-result-line{display:flex;flex-wrap:wrap;gap:10px 42px;margin:26px 0 10px;}
+#site-revised#site-revised #method .m25-result-line p{font-size:17px!important;line-height:1.5!important;color:#b9c9db;margin:0;}
+#site-revised#site-revised #method .m25-result-line b{font-size:22px!important;font-family:ui-monospace,Consolas,monospace!important;font-variant-numeric:tabular-nums;color:#fff;white-space:nowrap;margin-left:8px;}
+#site-revised#site-revised #method .m25-note{font-size:15px!important;line-height:1.6!important;color:#acbdcf;margin:12px 0 0;max-width:100ch;}
+#site-revised#site-revised #method .m25-mechanism-grid{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(280px,1fr);gap:40px;align-items:start;}
+#site-revised#site-revised #method .m25-diagram{min-width:0;padding-top:12px;}
+#site-revised#site-revised #method .m25-diagram-scroll{overflow-x:auto;scrollbar-color:#8396b0 #15191f;}
+#site-revised#site-revised #method .m25-loop{padding-left:22px;margin:0;}
+#site-revised#site-revised #method .m25-loop li{font-size:17px!important;line-height:1.6!important;color:#c4d1e0;margin:0 0 18px;padding-left:5px;}
+#site-revised#site-revised #method .m25-loop b{color:#fff;}
+#site-revised#site-revised #method .m25-profile-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center;padding-top:42px;margin-top:32px;border-top:1px solid #ffffff20;}
+#site-revised#site-revised #method .m25-profile{min-width:0;max-width:500px;}
+#site-revised#site-revised #method .m25-profile-copy h4{font-size:25px!important;line-height:1.25!important;letter-spacing:-.02em!important;margin:0 0 22px;color:#fff;max-width:28ch;}
+#site-revised#site-revised #method .m25-profile-copy>p{font-size:19px!important;line-height:1.6!important;color:#d0dbe8;margin:0 0 20px;max-width:53ch;}
+#site-revised#site-revised #method .m25-profile-copy>.m25-note{font-size:15px!important;}
+#site-revised#site-revised #method .m25-details{background:none;border:0;border-block:1px solid #ffffff38;border-radius:0;box-shadow:none;margin:8px 0 0;padding:0;}
+#site-revised#site-revised #method .m25-details summary{display:list-item;list-style:disclosure-closed;font-size:19px!important;line-height:1.5!important;font-weight:700;color:#fff;padding:24px 0;cursor:pointer;}
+#site-revised#site-revised #method .m25-details[open] summary{list-style:disclosure-open;}
+#site-revised#site-revised #method .m25-details summary::after{content:none;}
+#site-revised#site-revised #method .m25-details-body{max-width:75ch;padding:0 0 24px;color:#c3d0df;}
+#site-revised#site-revised #method .m25-details-body>p{font-size:17px!important;line-height:1.6!important;}
+#site-revised#site-revised #method .m25-formula{max-width:270px;margin:24px 0;}
+#site-revised#site-revised #method .m25-formula img{width:100%;height:auto;display:block;}
+#site-revised#site-revised #method .m25-formula figcaption{font-size:14px!important;line-height:1.5!important;color:#acbdcf;margin-top:10px;}
+#site-revised#site-revised #method .m25-downloads{display:grid;grid-template-columns:1fr 1fr;gap:10px 26px;}
+#site-revised#site-revised #method .m25-downloads li{font-size:15px!important;}
+#site-revised#site-revised #method .m25-sources{font-size:14px!important;line-height:1.6!important;color:#9eb0c5;max-width:95ch;margin:24px 0 0;}
+#site-revised#site-revised #method a{color:#9fc6ff;text-underline-offset:4px;}
+#site-revised#site-revised #method :is(a,summary,.m25-diagram-scroll):focus-visible{outline:3px solid #9fc6ff;outline-offset:5px;}
+@media(max-width:900px){
+ #site-revised#site-revised #method .m25-lead{grid-template-columns:1fr;gap:20px;margin-bottom:28px;}
+ #site-revised#site-revised #method .m25-lead h3{max-width:30ch;}
+ #site-revised#site-revised #method .m25-lead>p{max-width:68ch;}
+ #site-revised#site-revised #method .m25-mechanism-grid{grid-template-columns:1fr;gap:26px;}
+ #site-revised#site-revised #method .m25-diagram{max-width:800px;padding-top:0;}
+ #site-revised#site-revised #method .m25-loop{display:grid;grid-template-columns:1fr 1fr;gap:0 36px;}
+ #site-revised#site-revised #method .m25-profile-grid{gap:32px;}
+}
+@media(max-width:600px){
+ #site-revised#site-revised #method .section-inner>.sec-head>.h2{font-size:38px!important;}
+ #site-revised#site-revised #method .section-inner>.sec-head .dek{font-size:22px!important;}
+ #site-revised#site-revised #method .m25-intro{font-size:18px!important;line-height:1.6!important;margin-bottom:32px;}
+ #site-revised#site-revised #method .m25-chapter{padding:32px 0 38px;}
+ #site-revised#site-revised #method .m25-lead h3{font-size:29px!important;line-height:1.15!important;}
+ #site-revised#site-revised #method .m25-lead>p,#site-revised#site-revised #method .m25-profile-copy>p{font-size:18px!important;}
+ #site-revised#site-revised #method .m25-comparison{grid-template-columns:1fr;gap:26px;max-width:500px;}
+ #site-revised#site-revised #method .m25-figure figcaption{font-size:16px!important;}
+ #site-revised#site-revised #method .m25-diagram .m25-figure{min-width:660px;}
+ #site-revised#site-revised #method .m25-diagram-scroll::after{content:"Swipe across the source diagram or tap to enlarge";display:block;font-size:13px;color:#9fc6ff;margin-top:12px;}
+ #site-revised#site-revised #method .m25-result-line{gap:10px 24px;margin-top:22px;}
+ #site-revised#site-revised #method .m25-result-line p{font-size:16px!important;}
+ #site-revised#site-revised #method .m25-result-line b{font-size:20px!important;}
+ #site-revised#site-revised #method .m25-loop{grid-template-columns:1fr;gap:0;}
+ #site-revised#site-revised #method .m25-profile-grid{grid-template-columns:1fr;gap:28px;padding-top:30px;}
+ #site-revised#site-revised #method .m25-downloads{grid-template-columns:1fr;}
+}
+@media(max-width:760px){
+ #site-revised#site-revised #method .m25-comparison{grid-template-columns:1fr;max-width:500px;gap:26px;}
+}
+@media(prefers-reduced-motion:reduce){
+ #site-revised#site-revised #method [data-m23-reveal]{animation:none!important;transition:none!important;transform:none!important;opacity:1!important;}
+}

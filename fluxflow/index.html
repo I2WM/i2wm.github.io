@@ -19,7 +19,7 @@
 <script defer="" src="assets/js/site.js?v=20261026-v11"></script>
 <script defer="" src="assets/js/chroma.js?v=20261026-v11"></script>
 <meta content="20261014-video-entry-live" name="deployment-version"/><link href="assets/css/components.css?v=20261026-v11" rel="stylesheet"/><link href="assets/css/page-layout.css?v=20261028-v19" rel="stylesheet"/><link rel="stylesheet" href="assets/css/motion.css?v=20261026-v14"/>
-<link rel="stylesheet" href="assets/css/method-v24.css?v=20261031-v24"/>
+<link rel="stylesheet" href="assets/css/method-v25.css?v=20261031-v25"/>
 <script defer src="assets/js/method-v23.js?v=20261031-v23"></script>
 </head>
 <body class="site-codex nasa-layout mission-layout editorial-finish quality-layout research-evidence" data-design-revision="20261026-original-hubble-v11" id="site-revised">
@@ -72,174 +72,37 @@
 </section><section class="section codex-section nasa-light subsection" id="dataset"><div class="section-inner"><header class="sec-head"><h3 class="subsection-title">Learning from real image pairs</h3><p class="dek">Prepared-split figures reported by the original project website, retained separately from the paper’s reported totals.</p></header>
 <dl class="dataset-stats"><div><dt>Prepared pairs / scale</dt><dd>19,438</dd></div><div><dt>Training pairs</dt><dd>17,737</dd></div><div><dt>Test pairs</dt><dd>1,701</dd></div><div><dt>Target scales</dt><dd>×2 / ×4</dd></div></dl>
 <p class="dataset-summary">The original website reports paired COSMOS and UDS observations at both scales, with the same sample identities for ×2 and ×4.</p>
-<p class="section-detail-link"><a href="#dataset-details">View data fields and preparation details ↓</a></p></div></section><section class="section is-refined nasa-light mission-light" id="method">
-<div class="section-inner">
-<header class="sec-head">
-<h2 class="h2">
-<span aria-hidden="true" class="section-number">03</span>The method</h2>
-<p class="dek">Sharper detail, checked against the measured sky.</p>
-</header>
-<p class="m23-intro">One low-resolution DESI image goes in; a finer estimate of the same field comes out. Paired HST images supply training targets and evaluation references, not a second input for a new reconstruction.</p>
-<div class="m23-row">
-<div class="m23-visual" data-m23-reveal>
-<div class="m23-pair">
-<figure class="m23-figure">
-<a href="assets/method/detections-without-mcfs.png" data-figure-open="" data-figure-title="Without MC-FS">
-<img src="assets/method/detections-without-mcfs.png" alt="Same sky field reconstructed without MC-FS, with many red-ringed false detections." loading="lazy" decoding="async"/>
-</a>
-<figcaption>Without MC-FS</figcaption>
-</figure>
-<figure class="m23-figure">
-<a href="assets/method/detections-fluxflow.png" data-figure-open="" data-figure-title="FluxFlow">
-<img src="assets/method/detections-fluxflow.png" alt="Full FluxFlow on the same field, with fewer red-ringed false detections." loading="lazy" decoding="async"/>
-</a>
-<figcaption>FluxFlow</figcaption>
-</figure>
+<p class="section-detail-link"><a href="#dataset-details">View data fields and preparation details ↓</a></p></div></section><section class="section is-refined nasa-light mission-light" id="method"><div class="section-inner">
+<header class="sec-head"><h2 class="h2"><span aria-hidden="true" class="section-number">03</span>The method</h2><p class="dek">Recover finer detail with a check against the measured sky.</p></header>
+<p class="m25-intro">FluxFlow estimates a finer image from one low-resolution DESI observation. HST pairs guide training and evaluation; they are not additional inputs for a new reconstruction.</p>
+<div class="m25-chapter">
+<div class="m25-lead" data-m23-reveal><h3>Fewer false detections in the same sky field</h3><p>A generative model can sharpen a noise fluctuation into a plausible source. The measurement check reduces these false detections, as the same-field comparison shows.</p></div>
+<div class="m25-comparison" data-m23-reveal><figure class="m25-figure"><a href="assets/method/detections-without-mcfs.png" data-figure-open="" data-figure-title="Real-data detections · without MC-FS"><img src="assets/method/detections-without-mcfs.png" alt="Without MC-FS: many red-ringed false detections appear in the reconstructed field." loading="lazy" decoding="async"/></a><figcaption>Without MC-FS</figcaption></figure><figure class="m25-figure"><a href="assets/method/detections-fluxflow.png" data-figure-open="" data-figure-title="Real-data detections · full FluxFlow"><img src="assets/method/detections-fluxflow.png" alt="Full FluxFlow: fewer red-ringed false detections in the same sky field." loading="lazy" decoding="async"/></a><figcaption>Full FluxFlow</figcaption></figure></div>
+<p class="m25-legend"><span class="m25-green">Green rings: matched sources</span><span class="m25-red">Red rings: false positives against HST</span><span>Tap either image to inspect the original.</span></p>
+<div class="m25-result-line"><p>Precision <b>0.602 → 0.738</b></p><p>Recall <b>0.553 → 0.458</b></p></div>
+<p class="m25-note">Without MC-FS → full FluxFlow, ×2 test-set ablation, paper Table 3. F1 rises from 0.5256 to 0.5412. The higher precision comes with some missed faint sources; the images show one example field.</p>
 </div>
-<p class="m23-caption">Real model outputs · green: true positives · red: false positives against the HST reference. Tap a figure to enlarge.</p>
+<div class="m25-chapter m25-mechanism">
+<div class="m25-lead" data-m23-reveal><h3>Check what DESI would measure</h3><p>Measurement-Consistent Flow Sampling (MC-FS) asks whether each proposed image would reproduce the observation. The flow supplies detail; the measured image supplies the constraint.</p></div>
+<div class="m25-mechanism-grid"><div class="m25-diagram" data-m23-reveal><div class="m25-diagram-scroll" tabindex="0" role="region" aria-label="Original MC-FS illustration; scroll horizontally if needed"><figure class="m25-figure"><a href="assets/method/v23/mcfs-transparent-large.png" data-figure-open="" data-figure-title="MC-FS conceptual illustration"><img src="assets/method/v23/mcfs-transparent.svg" alt="Original MC-FS contour and trajectory diagram: measurement correction redirects a wrong drift toward an observation-consistent mode." loading="lazy" decoding="async"/></a><figcaption>Conceptual MC-FS illustration · paper Fig. 14</figcaption></figure></div></div>
+<div class="m25-loop-copy" data-m23-reveal><ol class="m25-loop"><li><b>Propose a candidate.</b> Take an Euler step with the learned velocity field.</li><li><b>Predict the DESI view.</b> A Gaussian point-spread function (PSF) approximates the blur; downsampling maps it to DESI’s pixel grid.</li><li><b>Measure the mismatch.</b> Subtract observed from predicted pixels.</li><li><b>Correct and repeat.</b> Lift the residual to the fine grid, apply the Wiener kernel and subtract the correction.</li></ol><p class="m25-note">10 sampling steps · training-free correction · no gradient through the network. The illustration is conceptual, not recorded intermediate states.</p></div></div>
 </div>
-<div class="m23-copy" data-m23-reveal>
-<p class="m23-kicker">01 · Measurement check</p>
-<h3>Check every step against DESI</h3>
-<p>A generative model can turn a small noise fluctuation into a plausible star. FluxFlow checks whether each estimate agrees with the observation, rather than trusting sharpness alone.</p>
-<p class="m23-number">0.602 <span>→</span> 0.738</p>
-<p class="m23-number-label">Detection precision · without MC-FS → full FluxFlow</p>
-<p class="m23-small">The same ×2 ablation trades recall from 0.553 to 0.458; F1 improves from 0.5256 to 0.5412. Fewer false detections also means some missed faint sources.</p>
+<div class="m25-chapter">
+<div class="m25-lead" data-m23-reveal><h3>Correct the image without widening the source</h3><p>A plain back-projection applies the PSF again and recovers fine spatial frequencies slowly. Wiener changes the correction kernel while keeping the observation check.</p></div>
+<div class="m25-comparison" data-m23-reveal><figure class="m25-figure"><a href="assets/method/v23/star-without-wiener.png" data-figure-open="" data-figure-title="Real-star crop · without Wiener"><img src="assets/method/v23/star-without-wiener.png" alt="Real star reconstruction without Wiener correction; original source arrows mark structure." loading="lazy" decoding="async"/></a><figcaption>Without Wiener</figcaption></figure><figure class="m25-figure"><a href="assets/method/v23/star-fluxflow.png" data-figure-open="" data-figure-title="Real-star crop · full FluxFlow"><img src="assets/method/v23/star-fluxflow.png" alt="Full FluxFlow reconstruction of the same star; source arrows retained." loading="lazy" decoding="async"/></a><figcaption>Full FluxFlow</figcaption></figure></div>
+<div class="m25-result-line"><p>PSNR ↑ <b>30.79 → 31.23</b></p><p>Flux-L1 ↓ <b>3.031 → 2.959</b></p></div>
+<p class="m25-note">Real star crops from the presentation’s Method 3; original arrows retained. Numbers summarize the ×2 test-set ablation, without Wiener → full FluxFlow, paper Table 3.</p>
+<div class="m25-profile-grid"><div class="m25-profile" data-m23-reveal><figure class="m25-figure"><a href="assets/method/v23/toy-profile-transparent-large.png" data-figure-open="" data-figure-title="Toy radial profile · original paper geometry"><img src="assets/method/v23/toy-profile-transparent.svg" alt="Original toy radial profile curves: naive FWHM 6.78 HR pixels, Wiener 4.85, compared with the true PSF." loading="lazy" decoding="async"/></a><figcaption>Controlled toy experiment · paper Fig. 16(c)</figcaption></figure></div><div class="m25-profile-copy" data-m23-reveal><h4>The toy model explains the width change</h4><p>With 10 updates and no observation noise, the naive reconstruction broadens a <b>4.71 HR-pixel</b> reference to <b>6.78</b>. Wiener keeps it at <b>4.85</b>, close to the reference.</p><p>This controlled experiment isolates finite-step recovery. The real-star ablation above tests its practical effect.</p><p class="m25-note">FWHM is width at half the peak intensity. <a href="assets/method/v23/toy-original.pdf">Original toy experiment PDF ↗</a></p></div></div>
 </div>
-</div>
-<div class="m23-row m24-loop-layout">
-<div class="m24-loop-lead" data-m23-reveal>
-<div>
-<p class="m23-kicker">02 · Measurement-consistent flow sampling</p>
-<h3>Ask what DESI would have measured</h3>
-</div>
-<p>Measurement-Consistent Flow Sampling (MC-FS) repeats one connected check after each Euler step:</p>
-</div>
-<div class="m23-visual" data-m23-reveal>
-<div class="m23-diagram-scroll" tabindex="0" role="region" aria-label="MC-FS source illustration; swipe on narrow screens">
-<figure class="m23-figure">
-<a href="assets/method/v23/mcfs-transparent-large.png" data-figure-open="" data-figure-title="Conceptual illustration · paper Fig. 14">
-<img src="assets/method/v23/mcfs-transparent.svg" alt="Original conceptual MC-FS trajectories: a wrong drift toward a source is redirected toward the background by a measurement-based correction." loading="lazy" decoding="async"/>
-</a>
-<figcaption>Conceptual illustration · paper Fig. 14</figcaption>
-</figure>
-</div>
-<p class="m23-caption">Contours and trajectories from the source PDF. Decorative raster shading removed for the dark background. <a href="assets/method/v23/mcfs-original.pdf">Original PDF ↗</a>
-</p>
-</div>
-<div class="m24-loop-explanation" data-m23-reveal><ol class="m23-loop">
-<li>
-<b>Propose</b> a high-resolution candidate with the learned velocity.</li>
-<li>
-<b>Blur and downsample</b> it to the DESI grid. A Gaussian point-spread function (PSF) approximates how the atmosphere and instrument spread light.</li>
-<li>
-<b>Compare</b> predicted minus observed pixels. Positive residuals mean excess predicted signal.</li>
-<li>
-<b>Correct</b> by lifting the residual to the fine grid, filtering it and subtracting the update.</li>
-</ol>
-<p class="m23-small">10 steps · training-free correction · no gradient through the network. The image above is a conceptual diagram, not recorded sampling frames.</p>
-</div>
-</div>
-<div class="m23-row">
-<div class="m23-visual" data-m23-reveal>
-<div class="m23-toy-triplet">
-<figure class="m23-figure">
-<a href="assets/method/v23/toy-truth.png" data-figure-open="" data-figure-title="Truth · 4.71 HR px">
-<img src="assets/method/v23/toy-truth.png" alt="Point-source illustration used in the Method 3 presentation." loading="lazy" decoding="async"/>
-</a>
-<figcaption>Truth · 4.71 HR px</figcaption>
-</figure>
-<figure class="m23-figure">
-<a href="assets/method/v23/toy-naive.png" data-figure-open="" data-figure-title="Naive · 6.78 HR px">
-<img src="assets/method/v23/toy-naive.png" alt="Broader point-source illustration from Method 3." loading="lazy" decoding="async"/>
-</a>
-<figcaption>Naive · 6.78 HR px</figcaption>
-</figure>
-<figure class="m23-figure">
-<a href="assets/method/v23/toy-wiener.png" data-figure-open="" data-figure-title="Wiener · 4.85 HR px">
-<img src="assets/method/v23/toy-wiener.png" alt="Narrower Wiener-corrected source illustration from Method 3." loading="lazy" decoding="async"/>
-</a>
-<figcaption>Wiener · 4.85 HR px</figcaption>
-</figure>
-</div>
-<p class="m23-caption">Presentation illustrations from Method 3. Widths are reported by the paper’s controlled toy experiment, not measured from these illustrations. <a href="assets/method/v23/toy-original.pdf">Original four-panel toy experiment ↗</a>
-</p>
-</div>
-<div class="m23-copy" data-m23-reveal>
-<p class="m23-kicker">03 · Why the correction kernel matters</p>
-<h3>A plain correction can widen the source</h3>
-<p>The simplest back-projection applies the PSF again. Fine spatial frequencies recover slowly, so a small update budget can leave a point source too broad.</p>
-<p>In the paper’s noise-free toy experiment, 10 updates widen the reference from <b>4.71 to 6.78 HR pixels</b>. This happens even without observation noise.</p>
-<p class="m23-small">That motivates changing the back-projection kernel, while keeping the same measurement check.</p>
-</div>
-</div>
-<div class="m23-row m23-reverse">
-<div class="m23-visual" data-m23-reveal>
-<figure class="m23-figure">
-<a href="assets/method/v23/toy-profile-transparent-large.png" data-figure-open="" data-figure-title="Controlled toy experiment · paper Fig. 16(c)">
-<img src="assets/method/v23/toy-profile-transparent.svg" alt="Original paper intensity curves: naive width 6.78 HR pixels, Wiener 4.85; Wiener follows the true PSF." loading="lazy" decoding="async"/>
-</a>
-<figcaption>Controlled toy experiment · paper Fig. 16(c)</figcaption>
-</figure>
-</div>
-<div class="m23-copy" data-m23-reveal>
-<p class="m23-kicker">04 · Wiener correction</p>
-<h3>Keep the measurement check, recover the sharper profile</h3>
-<p>Wiener reweights the lifted residual in frequency space, replacing the PSF-adjoint part of the update. It improves recovery within the frequency band supported by DESI.</p>
-<figure class="m23-equation">
-<img src="assets/method/v23/wiener-transparent.svg" alt="W of k equals conjugate H divided by squared magnitude H plus inverse lambda SNR."/>
-<figcaption>
-<a href="assets/method/formulas/wiener.pdf">LaTeX PDF ↗</a> · <a href="assets/method/formulas/wiener.tex">Source</a>
-</figcaption>
-</figure>
-<p class="m23-small">H is the PSF transfer function; λ controls regularization. This filters the residual, not the whole reconstructed image.</p>
-<p>The corrected toy profile has FWHM <b>4.85 HR pixels</b>, close to the <b>4.71</b> reference. FWHM measures width at half the peak intensity.</p>
-</div>
-</div>
-<div class="m23-row">
-<div class="m23-visual" data-m23-reveal>
-<div class="m23-pair">
-<figure class="m23-figure">
-<a href="assets/method/v23/star-without-wiener.png" data-figure-open="" data-figure-title="Without Wiener">
-<img src="assets/method/v23/star-without-wiener.png" alt="Original Method 3 real-star crop without Wiener correction, with arrows highlighting structure." loading="lazy" decoding="async"/>
-</a>
-<figcaption>Without Wiener</figcaption>
-</figure>
-<figure class="m23-figure">
-<a href="assets/method/v23/star-fluxflow.png" data-figure-open="" data-figure-title="FluxFlow">
-<img src="assets/method/v23/star-fluxflow.png" alt="Original Method 3 full FluxFlow real-star crop." loading="lazy" decoding="async"/>
-</a>
-<figcaption>FluxFlow</figcaption>
-</figure>
-</div>
-<p class="m23-caption">Real reconstruction crops from the presentation’s Method 3 ablation. Arrows are retained from the source images.</p>
-</div>
-<div class="m23-copy" data-m23-reveal>
-<p class="m23-kicker">05 · Real-data ablation</p>
-<h3>The same choice improves real reconstructions</h3>
-<p>The star crops from Method 3 show what changes when the Wiener correction is removed. The full ×2 test-set ablation also improves both reconstruction and source-flux error.</p>
-<dl class="m23-metrics">
-<div>
-<dt>PSNR ↑</dt>
-<dd>30.79 → 31.23</dd>
-</div>
-<div>
-<dt>Flux-L1 ↓</dt>
-<dd>3.031 → 2.959</dd>
-</div>
-</dl>
-<p class="m23-small">Paper Table 3 · without Wiener → full FluxFlow. Toy results explain the mechanism; these real-data results test its practical effect. Hallucinations are reduced, not guaranteed absent.</p>
-</div>
-</div>
-<details class="m23-details">
-<summary>Training, architecture and equation sources</summary>
-<div class="m23-details-body">
+<details class="m25-details">
+<summary>Training, Wiener kernel and original sources</summary>
+<div class="m25-details-body">
 <p>A conditional U-Net predicts pixel-space velocity. HST inverse-variance weights (WHT) reduce unreliable training pixels’ influence, while a source mask emphasizes sources. DESI conditions the network at inference.</p>
 <p>
 <a href="assets/figures/sup-model.pdf">Original network architecture PDF ↗</a> · <a href="#sampler-guide">Sampling and implementation details ↓</a>
 </p>
 <p>The area-downsampling adjoint includes the 1/s² normalization; it is not ordinary resizing. The correction is subtracted from the candidate, with strength decaying over sampling steps.</p>
-<ul class="m23-downloads">
+<figure class="m25-formula"><img src="assets/method/v23/wiener-transparent.svg" alt="Wiener kernel: conjugate H over squared magnitude H plus inverse lambda SNR."/><figcaption>H is the PSF transfer function; λ sets regularization. <a href="assets/method/formulas/wiener.pdf">LaTeX PDF ↗</a></figcaption></figure><ul class="m25-downloads">
 <li>Candidate: <a href="assets/method/formulas/candidate.pdf">PDF</a> · <a href="assets/method/formulas/candidate.tex">LaTeX</a>
 </li>
 <li>Forward: <a href="assets/method/formulas/forward.pdf">PDF</a> · <a href="assets/method/formulas/forward.tex">LaTeX</a>
@@ -257,9 +120,8 @@
 </ul>
 </div>
 </details>
-<p class="m23-sources">Sources: local video-script slides, Method 2 and 3; paper §5.2, Table 3 and Appendix E, Figs. 14–16. Scientific images and values retain their original source identity.</p>
-</div>
-</section><section class="section nasa-light mission-light" id="results">
+<p class="m25-sources">Original scientific figures and values: paper §5.2, Table 3, Appendix E; video-script slides Method 2 and 3. Hallucinations are reduced, not guaranteed absent.</p>
+</div></section><section class="section nasa-light mission-light" id="results">
 <header class="sec-head"><h2 class="h2"><span aria-hidden="true" class="section-number">04</span>Results</h2><p class="dek">FluxFlow achieves the lowest source-flux error in the reported comparison at both scales. Select a scale to inspect its metrics and the full method comparison.</p></header><div class="result-context"><div aria-label="Quantitative result scale" class="result-scale-controls" role="group"><span>Scale</span><button aria-pressed="true" data-result-scale="2" type="button">×2</button><button aria-pressed="false" data-result-scale="4" type="button">×4</button></div></div><div class="metrics clean-metrics"><article class="clean-metric"><h3 class="metric-set">Source-flux error (Flux-L1)</h3><p class="bignum">2.959</p><p>Lower is better</p></article><article class="clean-metric"><h3>Structural similarity (SSIM)</h3><p class="bignum" data-result-ssim="">0.714</p><p>Higher is better</p></article></div><figure class="clean-result-chart"><h3>Source-flux error by method</h3><div aria-label="Flux-L1 at ×2, lower is better: Bicubic 11.251, SwinIR 4.136, HAT 3.695, FISR 3.526, cGAN 4.502, GD-Net 3.639, AS-Bridge 5.151, FluxFlow 2.959." class="bars" role="img" style="--d:.1s">
 <div aria-hidden="true" class="flux-axis"><span>0</span><span>5</span><span>10</span><span>15</span><span>20</span></div><div class="bar" data-i="0" style="--v:11.251;--flux-width:56.2550%"><span class="bar-name">Bicubic</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-val">11.251</span></div>
 <div class="bar" data-i="1" style="--v:4.136;--flux-width:20.6800%"><span class="bar-name">SwinIR</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-val">4.136</span></div>
