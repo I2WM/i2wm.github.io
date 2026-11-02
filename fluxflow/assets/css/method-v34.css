@@ -1,0 +1,188 @@
+/* Method-only editorial layout, using the site's existing type and content rail. */
+#site-revised#site-revised #main>#method {
+  background: #15191f !important;
+  color: #f4f7fc !important;
+}
+#site-revised#site-revised #method,
+#site-revised#site-revised #method * {
+  box-sizing: border-box;
+  font-family: "Source Sans 3", Arial, Helvetica, sans-serif !important;
+}
+#site-revised#site-revised #method :is(h2,h3,h4,summary) {
+  font-family: Arimo, Arial, Helvetica, sans-serif !important;
+  font-weight: 700 !important;
+}
+/* Protect the dark-section text from the site's light-section heading rules. */
+#site-revised#site-revised #main>#method :is(h1,h2,h3,h4,h5,h6,summary,strong,b) {
+  color: #f4f7fc !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+}
+#site-revised#site-revised #main>#method :is(p,li,dt,dd,figcaption) {
+  color: #d4deeb !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+#site-revised#site-revised #method .m34-inner {
+  width: 100%;
+  max-width: 1200px !important;
+  margin: 0 auto;
+}
+#site-revised#site-revised #method .sec-head {
+  max-width: 80ch;
+  margin: 0 0 28px !important;
+}
+#site-revised#site-revised #method .sec-head .h2 {
+  font-size: clamp(38px,4vw,52px) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.035em !important;
+}
+#site-revised#site-revised #method .sec-head .dek {
+  max-width: 60ch !important;
+  font-size: clamp(21px,2vw,27px) !important;
+  line-height: 1.42 !important;
+}
+#site-revised#site-revised #method .section-number { font-size: 18px !important; }
+#site-revised#site-revised #method .m34-chapter {
+  border-top: 1px solid #ffffff38;
+  margin: 48px 0 0;
+  padding: 34px 0 0;
+  scroll-margin-top: 140px;
+}
+#site-revised#site-revised #method .m34-chapter.m34-first { margin-top: 0; }
+#site-revised#site-revised #method .m34-chapter h3 {
+  font-size: clamp(33px,3.4vw,47px) !important;
+  line-height: 1.14 !important;
+  letter-spacing: -.03em !important;
+  margin: 0 !important;
+}
+#site-revised#site-revised #method .m34-chapter h4 {
+  font-size: clamp(27px,2.4vw,34px) !important;
+  line-height: 1.2 !important;
+  letter-spacing: -.02em !important;
+  margin: 0 !important;
+}
+#site-revised#site-revised #method :is(.m34-heading-row,.m34-copy)>p,
+#site-revised#site-revised #method .m34-result {
+  max-width: 75ch;
+  font-size: clamp(19px,1.55vw,22px) !important;
+  line-height: 1.6 !important;
+  margin: 16px 0 0 !important;
+}
+#site-revised#site-revised #method .m34-subhead { margin-top: 38px; }
+#site-revised#site-revised #method .m34-figure {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin: 22px 0 0 !important;
+  padding: 0;
+  scroll-margin-top: 140px;
+}
+#site-revised#site-revised #method .m34-image {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+#site-revised#site-revised #method .m34-image img {
+  display: block;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  border: 0;
+  border-radius: 0;
+}
+#site-revised#site-revised #method .m34-figure figcaption {
+  max-width: 100ch;
+  margin: 12px 0 0 !important;
+  padding: 0 !important;
+  font-size: 18px !important;
+  line-height: 1.5 !important;
+}
+#site-revised#site-revised #method .m34-result { margin-top: 20px !important; }
+#site-revised#site-revised #method .m34-feature--training>.m34-figure { max-width: 795px; }
+#site-revised#site-revised #method a {
+  color: #b5d5ff;
+  text-underline-offset: 4px;
+}
+#site-revised#site-revised #method :is(a,summary):focus-visible {
+  outline: 3px solid #b5d5ff;
+  outline-offset: 5px;
+}
+#site-revised#site-revised #method .m34-details {
+  margin: 30px 0 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-block: 1px solid #ffffff38;
+  border-radius: 0;
+  box-shadow: none;
+}
+#site-revised#site-revised #method .m34-details summary {
+  display: list-item;
+  list-style: disclosure-closed;
+  font-size: 20px !important;
+  line-height: 1.5 !important;
+  padding: 20px 0;
+  cursor: pointer;
+}
+#site-revised#site-revised #method .m34-details[open] summary { list-style: disclosure-open; }
+#site-revised#site-revised #method .m34-details summary::after { content: none; }
+#site-revised#site-revised #method .m34-details .m34-figure { margin: 4px 0 24px !important; }
+#site-revised#site-revised #method .m34-sources { margin-top: 48px; }
+#site-revised#site-revised #method .m34-sources>div { max-width: 75ch; padding: 0 0 22px; }
+#site-revised#site-revised #method .m34-sources p { font-size: 19px !important; line-height: 1.6 !important; }
+@media (min-width: 1000px) {
+  #site-revised#site-revised #method :is(.m34-heading-row,.m34-copy) {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: 0 40px;
+    align-items: start;
+  }
+  #site-revised#site-revised #method :is(.m34-heading-row,.m34-copy)>p:first-of-type {
+    margin-top: 0 !important;
+  }
+  #site-revised#site-revised #method .m34-copy>p:not(:first-of-type) { grid-column: 2; }
+}
+/* Figure 4 is shown at its native width beside its explanation. */
+@media (min-width: 1200px) {
+  #site-revised#site-revised #method .m34-feature--training {
+    display: grid;
+    grid-template-columns: minmax(0,795px) minmax(0,1fr);
+    grid-template-areas: "image copy";
+    gap: 40px;
+    align-items: center;
+  }
+  #site-revised#site-revised #method .m34-feature--training>.m34-copy { grid-area: copy; display: block; }
+  #site-revised#site-revised #method .m34-feature--training>.m34-copy>p:first-of-type { margin-top: 16px !important; }
+  #site-revised#site-revised #method .m34-feature--training>.m34-figure { grid-area: image; margin: 0 !important; }
+}
+/* At wide desktop sizes, keep paper figures at the full 1200px rail and use the extra room for copy. */
+@media (min-width: 1700px) {
+  #site-revised#site-revised #method .m34-feature--image-right {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(1640px, calc(100vw - var(--gutter) - var(--gutter)));
+    display: grid;
+    gap: 40px;
+    align-items: center;
+  }
+  #site-revised#site-revised #method .m34-feature--image-right {
+    grid-template-columns: minmax(260px,1fr) minmax(0,1200px);
+    grid-template-areas: "copy image";
+  }
+  #site-revised#site-revised #method .m34-feature--image-right>.m34-copy { grid-area: copy; display: block; }
+  #site-revised#site-revised #method .m34-feature--image-right>.m34-copy>p:first-of-type { margin-top: 16px !important; }
+  #site-revised#site-revised #method .m34-feature--image-right>.m34-figure { grid-area: image; margin: 0 !important; }
+}
+@media (max-width: 760px) {
+  #site-revised#site-revised #method .m34-chapter { margin-top: 38px; padding-top: 28px; scroll-margin-top: 150px; }
+  #site-revised#site-revised #method .m34-chapter.m34-first { margin-top: 0; }
+  #site-revised#site-revised #method .m34-subhead { margin-top: 30px; }
+  #site-revised#site-revised #method :is(.m34-heading-row,.m34-copy)>p,
+  #site-revised#site-revised #method .m34-result { font-size: 18px !important; line-height: 1.6 !important; }
+  #site-revised#site-revised #method .m34-figure figcaption { font-size: 17px !important; }
+  #site-revised#site-revised #method .m34-figure { scroll-margin-top: 150px; }
+}
