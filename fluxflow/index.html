@@ -19,8 +19,8 @@
 <script defer="" src="assets/js/site.js?v=20261026-v11"></script>
 <script defer="" src="assets/js/chroma.js?v=20261026-v11"></script>
 <meta content="20261014-video-entry-live" name="deployment-version"/><link href="assets/css/components.css?v=20261026-v11" rel="stylesheet"/><link href="assets/css/page-layout.css?v=20261028-v19" rel="stylesheet"/><link rel="stylesheet" href="assets/css/motion.css?v=20261026-v14"/>
-<link rel="stylesheet" href="assets/css/method-v34.css?v=20261102-v34"/>
-<script defer src="assets/js/method-v33.js?v=20261102-v33"></script>
+<link rel="stylesheet" href="assets/css/method-v35.css?v=20261102-v35"/>
+<script defer src="assets/js/method-v35.js?v=20261102-v35"></script>
 </head>
 <body class="site-codex nasa-layout mission-layout editorial-finish quality-layout research-evidence" data-design-revision="20261026-original-hubble-v11" id="site-revised">
 <a class="skip" href="#main">Skip to content</a>
@@ -75,18 +75,20 @@
 <p class="section-detail-link"><a href="#dataset-details">View data fields and preparation details ↓</a></p></div></section><section class="section is-refined" id="method"><div class="section-inner m34-inner">
 <header class="sec-head">
 <h2 class="h2"><span aria-hidden="true" class="section-number">03</span>The method</h2>
-<p class="dek">Learn a sharper reconstruction, then check it against the light DESI measured.</p>
+<p class="dek">A clear reconstruction that stays faithful to DESI’s observation.</p>
+<p class="m35-intro">Guided by a DESI image, a conditional flow starts from noise and builds a finer image step by step.</p>
 </header>
 
 <article class="m34-chapter m34-first" id="method-part-1">
 <div class="m34-feature m34-feature--training">
 <header class="m34-copy">
-<h3>Give reliable pixels more weight</h3>
-<p>FluxFlow learns a pixel-space flow from matched DESI and HST images: starting from noise, it learns to reconstruct a finer view guided by DESI. But the HST training target can contain gaps and artifacts, and most pixels are background. HST weight maps (WHT) reduce the influence of uncertain pixels, while a source mask gives galaxies and stars more emphasis.</p>
+<h3>Learn from the reliable parts</h3>
+<p data-m35-motion="arrive">During training, paired DESI and HST images teach the flow how to reconstruct finer structure.</p>
+<p data-m35-motion="problem">Some HST target pixels contain gaps or artifacts. WHT reliability maps downweight them, while a source mask gives stars and galaxies more emphasis.</p>
 </header>
-<figure class="m34-figure" data-m33-motion="settle">
+<figure class="m34-figure">
 <a class="m34-image" data-figure-open="" data-figure-title="Paper Figure 4 · HST images and WHT maps" href="assets/method/v34/wht-example.png"><img src="assets/method/v34/wht-example.png" width="795" height="524" alt="Complete paper Figure 4: three HST science images above their corresponding inverse-variance WHT maps." loading="lazy" decoding="async"/></a>
-<figcaption>HST images above; their WHT reliability maps below. <a data-figure-open="" data-figure-title="Paper Figure 4 · HST images and WHT maps" href="assets/method/v34/wht-example.png">Paper Fig. 4 ↗</a></figcaption>
+<figcaption data-m35-motion="evidence">HST images above; their WHT reliability maps below. <a data-figure-open="" data-figure-title="Paper Figure 4 · HST images and WHT maps" href="assets/method/v34/wht-example.png">Paper Fig. 4 ↗</a></figcaption>
 </figure>
 </div>
 <details class="m34-details">
@@ -96,49 +98,55 @@
 <figcaption>The weight map identifies defects in the HST target. Compare “w/o WHT” with “w/ WHT.” <a data-figure-open="" data-figure-title="Paper Figure 9 · weighting ablation" href="assets/method/v33/fig09-weighting.png">Paper Fig. 9 ↗</a></figcaption>
 </figure>
 </details>
+<p class="m35-bridge" data-m35-motion="bridge">Even a well-trained flow can invent convincing detail.</p>
 </article>
 
 <article class="m34-chapter" id="method-part-2">
 <header class="m34-heading-row">
-<h3>Check what the telescope would see</h3>
-<p>Even a sharp reconstruction can contain a plausible-looking source that the observation does not support. During sampling, a fluctuation in the initial noise can grow into such a source.</p>
+<h3>When a source appears from noise</h3>
+<p data-m35-motion="problem">A fluctuation can grow into a bright, plausible-looking source that the observation does not support.</p>
 </header>
-<figure class="m34-figure" data-m33-motion="right">
+<figure class="m34-figure">
 <a class="m34-image" data-figure-open="" data-figure-title="Paper Figure 5 · a source emerging during sampling" href="assets/method/v33/fig05-hallucination.png"><img src="assets/method/v33/fig05-hallucination.png" width="2500" height="372" alt="Complete paper Figure 5: a DESI input, flow states from t equals zero to t equals one, and an HST reference. A source-like bright feature emerges through sampling." loading="lazy" decoding="async"/></a>
-<figcaption>A source-like feature becomes brighter along a sampling trajectory. <a data-figure-open="" data-figure-title="Paper Figure 5 · a source emerging during sampling" href="assets/method/v33/fig05-hallucination.png">Paper Fig. 5 ↗</a></figcaption>
+<figcaption data-m35-motion="evidence">A source-like feature becomes brighter along a sampling trajectory. <a data-figure-open="" data-figure-title="Paper Figure 5 · a source emerging during sampling" href="assets/method/v33/fig05-hallucination.png">Paper Fig. 5 ↗</a></figcaption>
 </figure>
 <div class="m34-heading-row m34-subhead">
-<h4>Compare each proposal with DESI</h4>
-<p>Measurement-Consistent Flow Sampling (MC-FS) asks what DESI would observe if the proposed image were the sky. It blurs and downsamples the proposal, compares that prediction with DESI, and uses the difference to correct the proposal before the next step.</p>
+<h4>Ask what DESI would see</h4>
+<div class="m35-explain">
+<p data-m35-motion="solve">Measurement-Consistent Flow Sampling (MC-FS) predicts the DESI view of each proposal, compares it with the actual observation, and uses the difference to correct the proposal.</p>
+<p class="m35-sequence" data-m35-motion="sequence"><span data-m35-step>Blur and downsample</span><span class="m35-arrow" aria-hidden="true">→</span><span class="sr-only">, then </span><span data-m35-step>Compare with DESI</span><span class="m35-arrow" aria-hidden="true">→</span><span class="sr-only">, then </span><span data-m35-step>Correct the proposal</span></p>
 </div>
-<figure class="m34-figure" data-m33-motion="settle">
+</div>
+<figure class="m34-figure">
 <a class="m34-image" data-figure-open="" data-figure-title="Paper Figure 14 · measurement-consistent flow sampling" href="assets/method/v31/fig14-mcfs.png"><img src="assets/method/v31/fig14-mcfs.png" width="2500" height="821" alt="Complete paper Figure 14: a learned flow reaches a proposed state; comparing its predicted measurement with the observation guides a correction away from a possible wrong drift." loading="lazy" decoding="async"/></a>
-<figcaption>The paper’s conceptual view of the measurement check and correction. <a data-figure-open="" data-figure-title="Paper Figure 14 · measurement-consistent flow sampling" href="assets/method/v31/fig14-mcfs.png">Paper Fig. 14 ↗</a></figcaption>
+<figcaption data-m35-motion="evidence">The paper’s conceptual view of the measurement check and correction. <a data-figure-open="" data-figure-title="Paper Figure 14 · measurement-consistent flow sampling" href="assets/method/v31/fig14-mcfs.png">Paper Fig. 14 ↗</a></figcaption>
 </figure>
 <div class="m34-heading-row m34-subhead">
-<h4>What changes in a real field?</h4>
-<p>Compare the red-boxed sources without MC-FS with the full model. The same figure also shows the effect of Wiener correction on a bright star.</p>
+<h4>See the trade-off in a real field</h4>
+<p data-m35-motion="arrive">Compare the red-boxed sources without MC-FS with the full model. The same figure also shows the effect of Wiener correction on a bright star.</p>
 </div>
 <figure class="m34-figure" id="method-real-evidence">
 <a class="m34-image" data-figure-open="" data-figure-title="Paper Figure 10 · MC-FS and Wiener ablation" href="assets/method/v31/fig10-ablation.png"><img src="assets/method/v31/fig10-ablation.png" width="2800" height="909" alt="Complete paper Figure 10: DESI, without MC-FS, without Wiener, the full model and HST. The red boxes mark hallucinations and the insets show a bright star and nearby sources." loading="lazy" decoding="async"/></a>
-<figcaption>Real-image ablation with its original star and source insets. <a data-figure-open="" data-figure-title="Paper Figure 10 · MC-FS and Wiener ablation" href="assets/method/v31/fig10-ablation.png">Paper Fig. 10 ↗</a></figcaption>
+<figcaption data-m35-motion="evidence">Real-image ablation with its original star and source insets. <a data-figure-open="" data-figure-title="Paper Figure 10 · MC-FS and Wiener ablation" href="assets/method/v31/fig10-ablation.png">Paper Fig. 10 ↗</a></figcaption>
 </figure>
-<p class="m34-result">In the paper’s ×2 ablation, detection precision changes from <strong>0.602 to 0.738</strong> with MC-FS, while recall changes from <strong>0.553 to 0.458</strong>. The check trades some recall for higher precision.</p>
+<p class="m34-result m35-stats" data-m35-motion="stats">In the paper’s ×2 ablation, detection precision changes from <strong data-m35-step>0.602 to 0.738</strong> with MC-FS, while recall changes from <strong data-m35-step>0.553 to 0.458</strong>. The check trades some recall for higher precision.</p>
+<p class="m35-bridge" data-m35-motion="bridge">But a correction also has to keep stars sharp.</p>
 </article>
 
 <article class="m34-chapter" id="method-part-3">
 <div class="m34-feature m34-feature--image-right">
 <header class="m34-copy">
-<h3>Correct without losing the fine detail</h3>
-<p>Plain back-projection recovers high spatial frequencies slowly when only a few steps are available, which can leave a star too wide. Wiener filtering improves the lifted measurement residual before it is subtracted from the proposal.</p>
-<p>In this toy test, the true source width is <strong>4.71</strong> high-resolution pixels. Plain correction gives <strong>6.78</strong>; Wiener correction gives <strong>4.85</strong>.</p>
+<h3>Keep the correction sharp</h3>
+<p data-m35-motion="problem">Plain back-projection recovers fine spatial frequencies slowly in a few steps, leaving a point source too wide.</p>
+<p data-m35-motion="solve">Wiener filtering improves the lifted measurement residual before it is subtracted from the proposal.</p>
 </header>
-<figure class="m34-figure" data-m33-motion="left">
+<figure class="m34-figure">
 <a class="m34-image" data-figure-open="" data-figure-title="Paper Figure 15 · toy reconstruction" href="assets/method/v31/fig15-toy.png"><img src="assets/method/v31/fig15-toy.png" width="2500" height="657" alt="Complete paper Figure 15: a toy point source as HST-quality truth, DESI observation, naive back-projection and Wiener-corrected reconstruction after ten noise-free steps." loading="lazy" decoding="async"/></a>
-<figcaption>A controlled, noise-free toy reconstruction after ten steps. <a data-figure-open="" data-figure-title="Paper Figure 15 · toy reconstruction" href="assets/method/v31/fig15-toy.png">Paper Fig. 15 ↗</a></figcaption>
+<figcaption data-m35-motion="evidence">A controlled, noise-free toy reconstruction after ten steps. <a data-figure-open="" data-figure-title="Paper Figure 15 · toy reconstruction" href="assets/method/v31/fig15-toy.png">Paper Fig. 15 ↗</a></figcaption>
 </figure>
 </div>
-<p class="m34-result">The <a href="#method-real-evidence">real-field comparison above</a> shows the same distinction in the bright-star insets. For the paper’s ×2 ablation, PSNR changes from 30.79 to 31.23 and Flux-L1 from 3.031 to 2.959 with Wiener correction.</p>
+<p class="m34-result m35-stats" data-m35-motion="stats">In this toy test, the true source width is <strong data-m35-step>4.71</strong> high-resolution pixels. Plain correction gives <strong data-m35-step>6.78</strong>; Wiener correction gives <strong data-m35-step>4.85</strong>.</p>
+<p class="m34-result" data-m35-motion="arrive">The <a href="#method-real-evidence">real-field comparison above</a> shows the same distinction in the bright-star insets. For the paper’s ×2 ablation, PSNR changes from 30.79 to 31.23 and Flux-L1 from 3.031 to 2.959 with Wiener correction.</p>
 <details class="m34-details">
 <summary>See the complete toy-model analysis</summary>
 <figure class="m34-figure">
@@ -146,16 +154,17 @@
 <figcaption>All three original toy-analysis plots and captions. <a data-figure-open="" data-figure-title="Paper Figure 16 · complete toy-model analysis" href="assets/method/v31/fig16-complete.png">Paper Fig. 16 ↗</a></figcaption>
 </figure>
 </details>
+<p class="m35-bridge" data-m35-motion="bridge">The check corrects a proposal. What makes the proposal?</p>
 </article>
 
 <article class="m34-chapter" id="method-part-4">
 <header class="m34-heading-row">
-<h3>The network behind the flow</h3>
-<p>The conditional U-Net takes the current state together with the upsampled DESI observation. A time embedding identifies the sampling step, and the network predicts the pixel-space velocity used for the next proposal. HST supplies training targets; a new reconstruction uses DESI as its observation.</p>
+<h3>The network behind each proposal</h3>
+<p data-m35-motion="solve">The conditional U-Net takes the current state and the upsampled DESI image. Time conditioning identifies the step; the network predicts the velocity for the next proposal. HST supplies training targets, while a new reconstruction uses DESI.</p>
 </header>
-<figure class="m34-figure" data-m33-motion="settle">
+<figure class="m34-figure">
 <a class="m34-image" data-figure-open="" data-figure-title="Paper Figure 13 · conditional U-Net architecture" href="assets/method/v31/fig13-network.png"><img src="assets/method/v31/fig13-network.png" width="2600" height="1321" alt="Complete paper Figure 13: conditional U-Net with the DESI observation and current state as inputs, a time embedding, encoder-decoder blocks, skip connections and velocity output." loading="lazy" decoding="async"/></a>
-<figcaption>The complete velocity-network architecture. <a data-figure-open="" data-figure-title="Paper Figure 13 · conditional U-Net architecture" href="assets/method/v31/fig13-network.png">Paper Fig. 13 ↗</a></figcaption>
+<figcaption data-m35-motion="evidence">The complete velocity-network architecture. <a data-figure-open="" data-figure-title="Paper Figure 13 · conditional U-Net architecture" href="assets/method/v31/fig13-network.png">Paper Fig. 13 ↗</a></figcaption>
 </figure>
 </article>
 
