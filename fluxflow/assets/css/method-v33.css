@@ -1,0 +1,149 @@
+/* Method-only editorial layout; original paper figures keep their own backgrounds. */
+#site-revised#site-revised #main>#method {
+  background: #15191f !important;
+  color: #f4f7fc !important;
+}
+#site-revised#site-revised #method,
+#site-revised#site-revised #method * {
+  box-sizing: border-box;
+  font-family: "Source Sans 3", Arial, Helvetica, sans-serif !important;
+}
+#site-revised#site-revised #method :is(h2,h3,h4,summary) {
+  font-family: Arimo, Arial, Helvetica, sans-serif !important;
+  font-weight: 700 !important;
+}
+/* Outrank the light-section heading rules without affecting another section. */
+#site-revised#site-revised #main>#method :is(h1,h2,h3,h4,h5,h6,summary,strong,b) {
+  color: #f4f7fc !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+}
+#site-revised#site-revised #main>#method :is(p,li,dt,dd,figcaption) {
+  color: #d4deeb !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+#site-revised#site-revised #method .m33-inner {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+#site-revised#site-revised #method .sec-head {
+  max-width: 80ch;
+  margin: 0 0 38px !important;
+}
+#site-revised#site-revised #method .sec-head .h2 {
+  font-size: clamp(38px,4vw,52px) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.035em !important;
+}
+#site-revised#site-revised #method .sec-head .dek {
+  max-width: 60ch !important;
+  font-size: clamp(21px,2vw,27px) !important;
+  line-height: 1.42 !important;
+}
+#site-revised#site-revised #method .section-number { font-size: 18px !important; }
+#site-revised#site-revised #method .m33-chapter {
+  border-top: 1px solid #ffffff38;
+  margin: 0;
+  padding: 68px 0 72px;
+  scroll-margin-top: 140px;
+}
+#site-revised#site-revised #method .m33-chapter-head,
+#site-revised#site-revised #method .m33-subhead { max-width: 78ch; }
+#site-revised#site-revised #method .m33-chapter h3 {
+  font-size: clamp(33px,3.5vw,48px) !important;
+  line-height: 1.14 !important;
+  letter-spacing: -.03em !important;
+  margin: 0 0 20px !important;
+}
+#site-revised#site-revised #method .m33-subhead {
+  margin: 58px 0 0;
+}
+#site-revised#site-revised #method .m33-subhead h4 {
+  font-size: clamp(27px,2.4vw,34px) !important;
+  line-height: 1.2 !important;
+  letter-spacing: -.02em !important;
+  margin: 0 0 15px !important;
+}
+#site-revised#site-revised #method :is(.m33-chapter-head,.m33-subhead)>p,
+#site-revised#site-revised #method .m33-result {
+  max-width: 75ch;
+  font-size: clamp(19px,1.55vw,22px) !important;
+  line-height: 1.62 !important;
+  margin: 0;
+}
+#site-revised#site-revised #method .m33-figure {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin: 32px 0 0 !important;
+  padding: 0;
+  scroll-margin-top: 140px;
+}
+#site-revised#site-revised #method .m33-image {
+  display: block;
+  width: 100%;
+  background: #fff;
+  padding: clamp(8px,1vw,14px);
+  border: 1px solid #d5dce5;
+}
+#site-revised#site-revised #method .m33-image img {
+  display: block;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  border: 0;
+  border-radius: 0;
+}
+#site-revised#site-revised #method .m33-figure figcaption {
+  max-width: 100ch;
+  margin: 15px 0 0 !important;
+  padding: 0 !important;
+  font-size: 18px !important;
+  line-height: 1.55 !important;
+}
+#site-revised#site-revised #method .m33-result {
+  margin: 24px 0 0 !important;
+}
+#site-revised#site-revised #method a {
+  color: #b5d5ff;
+  text-underline-offset: 4px;
+}
+#site-revised#site-revised #method :is(a,summary):focus-visible {
+  outline: 3px solid #b5d5ff;
+  outline-offset: 5px;
+}
+#site-revised#site-revised #method .m33-details {
+  margin: 40px 0 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-block: 1px solid #ffffff38;
+  border-radius: 0;
+  box-shadow: none;
+}
+#site-revised#site-revised #method .m33-details summary {
+  display: list-item;
+  list-style: disclosure-closed;
+  font-size: 20px !important;
+  line-height: 1.5 !important;
+  padding: 22px 0;
+  cursor: pointer;
+}
+#site-revised#site-revised #method .m33-details[open] summary {
+  list-style: disclosure-open;
+}
+#site-revised#site-revised #method .m33-details summary::after { content: none; }
+#site-revised#site-revised #method .m33-details .m33-figure { margin: 6px 0 28px !important; }
+#site-revised#site-revised #method .m33-sources { margin: 0; }
+#site-revised#site-revised #method .m33-sources>div { max-width: 75ch; padding: 0 0 22px; }
+#site-revised#site-revised #method .m33-sources p { font-size: 19px !important; line-height: 1.6 !important; }
+@media (max-width:760px) {
+  #site-revised#site-revised #method .m33-chapter { padding: 52px 0 56px; scroll-margin-top: 150px; }
+  #site-revised#site-revised #method .m33-subhead { margin-top: 42px; }
+  #site-revised#site-revised #method :is(.m33-chapter-head,.m33-subhead)>p,
+  #site-revised#site-revised #method .m33-result { font-size: 18px !important; line-height: 1.6 !important; }
+  #site-revised#site-revised #method .m33-figure figcaption { font-size: 17px !important; }
+  #site-revised#site-revised #method .m33-figure { scroll-margin-top: 150px; }
+}
