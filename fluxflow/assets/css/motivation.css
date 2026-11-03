@@ -1,7 +1,7 @@
 /* A single pinned panel: scrolling changes the introduction and image together. */
 #site-revised#site-revised #dataset .sr-motivation {
   --sr-ink: var(--ink,#17171b); --sr-muted: var(--muted,#505158);
-  --sr-accent: var(--action,#d83933); --sr-line: var(--line,#d7d7db);
+  --sr-accent: var(--link,#1e55c8); --sr-line: var(--line,#d7d7db);
   margin: 48px 0 0; padding: 36px 0 0; scroll-margin-top: 110px;
   border-top: 1px solid var(--sr-line);
 }
@@ -11,46 +11,19 @@
 #site-revised#site-revised #dataset .sr-scroll-pinned .sr-scene { position: sticky; top: var(--sr-sticky-top,100px); }
 #site-revised#site-revised #dataset .sr-scene {
   display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
-  align-items: center; gap: clamp(32px,5vw,72px); padding: 12px 0; background: #fff;
+  align-items: center; gap: clamp(32px,5vw,72px); padding: 12px 0;
 }
 #site-revised#site-revised #dataset .sr-scene > * { min-width: 0; }
 #site-revised#site-revised #dataset .sr-copy h4 {
-  margin: 14px 0 24px; color: var(--sr-ink) !important;
-  font-size: clamp(28px, 3vw, 40px) !important; line-height: 1.12 !important;
-  text-wrap: initial;
+  margin: 0 0 14px !important; color: var(--sr-ink) !important;
+  font-size: 25px !important; line-height: 1.25 !important;
 }
 #site-revised#site-revised #dataset .sr-intro {
   display: block; min-width: 0; margin: 0 0 32px; text-align: left;
 }
-#site-revised#site-revised #dataset .sr-instrument {
-  margin: 0 !important; color: var(--sr-ink) !important;
-  font-size: 13px !important; line-height: 1.5 !important; font-weight: 700;
-}
-#site-revised#site-revised #dataset .sr-instrument::before {
-  content: ''; display: inline-block; width: 20px; height: 2px;
-  margin: 0 9px 4px 0; background: var(--sr-accent);
-}
-#site-revised#site-revised #dataset .sr-instrument span {
-  display: block; margin-left: 29px; color: var(--sr-muted); font-weight: 400;
-}
-#site-revised#site-revised #dataset .sr-tradeoffs { display: grid; gap: 18px; margin: 0; }
-#site-revised#site-revised #dataset .sr-tradeoffs > div {
-  display: grid; grid-template-columns: 80px minmax(0,1fr); gap: 16px; align-items: baseline;
-}
-#site-revised#site-revised #dataset .sr-tradeoffs dt {
-  margin: 0; color: var(--sr-ink) !important; font-size: 13px !important;
-  line-height: 1.5 !important; font-weight: 700;
-}
-#site-revised#site-revised #dataset .sr-tradeoffs dd {
-  margin: 0; color: var(--sr-muted) !important; font-size: 17px !important; line-height: 1.55 !important;
-}
-#site-revised#site-revised #dataset .sr-goal { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--sr-line); }
-#site-revised#site-revised #dataset .sr-goal p {
-  margin: 0; color: var(--sr-ink) !important; font-size: 17px !important; line-height: 1.55 !important;
-}
-#site-revised#site-revised #dataset .sr-goal .sr-goal-label {
-  margin-bottom: 8px; color: var(--sr-accent) !important; font-size: 12px !important;
-  font-weight: 700; line-height: 1.5 !important; text-transform: uppercase; letter-spacing: .08em !important;
+#site-revised#site-revised #dataset .sr-intro > p {
+  max-width: 46ch; margin: 0 !important; color: var(--sr-muted) !important;
+  font-size: 18px !important; line-height: 1.65 !important;
 }
 #site-revised#site-revised #dataset .sr-enhanced .sr-copy-stack { display: grid; overflow: hidden; }
 #site-revised#site-revised #dataset .sr-enhanced .sr-intro { grid-area: 1 / 1; margin: 0; align-self: start; }
@@ -62,7 +35,7 @@
 }
 #site-revised#site-revised #dataset .sr-scroll-hint { display: none; }
 #site-revised#site-revised #dataset .sr-enhanced .sr-scroll-hint { display: block; margin: 18px 0 0; color: var(--sr-muted) !important; font-size: 12px !important; line-height: 1.5 !important; }
-#site-revised#site-revised #dataset .sr-scroll-hint span { color: var(--sr-accent); margin-right: 6px; }
+#site-revised#site-revised #dataset .sr-scroll-hint span { margin-right: 6px; }
 #site-revised#site-revised #dataset .sr-motivation :is(button,input,a):focus-visible { outline: 3px solid var(--sr-accent); outline-offset: 5px; }
 #site-revised#site-revised #dataset .sr-comparison { width: 100%; max-width: 480px; margin: 0 auto; }
 #site-revised#site-revised #dataset .sr-compare-frame {
@@ -102,18 +75,10 @@
 #site-revised#site-revised #dataset .sr-motivation-sources a { color: var(--sr-muted); text-underline-offset: 3px; }
 @media (max-width: 1000px) {
   #site-revised#site-revised #dataset .sr-scene { gap: 28px; }
-  #site-revised#site-revised #dataset .sr-tradeoffs > div { grid-template-columns: 72px minmax(0,1fr); gap: 12px; }
-  #site-revised#site-revised #dataset .sr-tradeoffs dd,
-  #site-revised#site-revised #dataset .sr-goal p { font-size: 16px !important; }
 }
 @media (max-width: 760px) {
   #site-revised#site-revised #dataset .sr-motivation { margin-top: 36px; padding-top: 28px; }
   #site-revised#site-revised #dataset .sr-scene { grid-template-columns: minmax(0,1fr); gap: 24px; padding: 0; }
-  #site-revised#site-revised #dataset .sr-copy h4 { font-size: clamp(27px,6vw,36px) !important; margin: 12px 0 20px; }
-  #site-revised#site-revised #dataset .sr-tradeoffs { gap: 14px; }
-  #site-revised#site-revised #dataset .sr-tradeoffs dd,
-  #site-revised#site-revised #dataset .sr-goal p { font-size: 15px !important; line-height: 1.5 !important; }
-  #site-revised#site-revised #dataset .sr-goal { margin-top: 20px; padding-top: 16px; }
   #site-revised#site-revised #dataset .sr-enhanced .sr-scroll-hint { margin-top: 16px; }
   #site-revised#site-revised #dataset .sr-comparison { max-width: 240px; }
   #site-revised#site-revised #dataset .sr-motivation figcaption { font-size: 12px !important; }
