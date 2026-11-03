@@ -1,4 +1,4 @@
-/* Page scroll drives the introduction and the registered DESI-to-HST wipe together. */
+/* Page scroll links a soft card highlight to the registered DESI-to-HST wipe. */
 (function () {
   'use strict';
   function enhance(win, doc) {
@@ -23,16 +23,9 @@
       frame.querySelector('.sr-compare-tag--hst').style.opacity = String(Math.min(1, progress * 5));
       frame.querySelector('.sr-compare-tag--desi').style.opacity = String(Math.min(1, (1 - progress) * 5));
       root.dataset.view = progress < .5 ? 'desi' : 'hst';
-      // One legible introduction at every position, including a divider held halfway.
-      var showHst = progress >= .5;
-      var copyOpacity = .72 + .28 * clamp(Math.abs(progress - .5) / .2);
-      var copyShift = 14 * (1 - copyOpacity) / .28;
-      root.style.setProperty('--sr-desi-opacity', String(showHst ? 0 : copyOpacity));
-      root.style.setProperty('--sr-hst-opacity', String(showHst ? copyOpacity : 0));
-      root.style.setProperty('--sr-desi-shift', (-copyShift).toFixed(2) + 'px');
-      root.style.setProperty('--sr-hst-shift', copyShift.toFixed(2) + 'px');
+      // Both descriptions stay readable; only the border emphasis changes.
       copy.forEach(function (item) {
-        item.setAttribute('aria-hidden', String(item.dataset.srView !== root.dataset.view));
+        item.classList.toggle('is-active', item.dataset.srView === root.dataset.view);
       });
     }
     function measure() {
@@ -53,10 +46,12 @@
         // Give each observation a reading interval at the beginning and end.
         progress = clamp((travel - .18) / .64);
       } else {
-        // On short screens the panel flows normally; change while its image is visible.
-        var rect = frame.getBoundingClientRect();
-        var centre = rect.top + rect.height / 2;
-        progress = clamp((win.innerHeight * .7 - centre) / (win.innerHeight * .4));
+        // In normal flow, follow the card nearest the reading line.
+        var first = copy[0].getBoundingClientRect();
+        var last = copy[copy.length - 1].getBoundingClientRect();
+        var firstCentre = first.top + first.height / 2;
+        var lastCentre = last.top + last.height / 2;
+        progress = clamp((win.innerHeight * .5 - firstCentre) / Math.max(1, lastCentre - firstCentre));
       }
       render(reduce.matches ? (progress < .5 ? 0 : 1) : progress * progress * (3 - 2 * progress));
     }

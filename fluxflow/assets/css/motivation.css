@@ -1,4 +1,4 @@
-/* A single pinned panel: scrolling changes the introduction and image together. */
+/* Both introductions stay visible; scrolling highlights the matching observation. */
 #site-revised#site-revised #dataset .sr-motivation {
   --sr-ink: var(--ink,#17171b); --sr-muted: var(--muted,#505158);
   --sr-accent: var(--link,#1e55c8); --sr-line: var(--line,#d7d7db);
@@ -17,26 +17,26 @@
 }
 #site-revised#site-revised #dataset .sr-scene > * { min-width: 0; }
 #site-revised#site-revised #dataset .sr-copy { grid-column: 1; grid-row: 1; display: grid; }
+#site-revised#site-revised #dataset .sr-copy-stack {
+  display: grid; grid-template-rows: repeat(2,minmax(0,1fr)); gap: 16px;
+}
 #site-revised#site-revised #dataset .sr-copy h4 {
-  margin: 0 !important; color: var(--sr-ink) !important;
-  font-size: clamp(28px,2.5vw,32px) !important; line-height: 1.25 !important;
+  margin: 0 0 6px !important; color: var(--sr-ink) !important;
+  font-size: clamp(30px,3vw,38px) !important; line-height: 1.25 !important;
 }
 #site-revised#site-revised #dataset .sr-intro {
-  display: flex; flex-direction: column; gap: 24px; min-width: 0; margin: 0 0 32px; text-align: left;
+  display: flex; flex-direction: column; gap: 8px; min-width: 0; margin: 0;
+  padding: 14px 20px; text-align: left; border: 1px solid var(--sr-line); border-radius: 10px;
+  background: transparent; transform: translateY(0);
+  transition: border-color 260ms ease, box-shadow 260ms ease, background-color 260ms ease, transform 260ms ease;
 }
 #site-revised#site-revised #dataset .sr-intro > p {
   max-width: 46ch; margin: 0 !important; color: var(--sr-muted) !important;
-  font-size: clamp(20px,1.85vw,22px) !important; line-height: 1.55 !important;
+  font-size: clamp(20px,1.85vw,22px) !important; line-height: 1.5 !important;
 }
-#site-revised#site-revised #dataset .sr-intro > p + p { margin-top: auto !important; }
-#site-revised#site-revised #dataset .sr-intro strong { color: var(--sr-ink); }
-#site-revised#site-revised #dataset .sr-enhanced .sr-copy-stack { display: grid; overflow: hidden; }
-#site-revised#site-revised #dataset .sr-enhanced .sr-intro { grid-area: 1 / 1; margin: 0; align-self: stretch; }
-#site-revised#site-revised #dataset .sr-enhanced [data-sr-view="desi"] {
-  opacity: var(--sr-desi-opacity,1); transform: translateY(var(--sr-desi-shift,0px));
-}
-#site-revised#site-revised #dataset .sr-enhanced [data-sr-view="hst"] {
-  opacity: var(--sr-hst-opacity,0); transform: translateY(var(--sr-hst-shift,28px));
+#site-revised#site-revised #dataset .sr-intro.is-active {
+  border-color: #8ba9d1; background: #ffffffa6; transform: translateY(-2px);
+  box-shadow: 0 0 0 1px #6c90bf1a, 0 0 18px #6c90bf26, 0 8px 22px #243f6212;
 }
 #site-revised#site-revised #dataset .sr-motivation :is(button,input,a):focus-visible { outline: 3px solid var(--sr-accent); outline-offset: 5px; }
 #site-revised#site-revised #dataset .sr-comparison { display: contents; }
@@ -75,6 +75,11 @@
   grid-column: 2; grid-row: 2; width: 100%; max-width: 480px; justify-self: end;
   margin: 0; color: var(--sr-muted) !important; font-size: 13px !important; line-height: 1.5 !important;
 }
+#site-revised#site-revised #dataset .sr-goal {
+  max-width: 88ch; margin: 30px 0 0 !important; color: var(--sr-muted) !important;
+  font-size: clamp(20px,1.85vw,22px) !important; line-height: 1.55 !important;
+}
+#site-revised#site-revised #dataset .sr-goal strong { color: var(--sr-ink); }
 #site-revised#site-revised #dataset .sr-motivation-sources { margin: 18px 0 0; font-size: 13px !important; line-height: 1.5 !important; }
 #site-revised#site-revised #dataset .sr-motivation-sources a { color: var(--sr-muted); text-underline-offset: 3px; }
 @media (max-width: 1000px) {
@@ -83,7 +88,8 @@
 @media (max-width: 760px) {
   #site-revised#site-revised #dataset .sr-motivation { margin-top: 36px; padding-top: 28px; }
   #site-revised#site-revised #dataset .sr-scene { grid-template-columns: minmax(0,1fr); row-gap: 24px; padding: 0; }
-  #site-revised#site-revised #dataset .sr-intro > p + p { margin-top: 0 !important; }
+  #site-revised#site-revised #dataset .sr-copy-stack { grid-template-rows: auto auto; }
+  #site-revised#site-revised #dataset .sr-intro { padding: 16px 18px; }
   #site-revised#site-revised #dataset .sr-compare-frame { grid-column: 1; grid-row: 2; max-width: 240px; justify-self: center; }
   #site-revised#site-revised #dataset .sr-motivation figcaption { grid-column: 1; grid-row: 3; max-width: 240px; justify-self: center; margin-top: -12px; font-size: 12px !important; }
 }
@@ -91,11 +97,3 @@
   #site-revised#site-revised #dataset .sr-motivation * { transition: none !important; animation: none !important; }
   #site-revised#site-revised #dataset .sr-enhanced .sr-intro { transform: none !important; }
 }
-
-
-/* Compact DESI and HST typography */
-#site-revised#site-revised #dataset .sr-copy { align-content: center; }
-#site-revised#site-revised #dataset .sr-copy h4 { font-size: clamp(30px,3vw,38px) !important; }
-#site-revised#site-revised #dataset .sr-intro { gap: 20px; }
-#site-revised#site-revised #dataset .sr-intro > p + p { margin-top: 0 !important; }
-#site-revised#site-revised #dataset .sr-enhanced .sr-intro { align-self: start; }
