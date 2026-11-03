@@ -19,8 +19,9 @@
 <script defer="" src="assets/js/site.js?v=20261026-v11"></script>
 <script defer="" src="assets/js/chroma.js?v=20261026-v11"></script>
 <meta content="20261014-video-entry-live" name="deployment-version"/><link href="assets/css/components.css?v=20261026-v11" rel="stylesheet"/><link href="assets/css/page-layout.css?v=20261028-v19" rel="stylesheet"/><link rel="stylesheet" href="assets/css/motion.css?v=20261026-v14"/>
-<link rel="stylesheet" href="assets/css/method-v36.css?v=20261102-v36"/>
-<script defer src="assets/js/method-v36.js?v=20261102-v36"></script>
+<link rel="stylesheet" href="assets/css/method-v36.css?v=20261102-v37"/>
+<script src="assets/js/method-v37-boot.js?v=20261102-v37"></script>
+<script defer src="assets/js/method-v36.js?v=20261102-v37"></script>
 </head>
 <body class="site-codex nasa-layout mission-layout editorial-finish quality-layout research-evidence" data-design-revision="20261026-original-hubble-v11" id="site-revised">
 <a class="skip" href="#main">Skip to content</a>
@@ -102,16 +103,22 @@
 
 <article class="m36-chapter" id="method-part-2">
 <header class="m36-heading"><h3>Check each proposal against DESI</h3><p>Measurement-Consistent Flow Sampling (MC-FS) uses the observation to guide each step, without retraining the network.</p></header>
-<div class="m36-loop" data-m36-sequence="cycle">
-<ol aria-label="The measurement-consistency cycle">
-<li data-m36-item><span class="m36-count" aria-hidden="true">01</span><h4>Propose</h4><img class="m36-cycle-image" data-m36-link src="assets/method/v36/trajectory-t100.png" width="314" height="313" alt="Example of a proposed finer image from the unchecked sampling trajectory above" loading="lazy" decoding="async"/><p>An Euler step produces a candidate image.</p><span class="m36-next" aria-hidden="true">→</span></li>
-<li data-m36-item><span class="m36-count" aria-hidden="true">02</span><h4>Predict DESI’s view</h4><p>Blur the candidate with the PSF and downsample it to the DESI grid.</p><span class="m36-next" aria-hidden="true">→</span></li>
-<li data-m36-item><span class="m36-count" aria-hidden="true">03</span><h4>Compare</h4><img class="m36-cycle-image" data-m36-link src="assets/method/v36/trajectory-desi.png" width="313" height="313" alt="The actual DESI observation from the same example" loading="lazy" decoding="async"/><p>Predicted view minus observed DESI gives the measurement residual.</p><span class="m36-next" aria-hidden="true">→</span></li>
-<li data-m36-item><span class="m36-count" aria-hidden="true">04</span><h4>Correct</h4><p>Lift and Wiener-filter that residual, then subtract it from the candidate.</p></li>
-</ol>
-<p class="m36-loop-note" data-m36-item>The cycle follows each Euler step; the paper uses ten steps. The thumbnails repeat the unchecked example above.</p>
+<figure class="m36-figure m37-measurement" data-m36-sequence="cycle">
+<div class="m37-measurement-diagram">
+<a data-figure-open="" data-figure-title="Paper Figure 14 · measurement-consistent flow sampling" href="assets/method/v31/fig14-mcfs.png"><img src="assets/method/v31/fig14-mcfs.png" width="2500" height="821" loading="lazy" decoding="async" alt="Original paper schematic: a flow proposal is checked in the DESI observation space, and a projection correction steers it away from a wrong drift."/></a>
+<span class="m37-measurement-spot m37-measurement-spot--proposal" data-m37-cycle-spot="proposal" aria-hidden="true"></span>
+<span class="m37-measurement-spot m37-measurement-spot--measurement" data-m37-cycle-spot="measurement" aria-hidden="true"></span>
+<span class="m37-measurement-spot m37-measurement-spot--correction" data-m37-cycle-spot="correction" aria-hidden="true"></span>
 </div>
-<p class="m36-source-link"><a data-figure-open="" data-figure-title="Paper Figure 14 · measurement-consistent flow sampling" href="assets/method/v31/fig14-mcfs.png">Open the paper’s measurement-check schematic ↗</a></p>
+<ol class="m37-measurement-steps" aria-label="One measurement-consistency cycle">
+<li data-m36-item data-m37-cycle-key="proposal"><span aria-hidden="true">01</span><p><strong>Propose.</strong> Take one flow step toward a finer image.</p></li>
+<li data-m36-item data-m37-cycle-key="measurement"><span aria-hidden="true">02</span><p><strong>Predict the observation.</strong> Blur and downsample to DESI’s grid.</p></li>
+<li data-m36-item data-m37-cycle-key="measurement"><span aria-hidden="true">03</span><p><strong>Compare.</strong> Measure the difference from the actual DESI image.</p></li>
+<li data-m36-item data-m37-cycle-key="correction"><span aria-hidden="true">04</span><p><strong>Correct.</strong> Back-project the residual before the next flow step.</p></li>
+</ol>
+<figcaption>Repeat the check after each flow step. Original paper schematic; not a sequence of intermediate sky images. <a data-figure-open="" href="assets/method/v31/fig14-mcfs.png">Open original ↗</a></figcaption>
+</figure>
+<details class="m34-details m37-cycle-detail"><summary>How is the residual used?</summary><p>The predicted DESI view minus the observed image gives the residual. Lift it to the high-resolution grid, apply the Wiener filter, and subtract the correction from the candidate. The paper uses ten flow steps.</p></details>
 <div class="m36-subheading"><h4>What changes in a real field?</h4><p>Compare detections without the check and with FluxFlow.</p></div>
 <figure class="m36-figure" id="method-real-evidence">
 <div class="m36-pair" data-m36-sequence="compare">
