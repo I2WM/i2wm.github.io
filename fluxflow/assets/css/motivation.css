@@ -91,3 +91,11 @@
   #site-revised#site-revised #dataset .sr-motivation * { transition: none !important; animation: none !important; }
   #site-revised#site-revised #dataset .sr-enhanced .sr-intro { transform: none !important; }
 }
+
+
+/* Compact DESI and HST typography */
+#site-revised#site-revised #dataset .sr-copy { align-content: center; }
+#site-revised#site-revised #dataset .sr-copy h4 { font-size: clamp(30px,3vw,38px) !important; }
+#site-revised#site-revised #dataset .sr-intro { gap: 20px; }
+#site-revised#site-revised #dataset .sr-intro > p + p { margin-top: 0 !important; }
+#site-revised#site-revised #dataset .sr-enhanced .sr-intro { align-self: start; }
