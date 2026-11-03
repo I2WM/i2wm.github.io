@@ -550,17 +550,6 @@
 #site-revised#site-revised #dataset .dataset-stats{margin:0 0 24px!important;padding:24px 0!important;}
 #site-revised#site-revised #dataset .dataset-summary{max-width:85ch!important;margin:0!important;font-size:18px!important;line-height:1.65!important;text-align:left!important;}
 #site-revised#site-revised #dataset .section-detail-link{margin:20px 0 0!important;}
-/* Section 02 closes with the motivation, after the paired-data introduction. */
-#site-revised#site-revised #dataset .sr-motivation{margin:48px 0 0;padding:36px 0 0;border-top:1px solid #d7d7db;}
-#site-revised#site-revised #dataset .sr-motivation>h3{margin:0 0 28px!important;}
-#site-revised#site-revised #dataset .sr-motivation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px;}
-#site-revised#site-revised #dataset .sr-motivation-grid h4{margin:0 0 14px;font-size:22px!important;line-height:1.3!important;color:#17171b;}
-#site-revised#site-revised #dataset .sr-motivation-grid p{margin:0;}
-#site-revised#site-revised #dataset .sr-motivation-goal{margin:28px 0 0;padding-left:20px;border-left:3px solid #214f84;color:#17171b!important;}
-#site-revised#site-revised #dataset .sr-motivation-sources{margin:20px 0 0;font-size:15px!important;}
-@media(max-width:760px){
- #site-revised#site-revised #dataset .sr-motivation-grid{grid-template-columns:1fr;gap:24px;}
-}
 /* Three method columns share actual row heights: no title is pushed by a caption. */
 #site-revised#site-revised #main>#method{background:#15191f!important;color:#fff!important;}
 #site-revised#site-revised #method .section-inner>.sec-head>h2{color:#fff!important;}
