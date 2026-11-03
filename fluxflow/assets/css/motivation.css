@@ -34,6 +34,7 @@
   max-width: 46ch; margin: 0 !important; color: var(--sr-muted) !important;
   font-size: clamp(20px,1.85vw,22px) !important; line-height: 1.5 !important;
 }
+#site-revised#site-revised #dataset .sr-intro > p > strong { color: var(--sr-ink); }
 #site-revised#site-revised #dataset .sr-intro.is-active {
   border-color: #8ba9d1; background: #ffffffa6; transform: translateY(-2px);
   box-shadow: 0 0 0 1px #6c90bf1a, 0 0 18px #6c90bf26, 0 8px 22px #243f6212;
@@ -73,15 +74,13 @@
 #site-revised#site-revised #dataset .sr-compare-frame:focus-within { outline: 3px solid var(--sr-accent); outline-offset: 4px; }
 #site-revised#site-revised #dataset .sr-motivation figcaption {
   grid-column: 2; grid-row: 2; width: 100%; max-width: 480px; justify-self: end;
-  margin: 0; color: var(--sr-muted) !important; font-size: 13px !important; line-height: 1.5 !important;
+  margin: 0; color: var(--sr-muted) !important; font-size: 17px !important; line-height: 1.5 !important;
 }
 #site-revised#site-revised #dataset .sr-goal {
   max-width: 88ch; margin: 30px 0 0 !important; color: var(--sr-muted) !important;
-  font-size: clamp(20px,1.85vw,22px) !important; line-height: 1.55 !important;
+  font-size: clamp(24px,2.3vw,28px) !important; line-height: 1.5 !important;
 }
 #site-revised#site-revised #dataset .sr-goal strong { color: var(--sr-ink); }
-#site-revised#site-revised #dataset .sr-motivation-sources { margin: 18px 0 0; font-size: 13px !important; line-height: 1.5 !important; }
-#site-revised#site-revised #dataset .sr-motivation-sources a { color: var(--sr-muted); text-underline-offset: 3px; }
 @media (max-width: 1000px) {
   #site-revised#site-revised #dataset .sr-scene { column-gap: 28px; }
 }
@@ -91,7 +90,7 @@
   #site-revised#site-revised #dataset .sr-copy-stack { grid-template-rows: auto auto; }
   #site-revised#site-revised #dataset .sr-intro { padding: 16px 18px; }
   #site-revised#site-revised #dataset .sr-compare-frame { grid-column: 1; grid-row: 2; max-width: 240px; justify-self: center; }
-  #site-revised#site-revised #dataset .sr-motivation figcaption { grid-column: 1; grid-row: 3; max-width: 240px; justify-self: center; margin-top: -12px; font-size: 12px !important; }
+  #site-revised#site-revised #dataset .sr-motivation figcaption { grid-column: 1; grid-row: 3; max-width: 240px; justify-self: center; margin-top: -12px; font-size: 15px !important; }
 }
 @media (prefers-reduced-motion: reduce) {
   #site-revised#site-revised #dataset .sr-motivation * { transition: none !important; animation: none !important; }
