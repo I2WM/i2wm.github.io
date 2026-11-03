@@ -395,6 +395,7 @@
 
 #site-revised#site-revised #top .resource-button{border:0!important;background:none!important;border-radius:0!important;font-weight:700!important;padding:12px 0!important;text-decoration:underline;text-underline-offset:5px;}
 #site-revised#site-revised #top .resource-button.primary{background:#d83933!important;padding:12px 20px!important;text-decoration:none!important;color:#fff!important;}
+#site-revised#site-revised #top .resource-button[aria-disabled="true"]{text-decoration:none;cursor:default;opacity:.75;}
 
 /* An editorial introduction, not another card. */
 #site-revised#site-revised #main>#abstract{grid-template-columns:minmax(180px,1fr) minmax(0,2fr)!important;gap:60px!important;color:#17171b!important;}
