@@ -18,10 +18,10 @@
 <script src="assets/js/inline-img.js?v=20261026-v11"></script>
 <script defer="" src="assets/js/site.js?v=20261026-v11"></script>
 <script defer="" src="assets/js/chroma.js?v=20261026-v11"></script>
-<meta content="20261103-motivation-story" name="deployment-version"/><link href="assets/css/components.css?v=20261026-v11" rel="stylesheet"/><link href="assets/css/page-layout.css?v=20261103-motivation-story" rel="stylesheet"/><link rel="stylesheet" href="assets/css/motion.css?v=20261026-v14"/>
+<meta content="20261104-motivation-single" name="deployment-version"/><link href="assets/css/components.css?v=20261026-v11" rel="stylesheet"/><link href="assets/css/page-layout.css?v=20261104-motivation-single" rel="stylesheet"/><link rel="stylesheet" href="assets/css/motion.css?v=20261026-v14"/>
 <link rel="stylesheet" href="assets/css/method-v36.css?v=20261103-layout-feedback"/>
-<link rel="stylesheet" href="assets/css/motivation.css?v=20261103-motivation-story"/>
-<script defer src="assets/js/motivation.js?v=20261103-motivation-story"></script>
+<link rel="stylesheet" href="assets/css/motivation.css?v=20261104-motivation-single"/>
+<script defer src="assets/js/motivation.js?v=20261104-motivation-single"></script>
 <script src="assets/js/method-v37-boot.js?v=20261102-v37"></script>
 <script defer src="assets/js/method-v36.js?v=20261102-v37"></script>
 </head>
@@ -78,70 +78,29 @@
 <p class="section-detail-link"><a href="#dataset-details">View data fields and preparation details ↓</a></p>
 <article class="sr-motivation" id="motivation" aria-labelledby="sr-motivation-title" data-sr-story>
 <h3 id="sr-motivation-title">Why super-resolution?</h3>
-<p class="sr-deck">Wide sky coverage is valuable. Fine detail makes it more useful. How can we bring the two together?</p>
-<div class="sr-controls">
-<div class="sr-tabs" role="tablist" aria-label="Why super-resolution">
-<button type="button" class="sr-tab" id="sr-tab-coverage" role="tab" aria-controls="sr-coverage" aria-selected="true" data-sr-tab><span>01</span><span>Coverage</span><i class="sr-progress" aria-hidden="true"></i></button>
-<button type="button" class="sr-tab" id="sr-tab-blur" role="tab" aria-controls="sr-blur" aria-selected="false" tabindex="-1" data-sr-tab><span>02</span><span>Physical blur</span><i class="sr-progress" aria-hidden="true"></i></button>
-<button type="button" class="sr-tab" id="sr-tab-goal" role="tab" aria-controls="sr-goal" aria-selected="false" tabindex="-1" data-sr-tab><span>03</span><span>The goal</span><i class="sr-progress" aria-hidden="true"></i></button>
-</div>
-<button class="sr-toggle" type="button" data-sr-toggle aria-label="Play the motivation story">
-<svg data-sr-pause-icon hidden viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2h3v12H4zM10 2h3v12h-3z"/></svg>
-<svg data-sr-play-icon viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2v12l10-6z"/></svg>
-<span data-sr-toggle-text>Play story</span></button>
-</div>
-<div class="sr-scenes">
-<section class="sr-scene" id="sr-coverage" role="tabpanel" aria-labelledby="sr-tab-coverage" tabindex="0" data-sr-scene>
+<div class="sr-scene">
 <div class="sr-copy">
 <h4>A lot of sky.<br>Few sharp views.</h4>
-<p class="sr-beat sr-beat--ground"><strong>DESI: a much larger sample.</strong> Ground-based imaging spans thousands of square degrees, but atmospheric seeing blurs fine structure.</p>
-<p class="sr-beat sr-beat--space"><strong>HST: a sharper reference.</strong> Above the atmosphere, HST sees finer detail. Deep, long-exposure observations cover far fewer fields.</p>
+<button class="sr-intro" type="button" data-sr-view="desi" aria-pressed="false" aria-controls="sr-compare-frame" disabled><strong>DESI: a much larger sample.</strong><span>Ground-based imaging spans thousands of square degrees, but atmospheric seeing blurs fine structure.</span></button>
+<button class="sr-intro" type="button" data-sr-view="hst" aria-pressed="false" aria-controls="sr-compare-frame" disabled><strong>HST: a sharper reference.</strong><span>Above the atmosphere, HST sees finer detail. Deep, long-exposure observations cover far fewer fields.</span></button>
+<div class="sr-controls">
+<button class="sr-toggle" type="button" data-sr-toggle aria-label="Play the DESI to HST comparison">
+<svg data-sr-pause-icon hidden viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2h3v12H4zM10 2h3v12h-3z"/></svg>
+<svg data-sr-play-icon viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2v12l10-6z"/></svg>
+<span data-sr-toggle-text>Play</span></button>
+<p>Select an introduction or drag to compare.</p>
 </div>
-<figure class="sr-visual">
-<div class="sr-observations">
-<div class="sr-observation sr-observation--ground"><img src="assets/img/complete/r0-desi.png" width="128" height="128" loading="lazy" decoding="async" alt="DESI observation with a broad bright star and blurred neighbouring sources"/><p class="sr-image-label">DESI &middot; ground<small>Wide-area imaging</small></p></div>
-<div class="sr-observation sr-observation--space"><img src="assets/img/complete/r0-hst.png" width="256" height="256" loading="lazy" decoding="async" alt="HST observation of the same region with a sharper star and resolved fine structure"/><p class="sr-image-label">HST &middot; space<small>Deep, targeted observations</small></p></div>
 </div>
-<figcaption>The same sky region, observed from the ground and from space.</figcaption>
-</figure>
-</section>
-<section class="sr-scene" id="sr-blur" role="tabpanel" aria-labelledby="sr-tab-blur" tabindex="0" data-sr-scene>
-<div class="sr-copy">
-<h4>More pixels.<br>Same blur.</h4>
-<p>A point source spreads into a broad profile in a ground-based image. Enlarging that image makes a finer grid, but does not reverse the spreading.</p>
-<p>Super-resolution must infer useful structure from the measured light, beyond simply increasing the pixel count.</p>
-</div>
-<figure class="sr-visual">
-<div class="sr-blur-pair" role="img" aria-label="Illustration: a blurred point source retains the same width when the sampling grid is made four times finer in each dimension">
-<div class="sr-sampling"><div class="sr-light"></div><div class="sr-grid"></div></div>
-<div class="sr-blur-arrow" aria-hidden="true">&rarr;</div>
-<div class="sr-sampling"><div class="sr-light"></div><div class="sr-grid sr-grid--target-coarse"></div><div class="sr-grid sr-grid--fine"></div></div>
-</div>
-<div class="sr-grid-labels"><p class="sr-image-label">Ground image<small>Coarse sampling grid</small></p><p class="sr-image-label">&times;4 finer grid<small>The blur stays the same</small></p></div>
-<p class="sr-sampling-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg>More samples do not restore lost detail.</p>
-<figcaption>Illustration of sampling and blur; not experimental data. Both panels use the same light profile.</figcaption>
-</figure>
-</section>
-<section class="sr-scene" id="sr-goal" role="tabpanel" aria-labelledby="sr-tab-goal" tabindex="0" data-sr-scene>
-<div class="sr-copy">
-<h4>Useful detail.<br>Trustworthy measurements.</h4>
-<p>We want to bring finer structure to DESI's much larger set of observations, while keeping the reconstruction consistent with the light DESI measured.</p>
-<p class="sr-goal-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="7" cy="12" r="3"/><circle cx="17" cy="12" r="3"/><path d="M2 4v3M2 4h3M22 20v-3M22 20h-3"/></svg>Resolve faint and neighbouring structures.</p>
-<p class="sr-goal-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m12 2 8 3v7c0 5-8 10-8 10S4 17 4 12V5zM8 12l3 3 5-6"/></svg>Preserve brightness for scientific use.</p>
-<a class="sr-method-link" href="#method">How FluxFlow addresses this &darr;</a>
-</div>
-<figure class="sr-visual sr-comparison">
-<div class="sr-compare-frame" data-sr-comparison>
+<figure class="sr-comparison">
+<div class="sr-compare-frame" id="sr-compare-frame" data-sr-comparison>
 <img src="assets/img/complete/r0-desi.png" width="128" height="128" loading="lazy" decoding="async" alt="DESI input of the paired sky region"/>
 <img class="sr-compare-hst" src="assets/img/complete/r0-hst.png" width="256" height="256" loading="lazy" decoding="async" alt="Aligned HST reference of the same sky region"/>
-<div class="sr-compare-divider" aria-hidden="true"></div>
+<div class="sr-compare-divider" aria-hidden="true"></div><div class="sr-compare-handle" aria-hidden="true">&harr;</div>
 <span class="sr-compare-tag sr-compare-tag--hst" aria-hidden="true">HST reference</span><span class="sr-compare-tag sr-compare-tag--desi" aria-hidden="true">DESI input</span>
 <input class="sr-compare-drag" type="range" min="0" max="100" value="50" step="1" aria-label="Amount of HST reference shown over DESI input" aria-valuetext="50% HST reference, 50% DESI input" data-sr-range/>
 </div>
-<p class="sr-compare-hint">Drag to compare &middot; arrow keys work too</p>
-<figcaption>Real paired observations. HST is the reference, not a FluxFlow prediction. Display brightness is not a calibrated flux comparison.</figcaption>
+<figcaption>The same sky region, observed from the ground and from space. HST is the reference, not a FluxFlow prediction.</figcaption>
 </figure>
-</section>
 </div>
 <p class="sr-motivation-sources">Background: <a href="https://www.desi.lbl.gov/imaging-surveys/">DESI imaging coverage</a> &middot; <a href="https://science.nasa.gov/mission/hubble/science/universe-uncovered/hubble-deep-fields/">HST deep observations</a></p>
 </article></div></section><section class="section is-refined" id="method"><div class="section-inner m34-inner">
