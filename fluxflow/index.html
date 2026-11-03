@@ -18,10 +18,10 @@
 <script src="assets/js/inline-img.js?v=20261026-v11"></script>
 <script defer="" src="assets/js/site.js?v=20261026-v11"></script>
 <script defer="" src="assets/js/chroma.js?v=20261026-v11"></script>
-<meta content="20261104-motivation-single" name="deployment-version"/><link href="assets/css/components.css?v=20261026-v11" rel="stylesheet"/><link href="assets/css/page-layout.css?v=20261104-motivation-single" rel="stylesheet"/><link rel="stylesheet" href="assets/css/motion.css?v=20261026-v14"/>
+<meta content="20261104-motivation-scroll" name="deployment-version"/><link href="assets/css/components.css?v=20261026-v11" rel="stylesheet"/><link href="assets/css/page-layout.css?v=20261104-motivation-scroll" rel="stylesheet"/><link rel="stylesheet" href="assets/css/motion.css?v=20261026-v14"/>
 <link rel="stylesheet" href="assets/css/method-v36.css?v=20261103-layout-feedback"/>
-<link rel="stylesheet" href="assets/css/motivation.css?v=20261104-motivation-single"/>
-<script defer src="assets/js/motivation.js?v=20261104-motivation-single"></script>
+<link rel="stylesheet" href="assets/css/motivation.css?v=20261104-motivation-scroll"/>
+<script defer src="assets/js/motivation.js?v=20261104-motivation-scroll"></script>
 <script src="assets/js/method-v37-boot.js?v=20261102-v37"></script>
 <script defer src="assets/js/method-v36.js?v=20261102-v37"></script>
 </head>
@@ -78,18 +78,15 @@
 <p class="section-detail-link"><a href="#dataset-details">View data fields and preparation details ↓</a></p>
 <article class="sr-motivation" id="motivation" aria-labelledby="sr-motivation-title" data-sr-story>
 <h3 id="sr-motivation-title">Why super-resolution?</h3>
+<div class="sr-scroll-track" data-sr-track>
 <div class="sr-scene">
 <div class="sr-copy">
 <h4>A lot of sky.<br>Few sharp views.</h4>
-<button class="sr-intro" type="button" data-sr-view="desi" aria-pressed="false" aria-controls="sr-compare-frame" disabled><strong>DESI: a much larger sample.</strong><span>Ground-based imaging spans thousands of square degrees, but atmospheric seeing blurs fine structure.</span></button>
-<button class="sr-intro" type="button" data-sr-view="hst" aria-pressed="false" aria-controls="sr-compare-frame" disabled><strong>HST: a sharper reference.</strong><span>Above the atmosphere, HST sees finer detail. Deep, long-exposure observations cover far fewer fields.</span></button>
-<div class="sr-controls">
-<button class="sr-toggle" type="button" data-sr-toggle aria-label="Play the DESI to HST comparison">
-<svg data-sr-pause-icon hidden viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2h3v12H4zM10 2h3v12h-3z"/></svg>
-<svg data-sr-play-icon viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2v12l10-6z"/></svg>
-<span data-sr-toggle-text>Play</span></button>
-<p>Select an introduction or drag to compare.</p>
+<div class="sr-copy-stack">
+<div class="sr-intro" data-sr-view="desi"><strong>DESI: a much larger sample.</strong><p>Ground-based imaging spans thousands of square degrees, but atmospheric seeing blurs fine structure.</p></div>
+<div class="sr-intro" data-sr-view="hst"><strong>HST: a sharper reference.</strong><p>Above the atmosphere, HST sees finer detail. Deep, long-exposure observations cover far fewer fields.</p></div>
 </div>
+<p class="sr-scroll-hint"><span aria-hidden="true">↓</span> Scroll from DESI to HST, or drag to compare.</p>
 </div>
 <figure class="sr-comparison">
 <div class="sr-compare-frame" id="sr-compare-frame" data-sr-comparison>
@@ -101,6 +98,7 @@
 </div>
 <figcaption>The same sky region, observed from the ground and from space. HST is the reference, not a FluxFlow prediction.</figcaption>
 </figure>
+</div>
 </div>
 <p class="sr-motivation-sources">Background: <a href="https://www.desi.lbl.gov/imaging-surveys/">DESI imaging coverage</a> &middot; <a href="https://science.nasa.gov/mission/hubble/science/universe-uncovered/hubble-deep-fields/">HST deep observations</a></p>
 </article></div></section><section class="section is-refined" id="method"><div class="section-inner m34-inner">
