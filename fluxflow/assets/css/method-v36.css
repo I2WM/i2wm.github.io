@@ -69,9 +69,7 @@
   #site-revised#site-revised #method :is(.m36-heading,.m36-subheading) { display:grid; grid-template-columns:minmax(0,2fr) minmax(0,3fr); gap:0 40px; align-items:start; }
   #site-revised#site-revised #method :is(.m36-heading,.m36-subheading)>p { margin-top:0!important; }
 }
-@media (min-width:1280px) {
-  #site-revised#site-revised #method .m36-wide { position:relative; left:50%; transform:translateX(-50%); width:min(1600px,calc(100vw - var(--gutter, 24px) - var(--gutter, 24px))); }
-}
+
 @media (max-width:760px) {
   #site-revised#site-revised #method .m36-chapter { margin-top:34px; padding-top:26px; scroll-margin-top:150px; }
   #site-revised#site-revised #method .m36-first { margin-top:0; }

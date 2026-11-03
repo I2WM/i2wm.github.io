@@ -177,17 +177,17 @@
 #site-revised#site-revised #method .cell{border-left:3px solid #8d9db0!important;min-height:0!important;}
 #site-revised#site-revised #method .cell h3{margin-bottom:18px!important;padding-left:0!important;position:static!important;}
 
-#site-revised#site-revised #results .result-context{display:block!important;border:0!important;margin:0 0 28px!important;padding:0!important;}
-#site-revised#site-revised #results .result-scale-controls{display:flex!important;align-items:center;gap:12px!important;}
-#site-revised#site-revised #results .result-scale-controls>span{font-size:18px!important;margin-right:8px!important;letter-spacing:0!important;text-transform:none!important;}
+#site-revised#site-revised #results .result-context{display:block!important;width:100%;border:0!important;margin:0 auto 28px!important;padding:0!important;}
+#site-revised#site-revised #results .result-scale-controls{display:flex!important;align-items:center;justify-content:center;gap:12px!important;}
+#site-revised#site-revised #results .result-scale-controls>span{flex:0 0 auto!important;font-size:18px!important;margin-right:8px!important;letter-spacing:0!important;text-transform:none!important;}
 #site-revised#site-revised #results .result-scale-controls button{min-width:62px!important;min-height:48px!important;font-size:18px!important;padding:8px 18px!important;}
 #site-revised#site-revised #results .clean-metrics{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;padding:0!important;border:0!important;}
-#site-revised#site-revised #results .clean-metric{min-width:0;}
+#site-revised#site-revised #results .clean-metric{min-width:0;text-align:center;}
 #site-revised#site-revised #results .clean-metric h3{margin:0 0 16px!important;letter-spacing:0!important;text-transform:none!important;font-weight:600!important;}
 #site-revised#site-revised #results .clean-metric .bignum{margin:0 0 14px!important;letter-spacing:-.035em!important;font-weight:700!important;}
 #site-revised#site-revised #results .clean-metric>p:last-child{line-height:1.4!important;margin:0!important;}
-#site-revised#site-revised #results .clean-result-chart{display:block!important;margin:0!important;}
-#site-revised#site-revised #results .clean-result-chart>h3{margin:0 0 28px!important;}
+#site-revised#site-revised #results .clean-result-chart{display:block!important;width:100%;margin:0 auto!important;}
+#site-revised#site-revised #results .clean-result-chart>h3{margin:0 0 28px!important;text-align:center;}
 #site-revised#site-revised #results .bars{display:block!important;width:100%!important;max-width:none!important;padding:0!important;border:0!important;background:none!important;}
 #site-revised#site-revised #results .bar{display:grid!important;gap:22px!important;align-items:center!important;min-height:52px!important;padding:10px 0!important;border-bottom:1px solid #e2e6ec!important;background:none!important;}
 #site-revised#site-revised #results .bar-name{position:static!important;font-size:18px!important;line-height:1.4!important;letter-spacing:0!important;color:#30435e!important;white-space:normal!important;}
@@ -198,7 +198,7 @@
 #site-revised#site-revised #results .bar--ours .bar-name,#site-revised#site-revised #results .bar--ours .bar-val{font-weight:700!important;color:#173f71!important;}
 #site-revised#site-revised #results .flux-axis{display:flex!important;justify-content:space-between!important;gap:0!important;margin:0 72px 10px 137px!important;padding:0!important;font-size:15px!important;color:#53647b!important;}
 #site-revised#site-revised #results .flux-axis span{font-size:15px!important;line-height:1.4!important;letter-spacing:0!important;position:static!important;transform:none!important;}
-#site-revised#site-revised #results .clean-result-chart>figcaption{display:block!important;font-size:17px!important;line-height:1.65!important;margin:24px 0 0!important;padding:0!important;border:0!important;color:#506078!important;max-width:70ch!important;}
+#site-revised#site-revised #results .clean-result-chart>figcaption{display:block!important;font-size:17px!important;line-height:1.65!important;margin:24px auto 0!important;padding:0!important;border:0!important;color:#506078!important;max-width:70ch!important;text-align:center;}
 #site-revised#site-revised #results #full-results{margin-top:30px!important;padding:0!important;width:100%!important;border-block:1px solid #cbd3df!important;background:none!important;}
 #site-revised#site-revised :is(.compact-dive,#full-results)>summary{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:20px!important;padding:22px 0!important;grid-template-columns:none!important;}
 #site-revised#site-revised :is(.compact-dive,#full-results)>summary>span:not(.deep-symbol){font-size:22px!important;line-height:1.35!important;color:inherit!important;letter-spacing:0!important;text-transform:none!important;font-weight:600!important;}
@@ -428,7 +428,7 @@
 
 #site-revised#site-revised #method .cell p{font-size:18px!important;line-height:1.65!important;color:#505158!important;}
 /* Results: evidence first; no dashboard boxes or decorative statistical cards. */
-#site-revised#site-revised #results .clean-metrics{gap:48px!important;margin:32px 0 48px!important;}
+#site-revised#site-revised #results .clean-metrics{width:100%;gap:48px!important;margin:32px auto 48px!important;}
 #site-revised#site-revised #results .clean-metric{background:none!important;border:0!important;padding:0!important;}
 #site-revised#site-revised #results .clean-metric h3{font-size:23px!important;line-height:1.3!important;color:#17171b!important;}
 #site-revised#site-revised #results .clean-metric .bignum{font-size:64px!important;color:#17171b!important;line-height:1.05!important;}
@@ -525,6 +525,15 @@
 
 
 
+/* Shared content rows keep the two observation spec borders and labels aligned. */
+@media(min-width:761px){
+ #site-revised#site-revised .observatory-grid{row-gap:0!important;align-items:stretch!important;}
+ #site-revised#site-revised .observatory-card{display:grid!important;grid-row:span 5;grid-template-rows:subgrid;row-gap:0!important;}
+ #site-revised#site-revised .observatory-copy{display:grid!important;grid-row:span 3;grid-template-rows:subgrid;row-gap:0!important;}
+}
+@media(max-width:760px){
+ #site-revised#site-revised .observatory-card{display:block!important;}
+}
 /* Observations and data share one quiet background and a single alignment. */
 #site-revised#site-revised #main>#observatories,#site-revised#site-revised #main>#dataset{background:#f1f2f4!important;color:#17171b!important;}
 #site-revised#site-revised .observatory-card>.photo-note{margin:12px 0 0!important;padding:0!important;font-size:15px!important;line-height:1.5!important;min-height:0!important;color:#53565e!important;}
@@ -540,6 +549,17 @@
 #site-revised#site-revised #dataset .dataset-stats{margin:0 0 24px!important;padding:24px 0!important;}
 #site-revised#site-revised #dataset .dataset-summary{max-width:85ch!important;margin:0!important;font-size:18px!important;line-height:1.65!important;text-align:left!important;}
 #site-revised#site-revised #dataset .section-detail-link{margin:20px 0 0!important;}
+/* Section 02 closes with the motivation, after the paired-data introduction. */
+#site-revised#site-revised #dataset .sr-motivation{margin:48px 0 0;padding:36px 0 0;border-top:1px solid #d7d7db;}
+#site-revised#site-revised #dataset .sr-motivation>h3{margin:0 0 28px!important;}
+#site-revised#site-revised #dataset .sr-motivation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px;}
+#site-revised#site-revised #dataset .sr-motivation-grid h4{margin:0 0 14px;font-size:22px!important;line-height:1.3!important;color:#17171b;}
+#site-revised#site-revised #dataset .sr-motivation-grid p{margin:0;}
+#site-revised#site-revised #dataset .sr-motivation-goal{margin:28px 0 0;padding-left:20px;border-left:3px solid #214f84;color:#17171b!important;}
+#site-revised#site-revised #dataset .sr-motivation-sources{margin:20px 0 0;font-size:15px!important;}
+@media(max-width:760px){
+ #site-revised#site-revised #dataset .sr-motivation-grid{grid-template-columns:1fr;gap:24px;}
+}
 /* Three method columns share actual row heights: no title is pushed by a caption. */
 #site-revised#site-revised #main>#method{background:#15191f!important;color:#fff!important;}
 #site-revised#site-revised #method .section-inner>.sec-head>h2{color:#fff!important;}
