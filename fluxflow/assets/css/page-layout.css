@@ -620,7 +620,7 @@
 #site-revised#site-revised #top .hero-brandline{position:relative;z-index:1;display:flex;align-items:center;justify-content:flex-start;width:100%;max-width:1200px;margin:0 auto 48px;}
 #site-revised#site-revised #top .conference-mark{display:inline-flex;align-items:center;gap:22px;flex:none;max-width:100%;margin:0;padding:0;background:transparent;border:0;border-radius:0;color:#f5f7fc;text-decoration:none;box-shadow:none;}
 #site-revised#site-revised #top .conference-mark img{display:block;width:226px;height:auto;flex:none;}
-#site-revised#site-revised #top .conference-year{display:block;font-size:46px;line-height:1;font-weight:600;letter-spacing:-.035em;color:#f5f7fc;}
+#site-revised#site-revised #top .conference-year{display:block;font-size:46px;line-height:1;font-weight:600;letter-spacing:-.035em;color:#b993ce;}
 @media(max-width:760px){
  #site-revised#site-revised #top .hero-brandline{padding:20px 22px 0;margin-bottom:12px;}
  #site-revised#site-revised #top .conference-mark{gap:16px;}
