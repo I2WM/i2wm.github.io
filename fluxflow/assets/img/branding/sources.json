@@ -1,0 +1,51 @@
+{
+  "assets": [
+    {
+      "file": "neurips.svg",
+      "download_url": "https://neurips.cc/media/Press/NeurIPS_logo.svg",
+      "official_source": "https://neurips.cc/public/MediaKit",
+      "retrieved": "2026-11-04",
+      "sha256": "b582019d2789b6706dde66b046e6ffc8c7a5d029a609bd1783eb392e8ea34fce",
+      "modified": false
+    },
+    {
+      "file": "utokyo.svg",
+      "download_url": "https://www.u-tokyo.ac.jp/content/400244322.svg",
+      "official_source": "https://www.u-tokyo.ac.jp/en/about/visual_identity.html",
+      "retrieved": "2026-11-04",
+      "sha256": "9c77a9517ee7bdfd4faa561fe8461c5fce15e6671c848dedd3710260def1de00",
+      "modified": false
+    },
+    {
+      "file": "i2wm.png",
+      "download_url": "https://avatars.githubusercontent.com/u/247924077?v=4",
+      "official_source": "https://github.com/I2WM",
+      "retrieved": "2026-11-04",
+      "sha256": "7c925ecfd7b15e390eb0c59cc2ac0e48c7e1eebc98fbcef94fa188423ab9b528",
+      "modified": false
+    }
+  ],
+  "citation_source": "https://github.com/I2WM/FluxFlow#-citation",
+  "display_variants": [
+    {
+      "file": "neurips-on-dark.svg",
+      "derived_from": "neurips.svg",
+      "changes": "Official text paths recolored ivory; emblem geometry and color retained.",
+      "sha256": "d311274d2102e77fdf3412245734a99fece00fb815859cc040af9f8793a9f5d4"
+    },
+    {
+      "file": "utokyo-on-dark.svg",
+      "derived_from": "utokyo.svg",
+      "changes": "White canvas rect removed; black text paths recolored ivory; blue/yellow emblem retained.",
+      "sha256": "bc9e99e3edfda716b09146b20aca827092ec9a267730156de40646c5bad2eefa"
+    },
+    {
+      "file": "i2wm-cutout.png",
+      "derived_from": "i2wm.png",
+      "tool": "built-in image_gen",
+      "changes": "Transparent background extraction. CSS applies a light color treatment for the dark cover.",
+      "prompt": "Remove only the white background; preserve the I2WM cube/camera geometry, lettering and proportions; actual alpha transparency.",
+      "sha256": "3431c76f8ca01c9bf802bb8301958cc3f51063a489283a9593c7b77d810fa877"
+    }
+  ]
+}

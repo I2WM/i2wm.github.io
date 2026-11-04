@@ -607,15 +607,41 @@
 }
 @media(max-width:420px){#site-revised#site-revised .instrument-specs{grid-template-columns:1fr!important;gap:20px!important;}}
 /* V8: restore left/right intent; center the verified abstract; give the map context. */
-#site-revised#site-revised #main #top.paper-hero{min-height:800px!important;padding:140px var(--gutter) 88px!important;}
+#site-revised#site-revised #main #top.paper-hero{min-height:800px!important;padding:116px var(--gutter) 88px!important;}
 #site-revised#site-revised #top .hero-composition{position:relative;z-index:1;display:grid!important;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr)!important;gap:clamp(40px,6vw,90px)!important;align-items:end!important;width:100%!important;max-width:1200px!important;margin:0 auto!important;}
 #site-revised#site-revised #top .paper-masthead{width:100%!important;max-width:none!important;margin:0!important;padding:0!important;text-align:left!important;}
 #site-revised#site-revised #top .paper-subtitle{max-width:none!important;margin:0 0 26px!important;text-align:left!important;}
 #site-revised#site-revised #top .paper-authors,#site-revised#site-revised #top .paper-affiliations{max-width:none!important;margin-left:0!important;margin-right:0!important;text-align:left!important;}
-#site-revised#site-revised #top .hero-context{min-width:0!important;padding:0!important;margin:320px 0 0!important;align-self:end!important;background:none!important;border:0!important;text-align:left!important;}
+#site-revised#site-revised #top .hero-context{min-width:0!important;padding:0!important;margin:0!important;align-self:end!important;background:none!important;border:0!important;text-align:left!important;}
 #site-revised#site-revised #top .hero-context>p{font-size:20px!important;line-height:1.6!important;color:#edf2f8!important;max-width:34ch!important;margin:0 0 26px!important;}
 #site-revised#site-revised #top .hero-context .paper-actions{justify-content:flex-start!important;gap:16px 24px!important;flex-wrap:wrap!important;margin:0!important;}
 #site-revised#site-revised #top .hero-cover::after{background:linear-gradient(90deg,rgba(2,6,14,.65) 0%,rgba(2,6,14,.4) 45%,rgba(2,6,14,0) 70%),linear-gradient(0deg,rgba(3,7,16,.92) 0%,rgba(3,7,16,.5) 24%,rgba(3,7,16,0) 55%)!important;}
+/* Transparent conference/institution marks form a quiet top rail on the cover. */
+#site-revised#site-revised #top .hero-brandline{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:32px;width:100%;max-width:1200px;margin:0 auto 58px;}
+#site-revised#site-revised #top .conference-mark{display:inline-flex;align-items:center;gap:20px;flex:none;max-width:100%;margin:0;padding:0;background:transparent;border:0;border-radius:0;color:#f5f7fc;text-decoration:none;box-shadow:none;}
+#site-revised#site-revised #top .conference-mark img{display:block;width:148px;height:auto;flex:none;}
+#site-revised#site-revised #top .conference-mark>span{display:block;padding-left:20px;border-left:1px solid #ffffff40;font-size:16px;line-height:1.2;font-weight:600;letter-spacing:.02em;color:#f5f7fc;}
+#site-revised#site-revised #top .conference-mark strong{display:block;margin-top:3px;font-size:36px;line-height:1;font-weight:700;letter-spacing:-.03em;}
+#site-revised#site-revised #top .hero-institutions{display:flex;align-items:center;justify-content:flex-end;gap:28px;max-width:100%;margin:0;padding:0;background:transparent;border:0;border-radius:0;}
+#site-revised#site-revised #top .hero-institutions a{display:flex;align-items:center;justify-content:center;flex:none;min-height:56px;text-decoration:none;}
+#site-revised#site-revised #top .institution-utokyo{display:block;width:218px;height:auto;max-width:100%;}
+#site-revised#site-revised #top .hero-institutions .institution-i2wm-link{position:relative;width:76px;height:80px;min-height:0;overflow:hidden;}
+#site-revised#site-revised #top .institution-i2wm{position:absolute;top:50%;left:50%;width:130px;max-width:none;height:130px;transform:translate(-50%,-50%);filter:invert(1) hue-rotate(180deg) saturate(.85);}
+@media(max-width:760px){
+ #site-revised#site-revised #top .hero-brandline{padding:20px 22px 0;margin-bottom:6px;gap:20px;}
+ #site-revised#site-revised #top .conference-mark{gap:12px;}
+ #site-revised#site-revised #top .conference-mark img{width:112px;}
+ #site-revised#site-revised #top .conference-mark>span{padding-left:12px;font-size:13px;}
+ #site-revised#site-revised #top .conference-mark strong{font-size:27px;}
+ #site-revised#site-revised #top .hero-institutions{gap:16px;}
+ #site-revised#site-revised #top .institution-utokyo{width:156px;}
+ #site-revised#site-revised #top .hero-institutions .institution-i2wm-link{width:58px;height:64px;}
+ #site-revised#site-revised #top .institution-i2wm{width:100px;height:100px;}
+}
+@media(max-width:560px){
+ #site-revised#site-revised #top .hero-brandline{align-items:flex-start;flex-direction:column;gap:16px;margin-bottom:8px;}
+ #site-revised#site-revised #top .hero-institutions{align-self:flex-end;}
+}
 /* Abstract is the unchanged licensed paper excerpt, not a right-hand summary. */
 #site-revised#site-revised #main>#abstract{display:block!important;padding:64px var(--gutter)!important;background:#fff!important;}
 #site-revised#site-revised #abstract .abstract-editorial{width:100%!important;max-width:800px!important;margin:0 auto 30px!important;}
